@@ -17,6 +17,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Employee {
+
+    public Employee(String name){
+        this.name = name;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

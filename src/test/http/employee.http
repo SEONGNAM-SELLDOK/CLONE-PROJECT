@@ -1,2 +1,12 @@
-### GET employees
+### 구직자 조회
 GET http://localhost:8080/employees
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### 구직자 등록
+
