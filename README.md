@@ -40,7 +40,40 @@
 gradlew bootrun
 ```
 
-### 확인 작업
-- http://localhost:8080 // 웹 애플리케이션 확인
-- http://localhost:8080/h2-db // 디비 콘솔 연결
+## 확인 방법
+### http Plugin 활용
+```
+### 구직자 조회
+GET http://localhost:8080/employees
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+```
+
+```
+### 결과
+GET http://localhost:8080/employees
+
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Fri, 20 Nov 2020 23:54:11 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+[
+  {
+    "id": 1,
+    "name": "incheol"
+  }
+]
+```
+
+### 데이터베이스 콘솔 활용(localhost:8080/h2-db)
+![image](https://user-images.githubusercontent.com/2491418/99860795-7b358480-2bd7-11eb-916b-ffbd9b665ce8.png)
+
 
