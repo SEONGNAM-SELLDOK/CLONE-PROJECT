@@ -24,9 +24,9 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee insert(InsertEmployeeRequest request) {
+    public void insert(InsertEmployeeRequest request) {
         Employee employee = new Employee(request.getName());
-        return employeeRepository.save(employee);
+        employeeRepository.save(employee);
     }
 
     public void update(Long id, UpdateEmployeeRequest request) {
