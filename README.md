@@ -40,6 +40,7 @@
 gradlew bootrun
 ```
 
-### http://localhost:8080 // 웹 애플리케이션 확인
-### http://localhost:8080/h2-db // 디비 콘솔 연결
+### 확인 작업
+- http://localhost:8080 // 웹 애플리케이션 확인
+- http://localhost:8080/h2-db // 디비 콘솔 연결
 
