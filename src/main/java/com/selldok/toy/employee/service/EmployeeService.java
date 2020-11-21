@@ -24,16 +24,16 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee insert(InsertEmployeeRequest request) {
+    public void insert(InsertEmployeeRequest request) {
         Employee employee = new Employee(request.getName());
-        return employeeRepository.save(employee);
+        employeeRepository.save(employee);
     }
 
     public void update(Long id, UpdateEmployeeRequest request) {
         Optional<Employee> employee = employeeRepository.findById(id);
-        employee.ifPresent(employee1 -> {
-            employee1.setName(request.getName());
-            employeeRepository.save(employee1);
+        employee.ifPresent(existingEmployee -> {
+            existingEmployee.setName(request.getName());
+            employeeRepository.save(existingEmployee);
         });
     }
 

@@ -1,3 +1,33 @@
+### 구직자 생성
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+  "name" : "incheol"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 201, "Response status is not 201");
+});
+%}
+
+### 구직자 수정
+PUT http://localhost:8080/employees/1
+Content-Type: application/json
+
+{
+  "name" : "steve"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 201, "Response status is not 201");
+});
+%}
+
 ### 구직자 조회
 GET http://localhost:8080/employees
 
@@ -8,5 +38,13 @@ client.test("Request executed successfully", function() {
 });
 %}
 
-### 구직자 등록
+### 구직자 삭제
+DELETE http://localhost:8080/employees/1
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 204, "Response status is not 204");
+});
+%}
 

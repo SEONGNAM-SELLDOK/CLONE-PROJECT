@@ -9,7 +9,12 @@ spring:
   h2:
     console:
       enabled: true
+      path: /h2-db
   jpa:
     generate-ddl: true
+    show-sql: true
     hibernate:
       ddl-auto: create-drop
+  mvc:
+    view:
+      suffix: .html
