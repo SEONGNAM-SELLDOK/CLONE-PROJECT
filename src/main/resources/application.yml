@@ -15,3 +15,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+  mvc:
+    view:
+      suffix: .html
