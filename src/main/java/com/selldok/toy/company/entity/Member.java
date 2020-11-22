@@ -5,12 +5,15 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-
+/**
+ * @author Gogisung
+ */
 @Entity
 @Getter @Setter
 public class Member {
 
     @Id @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
 
     private String name;
@@ -21,7 +24,7 @@ public class Member {
     private String email;
     private String myPhone;
 
-    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY) // 연관관계 거울
+    @OneToOne(mappedBy = "member")
     private Company company;
 
     @Enumerated(EnumType.STRING)
