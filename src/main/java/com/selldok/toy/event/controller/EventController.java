@@ -23,7 +23,7 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<List<Employee>> get(@PathVariable("id") Long id) {
         return new ResponseEntity(eventService.getList(id), HttpStatus.OK);
@@ -36,14 +36,14 @@ public class EventController {
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody UpdateEventRequest request) {
         eventService.update(id, request);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity delete(@PathVariable("id") Long id) {
         eventService.delete(id);
