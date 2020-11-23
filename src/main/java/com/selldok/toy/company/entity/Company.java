@@ -21,11 +21,11 @@ public class Company {
     private String name;
 
     // 연관관계: 하나의 회사는 여러개의 게시글을 가질 수 있다.
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Board> boards = new ArrayList<>();
 
     // 하나의 회사는 하나의 마스터 매니저를 가진다.
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
 

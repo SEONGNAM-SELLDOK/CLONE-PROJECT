@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 /**
  * @author Gogisung
  */
@@ -24,11 +23,10 @@ public class Member {
     private String email;
     private String myPhone;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Company company;
 
     @Enumerated(EnumType.STRING)
     private MemberStatus status; // member의 상태 : 일반 or 회사마스터 Normal, Master
-
 
 }

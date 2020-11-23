@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+        <title>Wanted for Employers</title>
+    </head>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="container">
+            <header role="navigation" class="navbar bd-navbar flex-column flex-md-row navbar-dark navbar-expand">
+                <b-link href="#foo">Wanted for Employers</b-link>
+                <b-dropdown text="기업명">
+                    <b-dropdown-item href="#">기업 프로필</b-dropdown-item>
+                    <b-dropdown-item href="#">로그아웃</b-dropdown-item>
+                </b-dropdown>
+                <b-button>원티드 홈</b-button>
+            </header>
+        </div>
+    </div>
+    <div class="body">
+        <div class="container">
+            <h2 class="board__title">구직 정보를 등록해 주세요.</h2>
+            <h4 class="board__subtitle">원하시는 포지션과 인재 정보를 등록하세요.</h4>
+            <div class="board__name">
+                <b-form-group id="input-title" label="희망 포지션*" label-for="input-title">
+                    <b-form-input
+                            id="input-title"
+                            v-model="title"
+                            required
+                            placeholder="희망 포지션을 작성하세요."
+                    ></b-form-input>
+                </b-form-group>
+                <b-form-group id="input-content" label="희망 포지션 내용*" label-for="input-content">
+                    <b-form-textarea
+                            id="textarea-rows"
+                            v-model="content"
+                            placeholder="희망 포지션 내용을 입력하세요."
+                            rows="8"
+                    ></b-form-textarea>
+                </b-form-group>
+                <b-form-file
+                        v-model="file1"
+                        :state="Boolean(file1)"
+                        placeholder="여기에 썸네일 이미지를 등록 하세요..."
+                        drop-placeholder="Drop file here..."
+                        @input="fileUpload"
+                ></b-form-file>
+                <label label-for="endDate">마감일</label>
+                <b-form-datepicker id="endDate" v-model="endDate" class="mb-2"></b-form-datepicker>
+                <b-button @click="addWanted">구직 정보 등록하기</b-button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+<script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
+
+<script>
+    new Vue({
+        el: "#app",
+        name: "AddWanted",
+        data: {
+            file1: null,
+            filename: '',
+            title: '',
+            content: '',
+            endDate: '',
+            message: "구직 정보 등록 페이지"
+        },
+        methods: {
+            fileUpload() {
+                const formData = new FormData();
+                formData.append("file", this.file1);
+                axios.post('http://localhost:9090/board/fileUpload',
+                    formData, {
+                    header: { 'Content-Type': 'multipart/form-data' }
+                }).then(res => {
+                    console.log("res", res.data.filename);
+                    this.filename = res.data.filename;
+                }).catch(error => {
+                    console.log("error", error);
+                    throw error;
+                });
+            },
+            addWanted() {
+                axios.post('http://localhost:9090/board/add',{
+                    title: this.title,
+                    content: this.content,
+                    image: this.filename,
+                    endDate: this.endDate
+                }).then(res => {
+                    console.log("res", res);
+                }).catch(error => {
+                    console.log("error", error);
+                    throw error;
+                });
+            }
+        },
+    });
+</script>
+<style>
+.header {
+    flex: 0 0 auto;
+    height: 50px;
+    background-color: rgb(28, 28, 28);
+}
+header span {
+    color: rad;
+    padding: 1.2rem 1.6rem 1.6rem;
+}
+.container {
+    max-width: 1180px;
+}
+.board__title {
+    line-height: 1.4;
+    overflow-wrap: break-word;
+    color: rgb(51, 51, 51);
+    font-size: 26px;
+    font-weight: 700;
+    margin: 40px 0px 0px;
+    word-break: keep-all;
+}
+.board__subtitle {
+    line-height: 1.4;
+    overflow-wrap: break-word;
+    color: rgb(117, 117, 117);
+    margin-top: 1rem;
+    font-size: 16px;
+    font-weight: 600;
+    word-break: keep-all;
+    margin-bottom: 40px;
+}
+
+</style>
+</body>
+</html>
