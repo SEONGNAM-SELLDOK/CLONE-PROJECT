@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Query(nativeQuery = true,
-            value = "SELECT *" +
-                    "FROM event AS t" +
+            value = "SELECT * " +
+                    "FROM event AS t " +
                     "WHERE id <= ?1")
     public List<Event> findByLastId(Long lastId);
 }
