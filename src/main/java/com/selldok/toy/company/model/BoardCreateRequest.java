@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class FormBoard {
-
+public class BoardCreateRequest {
     private String title; // 제목
     private String content; //내용
     private String image; // 썸네일 이미지

@@ -1,5 +1,6 @@
 package com.selldok.toy.company.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "boards")
 @Getter @Setter
+@Builder
 public class Board {
 
     @Id @GeneratedValue

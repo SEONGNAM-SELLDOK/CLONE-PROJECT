@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * @author Gogisung
@@ -21,7 +22,7 @@ public class BoardService {
     /**
      * 구직 정보 등록
      * */
-    public Long join(Board board) {
+    public Long create(Board board) {
         boardRepository.save(board);
         return board.getId();
     }
@@ -37,6 +38,11 @@ public class BoardService {
             e.printStackTrace();
         }
         return file_name;
+    }
+
+    // 게시글 리스트 모두 가져오기
+    public List<Board> findAllBoard() {
+        return boardRepository.findAll();
     }
 
 }

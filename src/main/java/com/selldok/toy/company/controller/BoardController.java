@@ -1,7 +1,9 @@
 package com.selldok.toy.company.controller;
 
+import com.selldok.toy.company.dao.BoardJpaRepository;
+import com.selldok.toy.company.dao.BoardRepository;
 import com.selldok.toy.company.entity.Board;
-import com.selldok.toy.company.model.FormBoard;
+import com.selldok.toy.company.model.BoardCreateRequest;
 import com.selldok.toy.company.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final BoardRepository boardRepository;
+    private final BoardJpaRepository boardJpaRepository;
 
     @GetMapping("/work/addwanted")
     public String getCompanyView(){
@@ -24,18 +28,18 @@ public class BoardController {
     }
 
     @PostMapping("/board/add")
-    public ResponseEntity create(@RequestBody FormBoard from, BindingResult result) {
+    public ResponseEntity create(@RequestBody BoardCreateRequest request, BindingResult result) {
         if(result.hasErrors()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        Board board = new Board();
+        Board board = Board.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .image(request.getImage())
+                .endDate(request.getEndDate())
+                .build();
 
-        board.setTitle(from.getTitle());
-        board.setContent(from.getContent());
-        board.setImage(from.getImage());
-        board.setEndDate(from.getEndDate());
-
-        boardService.join(board);
+        boardService.create(board);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -49,4 +53,9 @@ public class BoardController {
         return new ResponseEntity(map, HttpStatus.CREATED);
     }
 
+
+    @GetMapping("/board/list")
+    public ResponseEntity list() {
+        return new ResponseEntity(boardService.findAllBoard(), HttpStatus.OK);
+    }
 }

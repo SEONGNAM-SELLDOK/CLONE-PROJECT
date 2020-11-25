@@ -5,12 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateCompany {
+public class CompanyUpdateRequest {
     private String name;
     private String country;
     private String city;
     private String street;
-
     private String totalSales; // 매출액
     private String employees; // 직원수
     private String info; // 회사소개

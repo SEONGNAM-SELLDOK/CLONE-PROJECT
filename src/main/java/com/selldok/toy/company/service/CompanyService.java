@@ -3,7 +3,7 @@ package com.selldok.toy.company.service;
 import com.selldok.toy.company.dao.CompanyRepository;
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Company;
-import com.selldok.toy.company.model.UpdateCompany;
+import com.selldok.toy.company.model.CompanyUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +47,7 @@ public class CompanyService {
     /**
      * 기업 정보 등록
      * */
-    public Long join(Company company) {
+    public Long create(Company company) {
         validateDuplicateCompany(company); // 중복 기업 검증
         companyRepository.save(company);
         return company.getId();
@@ -63,7 +63,7 @@ public class CompanyService {
     /**
      * 기업 정보 수정
      * */
-    public void update(Long id, UpdateCompany request) {
+    public void update(Long id, CompanyUpdateRequest request) {
         Address address = new Address(request.getCountry(), request.getCity(), request.getStreet());
 
         Optional<Company> company = companyRepository.findById(id);

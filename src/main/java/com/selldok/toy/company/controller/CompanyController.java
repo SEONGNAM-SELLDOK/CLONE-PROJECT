@@ -2,8 +2,8 @@ package com.selldok.toy.company.controller;
 
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Company;
-import com.selldok.toy.company.model.FormCompany;
-import com.selldok.toy.company.model.UpdateCompany;
+import com.selldok.toy.company.model.CompanyCreateRequest;
+import com.selldok.toy.company.model.CompanyUpdateRequest;
 import com.selldok.toy.company.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,28 +30,27 @@ public class CompanyController {
 
     @PostMapping("/company") //기업 서비스 가입
     @ResponseBody
-    public ResponseEntity create(@RequestBody FormCompany from, BindingResult result) {
+    public ResponseEntity create(@RequestBody CompanyCreateRequest request, BindingResult result) {
         if(result.hasErrors()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-        Address address = new Address(from.getCountry(), from.getCity(), from.getStreet());
+        Address address = new Address(request.getCountry(), request.getCity(), request.getStreet());
 
-        Company company = new Company();
+        Company company = Company.builder()
+                .name(request.getName())
+                .address(address)
+                .businessNum(request.getBusinessNum())
+                .totalSales(request.getTotalSales())
+                .employees(request.getEmployees())
+                .info(request.getInfo())
+                .email(request.getEmail())
+                .since(request.getSince())
+                .phone(request.getPhone())
+                .homepage(request.getHomepage())
+                .build();
 
-        company.setName(from.getName());
-        company.setAddress(address);
-        company.setBusinessNum(from.getBusinessNum());
-        company.setTotalSales(from.getTotalSales());
-        company.setEmployees(from.getEmployees());
-        company.setInfo(from.getInfo());
-        company.setEmail(from.getEmail());
-        company.setSince(from.getSince());
-        company.setPhone(from.getPhone());
-        company.setHomepage(from.getHomepage());
-        company.setTerms(from.isTerms());
-
-        Long companyId = companyService.join(company);
+        Long companyId = companyService.create(company);
 
         HashMap<String, Long> map = new HashMap<>();
         map.put("company_id", companyId);
@@ -66,7 +65,7 @@ public class CompanyController {
 
     @PutMapping("/company/{id}")
     @ResponseBody
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody UpdateCompany request) {
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody CompanyUpdateRequest request) {
         companyService.update(id, request);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
