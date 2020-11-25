@@ -1,5 +1,6 @@
 package com.selldok.toy.employee.entity;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +20,12 @@ import lombok.Setter;
 public class Employee {
 
     public Employee(String name){
-        this.name = name;
+        this.info.setName(name);
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
-    private String email;
-    private String phoneNumber;
+    @Embedded
+    private BasicInfo info;
 }

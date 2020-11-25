@@ -11,8 +11,8 @@ import lombok.Setter;
 @Embeddable
 @Getter
 @Setter
-public class Company {
-    private String companyName;
-    private String position;
-    private String rank;
+public class BasicInfo {
+    private String name;
+    private String email;
+    private String phoneNumber;
 }
