@@ -34,7 +34,11 @@ public class EmployeeService {
     public void update(Long id, UpdateEmployeeRequest request) {
         Optional<Employee> employee = employeeRepository.findById(id);
         employee.ifPresent(existingEmployee -> {
-            existingEmployee.setInfo(BasicInfo.builder().name(request.getName()).build());
+            existingEmployee.setInfo(BasicInfo.builder()
+                                              .name(request.getName())
+                                              .email(request.getEmail())
+                                              .phoneNumber(request.getPhoneNumber())
+                                              .build());
             employeeRepository.save(existingEmployee);
         });
     }

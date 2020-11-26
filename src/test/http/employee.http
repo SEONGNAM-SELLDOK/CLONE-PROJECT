@@ -20,7 +20,9 @@ PUT http://localhost:8080/employees/1
 Content-Type: application/json
 
 {
-  "name" : "steve"
+  "name" : "steve",
+  "email" : "incheol@naver.com",
+  "phoneNumber" : "010-1111-2222"
 }
 
 > {%
