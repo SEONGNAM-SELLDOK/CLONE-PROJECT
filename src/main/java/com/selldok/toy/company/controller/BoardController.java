@@ -1,6 +1,5 @@
 package com.selldok.toy.company.controller;
 
-import com.selldok.toy.company.dao.BoardJpaRepository;
 import com.selldok.toy.company.dao.BoardRepository;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.model.BoardCreateRequest;
@@ -20,7 +19,6 @@ import java.util.HashMap;
 public class BoardController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
-    private final BoardJpaRepository boardJpaRepository;
 
     @GetMapping("/work/addwanted")
     public String getCompanyView(){
