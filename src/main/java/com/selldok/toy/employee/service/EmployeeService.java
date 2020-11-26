@@ -1,13 +1,13 @@
 package com.selldok.toy.employee.service;
 
 import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.employee.entity.BasicInfo;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
 import com.selldok.toy.employee.model.UpdateEmployeeRequest;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,19 +22,19 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Employee> get() {
-        return employeeRepository.findAll();
+    public Employee get(Long id) {
+        return employeeRepository.findById(id).orElseThrow();
     }
 
     public void insert(InsertEmployeeRequest request) {
-        Employee employee = new Employee(request.getName());
+        Employee employee = new Employee(request.getName(), request.getEmail(), request.getPhoneNumber());
         employeeRepository.save(employee);
     }
 
     public void update(Long id, UpdateEmployeeRequest request) {
         Optional<Employee> employee = employeeRepository.findById(id);
         employee.ifPresent(existingEmployee -> {
-            existingEmployee.getInfo().setName(request.getName());
+            existingEmployee.setInfo(BasicInfo.builder().name(request.getName()).build());
             employeeRepository.save(existingEmployee);
         });
     }

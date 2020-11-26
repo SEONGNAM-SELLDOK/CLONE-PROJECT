@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 /**
  * @author Incheol Jung
  */
@@ -31,14 +29,14 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {this.employeeService = employeeService;}
 
     @GetMapping("view")
-    public String getEmployeeView(){
+    public String getEmployeeView() {
         return "employee.html";
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     @ResponseBody
-    public ResponseEntity<List<Employee>> get() {
-        return new ResponseEntity(employeeService.get(), HttpStatus.OK);
+    public ResponseEntity<Employee> get(@PathVariable("id") Long id) {
+        return new ResponseEntity(employeeService.get(id), HttpStatus.OK);
     }
 
     @PostMapping

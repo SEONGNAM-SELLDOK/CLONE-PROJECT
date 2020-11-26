@@ -3,7 +3,9 @@ POST http://localhost:8080/employees
 Content-Type: application/json
 
 {
-  "name" : "incheol"
+  "name" : "incheol",
+  "email" : "incheol@naver.com",
+  "phoneNumber" : "010-1234-5678"
 }
 
 > {%
@@ -29,7 +31,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### 구직자 조회
-GET http://localhost:8080/employees
+GET http://localhost:8080/employees/1
 
 > {%
 client.test("Request executed successfully", function() {
