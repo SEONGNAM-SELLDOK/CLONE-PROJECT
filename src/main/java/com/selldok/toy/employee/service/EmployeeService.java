@@ -34,7 +34,7 @@ public class EmployeeService {
     public void update(Long id, UpdateEmployeeRequest request) {
         Optional<Employee> employee = employeeRepository.findById(id);
         employee.ifPresent(existingEmployee -> {
-            existingEmployee.setName(request.getName());
+            existingEmployee.getInfo().setName(request.getName());
             employeeRepository.save(existingEmployee);
         });
     }

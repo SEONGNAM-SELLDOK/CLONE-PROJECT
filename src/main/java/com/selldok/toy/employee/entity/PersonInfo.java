@@ -3,7 +3,6 @@ package com.selldok.toy.employee.entity;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Getter;
@@ -14,18 +13,23 @@ import lombok.Setter;
  * @author Incheol Jung
  */
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-public class Employee {
-
-    public Employee(String name){
-        this.info.setName(name);
-    }
+public class PersonInfo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue
+    private Long id;
+
+    private Long employeeId;
+    private String resume;
 
     @Embedded
-    private BasicInfo info;
+    private School school;
+
+    @Embedded
+    private Company company;
+
+    @Embedded
+    private Expertise expertise;
 }
