@@ -3,13 +3,15 @@ POST http://localhost:8080/employees
 Content-Type: application/json
 
 {
-  "name" : "incheol"
+  "name" : "incheol",
+  "email" : "incheol@naver.com",
+  "phoneNumber" : "010-1234-5678"
 }
 
 > {%
 client.test("Request executed successfully", function() {
-    client.log("response.body" + response.body)
-    client.assert(response.status === 201, "Response status is not 201");
+    client.log("response.body" + response.status)
+    client.assert(response.status === 201, "Response status is not 201, it is " + response.status);
 });
 %}
 
@@ -18,7 +20,9 @@ PUT http://localhost:8080/employees/1
 Content-Type: application/json
 
 {
-  "name" : "steve"
+  "name" : "steve",
+  "email" : "incheol@naver.com",
+  "phoneNumber" : "010-1111-2222"
 }
 
 > {%
@@ -29,7 +33,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### 구직자 조회
-GET http://localhost:8080/employees
+GET http://localhost:8080/employees/1
 
 > {%
 client.test("Request executed successfully", function() {
@@ -48,3 +52,42 @@ client.test("Request executed successfully", function() {
 });
 %}
 
+### 구직자 프로필 조회
+GET http://localhost:8080/employees/profile/1
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### 구직자 프로필 수정
+PUT http://localhost:8080/employees/profile/1
+Content-Type: application/json
+
+{
+  "resume" : "이력서 기본.docs",
+  "school" : {
+    "schoolName" : "한국대학교",
+    "department" : "컴퓨터공학과"
+  },
+  "company" : {
+    "companyName" : "이커머스 에이전시",
+    "position" : "서비스 플랫폼 개발팀",
+    "rank" : "대리"
+  },
+  "expertise" : {
+    "occupation" : "백엔드 개발",
+    "task" : "자바, 서버, 웹 개발",
+    "carrer" : 5,
+    "skills" : "Github, VueJS, B2B, Git, Spring Framework, JavaScript, CSS, AngularJS"
+  }
+}
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 200, "Response status is not 200");
+});
+%}

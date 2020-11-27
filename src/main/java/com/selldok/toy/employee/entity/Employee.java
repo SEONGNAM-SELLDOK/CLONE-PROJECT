@@ -19,13 +19,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Employee {
 
-    public Employee(String name){
-        this.info.setName(name);
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Embedded
     private BasicInfo info;
+
+    public Employee(String name, String email, String phoneNumber) {
+        this.info = BasicInfo.builder().name(name).email(email).phoneNumber(phoneNumber).build();
+    }
 }

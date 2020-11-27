@@ -10,4 +10,6 @@ import lombok.Setter;
 @Setter
 public class InsertEmployeeRequest {
     private String name;
+    private String email;
+    private String phoneNumber;
 }

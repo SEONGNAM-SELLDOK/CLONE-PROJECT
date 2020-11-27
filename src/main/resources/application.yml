@@ -2,8 +2,8 @@ spring:
   application:
     name: selldok-toy
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:h2:mem:testdb
     username: sa
     password:
   h2:
@@ -15,6 +15,19 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+    properties:
+      hibernate:
+        format-sql: true
   mvc:
     view:
       suffix: .html
+mybatis:
+  type-aliases-package: com.selldok.toy.mapper
+  mapper-locations: mybatis/mapper/**/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+
+logging:
+  level:
+    jdbc.sqlonly: DEBUG
+    org.springframework.web: DEBUG
+    com.zaxxer.hikari.HikariDataSource: ERROR
