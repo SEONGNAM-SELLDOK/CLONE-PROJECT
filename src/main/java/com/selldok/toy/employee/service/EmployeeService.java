@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Incheol Jung
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
