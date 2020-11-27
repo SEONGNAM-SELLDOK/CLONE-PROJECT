@@ -10,17 +10,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
+
 /**
  * @author Incheol Jung
  */
 @Service
+@AllArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
 
     public Employee get(Long id) {
         return employeeRepository.findById(id).orElseThrow();
