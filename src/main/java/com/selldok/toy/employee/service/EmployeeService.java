@@ -50,7 +50,7 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    public List<EmployeeProfileResponse> getProfile(Long id) {
+    public EmployeeProfileResponse getProfile(Long id) {
         return employeeMapper.getEmployee();
     }
 }
