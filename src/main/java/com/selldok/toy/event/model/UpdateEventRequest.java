@@ -1,6 +1,6 @@
 package com.selldok.toy.event.model;
 
-import com.selldok.toy.event.entity.Event;
+import com.selldok.toy.event.entity.EventType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class UpdateEventRequest {
     private String imageLink;
-    private Event.EventType type;
+    private EventType type;
     private String title;
     private String text;
     private String date;

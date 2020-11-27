@@ -1,7 +1,7 @@
 package com.selldok.toy.event.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,49 +9,44 @@ import javax.persistence.*;
  * @author HJ Lee
  */
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Event {
-    public Event() {
-
-    }
-
-    public enum EventType {
-        NORMAL, EDU, PROMOTION
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @NotNull
     private String imageLink;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull
     private EventType type;
 
-    @Column(nullable = false)
+    @NotNull
     private String title;
 
-    @Column(nullable = false)
+    @NotNull
     private String text;
 
-    @Column(nullable = false)
+    @NotNull
     private String date;
 
-    @Column(nullable = false)
+    @NotNull
     private String keywords;
 
-    @Column(nullable = false)
+    @NotNull
     private String owner;
 
-    @Column(nullable = false)
+    @NotNull
     private String location;
 
-    @Column(nullable = false)
+    @NotNull
     private Boolean isFree;
 
-    @Column(nullable = false)
+    @NotNull
     private Boolean isRecommend;
 }

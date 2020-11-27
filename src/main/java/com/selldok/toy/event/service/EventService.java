@@ -21,21 +21,22 @@ public class EventService {
     }
 
     public List<Event> getList(Long lastId) {
-        return eventRepository.findByLastId(lastId);
+        return eventRepository.findByIdLessThanEqual(lastId);
     }
 
     public void insert(InsertEventRequest request) {
-        Event event = new Event();
-        event.setImageLink(request.getImageLink());
-        event.setType(request.getType());
-        event.setTitle(request.getTitle());
-        event.setText(request.getText());
-        event.setDate(request.getDate());
-        event.setKeywords(request.getKeywords());
-        event.setOwner(request.getOwner());
-        event.setLocation(request.getLocation());
-        event.setIsFree(request.getIsFree());
-        event.setIsRecommend(request.getIsRecommend());
+        Event event = Event.builder()
+                .imageLink(request.getImageLink())
+                .type(request.getType())
+                .title(request.getTitle())
+                .text(request.getText())
+                .date(request.getDate())
+                .keywords(request.getKeywords())
+                .owner(request.getOwner())
+                .location(request.getLocation())
+                .isFree(request.getIsFree())
+                .isRecommend(request.getIsRecommend())
+                .build();
 
         eventRepository.save(event);
     }
@@ -43,16 +44,19 @@ public class EventService {
     public void update(Long id, UpdateEventRequest request) {
         Optional<Event> event = eventRepository.findById(id);
         event.ifPresent(presentEvent -> {
-            presentEvent.setImageLink(request.getImageLink());
-            presentEvent.setType(request.getType());
-            presentEvent.setTitle(request.getTitle());
-            presentEvent.setText(request.getText());
-            presentEvent.setDate(request.getDate());
-            presentEvent.setKeywords(request.getKeywords());
-            presentEvent.setOwner(request.getOwner());
-            presentEvent.setLocation(request.getLocation());
-            presentEvent.setIsFree(request.getIsFree());
-            presentEvent.setIsRecommend(request.getIsRecommend());
+            presentEvent = Event.builder()
+                    .id(id)
+                    .imageLink(request.getImageLink())
+                    .type(request.getType())
+                    .title(request.getTitle())
+                    .text(request.getText())
+                    .date(request.getDate())
+                    .keywords(request.getKeywords())
+                    .owner(request.getOwner())
+                    .location(request.getLocation())
+                    .isFree(request.getIsFree())
+                    .isRecommend(request.getIsRecommend())
+                    .build();
 
             eventRepository.save(presentEvent);
         });
