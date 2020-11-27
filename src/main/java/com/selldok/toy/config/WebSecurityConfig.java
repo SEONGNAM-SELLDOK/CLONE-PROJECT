@@ -43,7 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-db/**")
             .permitAll()
             .anyRequest()
-            .authenticated()
+//            .authenticated() // 추후 로그인 적용 이후에 주석 해제할 예정
+            .permitAll()
             .and()
             .headers()
             .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
