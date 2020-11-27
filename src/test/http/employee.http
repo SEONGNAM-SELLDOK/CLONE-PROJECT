@@ -10,8 +10,8 @@ Content-Type: application/json
 
 > {%
 client.test("Request executed successfully", function() {
-    client.log("response.body" + response.body)
-    client.assert(response.status === 201, "Response status is not 201");
+    client.log("response.body" + response.status)
+    client.assert(response.status === 201, "Response status is not 201, it is " + response.status);
 });
 %}
 
