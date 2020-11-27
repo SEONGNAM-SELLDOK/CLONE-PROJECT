@@ -1,0 +1,15 @@
+### 로그인 시도
+POST http://localhost:8080/auth
+Content-Type: application/json
+
+{
+  "email" : "incheol",
+  "password" : "12345"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 201, "Response status is not 201, it is " + response.status);
+});
+%}

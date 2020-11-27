@@ -1,28 +1,29 @@
 package com.selldok.toy.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
-import java.util.Arrays;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Incheol Jung
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationFailureHandler failureHandler;
+    private final SelldokSecurityFailHandler failureHandler;
+
+    private final SelldokAuthenticationProvider authenticationProvider;
 
     // 정적 자원에 대해 Security 적용 하지 않음
     @Override
@@ -32,24 +33,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.headers().cacheControl();
-
         http.csrf()
             .disable()
-            .addFilterBefore(new SelldokSecurityFilter("/auth"), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new SelldokSecurityFilter("/auth", authenticationManager(), failureHandler),
+                             UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
-            .antMatchers("/auth").permitAll()
-            .antMatchers("/h2-db/**").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .csrf()
-                .ignoringAntMatchers("/h2-db/**")
+            .antMatchers("/auth")
+            .permitAll()
+            .antMatchers("/h2-db/**")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
             .and()
             .headers()
-                .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
-            .and()
-            //            .antMatchers(HttpMethod.GET,"/employees").permitAll()
-            //            .anyRequest().authenticated()
-            .httpBasic();
+            .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(this.authenticationProvider);
     }
 }
