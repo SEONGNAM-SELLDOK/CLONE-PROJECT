@@ -1,5 +1,7 @@
 package com.selldok.toy.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,9 +31,9 @@ public class SelldokSecurityFilter extends AbstractAuthenticationProcessingFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws
-        AuthenticationException {
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(request.getAttribute(
-            "email"), request.getAttribute("password"));
+        AuthenticationException, IOException {
+        LoginInfo credentials = new ObjectMapper().readValue(request.getInputStream(), LoginInfo.class);
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword());
         return getAuthenticationManager().authenticate(authRequest);
     }
 
