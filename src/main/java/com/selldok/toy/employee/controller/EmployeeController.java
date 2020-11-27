@@ -4,6 +4,7 @@ import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.EmployeeProfileResponse;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
 import com.selldok.toy.employee.model.UpdateEmployeeRequest;
+import com.selldok.toy.employee.model.UpdateProfileRequest;
 import com.selldok.toy.employee.service.EmployeeService;
 
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * @author Incheol Jung
@@ -67,5 +66,13 @@ public class EmployeeController {
     @ResponseBody
     public ResponseEntity<EmployeeProfileResponse> getProfile(@PathVariable("id") Long id) {
         return new ResponseEntity(employeeService.getProfile(id), HttpStatus.OK);
+    }
+
+    @PutMapping("profile/{id}")
+    @ResponseBody
+    public ResponseEntity<EmployeeProfileResponse> updateProfile(@PathVariable("id") Long id,
+                                                                 @RequestBody UpdateProfileRequest request) {
+        employeeService.updateProfile(id, request);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }

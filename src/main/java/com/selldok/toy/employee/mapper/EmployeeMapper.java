@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface EmployeeMapper {
-    EmployeeProfileResponse getEmployee();
+    EmployeeProfileResponse getEmployee(Long id);
 }

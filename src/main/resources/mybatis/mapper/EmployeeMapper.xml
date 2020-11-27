@@ -9,6 +9,7 @@
         <result property="info.email" column="email"/>
         <result property="info.phoneNumber" column="phone_number"/>
         <result property="personInfo.id" column="p_id"/>
+        <result property="personInfo.employeeId" column="id"/>
         <result property="personInfo.resume" column="resume"/>
         <result property="personInfo.school.schoolName" column="school_name"/>
         <result property="personInfo.school.department" column="department"/>
