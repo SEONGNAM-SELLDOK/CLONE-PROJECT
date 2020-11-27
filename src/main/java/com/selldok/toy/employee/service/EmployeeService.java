@@ -3,11 +3,14 @@ package com.selldok.toy.employee.service;
 import com.selldok.toy.employee.dao.EmployeeRepository;
 import com.selldok.toy.employee.entity.BasicInfo;
 import com.selldok.toy.employee.entity.Employee;
+import com.selldok.toy.employee.mapper.EmployeeMapper;
+import com.selldok.toy.employee.model.EmployeeProfileResponse;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
 import com.selldok.toy.employee.model.UpdateEmployeeRequest;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final EmployeeMapper employeeMapper;
 
     public Employee get(Long id) {
         return employeeRepository.findById(id).orElseThrow();
@@ -44,5 +48,9 @@ public class EmployeeService {
 
     public void delete(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    public List<EmployeeProfileResponse> getProfile(Long id) {
+        return employeeMapper.getEmployee();
     }
 }

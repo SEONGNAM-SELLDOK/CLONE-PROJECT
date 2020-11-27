@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selldok.toy.employee.mapper.EmployeeMapper">
+
+    <resultMap type="com.selldok.toy.employee.model.EmployeeProfileResponse" id="employeeProfileResultMap">
+        <id property="id" column="id"/>
+        <result property="info.name" column="name"/>
+        <result property="info.email" column="email"/>
+        <result property="info.phoneNumber" column="phone_number"/>
+        <result property="personInfo.id" column="p_id"/>
+        <result property="personInfo.resume" column="resume"/>
+        <result property="personInfo.school.schoolName" column="school_name"/>
+        <result property="personInfo.school.department" column="department"/>
+        <result property="personInfo.company.companyName" column="company_name"/>
+        <result property="personInfo.company.position" column="position"/>
+        <result property="personInfo.company.rank" column="rank"/>
+        <result property="personInfo.expertise.occupation" column="occupation"/>
+        <result property="personInfo.expertise.task" column="task"/>
+        <result property="personInfo.expertise.carrer" column="carrer"/>
+        <result property="personInfo.expertise.skills" column="skills"/>
+    </resultMap>
+
+    <select id="getEmployee" parameterType="Long" resultMap="employeeProfileResultMap">
+        SELECT e.id,
+            e.name,
+            e.email,
+            e.phone_number,
+            p.id as p_id,
+            p.resume,
+            p.school_name,
+            p.department,
+            p.company_name,
+            p.position,
+            p.rank,
+            p.occupation,
+            p.task,
+            p.carrer,
+            p.skills
+        FROM employee e
+        LEFT OUTER JOIN person_info p
+            ON e.id = p.id AND p.id = #{id};
+    </select>
+</mapper>

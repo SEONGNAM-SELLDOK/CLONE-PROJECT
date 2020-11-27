@@ -52,3 +52,12 @@ client.test("Request executed successfully", function() {
 });
 %}
 
+### 구직자 프로필 조회
+GET http://localhost:8080/employees/profile/1
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 200, "Response status is not 200");
+});
+%}
