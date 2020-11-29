@@ -21,6 +21,18 @@ spring:
   mvc:
     view:
       suffix: .html
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  data:
+    web:
+      pageable:
+        default-page-size: 5
+  servelt:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
 mybatis:
   type-aliases-package: com.selldok.toy.mapper
   mapper-locations: mybatis/mapper/**/*.xml
