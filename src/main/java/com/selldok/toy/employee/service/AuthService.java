@@ -21,8 +21,8 @@ public class AuthService {
 
     private RestTemplate restTemplate;
 
-    public Boolean checkUserInfo(String name) {
-        return employeeRepository.existsByInfoName(name);
+    public Boolean checkUserInfo(String email) {
+        return employeeRepository.existsByInfoEmail(email);
     }
 
     public Boolean validateToken(String token) {

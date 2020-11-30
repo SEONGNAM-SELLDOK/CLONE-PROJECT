@@ -32,9 +32,9 @@ public class AuthController {
     @PostMapping("check")
     @ResponseBody
     public ResponseEntity auth(@RequestBody AuthCallBackRequest request){
-        boolean isResult = authService.validateToken(request.getAuthResponse().getAccessToken());
-        boolean isResult2 = authService.checkUserInfo(request.getAuthResponse().getUserId());
-        return new ResponseEntity(isResult && isResult2, HttpStatus.OK);
+        boolean isValidToken = authService.validateToken(request.getAuthResponse().getAccessToken());
+        boolean isExistEmail = authService.checkUserInfo(request.getEmail());
+        return new ResponseEntity(isValidToken && isExistEmail, HttpStatus.OK);
     }
 
     @GetMapping("callBack")

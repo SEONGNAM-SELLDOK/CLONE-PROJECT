@@ -7,12 +7,13 @@
 <div id="app">
     {{ message }}
     <fb:login-button
-            scope="public_profile,email"
+            scope="public_profile,email,user_birthday,user_friends"
             onlogin="checkLoginState();">
     </fb:login-button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     new Vue({
         el: "#app",
@@ -22,30 +23,43 @@
     });
 </script>
 <script>
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
         FB.init({
-            appId      : '214073820126154',
-            xfbml      : true,
-            version    : 'v9.0'
+            appId: '214073820126154',
+            xfbml: true,
+            version: 'v9.0'
         });
     };
 
-    (function(d, s, id){
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
     function checkLoginState() {
-        FB.getLoginStatus(function(response) {
+        FB.getLoginStatus(function (response) {
             statusChangeCallback(response);
         });
     }
 
-    function statusChangeCallback(response) {
-        console.log(response);
+    function statusChangeCallback(callBackResponse) {
+        console.log(callBackResponse);
+        if (callBackResponse.status === 'connected') {
+            FB.api('/me', {fields: 'email'}, function (profileResponse) {
+                axios.post('http://localhost:8080/auth/check',
+                Object.assign(callBackResponse, {email: profileResponse.email}),
+                function (validResponse) {
+                    console.log('axios.post response : ' + validResponse);
+                });
+            });
+        }
+
     }
 </script>
 </body>
