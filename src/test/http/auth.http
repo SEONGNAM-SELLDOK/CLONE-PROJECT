@@ -4,7 +4,30 @@ Content-Type: application/json
 
 {
   "email" : "incheol",
-  "password" : "1234"
+  "password" : "12345"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.body)
+    client.assert(response.status === 201, "Response status is not 201, it is " + response.status);
+});
+%}
+
+### 로그인 검증
+POST http://localhost:8080/auth/check
+Content-Type: application/json
+
+{
+  "authResponse": {
+    "accessToken": "EAADCsvIBG8oBAHIk6nrLrR1RNdEFqXGRrSu8itj9gfsg8E61ZC4zR2eL6T053a25VVYPYZBunu6M5XGtKBV8YFTC2z3dl87ILR1mGQY91m5KIkALoZAl84CIuwaLsGThnt6ZAVke1RHUYSLgF94q1e2wmo02ICPZA4SyNTqKvgy1OnNFU3puUYuD2GdhFVlZCZBE8eC8On3PwZDZD",
+    "data_access_expiration_time": 1614496153,
+    "expiresIn": 6646,
+    "graphDomain": "facebook",
+    "signedRequest": "C4d5w-kv0afdS5bOWC55VRDImqMfPhOvNiQJ5WHC17Y.eyJ1c2VyX2lkIjoiMzUzNTg2NDE0MzEzOTg1MSIsImNvZGUiOiJBUUNiNkIxZ2xlRVVDeUxiSUVMUy15NTgyZEFQNnRIV3ZKbkFZdkhsVDNhYlJENUI4OHQ2SGg0T3dudjE1Mk5WNzlHVHg3ODF2RlctX0t2RzBwekZCU3FDWXlvMXZLS0d2cWpldjRiaURFX2FZTy1ITVhsT1Y3TXEwZENkTlZpNHZTV0MxVXpGVU8yU0liT2VWaUVqOFF5YTRIS2lxb1BvY3RoMl9aV0EzNFgyWEJ4MXpUN1lVNjROMHhPTk1VWTZBOVZpYXFFcHJNSVltdDlLLWExTkhkcUVhakxFVGFJX0Y1TGlSOFZnTGJ0UDBMdTEzNVF4SWpSUXdzZ0EtTDFkRGxJOV92eEhDU0E4LXBJTEtXYUo2SWxKVUJQY1BTRVJmUG9oalduUmY4NW9MdTRLeGhkekJKLWxYVlpEQnFtdWlEOE5USGliZzh2Sk1QU1pOSjlraFVCYSIsImFsZ29yaXRobSI6IkhNQUMtU0hBMjU2IiwiaXNzdWVkX2F0IjoxNjA2NzIwMTU0fQ",
+    "userID": "3535864143139851"
+  },
+  "status": "connected"
 }
 
 > {%

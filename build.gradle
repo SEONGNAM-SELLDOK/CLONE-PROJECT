@@ -38,6 +38,9 @@ dependencies {
 
   // spring security
   implementation 'org.springframework.boot:spring-boot-starter-security'
+
+  // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+  compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.4'
 }
 
 test {

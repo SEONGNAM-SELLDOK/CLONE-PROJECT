@@ -32,7 +32,7 @@ public class EmployeeController {
 
     @GetMapping("view")
     public String getEmployeeView() {
-        return "employee.html";
+        return "employee/employee.html";
     }
 
     @GetMapping("{id}")
