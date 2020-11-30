@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+        <title>다양한 커리어 성장의 기회 | 원티드 이벤트</title>
+    </head>
+</head>
+<body>
+
+<div id="app">
+
+    {{ cardDataArr[0].imgSrc  }}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
+
+<script>
+    new Vue({
+        el: "#app",
+        computed: {},
+        methods: {},
+        data: {
+            cardDataArr : [
+                {
+                     imgSrc: "a5c5abf4.jpg"
+                    ,typeTag: ["온라인","프로모션"]
+                    ,title: "[KB국민은행 X 원티드] 월급 x2배 치트키"
+                    ,dateTxt: "2020.111.13 (금) ~ 2020.11.30 (월)"
+                    ,hashTag:["#콜라보레이션","#금융","#커리어"]
+                    ,isEnd: false
+                    ,detailLink: "/doublesalary"
+                },
+                {
+                    imgSrc: "7400567b.png"
+                    ,typeTag: ["프로모션"]
+                    ,title: "일잘러 인증하고 100만원 보너스 받자!"
+                    ,dateTxt: "2020.11.17 (화) ~ 2020.11.30 (월)"
+                    ,hashTag:["#커리어"]
+                    ,isEnd: false
+                    ,detailLink: "/hundredbonus"
+                }
+            ]
+        }
+    });
+</script>
+<style>
+</style>
+</body>
+</html>
