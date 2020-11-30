@@ -50,8 +50,13 @@
 
     function statusChangeCallback(callBackResponse) {
         if (callBackResponse.status === 'connected') {
-            axios.post('http://localhost:8080/auth/check', callBackResponse).then( validResponse => {
-                console.log('axios.post response : ' + validResponse.data);
+            axios.post('http://localhost:8080/auth/check', callBackResponse).then(validResponse => {
+                const validToken = validResponse.data;
+                if (validToken) {
+                    location.href = '/employees/view';
+                } else {
+                    location.href = '/company/create';
+                }
             });
         }
     }
