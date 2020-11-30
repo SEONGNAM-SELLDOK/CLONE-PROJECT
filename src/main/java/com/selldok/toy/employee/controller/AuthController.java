@@ -1,6 +1,7 @@
 package com.selldok.toy.employee.controller;
 
 import com.selldok.toy.employee.model.AuthCallBackRequest;
+import com.selldok.toy.employee.model.FaceBookTokenResponse;
 import com.selldok.toy.employee.service.AuthService;
 
 import org.springframework.http.HttpStatus;
@@ -32,9 +33,9 @@ public class AuthController {
     @PostMapping("check")
     @ResponseBody
     public ResponseEntity auth(@RequestBody AuthCallBackRequest request){
-        boolean isValidToken = authService.validateToken(request.getAuthResponse().getAccessToken());
-        boolean isExistEmail = authService.checkUserInfo(request.getEmail());
-        return new ResponseEntity(isValidToken && isExistEmail, HttpStatus.OK);
+        FaceBookTokenResponse response = authService.validateToken(request.getAuthResponse().getAccessToken());
+        boolean isExistEmail = authService.checkUserInfo(response.getEmail());
+        return new ResponseEntity(isExistEmail, HttpStatus.OK);
     }
 
     @GetMapping("callBack")

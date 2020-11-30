@@ -49,18 +49,13 @@
     }
 
     function statusChangeCallback(callBackResponse) {
-        console.log(callBackResponse);
         if (callBackResponse.status === 'connected') {
-            FB.api('/me', {fields: 'email'}, function (profileResponse) {
-                axios.post('http://localhost:8080/auth/check',
-                Object.assign(callBackResponse, {email: profileResponse.email}),
-                function (validResponse) {
-                    console.log('axios.post response : ' + validResponse);
-                });
+            axios.post('http://localhost:8080/auth/check', callBackResponse).then( validResponse => {
+                console.log('axios.post response : ' + validResponse.data);
             });
         }
-
     }
+
 </script>
 </body>
 </html>
