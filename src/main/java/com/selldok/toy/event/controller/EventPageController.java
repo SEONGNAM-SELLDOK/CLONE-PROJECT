@@ -15,7 +15,7 @@ import java.util.List;
  * @author tetra3
  */
 @Controller
-@RequestMapping("event")
+@RequestMapping("events")
 public class EventPageController {
 
     @GetMapping("/main")

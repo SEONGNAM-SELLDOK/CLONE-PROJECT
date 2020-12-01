@@ -1,22 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta http-equiv="Pragma" content="no-cache">
-        <meta http-equiv="Expires" content="-1">
-        <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-        <title>다양한 커리어 성장의 기회 | 원티드 이벤트</title>
-    </head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>다양한 커리어 성장의 기회 | 원티드 이벤트</title>
+    <style type="text/css">
+        .cardSection {
+            width:248px;
+            border: 1px solid #ececec;
+        }
+
+        .imgCon {
+            background-image:url("https://static.wanted.co.kr/images/events/1003/385722cb.jpg");
+            background-size:cover;
+            background-position:50%;
+            width:100%;
+            height:176px;
+        }
+
+        .bottomDiv {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .subCardSection {
+            padding:20px;
+
+        }
+    </style>
 </head>
 <body>
 
 <div id="app">
-
-    {{ cardDataArr[0].imgSrc  }}
-
+    <div class="cardSection">
+        <div class="imgCon">
+        </div>
+        <div class="subCardSection">
+            <div class="type-tag">
+                <span>온라인</span>
+                <span>EDU</span>
+            </div>
+            <div class="title">
+                인간관계를 편하게 만드는 일하는 멘탈 힐링 세미나
+            </div>
+            <div class="date">
+                2020.12.02 (수)
+            </div>
+            <div class="hashtag">
+                #HR
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
