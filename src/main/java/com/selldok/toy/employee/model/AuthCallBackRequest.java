@@ -12,6 +12,5 @@ import lombok.ToString;
 @ToString
 public class AuthCallBackRequest {
     private String status;
-    private String email;
     private AuthCallBackBody authResponse;
 }
