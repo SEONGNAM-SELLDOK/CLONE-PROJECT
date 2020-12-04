@@ -1,6 +1,7 @@
 package com.selldok.toy.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.selldok.toy.employee.model.AuthCallBackRequest;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SelldokSecurityFilter extends AbstractAuthenticationProcessingFilter {
 
     public SelldokSecurityFilter(String loginUrl, AuthenticationManager authenticationManager,
-                                    AuthenticationFailureHandler failureHandler) {
+                                 AuthenticationFailureHandler failureHandler) {
         super(new AntPathRequestMatcher(loginUrl, "POST"));
         this.setAuthenticationManager(authenticationManager);
         this.setAuthenticationFailureHandler(failureHandler);
@@ -31,16 +33,27 @@ public class SelldokSecurityFilter extends AbstractAuthenticationProcessingFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws
-        AuthenticationException, IOException {
-        LoginInfo credentials = new ObjectMapper().readValue(request.getInputStream(), LoginInfo.class);
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword());
+        AuthenticationException,
+        IOException {
+        AuthCallBackRequest authCallBackRequest = new ObjectMapper().readValue(request.getInputStream(), AuthCallBackRequest.class);
+
+
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(authCallBackRequest.getAuthResponse().getAccessToken(),
+                                                                                                  authCallBackRequest.getAuthResponse().getUserID());
         return getAuthenticationManager().authenticate(authRequest);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
+                                            Authentication authentication){
+        try {
+            boolean isGuest = authentication.getAuthorities().contains(ROLE.BASIC);
+            OutputStream ostr = response.getOutputStream();
+            ostr.write("true".getBytes());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override

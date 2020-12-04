@@ -12,7 +12,9 @@ import lombok.ToString;
 @ToString
 public class AuthCallBackBody {
     private String accessToken;
-    private String expiresIn;
+    private Long data_access_expiration_time;
+    private Long expiresIn;
+    private String graphDomain;
     private String signedRequest;
-    private String userId;
+    private String userID;
 }

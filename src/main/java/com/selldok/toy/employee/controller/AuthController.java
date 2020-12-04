@@ -32,7 +32,12 @@ public class AuthController {
 
         BasicInfo info = BasicInfo.builder().phoneNumber("01012345678").email("incheol@naver.com").name("incheol").build();
         model.addAttribute("info",info);
-        return "login/login.html";
+        return "login/login";
+    }
+
+    @GetMapping("main")
+    public String getMainView(Model model) {
+        return "employee/employee";
     }
 
     @PostMapping("check")

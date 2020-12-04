@@ -2,22 +2,18 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Thymeleaf 예제</title>
+    <title>Login 페이지</title>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-<h1>Thymeleaf 예제</h1>
-<span th:text="${info.name}"></span><br/>
-<span th:text="${info.phoneNumber}"></span><br/>
-<span th:text="${info.email}"></span><br/>
-<fb:login-button
-        scope="public_profile,email,user_birthday,user_friends"
-        onlogin="checkLoginState();">
-</fb:login-button>
-<!--<div id="fb-root"></div>-->
-<!--<script async defer crossorigin="anonymous"-->
-<!--        src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v9.0&appId=214073820126154&autoLogAppEvents=1"-->
-<!--        nonce="XtwOA2o8"></script>-->
+    <h1>Thymeleaf 예제</h1>
+    <span th:text="${info.name}"></span><br/>
+    <span th:text="${info.phoneNumber}"></span><br/>
+    <span th:text="${info.email}"></span><br/>
+    <fb:login-button
+            scope="public_profile,email,user_birthday,user_friends"
+            onlogin="checkLoginState();">
+    </fb:login-button>
 </body>
 <script>
     window.fbAsyncInit = function () {
@@ -52,14 +48,13 @@
     function statusChangeCallback(callBackResponse) {
         if (callBackResponse.status === 'connected') {
             $.ajax({
-                url:'http://localhost:8080/auth/check',
-                type:'post',
+                url: 'http://localhost:8080/auth/check',
+                type: 'post',
                 data: JSON.stringify(callBackResponse),
-                contentType:"application/json; charset=utf-8",
-                dataType:'json',
-                success:function(validResponse){
-                    const validToken = validResponse.data;
-                    if (validToken) {
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (isMember) {
+                    if (isMember) {
                         location.href = '/employees/view';
                     } else {
                         location.href = '/company/create';
