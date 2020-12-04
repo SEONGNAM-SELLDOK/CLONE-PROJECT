@@ -47,9 +47,9 @@ public class SelldokSecurityFilter extends AbstractAuthenticationProcessingFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authentication){
         try {
-            boolean isGuest = authentication.getAuthorities().contains(ROLE.BASIC);
+            Boolean isGuest = authentication.getAuthorities().contains(ROLE.BASIC);
             OutputStream ostr = response.getOutputStream();
-            ostr.write("true".getBytes());
+            ostr.write(isGuest.toString().getBytes());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
