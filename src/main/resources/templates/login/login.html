@@ -4,16 +4,39 @@
     <meta charset="UTF-8">
     <title>Login 페이지</title>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
-<body>
-    <h1>Thymeleaf 예제</h1>
-    <span th:text="${info.name}"></span><br/>
-    <span th:text="${info.phoneNumber}"></span><br/>
-    <span th:text="${info.email}"></span><br/>
-    <fb:login-button
-            scope="public_profile,email,user_birthday,user_friends"
-            onlogin="checkLoginState();">
-    </fb:login-button>
+<body style="
+    width: 1200px;
+    text-align: center;
+    background-color: rgba(0,0,0,.5);
+">
+<div class="_2G0bLyYIfuX--OOApLoY4D _1_kJNvUf1PaJoLpIPYYskk border-none"
+     style="/* width: 400px; */overflow-y: auto;left: 50%;position: relative;top: 50%;left: 50%;width: 100%;max-width: 500px;max-height: calc(100vh - 150px);-webkit-transform: translate(-50%,-50%);transform: translate(-50%,-50%);z-index: 5;z-index: 5;border-radius: 5px;background-color: #fff;position: absolute;overflow: hidden;">
+    <div class="_2ce6ISMbSfnFUCqHHe__wL"><i class="icon-logo_new"></i>
+    </div>
+    <div id="MODAL_BODY" class="w_pElUk4nqEVQLKkPoaAI XREA1JNQUgilUFJzxqrKc">
+        <div class="QSzjHTiYnJ4amY5c9N3Ob"><h1>직장인을 위한<br>커리어 플랫폼, 원티드!</h1>
+            <h2>커리어 성장과 행복을 위한 여정<br> 지금 원티드에서 시작하세요.</h2></div>
+        <div class="_1DMHwdmk4aUOJ4rev-KZ6A">
+            <div class="_2fF2pbQ2xJnRfi4eCyGqQC">
+                <fb:login-button
+                        size="xlarge"
+                        dataLayout="rounded"
+                        scope="public_profile,email,user_birthday,user_friends"
+                        onlogin="checkLoginState();">
+                    페이스북으로 시작하기
+                </fb:login-button>
+            </div>
+            <p class="_2U60Ac1vJJXsZnLdYq4HFc">걱정마세요! 여러분의 지원 활동은 SNS에 노출되지 않습니다.<br>회원가입 시 <a class="loginModalAnchor"
+                                                                                               href="https://help.wanted.co.kr/hc/ko/articles/360035484292"
+                                                                                               target="_blank">개인정보
+                처리방침</a>과 <a class="loginModalAnchor" href="https://help.wanted.co.kr/hc/ko/articles/360035844551"
+                             target="_blank">이용약관</a>을 확인하였으며, 동의합니다.</p>
+        </div>
+    </div>
+</div>
+
 </body>
 <script>
     window.fbAsyncInit = function () {

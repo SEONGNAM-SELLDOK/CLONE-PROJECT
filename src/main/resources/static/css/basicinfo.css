@@ -4219,7 +4219,6 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    width: 100%;
     height: 40px;
     padding: 0 30px
 }
@@ -26728,7 +26727,7 @@ button {
 ._14NzdD9Zqjq8ocf6TORWoN > aside {
     top: 0;
     left: 0;
-    width: 250px;
+    width: 205px;
     position: absolute
 }
 
@@ -27709,7 +27708,8 @@ button {
 
 ._1Gv5LM5zal-f72_XSo_qJ_ {
     position: relative;
-    max-width: 1060px
+    max-width: 1060px;
+
 }
 
 ._1Gv5LM5zal-f72_XSo_qJ_:after {
