@@ -11,5 +11,6 @@ import lombok.Setter;
 public class FaceBookTokenResponse {
     private String id;
     private String email;
+    private String name;
     private Picture picture;
 }

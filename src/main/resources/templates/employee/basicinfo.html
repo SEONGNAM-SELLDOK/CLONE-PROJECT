@@ -46,7 +46,7 @@
                     </li>
                     <li class="smMoreVisible" style="padding-top:5px;">
                         <button type="button"
-                                style="background-image: url(&quot;https://graph.facebook.com/1297123307013957/picture?height=300&amp;width=300&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);"
+                                th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
                                 data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"></button>
                     </li>
                     <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
@@ -110,23 +110,15 @@
             <header class="Aside-header">
                 <div class="Aside-avatar">
                     <div class="Aside-avatar_image"
-                         style="  background-image: url(&quot;https://graph.facebook.com/1297123307013957/picture?height=300&amp;width=300&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);">
+                         th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'">
                         <div class="_1RDFX7ZROHIIPqPMgmtS2E"><input type="file" accept="image/*"><i
                                 class="icon-camera_icon" role="presentation"></i></div>
                     </div>
                 </div>
                 <div class="Aside-me">
-                    <span sec:authorize="isAuthenticated()">
-                        | Logged user: <span sec:authentication="name"></span> |
-                        Roles: <span sec:authentication="authorities"></span> |
-                        <a th:href="@{/logout}">Sign Out</a>
-                    </span>
-                    <span sec:authorize="!isAuthenticated()">
-                        test
-                    </span>
-<!--                    <div class="Aside-me_name" th:text="${#authentication.name}"></div>-->
-<!--                    <div class="Aside-me_email" th:text="${#authentication.credentials}"></div>-->
-<!--                    <div class="Aside-me_tel" th:text="${#authentication.credentials}"></div>-->
+                    <div class="Aside-me_name" th:text="${#authentication.name}"></div>
+                    <div class="Aside-me_email" th:text="${#authentication.email}"></div>
+<!--                    <div class="Aside-me_tel" th:text="${#authentication.phoneNumber}"></div>-->
                 </div>
                 <a href="/profile/matching?level=1" class="Aside-edit is-level_1"
                    data-attribute-id="profile__basicInfoEdit">기본정보 수정</a></header>
