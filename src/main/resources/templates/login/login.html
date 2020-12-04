@@ -53,11 +53,11 @@
                 data: JSON.stringify(callBackResponse),
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
-                success: function (isMember) {
-                    if (isMember) {
-                        location.href = '/employees/view';
+                success: function (isGuest) {
+                    if (isGuest) {
+                        location.href = '/employees/basicinfo';
                     } else {
-                        location.href = '/company/create';
+                        location.href = '/';
                     }
                 }
             })

@@ -37,7 +37,6 @@ public class SelldokAuthenticationProvider implements AuthenticationProvider {
         Authentication newToken = new UsernamePasswordAuthenticationToken(response.getEmail(),
                                                                           response.getId(),
                                                                           List.of(new SimpleGrantedAuthority(currentRole)));
-        newToken.setAuthenticated(true);
         SecurityContextHolder.getContext().setAuthentication(newToken);
         return newToken;
     }
