@@ -76,9 +76,9 @@
                 data: JSON.stringify(callBackResponse),
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
-                success: function (isGuest) {
-                    if (isGuest) {
-                        location.href = '/employees/basicinfo';
+                success: function (authResponse) {
+                    if (authResponse) {
+                        location.href = '/employees/basicinfo/' + authResponse.id;
                     } else {
                         location.href = '/';
                     }

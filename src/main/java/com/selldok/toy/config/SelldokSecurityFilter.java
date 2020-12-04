@@ -47,11 +47,11 @@ public class SelldokSecurityFilter extends AbstractAuthenticationProcessingFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authentication){
         try {
-            Boolean isGuest = authentication.getAuthorities().stream().noneMatch(it -> it.equals(new SimpleGrantedAuthority(ROLE.BASIC)));
             OutputStream ostr = response.getOutputStream();
-            ostr.write(isGuest.toString().getBytes());
+            ObjectMapper om = new ObjectMapper();
+            String returnStr = om.writeValueAsString(authentication);
+            ostr.write(returnStr.getBytes());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

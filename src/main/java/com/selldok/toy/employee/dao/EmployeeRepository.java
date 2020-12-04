@@ -4,9 +4,11 @@ import com.selldok.toy.employee.entity.Employee;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 /**
  * @author Incheol Jung
  */
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    boolean existsByInfoEmail(String email);
+    Optional<Employee> findByInfoEmail(String email);
 }

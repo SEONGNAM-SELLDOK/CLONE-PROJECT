@@ -1,7 +1,9 @@
 package com.selldok.toy.config;
 
+import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.FaceBookTokenResponse;
 import com.selldok.toy.employee.service.AuthService;
+import com.selldok.toy.employee.service.EmployeeService;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,10 +12,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 
 /**
  * @author Incheol Jung
@@ -24,18 +25,29 @@ public class SelldokAuthenticationProvider implements AuthenticationProvider {
 
     private final AuthService authService;
 
-    @SneakyThrows
+    private final EmployeeService employeeService;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken)authentication;
         String accessToken = token.getPrincipal().toString();
         FaceBookTokenResponse response = authService.validateToken(accessToken);
-        boolean isExistMember = authService.checkUserInfo(response.getEmail());
-        ROLE currentRole = isExistMember ? ROLE.REGULAR : ROLE.BASIC;
-        Authentication selldokUserToken = new SelldokUserToken(response.getName(),
-                                                       response.getEmail(),
-                                                       response.getPicture().getData().getUrl(),
-                                                       currentRole);
+
+        Optional<Employee> optionalEmployee = authService.checkUserInfo(response.getEmail());
+        ROLE currentRole = optionalEmployee.isPresent() ? ROLE.REGULAR : ROLE.BASIC;
+        final Employee employee = optionalEmployee.orElseGet(() -> employeeService.insert(response.getName(),
+                                                                                          response.getEmail(),
+                                                                                          response.getPicture()
+                                                                                                  .getData()
+                                                                                                  .getUrl()));
+
+        Authentication selldokUserToken = new SelldokUserToken(employee.getId(),
+                                                               accessToken,
+                                                               employee.getInfo().getName(),
+                                                               employee.getInfo().getEmail(),
+                                                               response.getPicture().getData().getUrl(),
+                                                               currentRole);
+
         SecurityContextHolder.getContext().setAuthentication(selldokUserToken);
         return selldokUserToken;
     }

@@ -1,5 +1,6 @@
 package com.selldok.toy.employee.controller;
 
+import com.selldok.toy.employee.entity.BasicInfo;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.EmployeeProfileResponse;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
@@ -10,6 +11,7 @@ import com.selldok.toy.employee.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,8 +37,10 @@ public class EmployeeController {
         return "employee/employee";
     }
 
-    @GetMapping("basicinfo")
-    public String getBasicInfoView() {
+    @GetMapping("basicinfo/{id}")
+    public String getBasicInfoView(@PathVariable("id") Long id, Model model) {
+        Employee employee = employeeService.get(id);
+        model.addAttribute("employee",employee);
         return "employee/basicinfo";
     }
 

@@ -1,6 +1,7 @@
 package com.selldok.toy.employee.service;
 
 import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.FaceBookTokenResponse;
 
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -8,6 +9,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +25,8 @@ public class AuthService {
 
     private RestTemplate restTemplate;
 
-    public Boolean checkUserInfo(String email) {
-        return employeeRepository.existsByInfoEmail(email);
+    public Optional<Employee> checkUserInfo(String email) {
+        return employeeRepository.findByInfoEmail(email);
     }
 
     public FaceBookTokenResponse validateToken(String token) {

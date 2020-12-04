@@ -40,14 +40,6 @@ public class AuthController {
         return "employee/employee";
     }
 
-    @PostMapping("check")
-    @ResponseBody
-    public ResponseEntity auth(@RequestBody AuthCallBackRequest request){
-        FaceBookTokenResponse response = authService.validateToken(request.getAuthResponse().getAccessToken());
-        boolean isExistEmail = authService.checkUserInfo(response.getEmail());
-        return new ResponseEntity(isExistEmail, HttpStatus.OK);
-    }
-
     @GetMapping("callBack")
     public ResponseEntity loginCallback(AuthCallBackRequest authResponse){
         System.out.println(authResponse);
