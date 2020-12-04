@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Selldok-toy</title>
     <meta charset="utf-8">
@@ -46,13 +48,16 @@
                                 <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
                                         class="icon-bell"></i></button>
                             </li>
-                            <li class="smMoreVisible">
+                            <li sec:authorize="isAnonymous()">
+                                <button class="signUpButton" type="button" data-attribute-id="gnb" data-gnb-kind="signupLogin">회원가입/로그인</button>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px" >
                                 <button type="button"
-                                        style="background-image: url(&quot;https://graph.facebook.com/1297123307013957/picture?height=300&amp;width=300&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);"
+                                        th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
                                         data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
                                         data-badge="false"></button>
                             </li>
-                            <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"><a
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers" style="padding-top:10px"><a
                                     class="dashboardButton" href="/dashboard">기업 서비스</a></li>
                             <li class="xsOnly">
                                 <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo">
