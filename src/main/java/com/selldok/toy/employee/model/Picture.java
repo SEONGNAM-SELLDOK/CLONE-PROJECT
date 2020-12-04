@@ -8,8 +8,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class FaceBookTokenResponse {
-    private String id;
-    private String email;
-    private Picture picture;
+public class Picture {
+    private PictureInfo data;
 }

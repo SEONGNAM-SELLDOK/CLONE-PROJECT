@@ -35,7 +35,7 @@ public class AuthService {
                                                           .build();
         factory.setHttpClient(httpClient); // 동기실행에 사용될 HttpClient 세팅
         RestTemplate restTemplate = new RestTemplate(factory);
-        String url = "https://graph.facebook.com/me/?access_token=" + token + "&fields=email";
+        String url = "https://graph.facebook.com/me/?access_token=" + token + "&fields=email,id,name,picture.width(720).height(720).as(picture)";
         FaceBookTokenResponse response = restTemplate.getForObject(url, FaceBookTokenResponse.class);
 
         return response;

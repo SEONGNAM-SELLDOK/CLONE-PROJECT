@@ -8,8 +8,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class FaceBookTokenResponse {
-    private String id;
-    private String email;
-    private Picture picture;
+public class PictureInfo {
+    private long height;
+    private boolean is_silhouette;
+    private String url;
+    private long width;
 }
