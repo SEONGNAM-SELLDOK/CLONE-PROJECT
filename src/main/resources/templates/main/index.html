@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Selldok-toy</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="http://static.wanted.co.kr/vendor/slick.css">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<script>
+    function myInfoPage(userId){
+        location.href='/employees/view/' + userId;
+    }
+</script>
+<div id="__next">
+    <div>
+        <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+            <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+                <nav>
+                    <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                            class="icon-logo_new"></i></a></div>
+                    <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                        <li class="xsHomeButton xsOnly selectedNav" data-attribute-id="gnb" data-gnb-kind="home"><a
+                                href="/" class="">홈</a></li>
+                        <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a>
+                        </li>
+                        <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary"><a href="/salary"
+                                                                                                       class="">직군별
+                            연봉</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="resume"><a href="/cv" class="">이력서</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="refer"><a href="/referral"
+                                                                                                   class="">추천</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/events"
+                                                                                                   class="">커리어 성장</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                                href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+                    </ul>
+                    <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                        <div class="overlay">
+                            <div class="container"></div>
+                        </div>
+                    </div>
+                    <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                        <ul>
+                            <li>
+                                <button type="button" class="searchButton" data-attribute-id="gnb"
+                                        data-gnb-kind="search"><i class="icon-search"></i></button>
+                            </li>
+                            <li>
+                                <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                        class="icon-bell"></i></button>
+                            </li>
+                            <li sec:authorize="isAnonymous()">
+                                <button class="signUpButton" type="button" data-attribute-id="gnb" data-gnb-kind="signupLogin" onclick="location.href='/auth/view'">회원가입/로그인</button>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px" >
+                                <button type="button"
+                                        th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                        data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"
+                                        data-badge="false"></button>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers" style="padding-top:10px"><a
+                                    class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                            <li class="xsOnly">
+                                <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo">
+                                    <i class="icon-menu"></i></button>
+                            </li>
+                        </ul>
+                    </aside>
+                </nav>
+            </div>
+        </div>
+        <div style="height:50px"></div>
+        <div class="_3qKzfwPUNuGyBmfV1hGSIU">
+            <div class="QnVMIHfWqN9C7iAmTm_Lb ">
+                <div class="slick-slider slick-initialized" dir="ltr">
+                    <button type="button" class="_263A-INn49CXqAW12ekHKB prev"><i class="icon-arrow_left_line"></i>
+                    </button>
+                    <div class="slick-list">
+                        <div class="slick-track"
+                             style="width: 55440px; opacity: 1; transform: translate3d(-8400px, 0px, 0px); transition: -webkit-transform 1000ms ease 0s;">
+                            <div data-index="-1" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/1939"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="1939"
+                                         data-content-title="온라인 코딩 교육 '코드잇'" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/1939" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/874/12aeb607.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>온라인 코딩 교육 '코드잇'</h2>
+                                                    <h3>개발·교육·마케팅 포지션 채용!</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="0" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/2121"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="2121"
+                                         data-content-title="블록체인 금융기술 'Peertec'" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/2121" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/961/fa103026.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>블록체인 금융기술 'Peertec'</h2>
+                                                    <h3>CTO/개발/PM/디자이너/마케팅 채용 중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="1" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/2237"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="2237"
+                                         data-content-title="스페이스워크(Spacewalk)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/2237" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/937/35855725.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>스페이스워크(Spacewalk)</h2>
+                                                    <h3>AI(알고리즘/머신러닝), 개발자, 디자이너 외</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="2" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/216"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="216"
+                                         data-content-title="No.1 모바일 뷰티 플랫폼" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/216" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/956/3040d3b4.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>No.1 모바일 뷰티 플랫폼</h2>
+                                                    <h3>[화해팀] 신입 백엔드엔지니어 채용중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="3" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/332"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="332"
+                                         data-content-title="애드테크 스타트업 MADUP" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/332" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/945/7698f769.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>애드테크 스타트업 MADUP</h2>
+                                                    <h3>퍼포먼스마케터, 개발자 등 대규모 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="4" class="slick-slide slick-active slick-current" tabindex="-1"
+                                 aria-hidden="false" style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/3408"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="3408"
+                                         data-content-title="뷰티테크 로켓 스타트업" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/933/1ab79e6b.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>뷰티테크 로켓 스타트업</h2>
+                                                    <h3>[여신티켓] 전직군 채용 중!</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="5" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/136"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="136"
+                                         data-content-title="하이퍼커넥트" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/136" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/964/60a36928.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>하이퍼커넥트</h2>
+                                                    <h3>엔지니어/사업개발/PM/디자인 전직군 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="6" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/4095"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="4095"
+                                         data-content-title="콘텐츠커머스 '패스트뷰'" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/4095" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/958/b1f76582.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>콘텐츠커머스 '패스트뷰'</h2>
+                                                    <h3>개발자, 마케터, 기획자, 에디터 등 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="7" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click"
+                                         data-landing-uri="/events/eighteen2" data-link-kind="EVENT_DETAIL"
+                                         data-content-title="오피스 맥주 파티" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/events/eighteen2"
+                                                                                        class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/959/3089cea1.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>오피스 맥주 파티</h2>
+                                                    <h3>동료들과 십팔시 맥주 짠! 어때요?</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="8" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click"
+                                         data-landing-uri="/events/hyundaicardrecruit" data-link-kind="EVENT_DETAIL"
+                                         data-content-title="현대카드 LIVE 채용 설명회" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a
+                                            href="/events/hyundaicardrecruit" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/960/b4612c7b.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>현대카드 LIVE 채용 설명회</h2>
+                                                    <h3>개발 / 디자인 / 데이터 / IT</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="9" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/645"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="645"
+                                         data-content-title="대한민국 No.1 크라우드펀딩" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/645" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/947/8a584748.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>대한민국 No.1 크라우드펀딩</h2>
+                                                    <h3>[wadiz] 전 직군 채용 중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="10" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/88"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="88"
+                                         data-content-title="센드버드(Sendbird)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/88" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/936/b35d6b5c.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>센드버드(Sendbird)</h2>
+                                                    <h3>개발 · 디자인 직군 채용중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="11" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/12411"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="12411"
+                                         data-content-title="속옷 구독서비스, 월간가슴" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/12411" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/940/c31580d5.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>속옷 구독서비스, 월간가슴</h2>
+                                                    <h3>더기프팅컴퍼니 전직군 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="12" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/958"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="958"
+                                         data-content-title="옴니어스(OMNIOUS)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/958" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/963/abc07ba9.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>옴니어스(OMNIOUS)</h2>
+                                                    <h3>AI / 개발 / 세일즈 / 마케터 채용 중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="13" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/599"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="599"
+                                         data-content-title="밀리만코리아(Milliman)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/599" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/953/e262e266.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>밀리만코리아(Milliman)</h2>
+                                                    <h3>Software Engineer 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="14" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/1916"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="1916"
+                                         data-content-title="짐싸(ZIMSSA)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/1916" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/957/6653c58b.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>짐싸(ZIMSSA)</h2>
+                                                    <h3>개발, 디자인 등 전 직군 채용 중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="15" class="slick-slide" tabindex="-1" aria-hidden="true"
+                                 style="outline: none; width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/1939"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="1939"
+                                         data-content-title="온라인 코딩 교육 '코드잇'" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/1939" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/874/12aeb607.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>온라인 코딩 교육 '코드잇'</h2>
+                                                    <h3>개발·교육·마케팅 포지션 채용!</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="16" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/2121"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="2121"
+                                         data-content-title="블록체인 금융기술 'Peertec'" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/2121" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/961/fa103026.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>블록체인 금융기술 'Peertec'</h2>
+                                                    <h3>CTO/개발/PM/디자이너/마케팅 채용 중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="17" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/2237"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="2237"
+                                         data-content-title="스페이스워크(Spacewalk)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/2237" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/937/35855725.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>스페이스워크(Spacewalk)</h2>
+                                                    <h3>AI(알고리즘/머신러닝), 개발자, 디자이너 외</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="18" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/216"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="216"
+                                         data-content-title="No.1 모바일 뷰티 플랫폼" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/216" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/956/3040d3b4.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>No.1 모바일 뷰티 플랫폼</h2>
+                                                    <h3>[화해팀] 신입 백엔드엔지니어 채용중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="19" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/332"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="332"
+                                         data-content-title="애드테크 스타트업 MADUP" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/332" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/945/7698f769.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>애드테크 스타트업 MADUP</h2>
+                                                    <h3>퍼포먼스마케터, 개발자 등 대규모 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="20" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/3408"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="3408"
+                                         data-content-title="뷰티테크 로켓 스타트업" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/3408" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/933/1ab79e6b.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>뷰티테크 로켓 스타트업</h2>
+                                                    <h3>[여신티켓] 전직군 채용 중!</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="21" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/136"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="136"
+                                         data-content-title="하이퍼커넥트" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/136" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/964/60a36928.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>하이퍼커넥트</h2>
+                                                    <h3>엔지니어/사업개발/PM/디자인 전직군 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="22" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/4095"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="4095"
+                                         data-content-title="콘텐츠커머스 '패스트뷰'" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/4095" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/958/b1f76582.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>콘텐츠커머스 '패스트뷰'</h2>
+                                                    <h3>개발자, 마케터, 기획자, 에디터 등 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="23" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click"
+                                         data-landing-uri="/events/eighteen2" data-link-kind="EVENT_DETAIL"
+                                         data-content-title="오피스 맥주 파티" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/events/eighteen2"
+                                                                                        class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/959/3089cea1.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>오피스 맥주 파티</h2>
+                                                    <h3>동료들과 십팔시 맥주 짠! 어때요?</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="24" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click"
+                                         data-landing-uri="/events/hyundaicardrecruit" data-link-kind="EVENT_DETAIL"
+                                         data-content-title="현대카드 LIVE 채용 설명회" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a
+                                            href="/events/hyundaicardrecruit" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/960/b4612c7b.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>현대카드 LIVE 채용 설명회</h2>
+                                                    <h3>개발 / 디자인 / 데이터 / IT</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="25" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/645"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="645"
+                                         data-content-title="대한민국 No.1 크라우드펀딩" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/645" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/947/8a584748.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>대한민국 No.1 크라우드펀딩</h2>
+                                                    <h3>[wadiz] 전 직군 채용 중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="26" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/88"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="88"
+                                         data-content-title="센드버드(Sendbird)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/88" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/936/b35d6b5c.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>센드버드(Sendbird)</h2>
+                                                    <h3>개발 · 디자인 직군 채용중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="27" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/12411"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="12411"
+                                         data-content-title="속옷 구독서비스, 월간가슴" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/12411" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/940/c31580d5.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>속옷 구독서비스, 월간가슴</h2>
+                                                    <h3>더기프팅컴퍼니 전직군 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="28" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/958"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="958"
+                                         data-content-title="옴니어스(OMNIOUS)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/958" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/963/abc07ba9.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>옴니어스(OMNIOUS)</h2>
+                                                    <h3>AI / 개발 / 세일즈 / 마케터 채용 중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="29" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/599"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="599"
+                                         data-content-title="밀리만코리아(Milliman)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/599" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/953/e262e266.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>밀리만코리아(Milliman)</h2>
+                                                    <h3>Software Engineer 채용</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="30" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/1916"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="1916"
+                                         data-content-title="짐싸(ZIMSSA)" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/1916" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/957/6653c58b.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>짐싸(ZIMSSA)</h2>
+                                                    <h3>개발, 디자인 등 전 직군 채용 중</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                            <div data-index="31" tabindex="-1" class="slick-slide slick-cloned" aria-hidden="true"
+                                 style="width: 1680px;">
+                                <div>
+                                    <div data-attribute-id="home__mainBanner__click" data-landing-uri="/company/1939"
+                                         data-link-kind="COMPANY_DETAIL" data-content-id="1939"
+                                         data-content-title="온라인 코딩 교육 '코드잇'" tabindex="-1"
+                                         style="width: 100%; display: inline-block;"><a href="/company/1939" class="">
+                                        <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
+                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/874/12aeb607.jpg&quot;);">
+                                            <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
+                                                <div><h2>온라인 코딩 교육 '코드잇'</h2>
+                                                    <h3>개발·교육·마케팅 포지션 채용!</h3></div>
+                                                <hr>
+                                                <button type="button"><span>바로가기</span><i class="icon-arrow_right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="_263A-INn49CXqAW12ekHKB next"><i class="icon-arrow_right"></i></button>
+                </div>
+            </div>
+            <a href="/profile/matching" class="_3UbkNZE3AXnRlKdgdMC0Hw">
+                <h3>
+                    <div class="_1oT22k2s7M24sHHEGOaxDm _2e5F9NaFrlyUeyGY-mR2i_">
+                        <div class="_87dcrhMv-JSAAJDBgddP3">60%</div>
+                    </div>
+                    <p class="_9hVK7KB0j4Jtcr2RKh7RA _3oT-Bq4Y3-dCbxQ4fLTU5S">이력서를 보강하고 원하는 회사의 면접 제안을 받아보세요</p></h3>
+                <button type="button">이력서 강화하기</button>
+            </a>
+            <div class="W2zuMc8-UTtuhWVAM9Zvs">
+                <div class="_1NIzgIq7r2QW3X23p6s-6j">
+                    <div><h2 class="_3SgYEiePec6Bm_1OTnAgBx">추천할만한 사람<a href="/profile/settings?type=referral" class=""><i
+                            class="icon-setting g07ecZer_x-k7MPjfHpI2"></i></a></h2></div>
+                    <div class="_2RIEgXkXGe9xtVt7NtwcwW">
+                        <button type="button"><i class="icon-arrow_left_line _1X1P4n04yDee-gl1lfoESZ"></i></button>
+                        <button type="button"><i class="icon-arrow_right"></i></button>
+                    </div>
+                </div>
+                <div class="_3Uo_oVxrJt4od-6tCBROKy">
+                    <button type="button" class="_2X3qjLUCpzCu2cYaUUJkih">
+                        <div class="_2p290yLCE5iODG9T5MfeN"
+                             style="background-image: url(&quot;https://graph.facebook.com/2274449376003296/picture?height=300&amp;width=300&quot;); background-position: center center; background-repeat: no-repeat; background-size: cover;"></div>
+                        <div class="_3NAI21UxaerhuEptAH7mxh"><p class="iPZC6VrqmIRVZ2-9nEVBj">이용민</p>
+                            <p class="_36IOomFLdATMDoILBAs6as">첫 추천 해주기</p></div>
+                        <i class="_1c6k4FpRKo7lozETQmUS8t icon-thumb_up"></i></button>
+                    <button type="button" class="_2X3qjLUCpzCu2cYaUUJkih">
+                        <div class="_2p290yLCE5iODG9T5MfeN"
+                             style="background-image: url(&quot;https://graph.facebook.com/2452914024789863/picture?height=300&amp;width=300&quot;); background-position: center center; background-repeat: no-repeat; background-size: cover;"></div>
+                        <div class="_3NAI21UxaerhuEptAH7mxh"><p class="iPZC6VrqmIRVZ2-9nEVBj">김준용</p>
+                            <p class="_36IOomFLdATMDoILBAs6as">첫 추천 해주기</p></div>
+                        <i class="_1c6k4FpRKo7lozETQmUS8t icon-thumb_up"></i></button>
+                    <button type="button" class="_2X3qjLUCpzCu2cYaUUJkih">
+                        <div class="_2p290yLCE5iODG9T5MfeN"
+                             style="background-image: url(&quot;https://graph.facebook.com/1977390079014367/picture?height=300&amp;width=300&quot;); background-position: center center; background-repeat: no-repeat; background-size: cover;"></div>
+                        <div class="_3NAI21UxaerhuEptAH7mxh"><p class="iPZC6VrqmIRVZ2-9nEVBj">윤태식</p>
+                            <p class="_36IOomFLdATMDoILBAs6as">첫 추천 해주기</p></div>
+                        <i class="_1c6k4FpRKo7lozETQmUS8t icon-thumb_up"></i></button>
+                </div>
+            </div>
+            <div class="ghz6c3cw7Cqy1L-EvOEqi">
+                <div class="_2qbq2cB0cFDoPPnWuSHBxn"><h2 class="_2amMHczRNw2VGBJC6PZYHZ">나에게 딱 맞는 포지션<a
+                        href="/profile/matching?level=2&amp;step=1&amp;modi=true" class=""><i
+                        class="icon-setting _3K_SYS_KrggOGZ3PZ_Hebu"></i></a></h2><a href="/matched"
+                                                                                     class="_1MD_OzUQVpUs4NQpDtNZ3_"
+                                                                                     data-attribute-id="home__seeMore"
+                                                                                     data-domain="myPosition">더 보기</a>
+                </div>
+                <div class="_1DPyMq6MHTj43gZ2KFduy9">
+                    <ul data-cy="job-list" class="clearfix">
+                        <li>
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ liked"><a
+                                    href="/wd/976?referer_id=99049" class="" data-attribute-id="position__click"
+                                    data-job-category-id="518" data-company-name="엔에이치엔(NHN)" data-position-id="976"
+                                    data-position-name="Java 웹 서비스, 플랫폼 개발자" data-response-level="very_low"
+                                    data-response-rate="35.2" data-ai-score="" data-domain="fitposition">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/70/tdeu7osbz2hkiaek__400_400.jpg&quot;);">
+                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
+                                            data-job-category-id="518" data-company-name="엔에이치엔(NHN)"
+                                            data-position-id="976" data-position-name="Java 웹 서비스, 플랫폼 개발자"
+                                            data-kind="remove"><i class="icon-ic_favorite_black_24px"></i>999+
+                                    </button>
+                                    <button type="button" class="aiScore" data-attribute-id="position__aiScore__click"
+                                            data-case="not_level_4"><span>AI 분석</span></button>
+                                    <div class="aiScorePopOver">프로필 이력서를 400자 이상 작성하면, AI가 이력서를 분석하여 서류 통과 확률을 알려줍니다.<i
+                                            class="icon-arrow_bottom_fill"></i></div>
+                                </header>
+                                <div class="body">
+                                    <div class="job-card-position">Java 웹 서비스, 플랫폼 개발자</div>
+                                    <div class="job-card-company-name">엔에이치엔(NHN)</div>
+                                    <div class="job-card-company-location">경기<span
+                                            class="addressDot">.</span><span>한국</span></div>
+                                    <div class="reward">채용보상금 1,000,000원</div>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/13923?referer_id=99049"
+                                                                                       class=""
+                                                                                       data-attribute-id="position__click"
+                                                                                       data-job-category-id="518"
+                                                                                       data-company-name="에이아이트릭스(AITRICS)"
+                                                                                       data-position-id="13923"
+                                                                                       data-position-name="백엔드 개발자"
+                                                                                       data-response-level="high"
+                                                                                       data-response-rate="94.7"
+                                                                                       data-ai-score=""
+                                                                                       data-domain="fitposition">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/3716/bxdh83eknhxtlmcr__400_400.jpg&quot;);">
+                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
+                                            data-job-category-id="518" data-company-name="에이아이트릭스(AITRICS)"
+                                            data-position-id="13923" data-position-name="백엔드 개발자" data-kind="add"><i
+                                            class="icon-ic_favorite_black_24px"></i>278
+                                    </button>
+                                    <button type="button" class="aiScore" data-attribute-id="position__aiScore__click"
+                                            data-case="not_level_4"><span>AI 분석</span></button>
+                                    <div class="aiScorePopOver">프로필 이력서를 400자 이상 작성하면, AI가 이력서를 분석하여 서류 통과 확률을 알려줍니다.<i
+                                            class="icon-arrow_bottom_fill"></i></div>
+                                </header>
+                                <div class="body">
+                                    <div class="job-card-position">백엔드 개발자</div>
+                                    <div class="job-card-company-name">에이아이트릭스(AITRICS)</div>
+                                    <div class="job-card-company-location">서울<span
+                                            class="addressDot">.</span><span>한국</span></div>
+                                    <div class="reward">채용보상금 1,000,000원</div>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/41065?referer_id=99049"
+                                                                                       class=""
+                                                                                       data-attribute-id="position__click"
+                                                                                       data-job-category-id="518"
+                                                                                       data-company-name="패스트레인(여신티켓)"
+                                                                                       data-position-id="41065"
+                                                                                       data-position-name="iOS 개발자"
+                                                                                       data-response-level="low"
+                                                                                       data-response-rate="59.4"
+                                                                                       data-ai-score=""
+                                                                                       data-domain="fitposition">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/3408/qec3bghg5lsoojzs__400_400.jpg&quot;);">
+                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
+                                            data-job-category-id="518" data-company-name="패스트레인(여신티켓)"
+                                            data-position-id="41065" data-position-name="iOS 개발자" data-kind="add"><i
+                                            class="icon-ic_favorite_black_24px"></i>7
+                                    </button>
+                                    <button type="button" class="aiScore" data-attribute-id="position__aiScore__click"
+                                            data-case="not_level_4"><span>AI 분석</span></button>
+                                    <div class="aiScorePopOver">프로필 이력서를 400자 이상 작성하면, AI가 이력서를 분석하여 서류 통과 확률을 알려줍니다.<i
+                                            class="icon-arrow_bottom_fill"></i></div>
+                                </header>
+                                <div class="body">
+                                    <div class="job-card-position">iOS 개발자</div>
+                                    <div class="job-card-company-name">패스트레인(여신티켓)</div>
+                                    <div class="job-card-company-location">서울<span
+                                            class="addressDot">.</span><span>한국</span></div>
+                                    <div class="reward">채용보상금 1,000,000원</div>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/46483?referer_id=99049"
+                                                                                       class=""
+                                                                                       data-attribute-id="position__click"
+                                                                                       data-job-category-id="518"
+                                                                                       data-company-name="패스트레인(여신티켓)"
+                                                                                       data-position-id="46483"
+                                                                                       data-position-name="백엔드 개발자(신입)"
+                                                                                       data-response-level="low"
+                                                                                       data-response-rate="59.4"
+                                                                                       data-ai-score=""
+                                                                                       data-domain="fitposition">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/3408/qec3bghg5lsoojzs__400_400.jpg&quot;);">
+                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
+                                            data-job-category-id="518" data-company-name="패스트레인(여신티켓)"
+                                            data-position-id="46483" data-position-name="백엔드 개발자(신입)" data-kind="add"><i
+                                            class="icon-ic_favorite_black_24px"></i>11
+                                    </button>
+                                    <button type="button" class="aiScore" data-attribute-id="position__aiScore__click"
+                                            data-case="not_level_4"><span>AI 분석</span></button>
+                                    <div class="aiScorePopOver">프로필 이력서를 400자 이상 작성하면, AI가 이력서를 분석하여 서류 통과 확률을 알려줍니다.<i
+                                            class="icon-arrow_bottom_fill"></i></div>
+                                </header>
+                                <div class="body">
+                                    <div class="job-card-position">백엔드 개발자(신입)</div>
+                                    <div class="job-card-company-name">패스트레인(여신티켓)</div>
+                                    <div class="job-card-company-location">서울<span
+                                            class="addressDot">.</span><span>한국</span></div>
+                                    <div class="reward">채용보상금 1,000,000원</div>
+                                </div>
+                            </a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="_3URzA6dK1nn-WvQrPw3D6E">
+                <div class="_1qrJHH_HKFQMmdMrnPITc6">
+                    <div class="XEp_uByHe8zoJIn7c_qnl _4wDC2ItcQiXsokJ_uirUf">
+                        <div class="_3tGtKXE8CF1psxPrO13X-9"><h2 class="_2_ioiajD4DsyiQ145PebTO">커리어 성장의 기회</h2><a
+                                href="/events" class="" data-attribute-id="home__seeMore" data-domain="event"><h6
+                                class="_1Ns64bFAZ6qJb-3CBgk2p1">다양한 이벤트 더보기&gt;</h6></a>
+                            <div class="_3zbAgUrY19UI-qPdrk3TLR">
+                                <button class="_1bEfdsFavRCHJK-hbLuNpH" type="button"><i
+                                        class="icon-arrow_left_line"></i></button>
+                                <button class="_1bEfdsFavRCHJK-hbLuNpH" type="button" disabled=""><i
+                                        class="icon-arrow_right _2vv-oAzbzaumohxV9I83FF"></i></button>
+                            </div>
+                        </div>
+                        <div class="fzqnN4vPTa-EL9SckJAkt">
+                            <div class="XEp_uByHe8zoJIn7c_qnl BQJ6j_UEx8UrY8xwDzcer" data-attribute-id="event__click"
+                                 data-event-id="1027" data-event-title="원티드 북클럽 #7 : Winning Startup"
+                                 data-event-currency="KRW" data-event-price="189000"><a href="/events/bookclub07"
+                                                                                        class="">
+                                <div class="_2aeg7MwgxmEqgIz5FJfW7w"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/events/1027/ade0ed4f.png&quot;);"></div>
+                                <div class="_2MJP79PdX3p2ZJzaXvnd3N">
+                                    <div class="xmwyCJicUhMQRRdjBrpz6"><span class="_2CGmtD7EhxPeFX7-iH4Enf is_online"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="11" height="12"
+                                            viewBox="0 0 11 12"><path fill="currentColor"
+                                                                      d="M5.98.9A5.09 5.09 0 00.32 6.54l1.03-.1a4.07 4.07 0 014.52-4.53L5.98.89zm4.57 4.56l-1.03.1A4.07 4.07 0 015 10.1l-.11 1.03a5.1 5.1 0 005.66-5.66zM5.76 2.94c-.9-.1-1.84.18-2.53.86a3.06 3.06 0 00-.86 2.54l1.02-.11c-.07-.6.12-1.24.57-1.7a2.05 2.05 0 011.7-.57l.1-1.02zM8.5 5.68l-1.04.12a2 2 0 01-2.24 2.24L5.1 9.06a3.06 3.06 0 003.4-3.4zm-2.53-.22c-.3-.3-.8-.3-1.1 0-.3.3-.29.78.02 1.08.3.3.79.3 1.09 0 .3-.3.3-.78 0-1.08z"></path></svg><span>온라인</span></span><span
+                                            class="_2CGmtD7EhxPeFX7-iH4Enf education">EDU</span></div>
+                                    <h3>원티드 북클럽 #7 : Winning Startup</h3></div>
+                            </a></div>
+                            <div class="XEp_uByHe8zoJIn7c_qnl BQJ6j_UEx8UrY8xwDzcer" data-attribute-id="event__click"
+                                 data-event-id="1011" data-event-title="원티드 북클럽 클럽장 모집" data-event-currency=""
+                                 data-event-price=""><a href="/events/bookclub_host" class="">
+                                <div class="_2aeg7MwgxmEqgIz5FJfW7w"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/events/1011/b617c154.jpg&quot;);"></div>
+                                <div class="_2MJP79PdX3p2ZJzaXvnd3N">
+                                    <div class="xmwyCJicUhMQRRdjBrpz6"><span class="_2CGmtD7EhxPeFX7-iH4Enf is_online"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="11" height="12"
+                                            viewBox="0 0 11 12"><path fill="currentColor"
+                                                                      d="M5.98.9A5.09 5.09 0 00.32 6.54l1.03-.1a4.07 4.07 0 014.52-4.53L5.98.89zm4.57 4.56l-1.03.1A4.07 4.07 0 015 10.1l-.11 1.03a5.1 5.1 0 005.66-5.66zM5.76 2.94c-.9-.1-1.84.18-2.53.86a3.06 3.06 0 00-.86 2.54l1.02-.11c-.07-.6.12-1.24.57-1.7a2.05 2.05 0 011.7-.57l.1-1.02zM8.5 5.68l-1.04.12a2 2 0 01-2.24 2.24L5.1 9.06a3.06 3.06 0 003.4-3.4zm-2.53-.22c-.3-.3-.8-.3-1.1 0-.3.3-.29.78.02 1.08.3.3.79.3 1.09 0 .3-.3.3-.78 0-1.08z"></path></svg><span>온라인</span></span><span
+                                            class="_2CGmtD7EhxPeFX7-iH4Enf education">EDU</span></div>
+                                    <h3>원티드 북클럽 클럽장 모집</h3></div>
+                            </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="_30Sb55s39RPhugBHOdOB6G">
+                <div class="_149pM0jP3KjC5sqyFveoIA"><h2 class="_1izYoerUMqkY4L9y0nwIUZ">신규 채용 회사</h2></div>
+                <div class="_3hvWsESlJV4L2CR21vp_WV">
+                    <ul class="clearfix">
+                        <li>
+                            <div class="_26aCfUgDQHFKa_a8MXn3Y3"><a href="/company/1257" class=""
+                                                                    data-attribute-id="company__click"
+                                                                    data-company-id="1257" data-company-name="머니브레인"
+                                                                    data-marketing-case="featured">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/1257/k6ge4hg47yyg9te6__400_400.jpg&quot;);"></header>
+                                <div class="P3VPhb2BdYhk8nJcSL5g3">
+                                    <dl>
+                                        <dt>머니브레인</dt>
+                                        <dd>IT, 컨텐츠</dd>
+                                    </dl>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div class="_26aCfUgDQHFKa_a8MXn3Y3"><a href="/company/3408" class=""
+                                                                    data-attribute-id="company__click"
+                                                                    data-company-id="3408"
+                                                                    data-company-name="패스트레인(여신티켓)"
+                                                                    data-marketing-case="featured">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/3408/qec3bghg5lsoojzs__400_400.jpg&quot;);"></header>
+                                <div class="P3VPhb2BdYhk8nJcSL5g3">
+                                    <dl>
+                                        <dt>패스트레인(여신티켓)</dt>
+                                        <dd>IT, 컨텐츠</dd>
+                                    </dl>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div class="_26aCfUgDQHFKa_a8MXn3Y3"><a href="/company/12699" class=""
+                                                                    data-attribute-id="company__click"
+                                                                    data-company-id="12699" data-company-name="씨디에프브로스"
+                                                                    data-marketing-case="featured">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/12699/gwbl8waeuwiwbclb__400_400.jpg&quot;);"></header>
+                                <div class="P3VPhb2BdYhk8nJcSL5g3">
+                                    <dl>
+                                        <dt>씨디에프브로스</dt>
+                                        <dd>판매, 유통</dd>
+                                    </dl>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div class="_26aCfUgDQHFKa_a8MXn3Y3"><a href="/company/2086" class=""
+                                                                    data-attribute-id="company__click"
+                                                                    data-company-id="2086" data-company-name="휴맥스모빌리티"
+                                                                    data-marketing-case="featured">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/2086/rrxe1lociizjzqrt__400_400.jpg&quot;);"></header>
+                                <div class="P3VPhb2BdYhk8nJcSL5g3">
+                                    <dl>
+                                        <dt>휴맥스모빌리티</dt>
+                                        <dd>IT, 컨텐츠</dd>
+                                    </dl>
+                                </div>
+                            </a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="_3fwrlQe4sBupe2BpTldvsM">
+                <div class="_19qirUfjdWla-f5cfHOLSV">
+                    <div class="titleWrapper"><h2 class="themeTitle">테마별 채용</h2>
+                        <div class="themeBannerArrow">
+                            <button type="button"><i class="icon-arrow_left_line _33ytoIk4MI0Ea6QXxhij87"></i></button>
+                            <button type="button"><i class="icon-arrow_right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="_1_7CAZSGyA_0ZbIFbStuTd">
+                        <div class="_23eXGSSEilEw-ZUsBgguVJ" data-attribute-id="home__theme__click"
+                             data-theme-title="샌드박스네트워크(Sandbox)" data-landing-uri="/themes/sandbox"><a
+                                href="/themes/sandbox" class="">
+                            <div class="background"
+                                 style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/themes/253_5248b456.jpg&quot;);"></div>
+                            <h2>샌드박스네트워크(Sandbox)</h2><h5>크리에이터의 상상력으로 세상 모두를 즐겁게!</h5></a>
+                            <div class="logo-list">
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.c97f43ba.jpg&quot;);"></div>
+                            </div>
+                        </div>
+                        <div class="_23eXGSSEilEw-ZUsBgguVJ" data-attribute-id="home__theme__click"
+                             data-theme-title="최고의 복지는 연봉" data-landing-uri="/themes/5salary"><a href="/themes/5salary"
+                                                                                                 class="">
+                            <div class="background"
+                                 style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/themes/205_0ba71e99.jpg&quot;);"></div>
+                            <h2>최고의 복지는 연봉</h2><h5>연봉 상위 5% 이상 기업을 소개합니다.</h5></a>
+                            <div class="logo-list">
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.203e397a.jpg&quot;);"></div>
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_f3a7377b-5947-4038-8c49-44f0ab490510.jpg&quot;);"></div>
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.ce4fd8b1.jpg&quot;);"></div>
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.18dfe4ff.jpg&quot;);"></div>
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.8e46863d.jpg&quot;);"></div>
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.08d68061.jpg&quot;);"></div>
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_78fff022-d780-4646-9365-d82bf31f64b8.jpg&quot;);"></div>
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_465f0a8c-3b5b-4004-be0b-13f3c1c08200.jpg&quot;);"></div>
+                                <div class="logo"
+                                     style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.ee7896df.jpg&quot;);"></div>
+                                <a href="/themes/5salary" class="more-company"><span>+8</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="_2b9xceLAX08cP2v-PXUFhy">
+                <div class="V5hO6ZNtghfPyvqmsP6NX"><h2 class="wBIF1shLjklXsBqHcR0f4">금주의 추천</h2></div>
+                <div class="_1DPyMq6MHTj43gZ2KFduy9">
+                    <ul data-cy="job-list" class="clearfix">
+                        <li>
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/48422?referer_id=99049"
+                                                                                       class=""
+                                                                                       data-attribute-id="position__click"
+                                                                                       data-job-category-id="530"
+                                                                                       data-company-id="4475"
+                                                                                       data-company-name="누리미디어(DBpia)"
+                                                                                       data-position-id="48422"
+                                                                                       data-position-name="학회 솔루션 운영관리"
+                                                                                       data-response-level="very_high"
+                                                                                       data-response-rate="97.8"
+                                                                                       data-ai-score=""
+                                                                                       data-domain="recommend">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/4475/hmsrk4ngw9kpk6xk__400_400.jpg&quot;);">
+                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
+                                            data-job-category-id="530" data-company-id="4475"
+                                            data-company-name="누리미디어(DBpia)" data-position-id="48422"
+                                            data-position-name="학회 솔루션 운영관리" data-kind="add"><i
+                                            class="icon-ic_favorite_black_24px"></i>3
+                                    </button>
+                                </header>
+                                <div class="body">
+                                    <div class="job-card-position">학회 솔루션 운영관리</div>
+                                    <div class="job-card-company-name">누리미디어(DBpia)</div>
+                                    <div class="uCH6-XdM6YRUS1sAs0rJi">
+                                        <button class="_3eFmUgRBWc1IDsJs3FuqLj" type="button">
+                                            <div class="_1hsM_0aCJmu4TaTEB-Z4TB _3KU5ZWhZ_cPnB6GR99ASfT">
+                                                <span>응답률 매우 높음</span></div>
+                                            <div class="_2svtWByZl5S4XnE27cAWkV">지원 후 응답받을 확률이 95% 이상입니다.</div>
+                                        </button>
+                                    </div>
+                                    <div class="job-card-company-location">서울<span
+                                            class="addressDot">.</span><span>한국</span></div>
+                                    <div class="reward">채용보상금 1,000,000원</div>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/48531?referer_id=99049"
+                                                                                       class=""
+                                                                                       data-attribute-id="position__click"
+                                                                                       data-job-category-id="518"
+                                                                                       data-company-id="15040"
+                                                                                       data-company-name="태니지먼트랩"
+                                                                                       data-position-id="48531"
+                                                                                       data-position-name="IT개발 총괄책임자 CTO"
+                                                                                       data-response-level="high"
+                                                                                       data-response-rate="93.7"
+                                                                                       data-ai-score=""
+                                                                                       data-domain="recommend">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/15040/zwax3b3wxbv2f7tr__400_400.jpg&quot;);">
+                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
+                                            data-job-category-id="518" data-company-id="15040"
+                                            data-company-name="태니지먼트랩" data-position-id="48531"
+                                            data-position-name="IT개발 총괄책임자 CTO" data-kind="add"><i
+                                            class="icon-ic_favorite_black_24px"></i>1
+                                    </button>
+                                </header>
+                                <div class="body">
+                                    <div class="job-card-position">IT개발 총괄책임자 CTO</div>
+                                    <div class="job-card-company-name">태니지먼트랩</div>
+                                    <div class="job-card-company-location">서울<span
+                                            class="addressDot">.</span><span>한국</span></div>
+                                    <div class="reward">채용보상금 1,000,000원</div>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/48508?referer_id=99049"
+                                                                                       class=""
+                                                                                       data-attribute-id="position__click"
+                                                                                       data-job-category-id="518"
+                                                                                       data-company-id="1257"
+                                                                                       data-company-name="머니브레인"
+                                                                                       data-position-id="48508"
+                                                                                       data-position-name="[인공지능 기업] 풀스택 개발자 (팀장급)"
+                                                                                       data-response-level="very_high"
+                                                                                       data-response-rate="100"
+                                                                                       data-ai-score=""
+                                                                                       data-domain="recommend">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/1257/k6ge4hg47yyg9te6__400_400.jpg&quot;);">
+                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
+                                            data-job-category-id="518" data-company-id="1257" data-company-name="머니브레인"
+                                            data-position-id="48508" data-position-name="[인공지능 기업] 풀스택 개발자 (팀장급)"
+                                            data-kind="add"><i class="icon-ic_favorite_black_24px"></i>0
+                                    </button>
+                                </header>
+                                <div class="body">
+                                    <div class="job-card-position">[인공지능 기업] 풀스택 개발자 (팀장급)</div>
+                                    <div class="job-card-company-name">머니브레인</div>
+                                    <div class="uCH6-XdM6YRUS1sAs0rJi">
+                                        <button class="_3eFmUgRBWc1IDsJs3FuqLj" type="button">
+                                            <div class="_1hsM_0aCJmu4TaTEB-Z4TB _3KU5ZWhZ_cPnB6GR99ASfT">
+                                                <span>응답률 매우 높음</span></div>
+                                            <div class="_2svtWByZl5S4XnE27cAWkV">지원 후 응답받을 확률이 95% 이상입니다.</div>
+                                        </button>
+                                    </div>
+                                    <div class="job-card-company-location">서울<span
+                                            class="addressDot">.</span><span>한국</span></div>
+                                    <div class="reward">채용보상금 1,000,000원</div>
+                                </div>
+                            </a></div>
+                        </li>
+                        <li>
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/48212?referer_id=99049"
+                                                                                       class=""
+                                                                                       data-attribute-id="position__click"
+                                                                                       data-job-category-id="518"
+                                                                                       data-company-id="9353"
+                                                                                       data-company-name="아티언스"
+                                                                                       data-position-id="48212"
+                                                                                       data-position-name="광고 서버(Bigdata) 개발자"
+                                                                                       data-response-level="normal"
+                                                                                       data-response-rate="81.3"
+                                                                                       data-ai-score=""
+                                                                                       data-domain="recommend">
+                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/9353/vyonmo9dpgqu9kyw__400_400.jpg&quot;);">
+                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
+                                            data-job-category-id="518" data-company-id="9353" data-company-name="아티언스"
+                                            data-position-id="48212" data-position-name="광고 서버(Bigdata) 개발자"
+                                            data-kind="add"><i class="icon-ic_favorite_black_24px"></i>0
+                                    </button>
+                                </header>
+                                <div class="body">
+                                    <div class="job-card-position">광고 서버(Bigdata) 개발자</div>
+                                    <div class="job-card-company-name">아티언스</div>
+                                    <div class="job-card-company-location">서울<span
+                                            class="addressDot">.</span><span>한국</span></div>
+                                    <div class="reward">채용보상금 1,000,000원</div>
+                                </div>
+                            </a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <footer class="_27_3GjB7yHXjZPfXE5Do-I">
+                <div class="_30sxjSibzCvCDB5OduTDL2">
+                    <div class="_31mZq145QH5Tr7qFOdlgrz ">
+                        <div class="BR_KtsDqOtTp1-yiIVAd1"><img
+                                src="https://s3.ap-northeast-2.amazonaws.com/static.wanted.co.kr/images/logo_wanted.png"
+                                alt="" width="100"></div>
+                        <div class="GHLOcY6gAVfdAJ1aRxk-o">
+                            <div><span data-attribute-id="fnb" data-fnb-kind="termsOfUse"><a
+                                    href="https://help.wanted.co.kr/hc/ko/articles/360035844551" target="_blank"
+                                    class="">이용약관</a></span></div>
+                            <div><span data-attribute-id="fnb" data-fnb-kind="privacyPolicy"><a
+                                    href="https://www.wanted.co.kr/privacy" target="_blank"
+                                    class="">개인정보 처리방침</a></span><span data-attribute-id="fnb" data-fnb-kind="FAQ"><a
+                                    href="https://help.wanted.co.kr/hc/ko/" target="_blank" class="">고객센터</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="_1szcV92yXMwsg29wqUAsg-"><img class="countryIcon"
+                                                              src="https://s3.ap-northeast-2.amazonaws.com/wanted-public/ico_KR.svg"
+                                                              alt="country flag KR"><select>
+                        <option value="KR">한국 (한국어)</option>
+                        <option value="JP">日本 (日本語)</option>
+                        <option value="TW">台灣 (繁體中文)</option>
+                        <option value="WW">Worldwide (English)</option>
+                        <option value="HK">Hong Kong (English)</option>
+                        <option value="SG">Singapore (English)</option>
+                    </select><i class="icon-arrow_bottom_fill"></i></div>
+                </div>
+                <div class="_30sxjSibzCvCDB5OduTDL2"><p class="_3fovlClfXdF-O6JVLMpk5F">(주)원티드랩 (대표이사:이복기) | 서울특별시 송파구
+                    올림픽로 300 | 통신판매번호 : 2016-서울강남-00207<br>
+                    유료직업소개사업등록번호 : (국내) 제2016-3220163-14-5-00001호 | (국외) F1201020170005 | 사업자등록번호 : 299-86-00021<br>
+                    © Wantedlab, Inc.</p></div>
+            </footer>
+        </div>
+        <div class="Wfn-nDehMEQjfSy9M_uws"><span class="icon"><i class="icon-check"></i></span></div>
+        <div id="app">
+            <main class="App-iEDHGk UeTOO" data-reactid=".0">
+                <div data-reactid=".0.0">
+                    <div data-reactid=".0.0.0">
+                        <noscript data-reactid=".0.0.0.0"></noscript>
+                        <div class="Notice-iRWNro bdALza" data-reactid=".0.0.0.1"><span class="icon"
+                                                                                        data-reactid=".0.0.0.1.0"><i
+                                class="icon-check" data-reactid=".0.0.0.1.0.0"></i></span></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="modal"></div>
+    </div>
+    <script>window.FEATURES = {
+        "profile_matchup_banner": false,
+        "dashboard_welcome_jp": false,
+        "change_country": true,
+        "event": true,
+        "introduction": true,
+        "without_ww": true,
+        "only_sg": false,
+        "matching": true,
+        "only_hk": false,
+        "black": true,
+        "popular_jobs": true,
+        "request_reward": true,
+        "resume_write": true,
+        "resume": true,
+        "jd_rule": true,
+        "faq": true,
+        "dashboard_matchup_topbanner": true,
+        "facebook": true,
+        "dashboard_email_preview": true,
+        "news": true,
+        "dashboard_welcome_kr": true,
+        "salary": true,
+        "only_kr": true,
+        "except_jp": true,
+        "contract": true,
+        "advertising": true,
+        "only_tw": false,
+        "matchup": true,
+        "dashboard_b2b": true
+    }</script>
+</div>
+
+</body>
+</html>

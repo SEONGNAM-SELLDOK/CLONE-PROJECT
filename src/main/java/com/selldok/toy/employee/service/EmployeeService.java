@@ -31,8 +31,8 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
     private final PersonInfoRepository personInfoRepository;
 
-    public Employee get(Long id) {
-        return employeeRepository.findById(id).orElseThrow();
+    public Optional<Employee> get(Long id) {
+        return employeeRepository.findById(id);
     }
 
     public void insert(InsertEmployeeRequest request) {
@@ -87,5 +87,10 @@ public class EmployeeService {
 
             personInfoRepository.save(personInfo);
         });
+    }
+
+    public Employee insert(String name, String email, String url) {
+        Employee employee = new Employee(name, email, "");
+        return employeeRepository.save(employee);
     }
 }

@@ -21,6 +21,9 @@ spring:
   mvc:
     view:
       suffix: .html
+  thymeleaf:
+    cache: false
+
 mybatis:
   type-aliases-package: com.selldok.toy.mapper
   mapper-locations: mybatis/mapper/**/*.xml

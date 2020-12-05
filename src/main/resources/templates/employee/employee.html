@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Selldok-toy</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/employee.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
 <body>
+<script>
+    function myInfoPage(userId){
+        location.href='/employees/view/' + userId;
+    }
+</script>
 <div id="app">
     <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
@@ -42,13 +49,14 @@
                             <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
                                     class="icon-bell"></i></button>
                         </li>
-                        <li class="smMoreVisible">
+                        <li class="smMoreVisible" style="padding-top:5px;">
                             <button type="button"
-                                    style="background-image: url(&quot;https://graph.facebook.com/1297123307013957/picture?height=300&amp;width=300&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);"
-                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"></button>
+                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
                         </li>
-                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"><a
-                                class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;"><a
+                                class="dashboardButton" href="/">기업 서비스</a></li>
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
                                     class="icon-menu"></i></button>
@@ -110,17 +118,17 @@
                 <header class="Aside-header">
                     <div class="Aside-avatar">
                         <div class="Aside-avatar_image"
-                             style="background-image: url(&quot;https://graph.facebook.com/1297123307013957/picture?height=300&amp;width=300&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);">
+                             th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'">
                             <div class="_1RDFX7ZROHIIPqPMgmtS2E"><input type="file" accept="image/*"><i
                                     class="icon-camera_icon" role="presentation"></i></div>
                         </div>
                     </div>
                     <div class="Aside-me">
-                        <div class="Aside-me_name">정인철</div>
-                        <div class="Aside-me_email">bluesky761@naver.com</div>
-                        <div class="Aside-me_tel">010-6679-6096</div>
+                        <div class="Aside-me_name" th:text="${employee.info.name}"></div>
+                        <div class="Aside-me_email" th:text="${employee.info.email}"></div>
+                        <div class="Aside-me_tel" th:text="${employee.info.phoneNumber}"></div>
                     </div>
-                    <a href="/profile/matching?level=1" class="Aside-edit">기본정보 수정</a></header>
+                    <a th:href="@{'/employees/basicinfo/' + ${#authentication.id}}" class="Aside-edit">기본정보 수정</a></header>
                 <div class="MatchUpStatus _s0V-DmOyFivCW3HY7Nh3 is-disabled"><a
                         href="/profile/status?type=matchup-likes"
                         class="MatchUpStatus-item disabled"><span
@@ -162,105 +170,159 @@
                                     <div class="_1hQHY2MOttuKGMBqDe_htT">
                                         <div class="Static-label">학교</div>
                                         <div class="Static-body">
-                                            <div class="_19vX-16wSMhdZ9PHWSu9fr"><span
-                                                    class="ResumeEntry-major">명지대학교</span><span
-                                                    class="ResumeEntry-minor">컴퓨터공학과</span>
+                                            <div class="_19vX-16wSMhdZ9PHWSu9fr">
+                                                <input id="schoolName" class="selldock_input_schoolName" type="text"
+                                                       autocomplete="off"
+                                                       th:value="*{employee.personInfo.school?.schoolName}">
+                                                <input id="department" class="selldock_input_department" type="text"
+                                                       autocomplete="off"
+                                                       th:value="*{employee.personInfo.school?.department}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="_1hQHY2MOttuKGMBqDe_htT">
                                         <div class="Static-label">직장</div>
                                         <div class="Static-body">
-                                            <div class="_19vX-16wSMhdZ9PHWSu9fr"><span class="ResumeEntry-major">셀독 컴퍼니(Selldok)</span><span
-                                                    class="ResumeEntry-minor">백엔드 개발팀/대리</span></div>
+                                            <div class="_19vX-16wSMhdZ9PHWSu9fr">
+                                                <input id="companyName" class="selldock_input_companyName" type="text"
+                                                       autocomplete="off"
+                                                       th:value="*{employee.personInfo.company?.companyName}">
+                                                <input id="position" class="selldock_input_position" type="text"
+                                                       autocomplete="off"
+                                                       th:value="*{employee.personInfo.company?.position}">
+                                                <input id="rank" class="selldock_input_rank" type="text"
+                                                       autocomplete="off"
+                                                       th:value="*{employee.personInfo.company?.rank}">
+                                            </div>
                                         </div>
+                                        <a href="/cv/648412?from=profile" class="MainResume-edit"
+                                           data-attribute-id="profile__completeProfile"><i class="icon-edit"
+                                                                                           style="font-size: 28px;"></i></a>
                                     </div>
-                                    <a href="/cv/648412?from=profile" class="MainResume-edit"
-                                       data-attribute-id="profile__completeProfile"><i class="icon-edit"
-                                                                                       style="font-size: 28px;"></i></a>
-                                </div>
-                                <div class="MainResume-about">안녕하세요. 5년차 서버 개발자 입니다.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi _3ZoHfZyrHiWR9JdVIgtNxq">
-                        <header class="Form-header">
-                            <dl class="Form-title">
-                                <dt>전문분야 설정</dt>
-                            </dl>
-                        </header>
-                        <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
-                            <div class="FormBlock-content content">
-                                <div class="EnterInterestArea-fieldset">
-                                    <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                        <div class="Static-label">직군</div>
-                                        <div class="Static-body">개발</div>
-                                    </div>
-                                    <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                        <div class="Static-label">직무</div>
-                                        <div class="Static-body">자바 개발자, 서버 개발자, 웹 개발자</div>
-                                    </div>
-                                    <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                        <div class="Static-label">경력</div>
-                                        <div class="Static-body">5 년</div>
-                                    </div>
-                                    <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                        <div class="Static-label">스킬</div>
-                                        <div class="Static-body">Github, VueJS, B2B, Git, Spring Framework, JavaScript,
-                                            CSS,
-                                            AngularJS
-                                        </div>
-                                    </div>
-                                    <a href="/profile/matching?level=2&amp;step=1&amp;modi=true"
-                                       class="EnterInterestArea-edit" data-attribute-id="profile__changeInterest"><i
-                                            class="icon-edit" style="font-size: 28px;"></i></a></div>
-                            </div>
-                        </div>
-                        <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
-                            <div class="FormBlock-content content">
-                                <div class="_1EAHl8ELPU2wXBt1lTk3dJ">
-                                    <div class="FormButton _3I5bkI50gryaER31Iu7b4E"><h6 class="FormButton-label">추천인
-                                        선택</h6>
-                                        <button type="button" class="FormButton-button">선택하기<i
-                                                class="icon-arrow_right"></i>
-                                        </button>
-                                    </div>
-                                    <div class="FormButton _3I5bkI50gryaER31Iu7b4E selected"><h6
-                                            class="FormButton-label">
-                                        제외기업설정</h6>
-                                        <button type="button" class="FormButton-button">마마 컴퍼니<i
-                                                class="icon-arrow_right"></i></button>
-                                    </div>
-                                    <div class="InputGroup S_Q_6_Q0Z4g7wQdTbQh7e _3VqhswPaKoJ1nTQbYROm0N"><h6
-                                            class="InputGroup-label">구직 여부 설정</h6>
-                                        <div class="InputGroup-body">
-                                            <div class="JobSearchIntentionSelector-wrapper red"><select
-                                                    class="JobSearchIntentionSelector-select red">
-                                                <option value="NOW">현재 구직 중</option>
-                                                <option value="INTEREST">관심 있음</option>
-                                                <option value="NO">전혀 관심 없음</option>
-                                            </select></div>
-                                            <span class="JobSearchIntentionSelector-status">이력서 비공개</span></div>
-                                    </div>
+                                    <div class="MainResume-about">안녕하세요. 5년차 서버 개발자 입니다.</div>
                                 </div>
                             </div>
                         </div>
+                        <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi _3ZoHfZyrHiWR9JdVIgtNxq">
+                            <header class="Form-header">
+                                <dl class="Form-title">
+                                    <dt>전문분야 설정</dt>
+                                </dl>
+                            </header>
+                            <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                                <div class="FormBlock-content content">
+                                    <div class="EnterInterestArea-fieldset">
+                                        <div class="_1hQHY2MOttuKGMBqDe_htT">
+                                            <div class="Static-label">직군</div>
+                                            <input id="occupation" class="selldock_input_occupation" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.expertise?.occupation}">
+                                        </div>
+                                        <div class="_1hQHY2MOttuKGMBqDe_htT">
+                                            <div class="Static-label">직무</div>
+                                            <input id="task" class="selldock_input_task" type="text" autocomplete="off"
+                                                   th:value="*{employee.personInfo.expertise?.task}">
+                                        </div>
+                                        <div class="_1hQHY2MOttuKGMBqDe_htT">
+                                            <div class="Static-label">경력</div>
+                                            <input id="carrer" class="selldock_input_carrer" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.expertise?.carrer}">
+                                        </div>
+                                        <div class="_1hQHY2MOttuKGMBqDe_htT">
+                                            <div class="Static-label">스킬</div>
+                                            <textarea id="skills" class="selldock_input_skills" type="text"
+                                                      autocomplete="off"
+                                                      th:value="*{employee.personInfo.expertise?.skills}"></textarea>
+                                        </div>
+                                        <a href="/profile/matching?level=2&amp;step=1&amp;modi=true"
+                                           class="EnterInterestArea-edit" data-attribute-id="profile__changeInterest"><i
+                                                class="icon-edit" style="font-size: 28px;"></i></a></div>
+                                </div>
+                            </div>
+                            <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                                <div class="FormBlock-content content">
+                                    <div class="_1EAHl8ELPU2wXBt1lTk3dJ">
+                                        <div class="FormButton _3I5bkI50gryaER31Iu7b4E"><h6 class="FormButton-label">추천인
+                                            선택</h6>
+                                            <button type="button" class="FormButton-button">선택하기<i
+                                                    class="icon-arrow_right"></i>
+                                            </button>
+                                        </div>
+                                        <div class="FormButton _3I5bkI50gryaER31Iu7b4E selected"><h6
+                                                class="FormButton-label">
+                                            제외기업설정</h6>
+                                            <button type="button" class="FormButton-button">마마 컴퍼니<i
+                                                    class="icon-arrow_right"></i></button>
+                                        </div>
+                                        <div class="InputGroup S_Q_6_Q0Z4g7wQdTbQh7e _3VqhswPaKoJ1nTQbYROm0N"><h6
+                                                class="InputGroup-label">구직 여부 설정</h6>
+                                            <div class="InputGroup-body">
+                                                <div class="JobSearchIntentionSelector-wrapper red"><select
+                                                        class="JobSearchIntentionSelector-select red">
+                                                    <option value="NOW">현재 구직 중</option>
+                                                    <option value="INTEREST">관심 있음</option>
+                                                    <option value="NO">전혀 관심 없음</option>
+                                                </select></div>
+                                                <span class="JobSearchIntentionSelector-status">이력서 비공개</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="FormFooter _3MqXvmRsKlYS61B7NaqHUC isChild">
+                                <button type="button" class="BasicInformation-submit" data-attribute-id="profile__next"
+                                        data-step="1">확인
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <input type="hidden" class="selldock_input_id" th:value="*{employee.id}">
             </section>
         </div>
     </div>
-
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    new Vue({
-        el: "#app",
-        data: {
-            message: "Welcome Employee Page!!"
-        }
-    });
+    $('.BasicInformation-submit').click(function () {
+        $.ajax({
+            url: 'http://localhost:8080/employees/profile/' + $('.selldock_input_id').val(),
+            type: 'put',
+            data: JSON.stringify({
+                "resume": "이력서 기본.docs",
+                "school": {
+                    "schoolName": $('.selldock_input_schoolName').val(),
+                    "department": $('.selldock_input_department').val()
+                },
+                "company": {
+                    "companyName": $('.selldock_input_companyName').val(),
+                    "position": $('.selldock_input_position').val(),
+                    "rank": $('.selldock_input_rank').val()
+                },
+                "expertise": {
+                    "occupation": $('.selldock_input_occupation').val(),
+                    "task": $('.selldock_input_task').val(),
+                    "carrer": $('.selldock_input_carrer').val(),
+                    "skills": $('.selldock_input_skills').val()
+                }
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            statusCode: {
+                200: function () {
+                    console.log("200 Success!");
+                },
+                202: function () {
+                    alert("infomation saved successfully");
+                    location.href = '/employees/view/' + $('.selldock_input_id').val();
+                },
+                403: function () {
+                    console.log("403 Error!");
+                },
+                404: function () {
+                    console.log("404 Error!");
+                }
+            }
+        })
+    })
 </script>
 </body>
 </html>
