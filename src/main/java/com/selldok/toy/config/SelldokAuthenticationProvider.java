@@ -33,7 +33,7 @@ public class SelldokAuthenticationProvider implements AuthenticationProvider {
         String accessToken = token.getPrincipal().toString();
         FaceBookTokenResponse response = authService.validateToken(accessToken);
 
-        Optional<Employee> optionalEmployee = authService.checkUserInfo(response.getEmail());
+        Optional<Employee> optionalEmployee = authService.findUserInfoByEmail(response.getEmail());
         ROLE currentRole = optionalEmployee.isPresent() ? ROLE.REGULAR : ROLE.BASIC;
         final Employee employee = optionalEmployee.orElseGet(() -> employeeService.insert(response.getName(),
                                                                                           response.getEmail(),

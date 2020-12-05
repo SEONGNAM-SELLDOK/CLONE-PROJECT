@@ -25,7 +25,7 @@ public class AuthService {
 
     private RestTemplate restTemplate;
 
-    public Optional<Employee> checkUserInfo(String email) {
+    public Optional<Employee> findUserInfoByEmail(String email) {
         return employeeRepository.findByInfoEmail(email);
     }
 

@@ -57,7 +57,7 @@
                                         class="icon-bell"></i></button>
                             </li>
                             <li sec:authorize="isAnonymous()">
-                                <button class="signUpButton" type="button" data-attribute-id="gnb" data-gnb-kind="signupLogin">회원가입/로그인</button>
+                                <button class="signUpButton" type="button" data-attribute-id="gnb" data-gnb-kind="signupLogin" onclick="location.href='/auth/view'">회원가입/로그인</button>
                             </li>
                             <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px" >
                                 <button type="button"

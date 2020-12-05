@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Optional;
+
 /**
  * @author Incheol Jung
  */
@@ -34,15 +36,20 @@ public class EmployeeController {
     @GetMapping("view/{id}")
     public String getEmployeeView(@PathVariable("id") Long id, Model model) {
         EmployeeProfileResponse response = employeeService.getProfile(id);
-        model.addAttribute("employee",response);
+        model.addAttribute("employee", response);
         return "employee/employee";
     }
 
     @GetMapping("basicinfo/{id}")
     public String getBasicInfoView(@PathVariable("id") Long id, Model model) {
-        Employee employee = employeeService.get(id);
-        model.addAttribute("employee",employee);
-        return "employee/basicinfo";
+        Optional<Employee> employee = employeeService.get(id);
+
+        if(employee.isPresent()){
+            model.addAttribute("employee", employee.get());
+            return "employee/basicinfo";
+        }else {
+            return "/login/login";
+        }
     }
 
     @GetMapping("{id}")

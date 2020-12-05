@@ -31,8 +31,8 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
     private final PersonInfoRepository personInfoRepository;
 
-    public Employee get(Long id) {
-        return employeeRepository.findById(id).orElseThrow();
+    public Optional<Employee> get(Long id) {
+        return employeeRepository.findById(id);
     }
 
     public void insert(InsertEmployeeRequest request) {
