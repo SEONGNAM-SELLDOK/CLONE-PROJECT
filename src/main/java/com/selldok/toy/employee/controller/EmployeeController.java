@@ -1,6 +1,5 @@
 package com.selldok.toy.employee.controller;
 
-import com.selldok.toy.employee.entity.BasicInfo;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.EmployeeProfileResponse;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
@@ -32,8 +31,10 @@ public class EmployeeController {
 
     public EmployeeController(EmployeeService employeeService) {this.employeeService = employeeService;}
 
-    @GetMapping("view")
-    public String getEmployeeView() {
+    @GetMapping("view/{id}")
+    public String getEmployeeView(@PathVariable("id") Long id, Model model) {
+        EmployeeProfileResponse response = employeeService.getProfile(id);
+        model.addAttribute("employee",response);
         return "employee/employee";
     }
 

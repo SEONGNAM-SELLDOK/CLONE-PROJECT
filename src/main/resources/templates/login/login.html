@@ -78,7 +78,7 @@
                 dataType: 'json',
                 success: function (authResponse) {
                     if (authResponse) {
-                        location.href = '/employees/basicinfo/' + authResponse.id;
+                        location.href = '/employees/view/' + authResponse.id;
                     } else {
                         location.href = '/';
                     }

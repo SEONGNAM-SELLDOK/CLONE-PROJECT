@@ -6,9 +6,16 @@
     <title>Selldok-toy</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="http://static.wanted.co.kr/vendor/slick.css">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+<script>
+    function myInfoPage(userId){
+        location.href='/employees/view/' + userId;
+    }
+</script>
 <div id="__next">
     <div>
         <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
@@ -55,7 +62,7 @@
                             <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px" >
                                 <button type="button"
                                         th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
-                                        data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
+                                        data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"
                                         data-badge="false"></button>
                             </li>
                             <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers" style="padding-top:10px"><a
@@ -1264,19 +1271,6 @@
                                                                                         data-reactid=".0.0.0.1.0"><i
                                 class="icon-check" data-reactid=".0.0.0.1.0.0"></i></span></div>
                     </div>
-                </div>
-                <div class="Box-cwadsP iKzpWM" data-reactid=".0.2">
-                    <div width="40" class="Content-zwkXZ dzZUIS" data-reactid=".0.2.0">
-                        <div class="Div-hTZHGu fEVoGZ" data-reactid=".0.2.0.$/=11"><p
-                                class="Confirm__ConfirmMessage-fNOBqL cHGGot" data-reactid=".0.2.0.$/=11.0"></p></div>
-                        <div class="Div-hTZHGu dXKeOh" data-reactid=".0.2.0.$/=12">
-                            <button color="#B5B5B5" class="Button-kDSBcD euVYDA" data-reactid=".0.2.0.$/=12.0">닫기
-                            </button>
-                            <button color="#258BF7" class="Button-kDSBcD iocZoc" data-reactid=".0.2.0.$/=12.1">확인
-                            </button>
-                        </div>
-                    </div>
-                    <div class="Overlay-iWuiZb gMLFic" data-reactid=".0.2.3"></div>
                 </div>
             </main>
         </div>
