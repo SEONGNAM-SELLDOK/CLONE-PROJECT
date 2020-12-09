@@ -43,3 +43,4 @@ logging:
     jdbc.sqlonly: DEBUG
     org.springframework.web: DEBUG
     com.zaxxer.hikari.HikariDataSource: ERROR
+    
