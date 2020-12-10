@@ -1,13 +1,21 @@
 package com.selldok.toy.event.controller;
 
-import com.selldok.toy.employee.entity.Employee;
+import com.selldok.toy.event.entity.Event;
 import com.selldok.toy.event.model.InsertEventRequest;
 import com.selldok.toy.event.model.UpdateEventRequest;
 import com.selldok.toy.event.service.EventService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -23,9 +31,14 @@ public class EventController {
         this.eventService = eventService;
     }
 
+    @GetMapping("edit/{id}")
+    public String editPage(@PathVariable("id") Long id) {
+        return "event/eventedit";
+    }
+
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<List<Employee>> get(@PathVariable("id") Long id) {
+    public ResponseEntity<List<Event>> get(@PathVariable("id") Long id) {
         return new ResponseEntity(eventService.getList(id), HttpStatus.OK);
     }
 
