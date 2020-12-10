@@ -64,11 +64,10 @@ public class EmployeeService {
         Optional<Employee> employee = employeeRepository.findById(id);
 
         employee.ifPresent(existingEmployee -> {
-            Optional<PersonInfo> optionalPersonInfo = personInfoRepository.findByEmployeeId(existingEmployee.getId());
-            PersonInfo personInfo = new PersonInfo();
-            optionalPersonInfo.ifPresent(existingPersonInfo -> personInfo.setId(existingEmployee.getId()));
+            PersonInfo personInfo = personInfoRepository.findByEmployeeId(existingEmployee.getId()).orElseGet(PersonInfo::new);
 
             personInfo.setResume(request.getResume());
+            personInfo.setEmployeeId(id);
             personInfo.setCompany(Company.builder()
                                          .companyName(request.getCompany().getCompanyName())
                                          .position(request.getCompany().getPosition())

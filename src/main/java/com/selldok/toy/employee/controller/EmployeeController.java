@@ -37,17 +37,17 @@ public class EmployeeController {
     public String getEmployeeView(@PathVariable("id") Long id, Model model) {
         EmployeeProfileResponse response = employeeService.getProfile(id);
         model.addAttribute("employee", response);
-        return "employee/employee";
+        return response == null ? "/login/login" : "employee/employee";
     }
 
     @GetMapping("basicinfo/{id}")
     public String getBasicInfoView(@PathVariable("id") Long id, Model model) {
         Optional<Employee> employee = employeeService.get(id);
 
-        if(employee.isPresent()){
+        if (employee.isPresent()) {
             model.addAttribute("employee", employee.get());
             return "employee/basicinfo";
-        }else {
+        } else {
             return "/login/login";
         }
     }
