@@ -201,15 +201,20 @@
                     </button>
                 </div>
                 <input type="hidden" class="selldock_input_id" th:value="*{#authentication.id}">
+                <input type="hidden" class="selldock_event_id" th:value="*{event?.id}">
             </div>
         </section>
     </div>
 </div>
 <script>
     $('.eventInfo-submit').click(function () {
+        const eventId = $('.selldock_event_id').val();
+        const url = eventId ? 'http://localhost:8080/event/' + eventId : 'http://localhost:8080/event/'
+        const type = eventId ? 'put' : 'post'
+
         $.ajax({
-            url: 'http://localhost:8080/event/',
-            type: 'post',
+            url: url,
+            type: type,
             data: JSON.stringify({
                 'imageLink': $('.selldock_input_imageLink').val(),
                 'type': $('.selldock_input_eventType').val(),
