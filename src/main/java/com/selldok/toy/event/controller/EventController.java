@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author HJ Lee
@@ -34,7 +35,9 @@ public class EventController {
     }
 
     @GetMapping("edit/{id}")
-    public String editPage(@PathVariable("id") Long id) {
+    public String editPage(@PathVariable("id") Long id, Model model) {
+        Optional<Event> eventOptional = eventService.findById(id);
+        model.addAttribute("event", eventOptional.orElse(null));
         return "event/eventedit";
     }
 

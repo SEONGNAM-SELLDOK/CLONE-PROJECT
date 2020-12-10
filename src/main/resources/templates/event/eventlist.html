@@ -147,16 +147,37 @@
             <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi -Pzu8KqPWyTbeWGLO7ce">
                 <header class="Form-header">
                     <dl class="Form-title">
-                        <dt>이벤트 정보 수정</dt>
-                        <dd>이벤트 관련 정보를 입력해주세요.</dd>
+                        <dt>이벤트 리스트</dt>
+                        <dd>등록한 이벤트 리스트 입니다.</dd>
                     </dl>
+                    <a href="/event/edit/0" class="ResumeWordCountWarning-button" data-attribute-id="profile__completeProfile" style="
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 167px;
+    height: 50px;
+    border-radius: 3px;
+    border: 1px solid #258bf7;
+    margin-left: 20px;
+    font-size: 16px;
+    line-height: .94;
+    font-weight: 600;
+    color: #258bf7;
+    float: right;
+">이벤트 추가하기</a>
                 </header>
                 <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
                     <ul class="VPRSDyCHiHFppMijZe2aD">
                         <li class="fP_VUVPjuQgPYE6jJLN1k" data-attribute-id="event__click" data-event-id="1031"
                             data-event-title="힙서비콘 Season 2" data-event-currency="KRW" data-event-price="10000"
                             style="--base-font-size:10;" th:each="event : ${events}">
-                            <a href="/events/hipservice2" class="">
+                            <a th:href="'/event/edit/' + ${event.id}" class="">
                                 <div>
                                     <header class=""
                                             th:style="'background-image:url(' + ${event.imageLink} + ');'"></header>

@@ -160,7 +160,7 @@
                         <label for="eventType" class="_2av-JJO4CWxQEEfPx7dOBH">
                             <h6>이벤트 종류</h6>
                             <input id="eventType" class="selldock_input_eventType" type="text" autocomplete="off"
-                                   th:value="*{event?.eventType}"></label>
+                                   th:value="*{event?.type}"></label>
                         <label for="title" class="_2av-JJO4CWxQEEfPx7dOBH">
                             <h6>이벤트 제목</h6>
                             <input id="title" class="selldock_input_title" type="text" autocomplete="off"
@@ -230,7 +230,7 @@
                 },
                 202: function () {
                     alert("infomation saved successfully");
-                    // location.href = '/employees/basicinfo/' + $('.selldock_input_id').val();
+                    // location.href = '/event/list';
                 },
                 403: function () {
                     console.log("403 Error!");

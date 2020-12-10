@@ -20,6 +20,10 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
+    public Optional<Event> findById(Long id){
+        return eventRepository.findById(id);
+    }
+
     public List<Event> getList(Long lastId) {
         return eventRepository.findByIdGreaterThanEqual(lastId);
     }
