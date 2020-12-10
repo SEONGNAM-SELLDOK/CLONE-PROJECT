@@ -61,7 +61,7 @@
                             class="dashboardButton" href="/">기업 서비스</a></li>
                     <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                         style="padding-top:10px;"><a
-                            class="dashboardButton" href="/events/view">이벤트 관리</a></li>
+                            class="dashboardButton" href="/event/list">이벤트 관리</a></li>
                     <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                         style="padding-top:10px;"><a
                             class="dashboardButton" href="/auth/logout">로그아웃</a></li>
@@ -179,7 +179,7 @@
                                    th:value="*{event?.keywords}"></label>
                         <label for="name" class="_2av-JJO4CWxQEEfPx7dOBH">
                             <h6>작성자</h6>
-                            <input id="name" disabled class="selldock_input_keywords" type="text" autocomplete="off"
+                            <input id="name" disabled class="selldock_input_name" type="text" autocomplete="off"
                                    th:value="*{#authentication.name}"></label>
                         <label for="location" class="_2av-JJO4CWxQEEfPx7dOBH">
                             <h6>이벤트 장소</h6>
@@ -196,7 +196,7 @@
                     </div>
                 </div>
                 <div class="FormFooter _3MqXvmRsKlYS61B7NaqHUC isChild">
-                    <button type="button" class="BasicInformation-submit" data-attribute-id="profile__next"
+                    <button type="button" class="eventInfo-submit" data-attribute-id="profile__next"
                             data-step="1">확인
                     </button>
                 </div>
@@ -206,14 +206,21 @@
     </div>
 </div>
 <script>
-    $('.BasicInformation-submit').click(function () {
+    $('.eventInfo-submit').click(function () {
         $.ajax({
-            url: 'http://localhost:8080/employees/' + $('.selldock_input_id').val(),
-            type: 'put',
+            url: 'http://localhost:8080/event/',
+            type: 'post',
             data: JSON.stringify({
-                'name': $('.selldock_input_name').val(),
-                'email': $('.selldock_input_email').val(),
-                'phoneNumber': $('.selldock_input_phone').val()
+                'imageLink': $('.selldock_input_imageLink').val(),
+                'type': $('.selldock_input_eventType').val(),
+                'title': $('.selldock_input_title').val(),
+                'text' : $('.selldock_input_text').val(),
+                'date' : $('.selldock_input_date').val(),
+                'keywords' : $('.selldock_input_keywords').val(),
+                'owner' : $('.selldock_input_name').val(),
+                'location' : $('.selldock_input_location').val(),
+                'isFree' : $('.selldock_input_isFree').val(),
+                'isRecommend' : $('.selldock_input_isRecommend').val()
             }),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -223,7 +230,7 @@
                 },
                 202: function () {
                     alert("infomation saved successfully");
-                    location.href = '/employees/basicinfo/' + $('.selldock_input_id').val();
+                    // location.href = '/employees/basicinfo/' + $('.selldock_input_id').val();
                 },
                 403: function () {
                     console.log("403 Error!");

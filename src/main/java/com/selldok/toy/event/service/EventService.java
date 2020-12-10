@@ -21,7 +21,7 @@ public class EventService {
     }
 
     public List<Event> getList(Long lastId) {
-        return eventRepository.findByIdLessThanEqual(lastId);
+        return eventRepository.findByIdGreaterThanEqual(lastId);
     }
 
     public void insert(InsertEventRequest request) {
