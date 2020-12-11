@@ -30716,3 +30716,46 @@ div.q7slKU2pbJfsl2c3qcFpG .InputGroup-label {
     background-color: #fff;
     border: 1px solid #d1d1d1
 }
+
+.htodO {
+    position: relative;
+    margin-bottom: 0px;
+    display: block;
+    width: 100%;
+    text-align: right;
+}
+
+.KQgEY {
+    background-color: white;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    height: 48px;
+}
+
+.cPKbkM {
+    appearance: none;
+    box-sizing: border-box;
+    resize: none;
+    color: rgb(51, 51, 51);
+    font-size: 1rem;
+    margin-bottom: 0px;
+    padding: 0.9rem 1rem;
+    border-radius: 3px;
+    border: 1px solid rgb(219, 219, 219);
+    width: 74%;
+    line-height: 1.2rem;
+    vertical-align: middle;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.htodO::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    border-top: 6px solid rgb(51, 51, 51);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
