@@ -35,7 +35,6 @@ public class CompanyService {
      * 기업 정보 등록
      * */
     public Long create(Company company) {
-        validation.validateDuplicateCompany(company); // 사업자번호 기업인증
         companyRepository.save(company);
         return company.getId();
     }

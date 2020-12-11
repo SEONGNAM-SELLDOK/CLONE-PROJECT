@@ -5,9 +5,7 @@ import com.selldok.toy.company.dao.BoardSearchCondition;
 import com.selldok.toy.company.dao.CompanyRepository;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
-import com.selldok.toy.company.model.BoardCreateRequest;
-import com.selldok.toy.company.model.BoardListResponse;
-import com.selldok.toy.company.model.BoardReadResponse;
+import com.selldok.toy.company.model.*;
 import com.selldok.toy.company.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +19,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
-import java.util.stream.Collectors;
 /**
  * @author Gogisung
  */
 @Controller
+@RequestMapping("board")
 @RequiredArgsConstructor
 @PropertySource(value = "classpath:/option.properties")
 public class BoardController {
@@ -38,38 +37,29 @@ public class BoardController {
     @Autowired
     private Environment env;
 
-    @GetMapping("/board")
+    @GetMapping
     public String getBoardView() {
-        return "work/addwanted.html";
+        return "board/add";
     }
 
-    @GetMapping("/board/read/{id}")
+    @GetMapping("read")
+    public String getBoardRead() { return "board/read"; }
+
+    @GetMapping("list")
+    public String getBoardList() { return "board/list"; }
+
+    @GetMapping("{id}")
     public ResponseEntity read(@PathVariable("id") Long id) {
-
-        List<BoardReadResponse> read = boardService.findBoard(id);
-
-        // 다른 방법이 있을까?
-        List<String> collect1 = read.stream().map(s -> s.getTitle()).collect(Collectors.toList());
-        List<String> collect = read.stream()
-                .map(s -> new Locale(env.getProperty("path.upload")) + s.getImage())
-                .collect(Collectors.toList());
-        String image = String.join(" ", collect);
-        String title = String.join(" ", collect1);
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put("title", title);
-        map.put("image", image);
-
-        return new ResponseEntity(map, HttpStatus.OK);
+        List<BoardReadResponse> boardInfo = boardService.findBoard(id);
+        return new ResponseEntity(boardInfo, HttpStatus.OK);
     }
 
-    @PostMapping("/board/add")
+    @PostMapping("add")
     public ResponseEntity create(@RequestBody BoardCreateRequest request, BindingResult result) {
         if(result.hasErrors()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         Company company = companyRepository.findById(request.getCompanyId()).get();
-        System.out.println("company = " + company);
 
         Board board = Board.builder()
                 .title(request.getTitle())
@@ -79,24 +69,36 @@ public class BoardController {
                 .company(company)
                 .build();
 
-        Long aLong = boardService.create(board);
-        return new ResponseEntity(aLong, HttpStatus.CREATED);
-    }
+        Long boardId = boardService.create(board);
 
-    @PostMapping("/board/fileUpload")
-    public ResponseEntity handleFileUpload(@RequestParam("file") MultipartFile file) {
-        String filename = boardService.saveUploadFile(file);
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put("filename", filename);
+        HashMap<String, Long> map = new HashMap<>();
+        map.put("board_id", boardId);
 
         return new ResponseEntity(map, HttpStatus.CREATED);
     }
 
+    @PutMapping("{id}")
+    @ResponseBody
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody BoardUpdateRequest request) {
+        boardService.update(id, request);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("fileUpload")
+    public ResponseEntity handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttr) {
+        String fileName = boardService.saveUploadFile(file);
+        redirectAttr.addFlashAttribute("pictures", file);
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("fileName", fileName);
+
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
     // 해당 기업이 작성한 구직 정보 게시글 List 모두 가져오기
-    @GetMapping("/board/list")
-    public ResponseEntity list(Pageable pageable) {
-        Page<BoardListResponse> boardListResponses = boardRepository.searchBoardPage(pageable);
+    @GetMapping("/boards")
+    public ResponseEntity list(BoardSearchCondition condition, Pageable pageable) {
+        Page<BoardListResponse> boardListResponses = boardRepository.searchBoard(condition, pageable);
         return new ResponseEntity(boardListResponses, HttpStatus.OK);
     }
 }

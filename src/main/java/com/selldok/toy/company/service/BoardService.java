@@ -2,8 +2,10 @@ package com.selldok.toy.company.service;
 
 import com.selldok.toy.company.dao.BoardRepository;
 import com.selldok.toy.company.dao.BoardSearchCondition;
+import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.model.BoardReadResponse;
+import com.selldok.toy.company.model.BoardUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * @author Gogisung
@@ -30,8 +33,8 @@ public class BoardService {
     @Autowired
     private Environment env;
 
-    public List<BoardReadResponse> findBoard(Long boardId) {
-        return boardRepository.read(boardId);
+    public List<BoardReadResponse> findBoard(Long id) {
+        return boardRepository.findByBoardId(id);
     }
 
     /**
@@ -40,6 +43,21 @@ public class BoardService {
     public Long create(Board board) {
         boardRepository.save(board);
         return board.getId();
+    }
+
+    /**
+     * 구직정보수정
+     * */
+    public void update(Long id, BoardUpdateRequest request) {
+        Optional<Board> board = boardRepository.findById(id);
+
+        board.ifPresent(existingCompany -> {
+            existingCompany.setTitle(request.getTitle());
+            existingCompany.setContent(request.getContent());
+            existingCompany.setImage(request.getImage());
+            existingCompany.setEndDate(request.getEndDate());
+            boardRepository.save(existingCompany);
+        });
     }
 
     /**

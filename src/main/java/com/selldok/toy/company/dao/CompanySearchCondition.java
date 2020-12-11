@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class CompanySearchCondition {
 
-    private String name; // 기업명
+    private String companyName; // 기업명
     private String memberName; //유저명
 
 }

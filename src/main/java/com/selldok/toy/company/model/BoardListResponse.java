@@ -3,10 +3,14 @@ package com.selldok.toy.company.model;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+/**
+ * @gogisung
+ * */
 
 @Data
 @NoArgsConstructor
 public class BoardListResponse {
+    private Long id;
     private String title;
     private String image;
     private String companyName;
@@ -14,7 +18,8 @@ public class BoardListResponse {
     private String companyCity;
 
     @QueryProjection
-    public BoardListResponse(String title, String image, String companyName, String companyCountry, String companyCity) {
+    public BoardListResponse(Long id, String title, String image, String companyName, String companyCountry, String companyCity) {
+        this.id = id;
         this.title = title;
         this.image = image;
         this.companyName = companyName;

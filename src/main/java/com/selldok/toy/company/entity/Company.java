@@ -1,6 +1,5 @@
 package com.selldok.toy.company.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Company {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
     private Long id;
 
@@ -41,6 +40,10 @@ public class Company {
 
     private String businessNum; // 사업자 번호
     private String totalSales; // 매출액, 투자금액
+
+    @Enumerated(EnumType.STRING)
+    private FieldType field; // 사업분야
+
     private String employees; // 직원수
     private String info; // 회사소개
     private String email; // 대표 이메일
