@@ -1,10 +1,14 @@
 package com.selldok.toy.employee.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,4 +33,7 @@ public class Employee {
     public Employee(String name, String email, String phoneNumber) {
         this.info = BasicInfo.builder().name(name).email(email).phoneNumber(phoneNumber).build();
     }
+
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
+    private List<AppliedCompany> appliedCompanies;
 }

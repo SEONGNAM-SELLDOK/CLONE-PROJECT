@@ -1,6 +1,8 @@
 package com.selldok.toy.company.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.selldok.toy.employee.entity.AppliedCompany;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,4 +60,7 @@ public class Company {
         this.member = member;
         member.setCompany(this);
     }
+        
+    @OneToMany(mappedBy = "appliedCompany", cascade = CascadeType.ALL)
+    private List<AppliedCompany> applicants;
 }
