@@ -16,5 +16,5 @@ public class BoardCreateRequest {
     private String content; //내용
     private String image; // 썸네일 이미지
     private String endDate; // 마감일
-
+    private Long companyId;
 }

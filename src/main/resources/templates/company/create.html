@@ -194,7 +194,7 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
 
 <!-- Load required Bootstrap and BootstrapVue CSS -->
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
@@ -254,12 +254,13 @@
                  })
                   .then(res => {
                       console.log(res);
+                      window.location.href = `http://localhost:9090/board/${res.data.company_id}`;
                   })
                   .catch(error => {
                     console.log(error);
                     throw error;
                   });
-            }
+            },
         },
         data: {
             countryValue: '한국',
@@ -294,6 +295,7 @@
         }
     });
 </script>
+
 <style>
 .header {
     flex: 0 0 auto;
@@ -328,5 +330,6 @@ header span {
 }
 
 </style>
+
 </body>
 </html>
