@@ -8,6 +8,8 @@ import java.util.List;
 /**
  * @author Gogisung
  */
-public interface CompanyRepository extends JpaRepository<Company, Long> {
+
+public interface CompanyRepository extends JpaRepository<Company, Long>, CompanyRepositoryCustom {
     List<Company> findByBusinessNum(String businessNum);
+    Company findByName(String name);
 }
