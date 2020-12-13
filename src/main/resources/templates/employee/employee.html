@@ -8,8 +8,8 @@
 </head>
 <body>
 <script>
-    function myInfoPage(userId){
-        location.href='/employees/view/' + userId;
+    function myInfoPage(userId) {
+        location.href = `/employees/view/${userId}`;
     }
 </script>
 <div id="app">
@@ -52,11 +52,18 @@
                         <li class="smMoreVisible" style="padding-top:5px;">
                             <button type="button"
                                     th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
-                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
+                                    th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;"><a
                                 class="dashboardButton" href="/">기업 서비스</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;"><a
+                                class="dashboardButton" href="/event/list">이벤트 관리</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;"><a
+                                class="dashboardButton" href="/auth/logout">로그아웃</a></li>
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
                                     class="icon-menu"></i></button>
@@ -128,7 +135,8 @@
                         <div class="Aside-me_email" th:text="${employee.info.email}"></div>
                         <div class="Aside-me_tel" th:text="${employee.info.phoneNumber}"></div>
                     </div>
-                    <a th:href="@{'/employees/basicinfo/' + ${#authentication.id}}" class="Aside-edit">기본정보 수정</a></header>
+                    <a th:href="@{'/employees/basicinfo/' + ${#authentication.id}}" class="Aside-edit">기본정보 수정</a>
+                </header>
                 <div class="MatchUpStatus _s0V-DmOyFivCW3HY7Nh3 is-disabled"><a
                         href="/profile/status?type=matchup-likes"
                         class="MatchUpStatus-item disabled"><span
@@ -155,51 +163,35 @@
                         </header>
                         <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
                             <div class="FormBlock-content content">
-                                <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                    <div class="Static-label">기본 이력서 선택</div>
-                                    <div class="Static-body">
-                                        <div class="j5MfBkBHKnuB74EAGzFL">
-                                            <button type="button" class="DefaultResumeSelector-button">
-                                                <div class="NlOsfy4t2aG54dAwY-U_7 DefaultResumeSelector-resumeLang">한
-                                                </div>
-                                                <span>Incheol Jung | 개발자 정인철</span></button>
-                                        </div>
+                                <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                                    <div class="FormBlock-content content">
+                                        <label for="schoolName" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>학교</h6>
+                                            <input id="schoolName" class="selldock_input_schoolName" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.school?.schoolName}"></label>
+                                        <label for="department" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>학과</h6>
+                                            <input id="department" class="selldock_input_department" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.school?.department}"></label>
+                                        <label for="companyName" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>직장명</h6>
+                                            <input id="companyName" class="selldock_input_companyName" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.company?.companyName}"></label>
+                                        <label for="position" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>부서</h6>
+                                            <input id="position" class="selldock_input_position" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.company?.position}"></label>
+                                        <label for="rank" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>직급</h6>
+                                            <input id="rank" class="selldock_input_rank" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.company?.rank}"></label>
+                                        <br>
                                     </div>
-                                </div>
-                                <div class="MainResume-fieldset">
-                                    <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                        <div class="Static-label">학교</div>
-                                        <div class="Static-body">
-                                            <div class="_19vX-16wSMhdZ9PHWSu9fr">
-                                                <input id="schoolName" class="selldock_input_schoolName" type="text"
-                                                       autocomplete="off"
-                                                       th:value="*{employee.personInfo.school?.schoolName}">
-                                                <input id="department" class="selldock_input_department" type="text"
-                                                       autocomplete="off"
-                                                       th:value="*{employee.personInfo.school?.department}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                        <div class="Static-label">직장</div>
-                                        <div class="Static-body">
-                                            <div class="_19vX-16wSMhdZ9PHWSu9fr">
-                                                <input id="companyName" class="selldock_input_companyName" type="text"
-                                                       autocomplete="off"
-                                                       th:value="*{employee.personInfo.company?.companyName}">
-                                                <input id="position" class="selldock_input_position" type="text"
-                                                       autocomplete="off"
-                                                       th:value="*{employee.personInfo.company?.position}">
-                                                <input id="rank" class="selldock_input_rank" type="text"
-                                                       autocomplete="off"
-                                                       th:value="*{employee.personInfo.company?.rank}">
-                                            </div>
-                                        </div>
-                                        <a href="/cv/648412?from=profile" class="MainResume-edit"
-                                           data-attribute-id="profile__completeProfile"><i class="icon-edit"
-                                                                                           style="font-size: 28px;"></i></a>
-                                    </div>
-                                    <div class="MainResume-about">안녕하세요. 5년차 서버 개발자 입니다.</div>
                                 </div>
                             </div>
                         </div>
@@ -210,34 +202,38 @@
                                 </dl>
                             </header>
                             <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
-                                <div class="FormBlock-content content">
-                                    <div class="EnterInterestArea-fieldset">
-                                        <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                            <div class="Static-label">직군</div>
+                                <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                                    <div class="FormBlock-content content">
+                                        <label for="occupation" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>직군</h6>
                                             <input id="occupation" class="selldock_input_occupation" type="text"
                                                    autocomplete="off"
-                                                   th:value="*{employee.personInfo.expertise?.occupation}">
-                                        </div>
-                                        <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                            <div class="Static-label">직무</div>
-                                            <input id="task" class="selldock_input_task" type="text" autocomplete="off"
-                                                   th:value="*{employee.personInfo.expertise?.task}">
-                                        </div>
-                                        <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                            <div class="Static-label">경력</div>
-                                            <input id="carrer" class="selldock_input_carrer" type="text"
+                                                   th:value="*{employee.personInfo.expertise?.occupation}"></label>
+                                        <label for="task" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>직무</h6>
+                                            <input id="task" class="selldock_input_task" type="text"
                                                    autocomplete="off"
-                                                   th:value="*{employee.personInfo.expertise?.carrer}">
-                                        </div>
-                                        <div class="_1hQHY2MOttuKGMBqDe_htT">
-                                            <div class="Static-label">스킬</div>
+                                                   th:value="*{employee.personInfo.expertise?.task}"></label>
+                                        <label for="carrer" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>경력</h6>
+                                            <input id="carrer" class="selldock_input_carrer" type="number"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.expertise?.carrer}"></label>
+                                        <label for="skills" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>스킬</h6>
                                             <textarea id="skills" class="selldock_input_skills" type="text"
                                                       autocomplete="off"
-                                                      th:value="*{employee.personInfo.expertise?.skills}"></textarea>
-                                        </div>
-                                        <a href="/profile/matching?level=2&amp;step=1&amp;modi=true"
-                                           class="EnterInterestArea-edit" data-attribute-id="profile__changeInterest"><i
-                                                class="icon-edit" style="font-size: 28px;"></i></a></div>
+                                                      th:value="*{employee.personInfo.expertise?.skills}" style="
+                                                            width: calc(100% - 150px);
+                                                            padding: 12px 0;
+                                                            margin-left: 150px;
+                                                            color: #333;
+                                                            font-size: 16px;
+                                                            font-weight: 400;
+                                                            border-bottom: 1px solid #e1e2e3;
+                                                            padding:12px;
+                                                        "></textarea></label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">

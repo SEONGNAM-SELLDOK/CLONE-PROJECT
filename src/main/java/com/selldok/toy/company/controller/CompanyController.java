@@ -1,11 +1,17 @@
 package com.selldok.toy.company.controller;
 
+import com.selldok.toy.company.dao.CompanyRepository;
+import com.selldok.toy.company.dao.CompanySearchCondition;
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.CompanyCreateRequest;
+import com.selldok.toy.company.model.CompanyListResponse;
+import com.selldok.toy.company.model.CompanyProfileResponse;
 import com.selldok.toy.company.model.CompanyUpdateRequest;
 import com.selldok.toy.company.service.CompanyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 /**
  * @author Gogisung
@@ -22,11 +29,15 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public class CompanyController {
     private final CompanyService companyService;
+    private final CompanyRepository companyRepository;
 
     @GetMapping("/company/create")
-    public String getCompanyView(){
+    public String getCompanyCreate() {
         return "company/create.html";
     }
+
+//    @GetMapping("/company/list")
+//    public String getCompanyList() { return "company/list.html"; }
 
     @PostMapping("/company") //기업 서비스 가입
     @ResponseBody
@@ -58,9 +69,18 @@ public class CompanyController {
         return new ResponseEntity(map, HttpStatus.CREATED);
     }
 
-    @GetMapping("/company")
-    public ResponseEntity list() {
-        return new ResponseEntity(companyService.findAllCompany(), HttpStatus.OK);
+    @GetMapping("/companies") // List and paging
+    @ResponseBody
+    public ResponseEntity list(CompanySearchCondition condition, Pageable pageable) {
+        Page<CompanyListResponse> companyListRequests = companyRepository.searchPage(condition, pageable);
+        return new ResponseEntity(companyListRequests, HttpStatus.OK);
+    }
+
+    @GetMapping("/company/{id}")
+    @ResponseBody
+    public ResponseEntity<CompanyProfileResponse> getProfile(@PathVariable("id") Long id) {
+        Optional<Company> byId = companyRepository.findById(id);
+        return new ResponseEntity(companyRepository.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("/company/{id}")
@@ -75,9 +95,15 @@ public class CompanyController {
     public ResponseEntity delete(@PathVariable("id") Long id) {
         companyService.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
-
-
     }
+
+//    @PostConstruct
+//    public void init() {
+//        for(int i = 0; i < 100; i++) {
+//            //String name, Member member, Address address, String businessNum, String totalSales
+//            companyService.create(new Company("삼성", null, "010115416"+ i, "99999"));
+//        }
+//    }
 
 
 

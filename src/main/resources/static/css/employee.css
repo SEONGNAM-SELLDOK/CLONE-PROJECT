@@ -22496,13 +22496,13 @@ button {
 
 ._2av-JJO4CWxQEEfPx7dOBH input {
     width: calc(100% - 150px);
-    padding: 12px 0;
+    padding: 12px;
     margin-left: 150px;
     color: #333;
     font-size: 16px;
     font-weight: 400;
     border: 0;
-    border-bottom: 1px solid #e1e2e3
+    border-bottom: 1px solid #e1e2e3;
 }
 
 @media (max-width: 767px) {
