@@ -28,14 +28,10 @@ import java.util.*;
 @Controller
 @RequestMapping("board")
 @RequiredArgsConstructor
-@PropertySource(value = "classpath:/option.properties")
 public class BoardController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
     private final CompanyRepository companyRepository;
-
-    @Autowired
-    private Environment env;
 
     @GetMapping
     public String getBoardView() {
@@ -49,7 +45,7 @@ public class BoardController {
     public String getBoardList() { return "board/list"; }
 
     @GetMapping("{id}")
-    public ResponseEntity read(@PathVariable("id") Long id) {
+    public ResponseEntity<List<BoardReadResponse>> read(@PathVariable("id") Long id) {
         List<BoardReadResponse> boardInfo = boardService.findBoard(id);
         return new ResponseEntity(boardInfo, HttpStatus.OK);
     }

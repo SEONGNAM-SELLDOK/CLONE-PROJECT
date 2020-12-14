@@ -1,9 +1,13 @@
+server:
+  port: 9090
 spring:
   application:
     name: selldok-toy
   datasource:
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:h2:mem:testdb
+    #    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    driver-class-name: org.h2.Driver
+#    url: jdbc:log4jdbc:h2:mem:testdb
+    url: jdbc:h2:tcp://localhost/~/wanted
     username: sa
     password:
   h2:
@@ -18,6 +22,7 @@ spring:
     properties:
       hibernate:
         format-sql: true
+
   mvc:
     view:
       suffix: .html
@@ -25,14 +30,21 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  thymeleaf:
+    cache: false
   data:
     web:
       pageable:
         default-page-size: 5
-  servelt:
+  servlet:
     multipart:
+      location: C:/Users/ggs/Documents/workspaces/CLONE-PROJECT/src/main/resources/static/upload/
       maxFileSize: 10MB
       maxRequestSize: 10MB
+
+#  webflux:
+#    static-path-pattern: "/resources/**"
+
 mybatis:
   type-aliases-package: com.selldok.toy.mapper
   mapper-locations: mybatis/mapper/**/*.xml
@@ -43,4 +55,3 @@ logging:
     jdbc.sqlonly: DEBUG
     org.springframework.web: DEBUG
     com.zaxxer.hikari.HikariDataSource: ERROR
-    

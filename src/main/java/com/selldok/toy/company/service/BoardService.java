@@ -8,12 +8,14 @@ import com.selldok.toy.company.model.BoardReadResponse;
 import com.selldok.toy.company.model.BoardUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.util.List;
@@ -26,15 +28,14 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-@PropertySource(value = "classpath:/option.properties")
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    @Autowired
-    private Environment env;
+    @Value("${spring.servlet.multipart.location}")
+    String uploadFileDir;
 
     public List<BoardReadResponse> findBoard(Long id) {
-        return boardRepository.findByBoardId(id);
+        return boardRepository.findByBoardInfo(id);
     }
 
     /**
@@ -66,7 +67,7 @@ public class BoardService {
     public String saveUploadFile(MultipartFile upload_file) {
         String file_name = System.currentTimeMillis() + "_" + upload_file.getOriginalFilename();
         try{
-            upload_file.transferTo(new File(new Locale(env.getProperty("path.upload")) + file_name));
+            upload_file.transferTo(new File(uploadFileDir + file_name));
         } catch (Exception e) {
             e.printStackTrace();
         }
