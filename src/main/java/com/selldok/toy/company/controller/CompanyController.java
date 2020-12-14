@@ -33,7 +33,6 @@ public class CompanyController {
     private final CompanyService companyService;
     private final CompanyRepository companyRepository;
 
-<<<<<<< HEAD
     @GetMapping
     public String getCompanyCreate() {
         return "company/create";
@@ -45,18 +44,6 @@ public class CompanyController {
     }
 
     @PostMapping //기업 서비스 가입
-=======
-    @GetMapping("/company/create")
-    public String getCompanyCreate() {
-        return "company/create.html";
-    }
-
-//    @GetMapping("/company/list")
-//    public String getCompanyList() { return "company/list.html"; }
-
-    @PostMapping("/company") //기업 서비스 가입
-    @ResponseBody
->>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
     public ResponseEntity create(@RequestBody CompanyCreateRequest request, BindingResult result) {
 
         Address address = new Address(request.getCountry(), request.getCity(), request.getStreet());
@@ -88,16 +75,6 @@ public class CompanyController {
     public ResponseEntity list(CompanySearchCondition condition, Pageable pageable) {
         Page<CompanyListResponse> companyListRequests = companyRepository.searchPage(condition, pageable);
         return new ResponseEntity(companyListRequests, HttpStatus.OK);
-<<<<<<< HEAD
-=======
-    }
-
-    @GetMapping("/company/{id}")
-    @ResponseBody
-    public ResponseEntity<CompanyProfileResponse> getProfile(@PathVariable("id") Long id) {
-        Optional<Company> byId = companyRepository.findById(id);
-        return new ResponseEntity(companyRepository.findById(id), HttpStatus.OK);
->>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
     }
 
     @GetMapping("{id}")
@@ -119,19 +96,4 @@ public class CompanyController {
         companyService.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-<<<<<<< HEAD
-=======
-//    @PostConstruct
-//    public void init() {
-//        for(int i = 0; i < 100; i++) {
-//            //String name, Member member, Address address, String businessNum, String totalSales
-//            companyService.create(new Company("삼성", null, "010115416"+ i, "99999"));
-//        }
-//    }
-
-
-
-
->>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 }
