@@ -803,10 +803,10 @@
         el: "#app",
          methods: {
             goBoardList() {
-                window.location.href = `http://localhost:9090/board/list?companyId=${company_id}`;
+                window.location.href = `http://localhost:9090/board/list?companyId=${company_id}&boardId=${board_id}`;
             },
             goBoardModify() {
-               window.location.href = `http://localhost:9090/board?id=${board_id}`;
+               window.location.href = `http://localhost:9090/board?companyId=${company_id}&boardId=${board_id}`;
             },
             getBoardRead() {
                  axios.get(`http://localhost:9090/board/${board_id}`)

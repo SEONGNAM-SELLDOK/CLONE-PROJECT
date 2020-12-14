@@ -26,27 +26,16 @@ spring:
   mvc:
     view:
       suffix: .html
-<<<<<<< HEAD
     properties:
       hibernate:
         show_sql: true
         format_sql: true
   thymeleaf:
     cache: false
-=======
-
-  thymeleaf:
-    cache: false
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
->>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
   data:
     web:
       pageable:
         default-page-size: 5
-<<<<<<< HEAD
   servlet:
     multipart:
       location: C:/Users/ggs/Documents/workspaces/CLONE-PROJECT/src/main/resources/static/upload/
@@ -55,12 +44,6 @@ spring:
 
 #  webflux:
 #    static-path-pattern: "/resources/**"
-=======
-  servelt:
-    multipart:
-      maxFileSize: 10MB
-      maxRequestSize: 10MB
->>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 
 mybatis:
   type-aliases-package: com.selldok.toy.mapper
