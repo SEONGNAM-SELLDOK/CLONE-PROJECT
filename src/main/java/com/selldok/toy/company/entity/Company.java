@@ -1,5 +1,9 @@
 package com.selldok.toy.company.entity;
 
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.annotation.JsonIgnore;
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 import lombok.*;
 
 import javax.persistence.*;

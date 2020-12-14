@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>이벤트 등록/수정 페이지</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/basicinfo.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body style="background-color: #f8f8fa;">
+<script>
+    function myInfoPage(userId) {
+        location.href = '/employees/view/' + userId;
+    }
+</script>
+<div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+    <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+        <nav>
+            <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                    class="icon-logo_new"></i></a></div>
+            <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
+                                                                                                class="">홈</a></li>
+                <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a></li>
+                <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary"><a href="/salary"
+                                                                                               class="">직군별 연봉</a>
+                </li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="resume"><a href="/cv"
+                                                                                            class="">이력서</a></li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="refer"><a href="/referral"
+                                                                                           class="">추천</a></li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/events"
+                                                                                           class="">이벤트</a>
+                </li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                        href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+            </ul>
+            <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                <div class="overlay">
+                    <div class="container"></div>
+                </div>
+            </div>
+            <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                <ul>
+                    <li>
+                        <button type="button" class="searchButton" data-attribute-id="gnb" data-gnb-kind="search"><i
+                                class="icon-search"></i></button>
+                    </li>
+                    <li>
+                        <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                class="icon-bell"></i></button>
+                    </li>
+                    <li class="smMoreVisible" style="padding-top:5px;">
+                        <button type="button"
+                                th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
+                                th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                        style="padding-top:10px;"><a
+                            class="dashboardButton" href="/">기업 서비스</a></li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                        style="padding-top:10px;"><a
+                            class="dashboardButton" href="/event/list">이벤트 관리</a></li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                        style="padding-top:10px;"><a
+                            class="dashboardButton" href="/auth/logout">로그아웃</a></li>
+                    <li class="xsOnly">
+                        <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
+                                class="icon-menu"></i></button>
+                    </li>
+                </ul>
+            </aside>
+        </nav>
+    </div>
+</div>
+<div style="height:50px"></div>
+<div class="_1Gv5LM5zal-f72_XSo_qJ_">
+    <nav role="presentation" class="_3wSXAiIJQZ98fJ-Hi6G42Q is-matching">
+        <button type="button" class="">프로필<i class="icon-arrow_bottom_fill"></i></button>
+        <ul class="_1I4cqaAHGtwxgFUnJHZb4l">
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="myWanted"><a href="/mywanted" class="">MY 원티드</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="profile"><a href="/profile/matching" class="activeNav">프로필</a>
+                </div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <button type="button" class="">지원 현황<i class="icon-arrow_bottom_fill"></i></button>
+                <div data-attribute-id="myPage" data-tab-kind="applications"><a href="/status/applications" class="">지원
+                    현황</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <button type="button" class="">제안받기 현황<i class="icon-arrow_bottom_fill"></i></button>
+                <div data-attribute-id="myPage" data-tab-kind="offersReceived"><a href="/profile/status" class="">제안받기
+                    현황</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="likes"><a href="/profile/likes" class="">좋아요</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="bookmarks"><a href="/profile/bookmarks" class="">북마크</a>
+                </div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <button type="button" class="">MY 영상<i class="icon-arrow_bottom_fill"></i></button>
+                <div data-attribute-id="myPage" data-tab-kind="myVideos"><a href="/profile/myvod" class="">MY 영상</a>
+                </div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="points"><a href="/profile/point" class="">포인트</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <button type="button" class="">설정<i class="icon-arrow_bottom_fill"></i></button>
+                <div data-attribute-id="myPage" data-tab-kind="settings"><a href="/profile/settings" class="">설정</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="_14NzdD9Zqjq8ocf6TORWoN">
+        <aside class="Aside _1dBR38s0D_bqykmPvZBYPu">
+            <header class="Aside-header">
+                <div class="Aside-avatar">
+                    <div class="Aside-avatar_image"
+                         th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'">
+                        <div class="_1RDFX7ZROHIIPqPMgmtS2E"><input type="file" accept="image/*"><i
+                                class="icon-camera_icon" role="presentation"></i></div>
+                    </div>
+                </div>
+                <div class="Aside-me">
+                    <div class="Aside-me_name" th:text="${#authentication.name}"></div>
+                    <div class="Aside-me_email" th:text="${#authentication.email}"></div>
+                    <!--                    <div class="Aside-me_tel" th:text="${#authentication.info.phoneNumber}"></div>-->
+                </div>
+                <a th:href="@{'/employees/view/' + ${#authentication.id}}" class="Aside-edit is-level_1"
+                   data-attribute-id="profile__basicInfoEdit">기본정보 수정</a></header>
+            <div class="MatchUpStatus _s0V-DmOyFivCW3HY7Nh3 is-disabled"><a href="/profile/status?type=matchup-likes"
+                                                                            class="MatchUpStatus-item disabled"><span
+                    class="MatchUpStatus-label">원해요</span><strong class="MatchUpStatus-value">3</strong></a><a
+                    href="/profile/status?type=matchup-opens" class="MatchUpStatus-item disabled"><span
+                    class="MatchUpStatus-label">열람</span><strong class="MatchUpStatus-value">7</strong></a><a
+                    href="/profile/status?type=matchup-offers" class="MatchUpStatus-item disabled"><span
+                    class="MatchUpStatus-label">받은 제안</span><strong class="MatchUpStatus-value">5</strong></a></div>
+        </aside>
+        <section>
+            <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi -Pzu8KqPWyTbeWGLO7ce">
+                <header class="Form-header">
+                    <dl class="Form-title">
+                        <dt>이벤트 정보 수정</dt>
+                        <dd>이벤트 관련 정보를 입력해주세요.</dd>
+                    </dl>
+                </header>
+                <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                    <div class="FormBlock-content content">
+                        <label for="imageLink" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>이벤트 메인 이미지</h6>
+                            <input id="imageLink" class="selldock_input_imageLink" type="text" autocomplete="off"
+                                   th:value="*{event?.imageLink}"></label>
+                        <label for="eventType" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>이벤트 종류</h6>
+                            <span class="Select__SelectBox-sc-3gzsb0-0 htodO">
+                                <select id="eventType"
+                                        class="StyledComponents__CustomSelect-nwtvoj-7 KQgEY Select-sc-3gzsb0-1 cPKbkM selldock_input_eventType">
+                                    <option value="NORMAL">일반</option>
+                                    <option value="EDU">교육</option>
+                                    <option value="PROMOTION">프로모션</option>
+                            </select>
+                            </span>
+                        </label>
+                        <label for="title" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>이벤트 제목</h6>
+                            <input id="title" class="selldock_input_title" type="text" autocomplete="off"
+                                   th:value="*{event?.title}"></label>
+                        <label for="text" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>이벤트 내용</h6>
+                            <input id="text" class="selldock_input_text" type="text" autocomplete="off"
+                                   th:value="*{event?.text}"></label>
+                        <label for="date" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>이벤트 일정</h6>
+                            <input type="date" id="date" name="trip-start" class="selldock_input_date"
+                                   th:value="*{event?.date}"
+                                   min="2000-01-01" max="2018-12-31">
+                        </label>
+                        <label for="keywords" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>해시코드</h6>
+                            <input id="keywords" class="selldock_input_keywords" type="text" autocomplete="off"
+                                   th:value="*{event?.keywords}"></label>
+                        <label for="name" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>작성자</h6>
+                            <input id="name" disabled class="selldock_input_name" type="text" autocomplete="off"
+                                   th:value="*{#authentication.name}"></label>
+                        <label for="location" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>이벤트 장소</h6>
+                            <input id="location" class="selldock_input_location" type="text" autocomplete="off"
+                                   th:value="*{event?.location}"></label>
+                        <label for="isFree" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>무료 여부</h6>
+                            <input id="isFree" class="selldock_input_isFree" type="checkbox" name="xxx" value="yyy"
+                                   checked>
+                        </label>
+                        <label for="isRecommend" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>추천 여부</h6>
+                            <input id="isRecommend" class="selldock_input_isRecommend" type="checkbox" name="xxx"
+                                   value="yyy" checked>
+                        </label>
+                    </div>
+                </div>
+                <div class="FormFooter _3MqXvmRsKlYS61B7NaqHUC isChild">
+                    <button type="button" class="eventInfo-submit" data-attribute-id="profile__next"
+                            data-step="1">확인
+                    </button>
+                </div>
+                <input type="hidden" class="selldock_input_id" th:value="*{#authentication.id}">
+                <input type="hidden" class="selldock_event_id" th:value="*{event?.id}">
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    $('.eventInfo-submit').click(function () {
+        const eventId = $('.selldock_event_id').val();
+        const url = eventId ? 'http://localhost:8080/event/' + eventId : 'http://localhost:8080/event/'
+        const type = eventId ? 'put' : 'post'
+
+        $.ajax({
+            url: url,
+            type: type,
+            data: JSON.stringify({
+                'imageLink': $('.selldock_input_imageLink').val(),
+                'type': $('.selldock_input_eventType option:selected').val(),
+                'title': $('.selldock_input_title').val(),
+                'text': $('.selldock_input_text').val(),
+                'date': $('.selldock_input_date').val(),
+                'keywords': $('.selldock_input_keywords').val(),
+                'owner': $('.selldock_input_name').val(),
+                'location': $('.selldock_input_location').val(),
+                'isFree': $('.selldock_input_isFree').is(":checked") ,
+                'isRecommend': $('.selldock_input_isRecommend').is(":checked")
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            statusCode: {
+                200: function () {
+                    console.log("200 Success!");
+                },
+                202: function () {
+                    alert("infomation saved successfully");
+                    location.href = '/event/list';
+                },
+                403: function () {
+                    console.log("403 Error!");
+                },
+                404: function () {
+                    console.log("404 Error!");
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

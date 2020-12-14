@@ -30,9 +30,29 @@ public class EmployeeController {
 
     public EmployeeController(EmployeeService employeeService) {this.employeeService = employeeService;}
 
+<<<<<<< HEAD
     @GetMapping("view")
     public String getEmployeeView() {
         return "employee.html";
+=======
+    @GetMapping("view/{id}")
+    public String getEmployeeView(@PathVariable("id") Long id, Model model) {
+        EmployeeProfileResponse response = employeeService.getProfile(id);
+        model.addAttribute("employee", response);
+        return response == null ? "/login/login" : "employee/employee";
+    }
+
+    @GetMapping("basicinfo/{id}")
+    public String getBasicInfoView(@PathVariable("id") Long id, Model model) {
+        Optional<Employee> employee = employeeService.get(id);
+
+        if (employee.isPresent()) {
+            model.addAttribute("employee", employee.get());
+            return "employee/basicinfo";
+        } else {
+            return "/login/login";
+        }
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
     }
 
     @GetMapping("{id}")

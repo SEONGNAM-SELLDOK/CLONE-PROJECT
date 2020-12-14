@@ -6,6 +6,11 @@
 ### 타겟 서비스
 - 원티드(https://www.wanted.co.kr)
 
+### 테스트 사용자(페이스북 사용자 계정)
+- ID : ojfckxumgm_1607149139@tfbnw.net / PASSWORD : 123456qq!
+- ID : dbmoedgemd_1607149134@tfbnw.net / PASSWORD : 123456qq!
+- ID : apylknutcy_1607149135@tfbnw.net / PASSWORD : 123456qq!
+
 ## 개발환경
 - jdk 11
 - spring boot 2.4

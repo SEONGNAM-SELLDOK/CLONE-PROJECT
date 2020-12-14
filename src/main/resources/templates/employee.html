@@ -5,6 +5,14 @@
     <link rel="stylesheet" type="text/css" href="/css/employee.css">
 </head>
 <body>
+<<<<<<< HEAD:src/main/resources/templates/employee.html
+=======
+<script>
+    function myInfoPage(userId) {
+        location.href = `/employees/view/${userId}`;
+    }
+</script>
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263:src/main/resources/templates/employee/employee.html
 <div id="app">
     <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
@@ -44,11 +52,27 @@
                         </li>
                         <li class="smMoreVisible">
                             <button type="button"
+<<<<<<< HEAD:src/main/resources/templates/employee.html
                                     style="background-image: url(&quot;https://graph.facebook.com/1297123307013957/picture?height=300&amp;width=300&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);"
                                     data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"></button>
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"><a
                                 class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+=======
+                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
+                                    th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;"><a
+                                class="dashboardButton" href="/">기업 서비스</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;"><a
+                                class="dashboardButton" href="/event/list">이벤트 관리</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;"><a
+                                class="dashboardButton" href="/auth/logout">로그아웃</a></li>
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263:src/main/resources/templates/employee/employee.html
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
                                     class="icon-menu"></i></button>
@@ -120,7 +144,12 @@
                         <div class="Aside-me_email">bluesky761@naver.com</div>
                         <div class="Aside-me_tel">010-6679-6096</div>
                     </div>
+<<<<<<< HEAD:src/main/resources/templates/employee.html
                     <a href="/profile/matching?level=1" class="Aside-edit">기본정보 수정</a></header>
+=======
+                    <a th:href="@{'/employees/basicinfo/' + ${#authentication.id}}" class="Aside-edit">기본정보 수정</a>
+                </header>
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263:src/main/resources/templates/employee/employee.html
                 <div class="MatchUpStatus _s0V-DmOyFivCW3HY7Nh3 is-disabled"><a
                         href="/profile/status?type=matchup-likes"
                         class="MatchUpStatus-item disabled"><span
@@ -147,6 +176,7 @@
                         </header>
                         <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
                             <div class="FormBlock-content content">
+<<<<<<< HEAD:src/main/resources/templates/employee.html
                                 <div class="_1hQHY2MOttuKGMBqDe_htT">
                                     <div class="Static-label">기본 이력서 선택</div>
                                     <div class="Static-body">
@@ -178,10 +208,42 @@
                                     <a href="/cv/648412?from=profile" class="MainResume-edit"
                                        data-attribute-id="profile__completeProfile"><i class="icon-edit"
                                                                                        style="font-size: 28px;"></i></a>
+=======
+                                <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                                    <div class="FormBlock-content content">
+                                        <label for="schoolName" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>학교</h6>
+                                            <input id="schoolName" class="selldock_input_schoolName" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.school?.schoolName}"></label>
+                                        <label for="department" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>학과</h6>
+                                            <input id="department" class="selldock_input_department" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.school?.department}"></label>
+                                        <label for="companyName" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>직장명</h6>
+                                            <input id="companyName" class="selldock_input_companyName" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.company?.companyName}"></label>
+                                        <label for="position" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>부서</h6>
+                                            <input id="position" class="selldock_input_position" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.company?.position}"></label>
+                                        <label for="rank" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>직급</h6>
+                                            <input id="rank" class="selldock_input_rank" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.company?.rank}"></label>
+                                        <br>
+                                    </div>
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263:src/main/resources/templates/employee/employee.html
                                 </div>
                                 <div class="MainResume-about">안녕하세요. 5년차 서버 개발자 입니다.</div>
                             </div>
                         </div>
+<<<<<<< HEAD:src/main/resources/templates/employee.html
                     </div>
                     <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi _3ZoHfZyrHiWR9JdVIgtNxq">
                         <header class="Form-header">
@@ -214,6 +276,48 @@
                                     <a href="/profile/matching?level=2&amp;step=1&amp;modi=true"
                                        class="EnterInterestArea-edit" data-attribute-id="profile__changeInterest"><i
                                             class="icon-edit" style="font-size: 28px;"></i></a></div>
+=======
+                        <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi _3ZoHfZyrHiWR9JdVIgtNxq">
+                            <header class="Form-header">
+                                <dl class="Form-title">
+                                    <dt>전문분야 설정</dt>
+                                </dl>
+                            </header>
+                            <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                                <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                                    <div class="FormBlock-content content">
+                                        <label for="occupation" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>직군</h6>
+                                            <input id="occupation" class="selldock_input_occupation" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.expertise?.occupation}"></label>
+                                        <label for="task" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>직무</h6>
+                                            <input id="task" class="selldock_input_task" type="text"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.expertise?.task}"></label>
+                                        <label for="carrer" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>경력</h6>
+                                            <input id="carrer" class="selldock_input_carrer" type="number"
+                                                   autocomplete="off"
+                                                   th:value="*{employee.personInfo.expertise?.carrer}"></label>
+                                        <label for="skills" class="_2av-JJO4CWxQEEfPx7dOBH">
+                                            <h6>스킬</h6>
+                                            <textarea id="skills" class="selldock_input_skills" type="text"
+                                                      autocomplete="off"
+                                                      th:value="*{employee.personInfo.expertise?.skills}" style="
+                                                            width: calc(100% - 150px);
+                                                            padding: 12px 0;
+                                                            margin-left: 150px;
+                                                            color: #333;
+                                                            font-size: 16px;
+                                                            font-weight: 400;
+                                                            border-bottom: 1px solid #e1e2e3;
+                                                            padding:12px;
+                                                        "></textarea></label>
+                                    </div>
+                                </div>
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263:src/main/resources/templates/employee/employee.html
                             </div>
                         </div>
                         <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">

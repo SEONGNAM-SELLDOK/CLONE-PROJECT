@@ -71,6 +71,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //            .successForwardUrl("/auth/main")
 //            .defaultSuccessUrl("/auth/main",true)
             .and()
+            .logout()
+            .logoutUrl("/auth/logout")
+            .logoutSuccessUrl("/")
+            .and()
             .headers()
             .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
     }

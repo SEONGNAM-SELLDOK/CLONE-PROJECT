@@ -192,7 +192,10 @@
 </div>
 
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
+<<<<<<< HEAD
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+=======
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 
 <!-- Load required Bootstrap and BootstrapVue CSS -->
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
@@ -303,13 +306,20 @@
                  })
                   .then((res) => {
                       console.log(res);
+<<<<<<< HEAD
                       window.location.href = `http://localhost:9090/company/read?id=${res.data.company_id}`;
+=======
+                      window.location.href = `http://localhost:9090/board/${res.data.company_id}`;
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
                   })
                   .catch(error => {
                     console.log(error);
                     throw error;
                   });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
             },
         },
         data: {

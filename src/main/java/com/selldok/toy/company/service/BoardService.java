@@ -2,6 +2,7 @@ package com.selldok.toy.company.service;
 
 import com.selldok.toy.company.dao.BoardRepository;
 import com.selldok.toy.company.dao.BoardSearchCondition;
+<<<<<<< HEAD
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.model.BoardReadResponse;
@@ -9,6 +10,12 @@ import com.selldok.toy.company.model.BoardUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+=======
+import com.selldok.toy.company.entity.Board;
+import com.selldok.toy.company.model.BoardReadResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +27,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
+<<<<<<< HEAD
 import java.util.Optional;
+=======
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 
 /**
  * @author Gogisung
@@ -28,14 +38,23 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@PropertySource(value = "classpath:/option.properties")
 public class BoardService {
     private final BoardRepository boardRepository;
 
+<<<<<<< HEAD
     @Value("${spring.servlet.multipart.location}")
     String uploadFileDir;
 
     public List<BoardReadResponse> findBoard(Long id) {
         return boardRepository.findByBoardInfo(id);
+=======
+    @Autowired
+    private Environment env;
+
+    public List<BoardReadResponse> findBoard(Long boardId) {
+        return boardRepository.read(boardId);
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
     }
 
     /**
@@ -67,7 +86,11 @@ public class BoardService {
     public String saveUploadFile(MultipartFile upload_file) {
         String file_name = System.currentTimeMillis() + "_" + upload_file.getOriginalFilename();
         try{
+<<<<<<< HEAD
             upload_file.transferTo(new File(uploadFileDir + file_name));
+=======
+            upload_file.transferTo(new File(new Locale(env.getProperty("path.upload")) + file_name));
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
         } catch (Exception e) {
             e.printStackTrace();
         }
