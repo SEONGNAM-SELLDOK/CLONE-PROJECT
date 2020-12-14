@@ -1,9 +1,13 @@
+server:
+  port: 9090
 spring:
   application:
     name: selldok-toy
   datasource:
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:h2:mem:testdb
+    #    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    driver-class-name: org.h2.Driver
+#    url: jdbc:log4jdbc:h2:mem:testdb
+    url: jdbc:h2:tcp://localhost/~/wanted
     username: sa
     password:
   h2:
@@ -18,9 +22,18 @@ spring:
     properties:
       hibernate:
         format-sql: true
+
   mvc:
     view:
       suffix: .html
+<<<<<<< HEAD
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  thymeleaf:
+    cache: false
+=======
 
   thymeleaf:
     cache: false
@@ -28,14 +41,26 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
   data:
     web:
       pageable:
         default-page-size: 5
+<<<<<<< HEAD
+  servlet:
+    multipart:
+      location: C:/Users/ggs/Documents/workspaces/CLONE-PROJECT/src/main/resources/static/upload/
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
+
+#  webflux:
+#    static-path-pattern: "/resources/**"
+=======
   servelt:
     multipart:
       maxFileSize: 10MB
       maxRequestSize: 10MB
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 
 mybatis:
   type-aliases-package: com.selldok.toy.mapper

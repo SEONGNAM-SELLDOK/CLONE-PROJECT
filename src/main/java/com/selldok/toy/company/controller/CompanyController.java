@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +27,25 @@ import java.util.Optional;
  */
 
 @Controller
+@RequestMapping("company")
 @RequiredArgsConstructor
 public class CompanyController {
     private final CompanyService companyService;
     private final CompanyRepository companyRepository;
 
+<<<<<<< HEAD
+    @GetMapping
+    public String getCompanyCreate() {
+        return "company/create";
+    }
+
+    @GetMapping("read")
+    public String getCompanyRead() {
+        return "company/read";
+    }
+
+    @PostMapping //기업 서비스 가입
+=======
     @GetMapping("/company/create")
     public String getCompanyCreate() {
         return "company/create.html";
@@ -41,10 +56,8 @@ public class CompanyController {
 
     @PostMapping("/company") //기업 서비스 가입
     @ResponseBody
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
     public ResponseEntity create(@RequestBody CompanyCreateRequest request, BindingResult result) {
-        if(result.hasErrors()) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
 
         Address address = new Address(request.getCountry(), request.getCity(), request.getStreet());
 
@@ -53,6 +66,7 @@ public class CompanyController {
                 .address(address)
                 .businessNum(request.getBusinessNum())
                 .totalSales(request.getTotalSales())
+                .employees(request.getEmployees())
                 .employees(request.getEmployees())
                 .info(request.getInfo())
                 .email(request.getEmail())
@@ -66,7 +80,7 @@ public class CompanyController {
         HashMap<String, Long> map = new HashMap<>();
         map.put("company_id", companyId);
 
-        return new ResponseEntity(map, HttpStatus.CREATED);
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 
     @GetMapping("/companies") // List and paging
@@ -74,6 +88,8 @@ public class CompanyController {
     public ResponseEntity list(CompanySearchCondition condition, Pageable pageable) {
         Page<CompanyListResponse> companyListRequests = companyRepository.searchPage(condition, pageable);
         return new ResponseEntity(companyListRequests, HttpStatus.OK);
+<<<<<<< HEAD
+=======
     }
 
     @GetMapping("/company/{id}")
@@ -81,22 +97,31 @@ public class CompanyController {
     public ResponseEntity<CompanyProfileResponse> getProfile(@PathVariable("id") Long id) {
         Optional<Company> byId = companyRepository.findById(id);
         return new ResponseEntity(companyRepository.findById(id), HttpStatus.OK);
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
     }
 
-    @PutMapping("/company/{id}")
+    @GetMapping("{id}")
+    @ResponseBody
+    public ResponseEntity<CompanyProfileResponse> getProfile(@PathVariable("id") Long id) {
+        return new ResponseEntity(companyRepository.findById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("{id}")
     @ResponseBody
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody CompanyUpdateRequest request) {
         companyService.update(id, request);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/company/{id}")
+    @DeleteMapping("{id}")
     @ResponseBody
     public ResponseEntity delete(@PathVariable("id") Long id) {
         companyService.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+<<<<<<< HEAD
+=======
 //    @PostConstruct
 //    public void init() {
 //        for(int i = 0; i < 100; i++) {
@@ -108,4 +133,5 @@ public class CompanyController {
 
 
 
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 }

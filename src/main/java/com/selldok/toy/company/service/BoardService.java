@@ -2,20 +2,35 @@ package com.selldok.toy.company.service;
 
 import com.selldok.toy.company.dao.BoardRepository;
 import com.selldok.toy.company.dao.BoardSearchCondition;
+<<<<<<< HEAD
+import com.selldok.toy.company.entity.Address;
+import com.selldok.toy.company.entity.Board;
+import com.selldok.toy.company.model.BoardReadResponse;
+import com.selldok.toy.company.model.BoardUpdateRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+=======
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.model.BoardReadResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
+<<<<<<< HEAD
+import java.util.Optional;
+=======
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
 
 /**
  * @author Gogisung
@@ -27,11 +42,19 @@ import java.util.Locale;
 public class BoardService {
     private final BoardRepository boardRepository;
 
+<<<<<<< HEAD
+    @Value("${spring.servlet.multipart.location}")
+    String uploadFileDir;
+
+    public List<BoardReadResponse> findBoard(Long id) {
+        return boardRepository.findByBoardInfo(id);
+=======
     @Autowired
     private Environment env;
 
     public List<BoardReadResponse> findBoard(Long boardId) {
         return boardRepository.read(boardId);
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
     }
 
     /**
@@ -43,12 +66,31 @@ public class BoardService {
     }
 
     /**
+     * 구직정보수정
+     * */
+    public void update(Long id, BoardUpdateRequest request) {
+        Optional<Board> board = boardRepository.findById(id);
+
+        board.ifPresent(existingCompany -> {
+            existingCompany.setTitle(request.getTitle());
+            existingCompany.setContent(request.getContent());
+            existingCompany.setImage(request.getImage());
+            existingCompany.setEndDate(request.getEndDate());
+            boardRepository.save(existingCompany);
+        });
+    }
+
+    /**
      * 파일 업로드
      * */
     public String saveUploadFile(MultipartFile upload_file) {
         String file_name = System.currentTimeMillis() + "_" + upload_file.getOriginalFilename();
         try{
+<<<<<<< HEAD
+            upload_file.transferTo(new File(uploadFileDir + file_name));
+=======
             upload_file.transferTo(new File(new Locale(env.getProperty("path.upload")) + file_name));
+>>>>>>> 8e9b754d5648d87300beff5fa9d07f30eafd7263
         } catch (Exception e) {
             e.printStackTrace();
         }

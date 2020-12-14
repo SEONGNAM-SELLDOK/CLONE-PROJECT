@@ -23,7 +23,7 @@ repositories {
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+  compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
   compileOnly 'org.projectlombok:lombok'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   runtimeOnly 'com.h2database:h2'
@@ -44,12 +44,6 @@ dependencies {
 
   // spring security
   implementation 'org.springframework.boot:spring-boot-starter-security'
-
-  // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
-  compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.4'
-
-  // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4
-  compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
 }
 
 test {

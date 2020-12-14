@@ -1,11 +1,12 @@
 package com.selldok.toy.company.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.selldok.toy.company.entity.category.Category;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 /**
  * @author Gogisung
  */
@@ -13,9 +14,11 @@ import java.time.LocalDateTime;
 @Table(name = "boards")
 @Getter @Setter
 @Builder
-public class Board {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Board extends JpaBaseEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
@@ -26,5 +29,11 @@ public class Board {
     private String title;
     private String content;
     private String image;
-    private String endDate;
+
+    @OneToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDate endDate;
 }
