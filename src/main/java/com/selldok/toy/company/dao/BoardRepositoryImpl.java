@@ -29,7 +29,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     }
 
     @Override
-    public List<BoardReadResponse> findByBoardId(Long id) {
+    public List<BoardReadResponse> findByBoardInfo(Long id) {
         return queryFactory
                 .select(new QBoardReadResponse(
                 board.title,

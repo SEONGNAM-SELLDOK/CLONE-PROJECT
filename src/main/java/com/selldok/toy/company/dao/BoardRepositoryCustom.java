@@ -11,6 +11,6 @@ import java.util.List;
  * @gogisung
  * */
 public interface BoardRepositoryCustom {
-    List<BoardReadResponse> findByBoardId(Long id);
+    List<BoardReadResponse> findByBoardInfo(Long id);
     Page<BoardListResponse> searchBoard(BoardSearchCondition condition, Pageable pageable);
 }

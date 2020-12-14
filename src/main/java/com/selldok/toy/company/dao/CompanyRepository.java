@@ -11,5 +11,4 @@ import java.util.List;
 
 public interface CompanyRepository extends JpaRepository<Company, Long>, CompanyRepositoryCustom {
     List<Company> findByBusinessNum(String businessNum);
-    Company findByName(String name);
 }
