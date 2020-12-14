@@ -12,5 +12,8 @@ import lombok.ToString;
 @ToString
 public class AppliedCompanyDto {
     private Long applicantId;
+    private String name;
+    private String email;
+    private String phoneNumber;    
     private Long companyId;
 }

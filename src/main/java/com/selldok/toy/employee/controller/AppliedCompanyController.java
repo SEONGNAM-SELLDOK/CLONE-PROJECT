@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,12 +40,19 @@ public class AppliedCompanyController {
 	 * @throws Exception
 	 */
 	@PostMapping("")
+	//@PutMapping("") 2개 메소드는 동시에 쓸 수 없는 듯 -.- //Completed 405 METHOD_NOT_ALLOWED
 	@ResponseBody
-	public ResponseEntity<HashMap<String, AppliedCompanyKey>> get(@RequestBody AppliedCompanyDto newAcDto) throws Exception {
+	public ResponseEntity<HashMap<String, AppliedCompanyKey>> create(@RequestBody AppliedCompanyDto newAcDto) throws Exception {
 		logger.debug("newAc={}", newAcDto);
-		AppliedCompanyKey acKey = acServ.create(newAcDto);
+		AppliedCompanyKey acKey = acServ.createOrUpdate(newAcDto);
 		HashMap<String, AppliedCompanyKey> rtnMap = new HashMap<>();
 		rtnMap.put("appliedCompanyKey", acKey);
 		return new ResponseEntity<HashMap<String, AppliedCompanyKey>>(rtnMap, HttpStatus.OK);
+	}
+
+	@PutMapping("")
+	@ResponseBody
+	public ResponseEntity<HashMap<String, AppliedCompanyKey>> update(@RequestBody AppliedCompanyDto newAcDto) throws Exception {
+		return create(newAcDto);
 	}
 }
