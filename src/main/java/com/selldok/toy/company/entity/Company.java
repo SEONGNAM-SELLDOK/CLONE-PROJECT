@@ -1,22 +1,34 @@
 package com.selldok.toy.company.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.selldok.toy.employee.entity.AppliedCompany;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.selldok.toy.employee.entity.AppliedCompany;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 /**
  * @author Gogisung
  */
 @Entity
 @Getter
 @Setter
-@Builder
+@Builder 
+@NoArgsConstructor @AllArgsConstructor // 김동석 : findById 할 때 오류 방지하기 위해 필요합니다 org.hibernate.InstantiationException: No default constructor for entity:  : com.selldok.toy.company.entity.Company
 public class Company {
 
     @Id @GeneratedValue

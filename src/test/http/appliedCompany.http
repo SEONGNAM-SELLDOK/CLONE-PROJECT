@@ -1,0 +1,22 @@
+### company 생성(실패 cors문제)
+POST http://localhost:8080/company
+Content-Type: application/json
+
+{
+  "name" : "구글",
+  "email" : "google@gmail.com",
+  "phone" : "1-010-1234-5678"
+}
+
+### 입사지원 하기
+POST http://localhost:8080/appliedCompanies
+Content-Type: application/json
+
+{
+  "applicantId": 1,
+  "companyId": 1
+  }
+}
+
+### 입사지원 전체 목록
+GET http://localhost:8080/appliedCompanies
