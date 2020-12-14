@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Component
 @RequiredArgsConstructor
-public class SelldokAuthenticationProvider implements AuthenticationProvider {
+public class SelldokAuthenticationProvider implements AuthenticationProvider{
 
     private final AuthService authService;
 
