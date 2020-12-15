@@ -52,6 +52,7 @@ public class AppliedCompanyService {
 				.applicant(applicant.get())
 				.info(bi)
 				.appliedCompany(company.get())
+				.status(newAcDto.getStatus())
 				.build();
 				acRepo.save(ac);
 			acKey = ac.getAppliedCompanyKey();

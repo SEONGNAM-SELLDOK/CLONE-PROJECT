@@ -17,6 +17,7 @@ Content-Type: application/json
   "name" : "지원자명",
   "email" : "applicant@naver.com",
   "phoneNumber" : "010-1111-2222",  
+  "status": "APPLCN_COMPT",
   "companyId": 1
   }
 }
@@ -29,8 +30,23 @@ Content-Type: application/json
   "applicantId": 1,
   "name" : "지원자명변경",
   "email" : "이메일 변경@naver.com",
-  "phoneNumber" : "전번변경010-1111-2222",  
+  "phoneNumber" : "전번변경010-1111-2222",
+  "status": "CANCELED",
   "companyId": 1
+  }
+}
+
+### 입사지원 취소하기
+PUT http://localhost:8080/appliedCompanies
+Content-Type: application/json
+
+{
+  "applicantId": 1,
+  "companyId": 1,
+  "status": "PAPERS_PASAGE"
+  ,"status~": "CANCELED"
+  ,"status~~": "CANCELED"
+  ,"status~~~": "CANCELED"
   }
 }
 

@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -31,12 +33,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppliedCompany {
+
+	/**
+	 * 신청 상태
+	 */
+	public enum Status {
+		APPLCN_COMPT,	// 신청완료
+		PAPERS_PASAGE,	// 서류통과
+		LAST_PSEXAM,	// 최종합격
+		DSQLFC,			// 불합격
+		CANCELED		// 신청취소
+	}
+	
+
 	@EmbeddedId
 	private AppliedCompanyKey appliedCompanyKey;
 
 	@Embedded
 	private BasicInfo info;
 
+	@Enumerated(EnumType. STRING)
+	@Builder.Default
+	private Status status = Status.APPLCN_COMPT;	// 갱신시에 변경 불가 -.-
+	//private Status status ;
+	
 	@CreationTimestamp
 	// @UpdateTimestamp // Caused by: org.hibernate.AnnotationException: Only one
 	// generator annotation is allowed

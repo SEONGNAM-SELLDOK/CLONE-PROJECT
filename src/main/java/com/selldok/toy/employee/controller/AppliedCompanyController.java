@@ -50,6 +50,15 @@ public class AppliedCompanyController {
 		return new ResponseEntity<HashMap<String, AppliedCompanyKey>>(rtnMap, HttpStatus.OK);
 	}
 
+	/**
+	 * 수정하기
+	 * 일부 컬럼만 갱신하는 기능 필요할 듯.
+	 * 이 메소드를 쓰면 set 하지 않은 필드들은 null로 갱신 됨
+	 * 
+	 * @param newAcDto
+	 * @return
+	 * @throws Exception
+	 */
 	@PutMapping("")
 	@ResponseBody
 	public ResponseEntity<HashMap<String, AppliedCompanyKey>> update(@RequestBody AppliedCompanyDto newAcDto) throws Exception {
