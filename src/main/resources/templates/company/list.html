@@ -6,14 +6,61 @@
 <body>
 <div id="app">
     {{ message }}
+    <div>
+        <b-table striped hover :items="items" :fields="fields">
+            <template #cell(show_details)="row">
+                <b-button size="sm" @click="row.toggleDetails" class="mr-2">수정</b-button>
+            </template>
+        </b-table>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+<script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
+
 <script>
     new Vue({
         el: "#app",
+         methods: {
+            getCompanyList() {
+                 axios.get('http://localhost:9090/company')
+                 .then(res => {
+                    console.log("res", res);
+                 })
+                 .catch(error => {
+                    console.log(error);
+                    throw error;
+                 });
+            }
+        },
+        beforeMount() {
+            console.log("11111");
+            this.getCompanyList();
+        },
         data: {
-            message: "기업 정보 list 페이지"
+            message: "리스트 페이지!",
+            fields: ['기업명', '직원수', 'Email', '연락처', '웹사이트', 'show_details'],
+            items: [
+              { 기업명: '삼성', 직원수: '1~5명', Email: 'admin@example.com', 연락처: 01015664545, 웹사이트: 'https://www.wanted.co.kr/', },
+              { 기업명: '삼성', 직원수: '10~50명', Email: 'admin@example.com', 연락처: 01015664545, 웹사이트: 'https://www.wanted.co.kr/'},
+              { 기업명: '삼성', 직원수: '100~500명', Email: 'admin@example.com', 연락처: 01015664545, 웹사이트: 'https://www.wanted.co.kr/'},
+              { 기업명: '삼성', 직원수: '1~5명', Email: 'admin@example.com', 연락처: 01015664545, 웹사이트: 'https://www.wanted.co.kr/'}
+            ]
         }
     });
 </script>

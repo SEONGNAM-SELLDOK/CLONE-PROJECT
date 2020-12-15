@@ -31,8 +31,8 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
     private final PersonInfoRepository personInfoRepository;
 
-    public Optional<Employee> get(Long id) {
-        return employeeRepository.findById(id);
+    public Employee get(Long id) {
+        return employeeRepository.findById(id).orElseThrow();
     }
 
     public void insert(InsertEmployeeRequest request) {
@@ -64,11 +64,10 @@ public class EmployeeService {
         Optional<Employee> employee = employeeRepository.findById(id);
 
         employee.ifPresent(existingEmployee -> {
-            Optional<PersonInfo> optionalPersonInfo = personInfoRepository.findByEmployeeId(existingEmployee.getId());
-            PersonInfo personInfo = new PersonInfo();
-            optionalPersonInfo.ifPresent(existingPersonInfo -> personInfo.setId(existingEmployee.getId()));
+            PersonInfo personInfo = personInfoRepository.findByEmployeeId(existingEmployee.getId()).orElseGet(PersonInfo::new);
 
             personInfo.setResume(request.getResume());
+            personInfo.setEmployeeId(id);
             personInfo.setCompany(Company.builder()
                                          .companyName(request.getCompany().getCompanyName())
                                          .position(request.getCompany().getPosition())

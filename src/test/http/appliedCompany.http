@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
   "applicantId": 1,
-  "name" : "지원자명변경",
+  "name" : "지원자명변경~",
   "email" : "이메일 변경@naver.com",
   "phoneNumber" : "전번변경010-1111-2222",
   "status": "CANCELED",

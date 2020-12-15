@@ -1,39 +1,29 @@
 package com.selldok.toy.company.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
+import com.selldok.toy.employee.entity.AppliedCompany;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import com.selldok.toy.employee.entity.AppliedCompany;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 /**
  * @author Gogisung
  */
 @Entity
 @Getter
 @Setter
-@Builder 
-@NoArgsConstructor @AllArgsConstructor // 김동석 : findById 할 때 오류 방지하기 위해 필요합니다 org.hibernate.InstantiationException: No default constructor for entity:  : com.selldok.toy.company.entity.Company
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Company {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
     private Long id;
+
+    public Company(Long id) {
+        this.id = id;
+    }
 
     private String name;
 
@@ -51,6 +41,10 @@ public class Company {
 
     private String businessNum; // 사업자 번호
     private String totalSales; // 매출액, 투자금액
+
+    @Enumerated(EnumType.STRING)
+    private FieldType field; // 사업분야
+
     private String employees; // 직원수
     private String info; // 회사소개
     private String email; // 대표 이메일
@@ -72,7 +66,7 @@ public class Company {
         this.member = member;
         member.setCompany(this);
     }
-        
+    
     @OneToMany(mappedBy = "appliedCompany", cascade = CascadeType.ALL)
     private List<AppliedCompany> applicants;
 }

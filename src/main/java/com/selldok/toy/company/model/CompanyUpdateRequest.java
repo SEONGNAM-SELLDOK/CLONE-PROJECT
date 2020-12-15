@@ -2,7 +2,9 @@ package com.selldok.toy.company.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
+/**
+ * @gogisung
+ * */
 @Getter
 @Setter
 public class CompanyUpdateRequest {

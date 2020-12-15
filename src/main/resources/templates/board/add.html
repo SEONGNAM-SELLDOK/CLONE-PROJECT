@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta http-equiv="Pragma" content="no-cache">
-        <meta http-equiv="Expires" content="-1">
-        <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-        <title>Wanted for Employers</title>
-    </head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>Wanted for Employers</title>
 </head>
 <body>
 <div id="app">
@@ -53,9 +50,17 @@
                         drop-placeholder="Drop file here..."
                         @input="fileUpload"
                 ></b-form-file>
+                <div class="mt-3 mb-3">
+                    <strong>파일명</strong>
+                    <span>{{ fileName }}</span>
+                </div>
                 <label label-for="endDate">마감일</label>
                 <b-form-datepicker id="endDate" v-model="endDate" class="mb-2"></b-form-datepicker>
-                <b-button @click="addWanted">구직 정보 등록하기</b-button>
+                <b-button @click.prevent="addWanted" v-if="this.boardId === null">구직 정보 등록하기</b-button>
+                <div v-else>
+                    <b-button @click.prevent="boardModify">구직 정보 수정하기</b-button>
+                    <b-button @click.prevent="close">취소하기</b-button>
+                </div>
             </div>
         </div>
     </div>
@@ -81,27 +86,66 @@
 <script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
 
 <script>
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const company_id = urlParams.get('companyId');
+    const board_id = urlParams.get('boardId');
+
     new Vue({
         el: "#app",
         name: "AddWanted",
         data: {
+            boardId: board_id,
             file1: null,
-            filename: '',
+            fileName: '',
             title: '',
             content: '',
-            endDate: '',
+            endDate: null,
+            companyId: '',
             message: "구직 정보 등록 페이지"
         },
+        created() {
+            this.getBoardInfo();
+        },
         methods: {
+            close() {
+                window.location.href = `http://localhost:9090/board/read?companyId=${company_id}&boardId=${board_id}`;
+            },
             fileUpload() {
                 const formData = new FormData();
                 formData.append("file", this.file1);
+
                 axios.post('http://localhost:9090/board/fileUpload',
                     formData, {
                     header: { 'Content-Type': 'multipart/form-data' }
-                }).then(res => {
-                    console.log("res", res.data.filename);
-                    this.filename = res.data.filename;
+                }).then((res) => {
+                    this.fileName = res.data.fileName;
+                }).catch(error => {
+                    console.log("error", error);
+                    throw error;
+                });
+            },
+            boardModify() {
+                axios.put(`http://localhost:9090/board/${board_id}`,{
+                    title: this.title,
+                    content: this.content,
+                    image: this.fileName,
+                    endDate: this.endDate,
+                }).then((res) => {
+                    window.location.href = `http://localhost:9090/board/read?companyId=${company_id}&boardId=${board_id}`;
+                }).catch(error => {
+                    console.log("error", error);
+                    throw error;
+                });
+            },
+            getBoardInfo() {
+                axios.get(`http://localhost:9090/board/${board_id}`).then((res) => {
+                    this.title = res.data[0].title;
+                    this.content = res.data[0].content;
+                    this.fileName = res.data[0].image;
+                    this.endDate = res.data[0].endDate;
                 }).catch(error => {
                     console.log("error", error);
                     throw error;
@@ -111,15 +155,16 @@
                 axios.post('http://localhost:9090/board/add',{
                     title: this.title,
                     content: this.content,
-                    image: this.filename,
-                    endDate: this.endDate
+                    image: this.fileName,
+                    endDate: this.endDate,
+                    companyId: company_id,
                 }).then(res => {
-                    console.log("res", res);
+                    window.location.href = `http://localhost:9090/board/read?companyId=${company_id}&boardId=${res.data.board_id}`;
                 }).catch(error => {
                     console.log("error", error);
                     throw error;
                 });
-            }
+            },
         },
     });
 </script>

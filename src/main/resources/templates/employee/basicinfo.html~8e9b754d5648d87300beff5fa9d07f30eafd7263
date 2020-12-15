@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Selldok-toy</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/basicinfo.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+<body style="background-color: #f8f8fa;">
+<script>
+    function myInfoPage(userId){
+        location.href='/employees/view/' + userId;
+    }
+</script>
+<div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+    <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+        <nav>
+            <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                    class="icon-logo_new"></i></a></div>
+            <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
+                                                                                                class="">홈</a></li>
+                <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a></li>
+                <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary"><a href="/salary"
+                                                                                               class="">직군별 연봉</a>
+                </li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="resume"><a href="/cv"
+                                                                                            class="">이력서</a></li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="refer"><a href="/referral"
+                                                                                           class="">추천</a></li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/events"
+                                                                                           class="">이벤트</a>
+                </li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                        href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+            </ul>
+            <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                <div class="overlay">
+                    <div class="container"></div>
+                </div>
+            </div>
+            <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                <ul>
+                    <li>
+                        <button type="button" class="searchButton" data-attribute-id="gnb" data-gnb-kind="search"><i
+                                class="icon-search"></i></button>
+                    </li>
+                    <li>
+                        <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                class="icon-bell"></i></button>
+                    </li>
+                    <li class="smMoreVisible" style="padding-top:5px;">
+                        <button type="button"
+                                th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                        style="padding-top:10px;"><a
+                            class="dashboardButton" href="/">기업 서비스</a></li>스
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                        style="padding-top:10px;"><a
+                            class="dashboardButton" href="/event/list">이벤트 관리</a></li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                        style="padding-top:10px;"><a
+                            class="dashboardButton" href="/auth/logout">로그아웃</a></li>
+                    <li class="xsOnly">
+                        <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
+                                class="icon-menu"></i></button>
+                    </li>
+                </ul>
+            </aside>
+        </nav>
+    </div>
+</div>
+<div style="height:50px"></div>
+<div class="_1Gv5LM5zal-f72_XSo_qJ_">
+    <nav role="presentation" class="_3wSXAiIJQZ98fJ-Hi6G42Q is-matching">
+        <button type="button" class="">프로필<i class="icon-arrow_bottom_fill"></i></button>
+        <ul class="_1I4cqaAHGtwxgFUnJHZb4l">
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="myWanted"><a href="/mywanted" class="">MY 원티드</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="profile"><a href="/profile/matching" class="activeNav">프로필</a>
+                </div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <button type="button" class="">지원 현황<i class="icon-arrow_bottom_fill"></i></button>
+                <div data-attribute-id="myPage" data-tab-kind="applications"><a href="/status/applications" class="">지원
+                    현황</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <button type="button" class="">제안받기 현황<i class="icon-arrow_bottom_fill"></i></button>
+                <div data-attribute-id="myPage" data-tab-kind="offersReceived"><a href="/profile/status" class="">제안받기
+                    현황</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="likes"><a href="/profile/likes" class="">좋아요</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="bookmarks"><a href="/profile/bookmarks" class="">북마크</a>
+                </div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <button type="button" class="">MY 영상<i class="icon-arrow_bottom_fill"></i></button>
+                <div data-attribute-id="myPage" data-tab-kind="myVideos"><a href="/profile/myvod" class="">MY 영상</a>
+                </div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <div data-attribute-id="myPage" data-tab-kind="points"><a href="/profile/point" class="">포인트</a></div>
+            </li>
+            <li class="_1ft7OZSrbzL35bkI-omU2b">
+                <button type="button" class="">설정<i class="icon-arrow_bottom_fill"></i></button>
+                <div data-attribute-id="myPage" data-tab-kind="settings"><a href="/profile/settings" class="">설정</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="_14NzdD9Zqjq8ocf6TORWoN">
+        <aside class="Aside _1dBR38s0D_bqykmPvZBYPu">
+            <header class="Aside-header">
+                <div class="Aside-avatar">
+                    <div class="Aside-avatar_image"
+                         th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'">
+                        <div class="_1RDFX7ZROHIIPqPMgmtS2E"><input type="file" accept="image/*"><i
+                                class="icon-camera_icon" role="presentation"></i></div>
+                    </div>
+                </div>
+                <div class="Aside-me">
+                    <div class="Aside-me_name" th:text="${employee.info.name}"></div>
+                    <div class="Aside-me_email" th:text="${employee.info.email}"></div>
+                    <div class="Aside-me_tel" th:text="${employee.info.phoneNumber}"></div>
+                </div>
+                <a th:href="@{'/employees/view/' + ${#authentication.id}}" class="Aside-edit is-level_1"
+                   data-attribute-id="profile__basicInfoEdit">기본정보 수정</a></header>
+            <div class="MatchUpStatus _s0V-DmOyFivCW3HY7Nh3 is-disabled"><a href="/profile/status?type=matchup-likes"
+                                                                            class="MatchUpStatus-item disabled"><span
+                    class="MatchUpStatus-label">원해요</span><strong class="MatchUpStatus-value">3</strong></a><a
+                    href="/profile/status?type=matchup-opens" class="MatchUpStatus-item disabled"><span
+                    class="MatchUpStatus-label">열람</span><strong class="MatchUpStatus-value">7</strong></a><a
+                    href="/profile/status?type=matchup-offers" class="MatchUpStatus-item disabled"><span
+                    class="MatchUpStatus-label">받은 제안</span><strong class="MatchUpStatus-value">5</strong></a></div>
+        </aside>
+        <section>
+            <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi -Pzu8KqPWyTbeWGLO7ce">
+                <header class="Form-header">
+                    <dl class="Form-title">
+                        <dt>기본정보 수정</dt>
+                        <dd>지원 결과 또는 추천 포지션 정보를 받아볼 이메일/연락처 정보 입력해주세요.</dd>
+                    </dl>
+                </header>
+                <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                    <div class="FormBlock-content content"><label for="name" class="_2av-JJO4CWxQEEfPx7dOBH">
+                        <h6>이름</h6>
+                        <input id="name" class="selldock_input_name" type="text" autocomplete="off"
+                               th:value="*{employee.info.name}"></label>
+                        <label for="email" class="_2av-JJO4CWxQEEfPx7dOBH">
+                            <h6>이메일</h6>
+                            <input id="email" class="selldock_input_email" type="email" autocomplete="off"
+                                   th:value="*{employee.info.email}"></label>
+                        <div class="MobileInput _12auITD5n8MfXYolA_GudS _2av-JJO4CWxQEEfPx7dOBH">
+                            <h6 class="MobileInput-label">연락처</h6>
+                            <div class="MobileInput-body">
+                                <div class="MobileInput-select _3Q44kHqvs_YnYQ-Edlc7V">
+                                    <select>
+                                        <option value="+82">+82 South Korea</option>
+                                        <option value="+81">+81 Japan</option>
+                                        <option value="+886">+886 Taiwan</option>
+                                        <option value="+852">+852 Hong Kong</option>
+                                        <option value="+65">+65 Singapore</option>
+                                        <option value="+93">+93 Afghanistan</option>
+                                        <option value="+355">+355 Albania</option>
+                                        <option value="+213">+213 Algeria</option>
+                                        <option value="+244">+244 Angola</option>
+                                        <option value="+54">+54 Argentina</option>
+                                        <option value="+374">+374 Armenia</option>
+                                        <option value="+297">+297 Aruba</option>
+                                        <option value="+61">+61 Australia</option>
+                                        <option value="+43">+43 Austria</option>
+                                        <option value="+994">+994 Azerbaijan</option>
+                                        <option value="+973">+973 Bahrain</option>
+                                        <option value="+880">+880 Bangladesh</option>
+                                        <option value="+375">+375 Belarus</option>
+                                        <option value="+32">+32 Belgium</option>
+                                        <option value="+501">+501 Belize</option>
+                                        <option value="+229">+229 Benin</option>
+                                        <option value="+975">+975 Bhutan</option>
+                                        <option value="+591">+591 Bolivia</option>
+                                        <option value="+267">+267 Botswana</option>
+                                        <option value="+55">+55 Brazil</option>
+                                        <option value="+673">+673 Brunei</option>
+                                        <option value="+359">+359 Bulgaria</option>
+                                        <option value="+226">+226 Burkina Faso</option>
+                                        <option value="+855">+855 Cambodia</option>
+                                        <option value="+237">+237 Cameroon</option>
+                                        <option value=" +1"> +1 Canada</option>
+                                        <option value="+56">+56 Chile</option>
+                                        <option value="+86">+86 China</option>
+                                        <option value="+61">+61 Christmas Island</option>
+                                        <option value="+61">+61 Cocos Islands</option>
+                                        <option value="+57">+57 Colombia</option>
+                                        <option value="+269">+269 Comoros</option>
+                                        <option value="+506">+506 Costa Rica</option>
+                                        <option value="+385">+385 Croatia</option>
+                                        <option value="+53">+53 Cuba</option>
+                                        <option value="+599">+599 Curacao</option>
+                                        <option value="+357">+357 Cyprus</option>
+                                        <option value="+420">+420 Czech Republic</option>
+                                        <option value="+45">+45 Denmark</option>
+                                        <option value="+253">+253 Djibouti</option>
+                                        <option value="+593">+593 Ecuador</option>
+                                        <option value="+20">+20 Egypt</option>
+                                        <option value="+503">+503 El Salvador</option>
+                                        <option value="+240">+240 Equatorial Guinea</option>
+                                        <option value="+372">+372 Estonia</option>
+                                        <option value="+251">+251 Ethiopia</option>
+                                        <option value="+298">+298 Faroe Islands</option>
+                                        <option value="+679">+679 Fiji</option>
+                                        <option value="+358">+358 Finland</option>
+                                        <option value="+33">+33 France</option>
+                                        <option value="+689">+689 French Polynesia</option>
+                                        <option value="+220">+220 Gambia</option>
+                                        <option value="+995">+995 Georgia</option>
+                                        <option value="+49">+49 Germany</option>
+                                        <option value="+233">+233 Ghana</option>
+                                        <option value="+30">+30 Greece</option>
+                                        <option value="+299">+299 Greenland</option>
+                                        <option value="+502">+502 Guatemala</option>
+                                        <option value="+224">+224 Guinea</option>
+                                        <option value="+592">+592 Guyana</option>
+                                        <option value="+509">+509 Haiti</option>
+                                        <option value="+504">+504 Honduras</option>
+                                        <option value="+36">+36 Hungary</option>
+                                        <option value="+354">+354 Iceland</option>
+                                        <option value="+91">+91 India</option>
+                                        <option value="+62">+62 Indonesia</option>
+                                        <option value="+98">+98 Iran</option>
+                                        <option value="+964">+964 Iraq</option>
+                                        <option value="+353">+353 Ireland</option>
+                                        <option value="+972">+972 Israel</option>
+                                        <option value="+39">+39 Italy</option>
+                                        <option value="+962">+962 Jordan</option>
+                                        <option value="+7">+7 Kazakhstan</option>
+                                        <option value="+254">+254 Kenya</option>
+                                        <option value="+383">+383 Kosovo</option>
+                                        <option value="+965">+965 Kuwait</option>
+                                        <option value="+996">+996 Kyrgyzstan</option>
+                                        <option value="+856">+856 Laos</option>
+                                        <option value="+371">+371 Latvia</option>
+                                        <option value="+961">+961 Lebanon</option>
+                                        <option value="+218">+218 Libya</option>
+                                        <option value="+423">+423 Liechtenstein</option>
+                                        <option value="+370">+370 Lithuania</option>
+                                        <option value="+352">+352 Luxembourg</option>
+                                        <option value="+853">+853 Macau</option>
+                                        <option value="+389">+389 Macedonia</option>
+                                        <option value="+261">+261 Madagascar</option>
+                                        <option value="+265">+265 Malawi</option>
+                                        <option value="+60">+60 Malaysia</option>
+                                        <option value="+960">+960 Maldives</option>
+                                        <option value="+223">+223 Mali</option>
+                                        <option value="+356">+356 Malta</option>
+                                        <option value="+692">+692 Marshall Islands</option>
+                                        <option value="+222">+222 Mauritania</option>
+                                        <option value="+230">+230 Mauritius</option>
+                                        <option value="+52">+52 Mexico</option>
+                                        <option value="+373">+373 Moldova</option>
+                                        <option value="+976">+976 Mongolia</option>
+                                        <option value="+382">+382 Montenegro</option>
+                                        <option value="+212">+212 Morocco</option>
+                                        <option value="+258">+258 Mozambique</option>
+                                        <option value="+95">+95 Myanmar</option>
+                                        <option value="+264">+264 Namibia</option>
+                                        <option value="+977">+977 Nepal</option>
+                                        <option value="+31">+31 Netherlands</option>
+                                        <option value="+687">+687 New Caledonia</option>
+                                        <option value="+64">+64 New Zealand</option>
+                                        <option value="+505">+505 Nicaragua</option>
+                                        <option value="+227">+227 Niger</option>
+                                        <option value="+234">+234 Nigeria</option>
+                                        <option value="+47">+47 Norway</option>
+                                        <option value="+968">+968 Oman</option>
+                                        <option value="+92">+92 Pakistan</option>
+                                        <option value="+680">+680 Palau</option>
+                                        <option value="+970">+970 Palestine</option>
+                                        <option value="+507">+507 Panama</option>
+                                        <option value="+675">+675 Papua New Guinea</option>
+                                        <option value="+595">+595 Paraguay</option>
+                                        <option value="+51">+51 Peru</option>
+                                        <option value="+63">+63 Philippines</option>
+                                        <option value="+48">+48 Poland</option>
+                                        <option value="+351">+351 Portugal</option>
+                                        <option value="+974">+974 Qatar</option>
+                                        <option value="+262">+262 Reunion</option>
+                                        <option value="+40">+40 Romania</option>
+                                        <option value="+7">+7 Russia</option>
+                                        <option value="+250">+250 Rwanda</option>
+                                        <option value="+685">+685 Samoa</option>
+                                        <option value="+966">+966 Saudi Arabia</option>
+                                        <option value="+221">+221 Senegal</option>
+                                        <option value="+381">+381 Serbia</option>
+                                        <option value="+248">+248 Seychelles</option>
+                                        <option value="+232">+232 Sierra Leone</option>
+                                        <option value="+421">+421 Slovakia</option>
+                                        <option value="+386">+386 Slovenia</option>
+                                        <option value="+677">+677 Solomon Islands</option>
+                                        <option value="+252">+252 Somalia</option>
+                                        <option value="+27">+27 South Africa</option>
+                                        <option value="+211">+211 South Sudan</option>
+                                        <option value="+34">+34 Spain</option>
+                                        <option value="+94">+94 Sri Lanka</option>
+                                        <option value="+249">+249 Sudan</option>
+                                        <option value="+597">+597 Suriname</option>
+                                        <option value="+46">+46 Sweden</option>
+                                        <option value="+41">+41 Switzerland</option>
+                                        <option value="+963">+963 Syria</option>
+                                        <option value="+992">+992 Tajikistan</option>
+                                        <option value="+255">+255 Tanzania</option>
+                                        <option value="+66">+66 Thailand</option>
+                                        <option value="+228">+228 Togo</option>
+                                        <option value="+676">+676 Tonga</option>
+                                        <option value="+216">+216 Tunisia</option>
+                                        <option value="+90">+90 Turkey</option>
+                                        <option value="+993">+993 Turkmenistan</option>
+                                        <option value="+256">+256 Uganda</option>
+                                        <option value="+380">+380 Ukraine</option>
+                                        <option value="+971">+971 United Arab Emirates</option>
+                                        <option value="+44">+44 United Kingdom</option>
+                                        <option value="+1">+1 United States</option>
+                                        <option value="+598">+598 Uruguay</option>
+                                        <option value="+998">+998 Uzbekistan</option>
+                                        <option value="+678">+678 Vanuatu</option>
+                                        <option value="+58">+58 Venezuela</option>
+                                        <option value="+84">+84 Vietnam</option>
+                                        <option value="+967">+967 Yemen</option>
+                                        <option value="+260">+260 Zambia</option>
+                                        <option value="+263">+263 Zimbabwe</option>
+                                    </select>
+                                </div>
+                                <input id="mobile" class="selldock_input_phone MobileInput-text" type="text"
+                                       placeholder="(예시) 01034567890"
+                                       th:value="*{employee.info.phoneNumber}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="FormFooter _3MqXvmRsKlYS61B7NaqHUC isChild">
+                    <button type="button" class="BasicInformation-submit" data-attribute-id="profile__next"
+                            data-step="1">확인
+                    </button>
+                </div>
+                <input type="hidden" class="selldock_input_id" th:value="*{employee.id}">
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    $('.BasicInformation-submit').click(function () {
+        $.ajax({
+            url: 'http://localhost:8080/employees/' + $('.selldock_input_id').val(),
+            type: 'put',
+            data: JSON.stringify({
+                'name': $('.selldock_input_name').val(),
+                'email': $('.selldock_input_email').val(),
+                'phoneNumber': $('.selldock_input_phone').val()
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            statusCode: {
+                200: function () {
+                    console.log("200 Success!");
+                },
+                202: function () {
+                    alert("infomation saved successfully");
+                    location.href = '/employees/basicinfo/' + $('.selldock_input_id').val();
+                },
+                403: function () {
+                    console.log("403 Error!");
+                },
+                404: function () {
+                    console.log("404 Error!");
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

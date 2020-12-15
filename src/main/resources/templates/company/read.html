@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selldok-toy</title>
+</head>
+<body>
+<div id="app">
+    <h2>기업 상세페이지</h2>
+    <div>
+       <table>
+           <tr>
+               <td>회사이름</td>
+               <td>{{ name }}</td>
+           </tr>
+           <tr>
+               <td>email</td>
+               <td>{{ email }}</td>
+           </tr>
+           <tr>
+               <td>국가</td>
+               <td>{{ country }}</td>
+           </tr>
+           <tr>
+               <td>도시</td>
+               <td>{{ city }}</td>
+           </tr>
+           <tr>
+               <td>상세주소</td>
+               <td>{{ street }}</td>
+           </tr>
+           <tr>
+               <td>사업자 번호</td>
+               <td>{{ businessNum }}</td>
+           </tr>
+           <tr>
+               <td>매출액/투자금액</td>
+               <td>{{ totalSales }}</td>
+           </tr>
+           <tr>
+               <td>직원수</td>
+               <td>{{ employees }}</td>
+           </tr>
+           <tr>
+               <td>회사 설명</td>
+               <td>{{ info }}</td>
+           </tr>
+           <tr>
+               <td>창립일</td>
+               <td>{{ since }}</td>
+           </tr>
+           <tr>
+               <td>연락처</td>
+               <td>{{ phone }}</td>
+           </tr>
+           <tr>
+               <td>홈페이지</td>
+               <td>{{ homepage }}</td>
+           </tr>
+       </table>
+        <b-button  @click.prevent="goCompanyModify">수정 페이지 가기</b-button>
+        <b-button  @click.prevent="deleteCompany">기업 삭제하기</b-button>
+        <b-button  @click.prevent="recruitPosition">채용 정보 등록하기</b-button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+<script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const company_id = urlParams.get('id');
+
+    new Vue({
+        el: "#app",
+         methods: {
+            recruitPosition() {
+                window.location.href = `http://localhost:9090/board?companyId=${company_id}`;
+            },
+            deleteCompany() {
+                axios.delete(`http://localhost:9090/company/${company_id}`)
+                 .then(() => {
+                    window.location.href = 'http://localhost:9090';
+                 })
+                 .catch((err) => {
+                    console.log(err);
+                    throw err;
+                 });
+            },
+            goCompanyModify() {
+                window.location.href = `http://localhost:9090/company?id=${company_id}`;
+            },
+            getCompanyInfo() {
+                 axios.get(`http://localhost:9090/company/${company_id}`)
+                 .then((res) => {
+                    console.log("res", res);
+                    this.name = res.data.name;
+                    this.email = res.data.email;
+                    this.country = res.data.address.country;
+                    this.city = res.data.address.city;
+                    this.street = res.data.address.street;
+                    this.businessNum = res.data.businessNum;
+                    this.totalSales = res.data.totalSales;
+                    this.employees = res.data.employees;
+                    this.info = res.data.info;
+                    this.since = res.data.since;
+                    this.phone = res.data.phone;
+                    this.homepage = res.data.homepage;
+                 })
+                 .catch((err) => {
+                    console.log(err);
+                    throw err;
+                 });
+            }
+        },
+        created() {
+            this.getCompanyInfo();
+        },
+        data: {
+            message: "상세 페이지!",
+            name: "",
+            email: "",
+            country: "",
+            city: "",
+            street: "",
+            businessNum: "",
+            totalSales: "",
+            employees: "",
+            info: "",
+            since: "",
+            phone: "",
+            homepage: ""
+        }
+    });
+</script>
+<style>
+  table {
+    max-width: 500px;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #444444;
+  }
+</style>
+</body>
+</html>
