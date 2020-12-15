@@ -1,11 +1,14 @@
+# active profile 변경 방법 : https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-properties-and-configuration 
+# 로컬 개발환경에서는 OS의 변수(SPRING_PROFILES_ACTIVE)로 설정하시길 추천드려요 
+
 spring:
+  profiles:
+    active: Incheol-Jung
   application:
     name: selldok-toy
   datasource:
-    #driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    #url: jdbc:log4jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost:9092/~/util/h2/db/wanted;INIT=CREATE SCHEMA IF NOT EXISTS wanted\;SET SCHEMA wanted
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:h2:mem:testdb
     username: sa
     password:
   h2:
@@ -37,3 +40,21 @@ logging:
     org.springframework.web: DEBUG
     com.zaxxer.hikari.HikariDataSource: ERROR
     com.selldok.toy: DEBUG
+
+---
+
+spring:
+  profiles: Incheol-Jung
+
+---
+
+spring:
+  profiles: Gogisung
+
+---
+
+spring:
+  profiles: dskim
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost:9092/~/util/h2/db/wanted;INIT=CREATE SCHEMA IF NOT EXISTS wanted\;SET SCHEMA wanted  
