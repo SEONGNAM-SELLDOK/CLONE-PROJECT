@@ -77,3 +77,13 @@ Connection: keep-alive
 ![image](https://user-images.githubusercontent.com/2491418/99860795-7b358480-2bd7-11eb-916b-ffbd9b665ce8.png)
 
 
+## vs-code 관련
+### querydsl에서 자동생성된 class import
+
+* settings.json에 추가 : {프로젝트경로}/.vscode/settings.json
+
+```
+  "java.project.referencedLibraries": [
+      "build/classes/java/main"
+  ]
+```
