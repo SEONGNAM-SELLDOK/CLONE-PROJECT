@@ -22,16 +22,15 @@ spring:
     properties:
       hibernate:
         format-sql: true
-
   mvc:
     view:
       suffix: .html
+  thymeleaf:
+    cache: false
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-  thymeleaf:
-    cache: false
   data:
     web:
       pageable:

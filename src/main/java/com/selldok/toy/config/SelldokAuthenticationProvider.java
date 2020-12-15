@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
@@ -35,11 +34,10 @@ public class SelldokAuthenticationProvider implements AuthenticationProvider{
 
         Optional<Employee> optionalEmployee = authService.findUserInfoByEmail(response.getEmail());
         ROLE currentRole = optionalEmployee.isPresent() ? ROLE.REGULAR : ROLE.BASIC;
-        final Employee employee = optionalEmployee.orElseGet(() -> employeeService.insert(response.getName(),
-                                                                                          response.getEmail(),
-                                                                                          response.getPicture()
-                                                                                                  .getData()
-                                                                                                  .getUrl()));
+        final Employee employee = optionalEmployee.orElseGet(() -> employeeService.insert(
+                response.getName(),
+                response.getEmail(),
+                response.getPicture().getData().getUrl()));
 
         Authentication selldokUserToken = new SelldokUserToken(employee.getId(),
                                                                accessToken,
