@@ -44,6 +44,12 @@ dependencies {
 
   // spring security
   implementation 'org.springframework.boot:spring-boot-starter-security'
+
+  // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+  compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.4'
+
+  // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4
+  compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
 }
 
 test {

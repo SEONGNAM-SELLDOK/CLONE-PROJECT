@@ -87,4 +87,9 @@ public class EmployeeService {
             personInfoRepository.save(personInfo);
         });
     }
+
+    public Employee insert(String name, String email, String url) {
+        Employee employee = new Employee(name, email, "");
+        return employeeRepository.save(employee);
+    }
 }

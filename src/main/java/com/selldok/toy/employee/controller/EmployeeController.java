@@ -42,7 +42,7 @@ public class EmployeeController {
 
     @GetMapping("basicinfo/{id}")
     public String getBasicInfoView(@PathVariable("id") Long id, Model model) {
-        Optional<Employee> employee = employeeService.get(id);
+        Optional<Employee> employee = Optional.ofNullable(employeeService.get(id));
 
         if (employee.isPresent()) {
             model.addAttribute("employee", employee.get());
