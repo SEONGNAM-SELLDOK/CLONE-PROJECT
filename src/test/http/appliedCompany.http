@@ -23,7 +23,7 @@ Content-Type: application/json
   "email" : "이메일 변경@naver.com",
   "phoneNumber" : "전번변경010-1111-2222",
   "status": "CANCELED",
-  "companyId": 1
+  "companyId": 2
   }
 }
 
@@ -33,10 +33,8 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "applicantId": 1,
-  "companyId": 1,
-  "status": "PAPERS_PASAGE"
-  ,"status~": "CANCELED"
+  "status~": "PAPERS_PASAGE"
+  ,"status": "CANCELED"
   ,"status~~": "CANCELED"
   ,"status~~~": "CANCELED"
   }

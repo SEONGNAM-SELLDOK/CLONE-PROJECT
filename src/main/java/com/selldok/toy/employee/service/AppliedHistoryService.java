@@ -69,25 +69,40 @@ public class AppliedHistoryService {
 	 */
 	public void update(ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
-		Optional<ApplyHistory> ApplyHistory = ApplyHistoryRepository.findById(updatingApplyHistoryDto.getId());
-		Optional<Employee> applicant = employeeRepository.findById(updatingApplyHistoryDto.getApplicantId());
-		Optional<Company> company = companyRepository.findById(updatingApplyHistoryDto.getCompanyId());
-		if(applicant.isPresent()
-			&& company.isPresent()) {
-			BasicInfo memberBasicInfo = BasicInfo.builder()
-																	.name(updatingApplyHistoryDto.getName())
-																	.email(updatingApplyHistoryDto.getEmail())
-																	.phoneNumber(updatingApplyHistoryDto.getPhoneNumber())
-																	.build();
-			ApplyHistory.ifPresent(existingApplyHistory -> {
-				existingApplyHistory.setApplicant(applicant.get());
-				existingApplyHistory.setAppliedCompany(company.get());
-				existingApplyHistory.setInfo(memberBasicInfo);
-				existingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
-				ApplyHistoryRepository.save(existingApplyHistory);
-			});											
+		Optional<ApplyHistory> existingApplyHistory = ApplyHistoryRepository.findById(updatingApplyHistoryDto.getId());
+		Optional<Employee> applicant = null;
+		if(updatingApplyHistoryDto.getApplicantId() != null) {
+			applicant = employeeRepository.findById(updatingApplyHistoryDto.getApplicantId());
+			if(applicant.isEmpty()) {
+				throw new Exception("존재하지 않는 구직자입니다");
+			}
+		}
+
+		Optional<Company> company = null;
+		if(updatingApplyHistoryDto.getCompanyId() != null) {
+			company = companyRepository.findById(updatingApplyHistoryDto.getCompanyId());
+			if(company.isEmpty()) {
+				throw new Exception("존재하지 않는 회사입니다");
+			}
+		}
+
+		if(existingApplyHistory.isPresent()) {
+			ApplyHistory updatingApplyHistory = existingApplyHistory.get();
+			if(applicant != null && applicant.isPresent()) {
+				updatingApplyHistory.setApplicant(applicant.get());
+			}
+			if(company != null && company.isPresent()) {
+				updatingApplyHistory.setAppliedCompany(company.get());
+			}
+			//BasicInfo에 setter가 없음. 모델을 따로 만드는게 나을지, setter를 넣어달라고 하는게 맞을지  
+			//BasicInfo existingBasicInfo = existingApplyHistory.getInfo();
+			//existingApplyHistory.setInfo(memberBasicInfo);
+			if(updatingApplyHistoryDto.getStatus() != null) {
+				updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
+			}
+			ApplyHistoryRepository.save(updatingApplyHistory);			
 		} else {
-			throw new Exception("지원자 정보 혹은 회사 정보가 없습니다");
+			throw new Exception("존재하지 않는 지원이력입니다");
 		}
 	}	
 }
