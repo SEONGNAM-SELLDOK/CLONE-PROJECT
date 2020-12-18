@@ -35,5 +35,5 @@ public class Employee {
     }
 
     @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
-    private List<AppliedCompany> appliedCompanies;
+    private List<ApplyHistory> appliyHistories;
 }
