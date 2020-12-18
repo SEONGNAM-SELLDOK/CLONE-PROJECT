@@ -67,6 +67,9 @@
                             </li>
                             <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers" style="padding-top:10px"><a
                                     class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                                style="padding-top:10px;"><a
+                                    class="dashboardButton" href="/auth/logout">로그아웃</a></li>
                             <li class="xsOnly">
                                 <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo">
                                     <i class="icon-menu"></i></button>
