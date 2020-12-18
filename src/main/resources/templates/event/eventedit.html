@@ -197,12 +197,12 @@
                         <label for="isFree" class="_2av-JJO4CWxQEEfPx7dOBH">
                             <h6>무료 여부</h6>
                             <input id="isFree" class="selldock_input_isFree" type="checkbox" name="xxx" value="yyy"
-                                   checked>
+                                   th:checked="${event?.isFree}">
                         </label>
                         <label for="isRecommend" class="_2av-JJO4CWxQEEfPx7dOBH">
                             <h6>추천 여부</h6>
                             <input id="isRecommend" class="selldock_input_isRecommend" type="checkbox" name="xxx"
-                                   value="yyy" checked>
+                                   value="yyy" th:checked="${event?.isRecommend}">
                         </label>
                     </div>
                 </div>
