@@ -352,7 +352,7 @@
 <script>
     $('.BasicInformation-submit').click(function () {
         $.ajax({
-            url: 'http://localhost:8080/employees/' + $('.selldock_input_id').val(),
+            url: 'http://localhost:9090/employees/' + $('.selldock_input_id').val(),
             type: 'put',
             data: JSON.stringify({
                 'name': $('.selldock_input_name').val(),

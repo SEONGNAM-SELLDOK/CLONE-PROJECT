@@ -44,7 +44,7 @@ gradlew bootrun
 ### http Plugin 활용
 ```
 ### 구직자 조회
-GET http://localhost:8080/employees
+GET http://localhost:9090/employees
 
 > {%
 client.test("Request executed successfully", function() {
@@ -56,7 +56,7 @@ client.test("Request executed successfully", function() {
 
 ```
 ### 결과
-GET http://localhost:8080/employees
+GET http://localhost:9090/employees
 
 HTTP/1.1 200 
 Content-Type: application/json
@@ -73,7 +73,7 @@ Connection: keep-alive
 ]
 ```
 
-### 데이터베이스 콘솔 활용(localhost:8080/h2-db)
+### 데이터베이스 콘솔 활용(localhost:9090/h2-db)
 ![image](https://user-images.githubusercontent.com/2491418/99860795-7b358480-2bd7-11eb-916b-ffbd9b665ce8.png)
 
 

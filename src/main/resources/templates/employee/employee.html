@@ -284,7 +284,7 @@
 <script>
     $('.BasicInformation-submit').click(function () {
         $.ajax({
-            url: 'http://localhost:8080/employees/profile/' + $('.selldock_input_id').val(),
+            url: 'http://localhost:9090/employees/profile/' + $('.selldock_input_id').val(),
             type: 'put',
             data: JSON.stringify({
                 "resume": "이력서 기본.docs",

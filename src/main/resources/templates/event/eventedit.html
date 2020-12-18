@@ -220,7 +220,7 @@
 <script>
     $('.eventInfo-submit').click(function () {
         const eventId = $('.selldock_event_id').val();
-        const url = eventId ? 'http://localhost:8080/event/' + eventId : 'http://localhost:8080/event/'
+        const url = eventId ? 'http://localhost:9090/event/' + eventId : 'http://localhost:9090/event/'
         const type = eventId ? 'put' : 'post'
 
         $.ajax({
