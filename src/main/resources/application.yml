@@ -1,11 +1,6 @@
-# active profile 변경 방법 : https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-properties-and-configuration 
-# 로컬 개발환경에서는 OS의 변수(SPRING_PROFILES_ACTIVE)로 설정하시길 추천드려요 
-
 server:
   port: 8080
 spring:
-  profiles:
-    active: Incheol-Jung
   application:
     name: selldok-toy
   datasource:
@@ -63,17 +58,7 @@ logging:
 ---
 
 spring:
-  profiles: Incheol-Jung
-
----
-
-spring:
-  profiles: Gogisung
-
----
-#export SPRING_PROFILES_ACTIVE=dskim
-spring:
-  profiles: dskim
+  profiles: dev_env_dskim
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:tcp://localhost:9092/~/util/h2/db/wanted;INIT=CREATE SCHEMA IF NOT EXISTS wanted\;SET SCHEMA wanted  

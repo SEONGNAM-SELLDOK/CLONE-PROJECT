@@ -12,56 +12,54 @@ import com.selldok.toy.employee.entity.BasicInfo;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.AppliedCompanyDto;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 구인공고 지원 서비스
  * @author DongSeok,Kim
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AppliedCompanyService {
-	static Logger logger = LoggerFactory.getLogger(AppliedCompanyService.class);
+	@Autowired
+	private AppliedCompanyRepository appliedCompanyRepository;
+	@Autowired
+	private CompanyRepository companyRepository;
+	@Autowired
+	private EmployeeRepository employeeRepository;
 
-	@Autowired
-	private AppliedCompanyRepository acRepo;
-	@Autowired
-	private CompanyRepository cRepo;
-	@Autowired
-	private EmployeeRepository eRepo;
-
-	public AppliedCompanyKey createOrUpdate(AppliedCompanyDto newAcDto) throws Exception {
-		logger.debug("newAcDto={}", newAcDto);
-		AppliedCompanyKey acKey;
-		Optional<Employee> applicant = eRepo.findById(newAcDto.getApplicantId());
-		Optional<Company> company = cRepo.findById(newAcDto.getCompanyId());
+	public AppliedCompanyKey createOrUpdate(AppliedCompanyDto newAppliedCompanyDto) throws Exception {
+		log.debug("newAppliedCompanyDto={}", newAppliedCompanyDto);
+		AppliedCompanyKey appliedCompanyKey;
+		Optional<Employee> applicant = employeeRepository.findById(newAppliedCompanyDto.getApplicantId());
+		Optional<Company> company = companyRepository.findById(newAppliedCompanyDto.getCompanyId());
 		if(applicant.isPresent()
 			&& company.isPresent()) {
-			acKey = new AppliedCompanyKey(newAcDto.getApplicantId(), newAcDto.getCompanyId());
-			BasicInfo bi = BasicInfo.builder()
-				.name(newAcDto.getName())
-				.email(newAcDto.getEmail())
-				.phoneNumber(newAcDto.getPhoneNumber())
-				.build();
-			AppliedCompany ac = AppliedCompany.builder()
-				.appliedCompanyKey(acKey)
-				.applicant(applicant.get())
-				.info(bi)
-				.appliedCompany(company.get())
-				.status(newAcDto.getStatus())
-				.build();
-				acRepo.save(ac);
-			acKey = ac.getAppliedCompanyKey();
+			appliedCompanyKey = new AppliedCompanyKey(newAppliedCompanyDto.getApplicantId(), newAppliedCompanyDto.getCompanyId());
+			BasicInfo memberBasicInfo = BasicInfo.builder()
+									.name(newAppliedCompanyDto.getName())
+									.email(newAppliedCompanyDto.getEmail())
+									.phoneNumber(newAppliedCompanyDto.getPhoneNumber())
+									.build();
+			AppliedCompany appliedCompany = AppliedCompany.builder()
+											.appliedCompanyKey(appliedCompanyKey)
+											.applicant(applicant.get())
+											.info(memberBasicInfo)
+											.appliedCompany(company.get())
+											.status(newAppliedCompanyDto.getStatus())
+											.build();
+			appliedCompanyRepository.save(appliedCompany);
+			appliedCompanyKey = appliedCompany.getAppliedCompanyKey();
 		} else {
 			throw new Exception("지원자 정보 혹은 회사 정보가 없습니다");
 		}
+		log.debug("appliedCompanyKey={}", appliedCompanyKey);
 
-		logger.debug("acKey={}", acKey);
-
-		return acKey;
+		return appliedCompanyKey;
 	}
 }

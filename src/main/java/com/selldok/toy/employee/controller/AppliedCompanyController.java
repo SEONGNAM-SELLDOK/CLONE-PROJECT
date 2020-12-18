@@ -1,17 +1,12 @@
 package com.selldok.toy.employee.controller;
 
-import java.util.HashMap;
-
 import com.selldok.toy.employee.entity.AppliedCompanyKey;
 import com.selldok.toy.employee.model.AppliedCompanyDto;
 import com.selldok.toy.employee.service.AppliedCompanyService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,49 +14,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 지원이력
  * @author DongSeok, Kim
  */
-@Controller
+@Slf4j
 @RestController
 @RequestMapping("appliedCompanies")
 public class AppliedCompanyController {
-	static Logger logger = LoggerFactory.getLogger(AppliedCompanyController.class);
-
 	@Autowired
-	private AppliedCompanyService acServ;
+	private AppliedCompanyService appliedCompanyServ;
 
 	/**
 	 * 지원하기
 	 * 
-	 * @param newAcDto
+	 * @param AppliedCompanyDto applyingCompanyDto
 	 * @return
 	 * @throws Exception
 	 */
 	@PostMapping("")
-	//@PutMapping("") 2개 메소드는 동시에 쓸 수 없는 듯 -.- //Completed 405 METHOD_NOT_ALLOWED
 	@ResponseBody
-	public ResponseEntity<HashMap<String, AppliedCompanyKey>> create(@RequestBody AppliedCompanyDto newAcDto) throws Exception {
-		logger.debug("newAc={}", newAcDto);
-		AppliedCompanyKey acKey = acServ.createOrUpdate(newAcDto);
-		HashMap<String, AppliedCompanyKey> rtnMap = new HashMap<>();
-		rtnMap.put("appliedCompanyKey", acKey);
-		return new ResponseEntity<HashMap<String, AppliedCompanyKey>>(rtnMap, HttpStatus.OK);
+	public ResponseEntity<AppliedCompanyKey> createOrUpdate(@RequestBody AppliedCompanyDto applyingCompanyDto) throws Exception {
+		log.debug("applyingCompanyDto={}", applyingCompanyDto);
+		return new ResponseEntity<AppliedCompanyKey>(appliedCompanyServ.createOrUpdate(applyingCompanyDto), HttpStatus.OK);
 	}
 
 	/**
 	 * 수정하기
+	 * 이 메소드를 쓰면 set 하지 않은 필드들은 null로 갱신되는 문제 있음
 	 * 일부 컬럼만 갱신하는 기능 필요할 듯.
-	 * 이 메소드를 쓰면 set 하지 않은 필드들은 null로 갱신 됨
 	 * 
-	 * @param newAcDto
+	 * @param AppliedCompanyDto updatingAppliedCompanyDto
 	 * @return
 	 * @throws Exception
 	 */
 	@PutMapping("")
 	@ResponseBody
-	public ResponseEntity<HashMap<String, AppliedCompanyKey>> update(@RequestBody AppliedCompanyDto newAcDto) throws Exception {
-		return create(newAcDto);
+	public ResponseEntity<AppliedCompanyKey> update(@RequestBody AppliedCompanyDto updatingAppliedCompanyDto) throws Exception {
+		return createOrUpdate(updatingAppliedCompanyDto);
 	}
 }

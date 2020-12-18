@@ -44,7 +44,6 @@ public class AppliedCompany {
 		DSQLFC,			// 불합격
 		CANCELED		// 신청취소
 	}
-	
 
 	@EmbeddedId
 	private AppliedCompanyKey appliedCompanyKey;
@@ -52,14 +51,11 @@ public class AppliedCompany {
 	@Embedded
 	private BasicInfo info;
 
-	@Enumerated(EnumType. STRING)
+	@Enumerated(EnumType.STRING)
 	@Builder.Default
-	private Status status = Status.APPLCN_COMPT;	// 갱신시에 변경 불가 -.-
-	//private Status status ;
-	
+	private Status status = Status.APPLCN_COMPT;
+
 	@CreationTimestamp
-	// @UpdateTimestamp // Caused by: org.hibernate.AnnotationException: Only one
-	// generator annotation is allowed
 	private Timestamp appliedDt;
 
 	@ManyToOne
