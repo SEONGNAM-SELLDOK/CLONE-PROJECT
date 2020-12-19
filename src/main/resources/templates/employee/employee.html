@@ -57,6 +57,12 @@
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;"><a
                                 class="dashboardButton" href="/">기업 서비스</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;"><a
+                                class="dashboardButton" href="/event/list">이벤트 관리</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;"><a
+                                class="dashboardButton" href="/auth/logout">로그아웃</a></li>
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
                                     class="icon-menu"></i></button>
@@ -284,7 +290,7 @@
 <script>
     $('.BasicInformation-submit').click(function () {
         $.ajax({
-            url: 'http://localhost:8080/employees/profile/' + $('.selldock_input_id').val(),
+            url: 'http://localhost:9090/employees/profile/' + $('.selldock_input_id').val(),
             type: 'put',
             data: JSON.stringify({
                 "resume": "이력서 기본.docs",

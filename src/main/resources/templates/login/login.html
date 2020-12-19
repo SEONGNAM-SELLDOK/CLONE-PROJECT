@@ -71,7 +71,7 @@
     function statusChangeCallback(callBackResponse) {
         if (callBackResponse.status === 'connected') {
             $.ajax({
-                url: 'http://localhost:8080/auth/check',
+                url: 'http://localhost:9090/auth/check',
                 type: 'post',
                 data: JSON.stringify(callBackResponse),
                 contentType: "application/json; charset=utf-8",

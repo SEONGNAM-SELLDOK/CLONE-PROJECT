@@ -1,5 +1,5 @@
 ### 로그인 시도
-POST http://localhost:8080/auth
+POST http://localhost:9090/auth
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### 로그인 검증
-POST http://localhost:8080/auth/check
+POST http://localhost:9090/auth/check
 Content-Type: application/json
 
 {

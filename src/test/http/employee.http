@@ -1,5 +1,5 @@
 ### 구직자 생성
-POST http://localhost:8080/employees
+POST http://localhost:9090/employees
 Content-Type: application/json
 
 {
@@ -16,7 +16,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### 구직자 수정
-PUT http://localhost:8080/employees/1
+PUT http://localhost:9090/employees/1
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### 구직자 조회
-GET http://localhost:8080/employees/1
+GET http://localhost:9090/employees/1
 
 > {%
 client.test("Request executed successfully", function() {
@@ -43,7 +43,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### 구직자 삭제
-DELETE http://localhost:8080/employees/1
+DELETE http://localhost:9090/employees/1
 
 > {%
 client.test("Request executed successfully", function() {
@@ -53,7 +53,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### 구직자 프로필 조회
-GET http://localhost:8080/employees/profile/1
+GET http://localhost:9090/employees/profile/1
 
 > {%
 client.test("Request executed successfully", function() {
@@ -63,7 +63,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### 구직자 프로필 수정
-PUT http://localhost:8080/employees/profile/1
+PUT http://localhost:9090/employees/profile/1
 Content-Type: application/json
 
 {
