@@ -1,194 +1,380 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <title>Selldok-toy</title>
     <meta charset="utf-8">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/employee.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="-1">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>Wanted for Employers</title>
 </head>
 <body>
 <div id="app">
-    <div class="header">
-        <div class="container">
-            <header role="navigation" class="navbar bd-navbar flex-column flex-md-row navbar-dark navbar-expand">
-                <b-link href="#foo">Wanted for Employers</b-link>
-                <b-dropdown text="고기성">
-                    <b-dropdown-item href="#">내 프로필</b-dropdown-item>
-                    <b-dropdown-item href="#">로그아웃</b-dropdown-item>
-                </b-dropdown>
-                <b-button>원티드 홈</b-button>
-            </header>
-        </div>
-    </div>
-    <div class="body">
-        <div class="container">
-            <h2 class="company__title">회사를 등록해 주세요.</h2>
-            <h4 class="company__subtitle">원티드는 추천인/후보자들에게 좋은 일자리를 제공하기 위해, 다음 정보를 리뷰하여 회사등록을 승인하고 있습니다.</h4>
-            <div class="form-group">
-                <b-form-group
-                    id="fieldset-1"
-                    label="회사이름"
-                    label-for="input-1"
-                    valid-feedback="Thank you!"
-                    :invalid-feedback="invalidFeedback"
-                    :state="state"
-                >
-                    <b-form-input id="input-1" v-model="name" :state="state"></b-form-input>
-                </b-form-group>
-            </div>
-            <div>
-                <b-form-group id="input-group-1" label="국가*" label-for="input-1">
-                    <b-form-select
-                        id="input-1"
-                        v-model="countryValue"
-                        :options="countryOptions"
-                        value-field="item"
-                        text-field="name"
-                        required
-                    ></b-form-select>
-                </b-form-group>
-                <b-form-group id="input-group-2" label="지역*" label-for="input-2">
-                    <b-form-select
-                        id="input-2"
-                        v-model="cityValue"
-                        :options="cityOptions"
-                        value-field="item"
-                        text-field="name"
-                        required
-                    ></b-form-select>
-                </b-form-group>
-                <b-form-group
-                    id="fieldset-2"
-                    label="대표주소*"
-                    label-for="input-2"
-                >
-                    <b-form-input id="input-2" v-model="street" trim></b-form-input>
-                </b-form-group>
-                <b-form-group
-                        id="fieldset-3"
-                        label="사업자 등록 번호*"
-                        label-for="input-3"
-                >
-                    <b-form-input id="input-3" v-model="businessNum" v-if="this.companyId === null"></b-form-input>
-                </b-form-group>
-                <b-form-group
-                    id="fieldset-3"
-                    label="매출액/투자금액(승인기준: 매출액/투자유치 5억이상)*"
-                    label-for="input-3"
-                    valid-feedback="매출액/투자유치 5억 이상 입력하세요"
-                    :invalid-feedback="totalSalesFeedback"
-                    :state="stateTotalSales"
-                >
-                    <b-form-input id="input-3" v-model="totalSales" :state="stateTotalSales" trim></b-form-input>
-                </b-form-group>
-
-                <b-form-group id="input-group-employees" label="직원수(승인기준: 팀원 10명 이상)*" label-for="input-employees">
-                    <b-form-select
-                            id="input-employees"
-                            v-model="employeesValue"
-                            :options="employeesOptions"
-                            value-field="item"
-                            text-field="name"
-                            required
-                    ></b-form-select>
-                </b-form-group>
-                <b-form-group
-                    class="mb-0"
-                    label="회사/서비스 소개 (3,000자 제한)*"
-                    label-for="textarea-formatter"
-                >
-                    <b-form-textarea
-                        id="textarea-formatter"
-                        v-model="info"
-                        placeholder="회사 정보 입력"
-                    ></b-form-textarea>
-                </b-form-group>
-                <b-form-group
-                        id="since"
-                        label="설립연도*"
-                        label-for="since"
-                >
-                    <b-form-input id="since" v-model="since" v-if="this.companyId === null"></b-form-input>
-                </b-form-group>
-                <b-form-group
-                        id="email"
-                        label="정보 수신 이메일*"
-                        label-for="email"
-                >
-                    <b-form-input id="email" v-model="email" trim></b-form-input>
-                </b-form-group>
-                <b-form-group
-                        id="phone"
-                        label="담당자 연락처*"
-                        label-for="phone"
-                >
-                    <b-form-input id="phone" v-model="phone" trim></b-form-input>
-                </b-form-group>
-                <b-form-group
-                        id="homepage"
-                        label="웹사이트 주소"
-                        label-for="homepage"
-                >
-                    <b-form-input id="homepage" v-model="homepage" trim></b-form-input>
-                </b-form-group>
-                <div v-if="this.companyId === null">
-                    <b-form-group
-                        class="mb-0"
-                        label="기업회원 이용약관*"
-                        label-for="textarea-formatter"
-                    >
-                        <b-form-textarea
-                            id="textarea-formatter"
-                            rows="10"
-                            placeholder='제 1 조 (목적)
-                            본 약관은 주식회사 원티드랩 (이하 "회사")이 운영하는 "서비스"를 이용함에 있어 "회사"와 회원간의 이용 조건 및 제반 절차, 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 한다.
-
-                            제 2 조 (용어의 정의)
-                            이 약관에서 사용하는 용어의 정의는 아래와 같다.
-                            1. "사이트"라 함은 회사가 서비스를 "회원"에게 제공하기 위하여 컴퓨터 등 정보 통신 설비를 이용하여 설정한 가상의 영업장 또는 회사가 운영하는 아래 웹사이트를 말한다.
-                            가. ***.wanted.co.kr/wanted.jobs/wntd.co
-                            나. ***. kreditjob.com
-                            2. "서비스"라 함은 회사가 운영하는 사이트를 통해 기업(단체, 사업자, 교육기관)이 직원채용을 목적으로 등록하는 자료를 DB화하여 각각의 목적에 맞게 분류 가공, 집계하여 정보를 제공하는 서비스와 개인이 구직 등의 목적으로 등록한 자료를 제공받는 서비스 및 사이트에서 제공하는 모든 부대 서비스를 말한다.
-                            3. "회원"이라 함은 자사의 직접 고용의 목적으로 채용을 원하는 기업이 본 서비스를 이용하기 위하여 동 약관에 동의하고 "회사"와 이용계약을 체결한 기업회원을 말한다.
-                            4. "서비스 이용계약"이라 함은 회사가 기업회원을 위해 제공하는 서비스를 계속적으로 이용하기 위하여 회사와 이용자 사이에 체결되는 계약을 말한다.
-                            5. "아이디"라 함은 회원의 식별과 회원의 서비스 이용을 위하여 "회원"이 가입 시 사용한 이메일 주소를 말한다.
-                            6. "비밀번호"라 함은 "회사"의 서비스를 이용하려는 사람이 아이디를 부여 받은 자와 동일인임을 확인하고 "회원"의 권익을 보호하기 위하여 "회원"이 선정한 문자와 숫자의 조합 또는 이와 동일한 용도로 쓰이는 “사이트”에서 자동 생성된 인증코드를 말한다.
-                            7. "비회원"이라 함은 "회원"에 가입하지 않고 "회사"가 제공하는 서비스를 이용하는 자를 말한다.
-                            8. "채용공고"라 함은 구인을 위해 "회원"과 "회사"가 제공하는 포지션 등 구인구직 정보 일체를 뜻한다.
-                            9. "포인트"라 함은 "서비스"를 이용하기 위해 "회사"가 "회원"에게 지급, 적립 하는 가상의 적립금을 뜻하며, e-머니/충전금/포인트 등 용어로 갈음 될 수 있다.
-
-                            제 3 조 (약관의 명시와 개정)
-                            1. "회사"는 이 약관의 내용과 상호, 영업소 소재지, 대표자의 성명, 사업자등록번호, 연락처 등을 "회원"이 알 수 있도록 초기 화면에 게시하거나 기타의 방법으로 "회원"에게 공지해야 한다.
-                            2. "회사"는 약관의규제등에관한법률, 전기통신기본법, 전기통신사업법, 정보통신망이용촉진등에관한법률 등 관련법을 위배하지 않는 범위에서 이 약관을 개정할 수 있다.
-                            3. "회사"가 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행약관과 함께 그 개정약관의 적용일자 7일 전부터 적용일자 전일까지 공지한다. 단, "회원"의 권리, 의무에 중대한 영향을 주는 변경의 경우에는 적용일자 30일 전부터 공지하도록 한다.
-                            4. "회원"은 변경된 약관에 대해 거부할 권리가 있다. "회원"은 변경된 약관이 공지된 지 15일 이내에 거부의사를 표명할 수 있다. "회원"이 거부하는 경우 본 서비스 제공자인 "회사"는 15일의 기간을 정하여 "회원"에게 사전 통지 후 당해 "회원"과의 계약을 해지할 수 있다. 만약, "회원"이 거부의사를 표시하지 않거나, 전항에 따라 시행일 이후에 "서비스"를 이용하는 경우에는 동의한 것으로 간주한다.
-                            5. "회사"는 "회원"이 가입 신청시 등록한 이메일, 휴대전화 문자메시지 중 "회원"이 수신에 동의한 수단을 활용하여, "회원"에 대한 각종 고지나 통지를 이행 할 수 있다. 단, "회원"에게 서비스 이용에 대한 정보를 고지, 통지 및 공지가 필요할 경우 수신에 동의한 이외의 수단으로 이행 할 수 있다.
-
-                            제 4 조 (약관의 해석)
-                            1. 이 약관에서 규정하지 않은 사항에 관해서는 약관의규제등에관한법률, 전기통신기본법, 전기통신사업법, 정보통신망이용촉진등에관한법률 등의 관계법령에 따른다.
-                            2. "회원"이 "회사"와 개별 계약을 체결하여 서비스를 이용하는 경우에는 개별 계약이 우선한다.'
-                            readonly
-                        ></b-form-textarea>
-                    </b-form-group>
-                    <b-form-checkbox
-                            id="termsCheckbox"
-                            v-model="status"
-                            name="termsCheckbox"
-                            value=true
-                            class="mb-5 mt-5"
-                            unchecked-value=false
-                    >
-                        이용약관 및 원티드 기업회원 가입에 동의합니다.
-                    </b-form-checkbox>
-                    <b-button class="mb-5" @click.prevent="postCompanyInfo">등록하기</b-button>
+    <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+        <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+            <nav>
+                <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                        class="icon-logo_new"></i></a></div>
+                <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                    <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
+                                                                                                    class="">홈</a></li>
+                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a></li>
+                    <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary"><a href="/salary"
+                                                                                                   class="">직군별 연봉</a>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="resume"><a href="/cv"
+                                                                                                class="">이력서</a></li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="refer"><a href="/referral"
+                                                                                               class="">추천</a></li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/events" class="">이벤트</a>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                            href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+                </ul>
+                <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                    <div class="overlay">
+                        <div class="container"></div>
+                    </div>
                 </div>
-                <b-button class="mb-5" @click.prevent="putCompanyModify" v-else="this.companyId">수정하기</b-button>
-            </div>
+                <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                    <ul>
+                        <li>
+                            <button type="button" class="searchButton" data-attribute-id="gnb" data-gnb-kind="search"><i
+                                    class="icon-search"></i></button>
+                        </li>
+                        <li>
+                            <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                    class="icon-bell"></i></button>
+                        </li>
+                        <li class="smMoreVisible" style="padding-top:5px;">
+                            <button type="button"
+                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
+                            <a class="dashboardButton" href="/">기업 서비스</a>
+                        </li>
+                        <li class="xsOnly">
+                            <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
+                                    class="icon-menu"></i></button>
+                        </li>
+                    </ul>
+                </aside>
+            </nav>
         </div>
     </div>
+    <div style="height:50px"></div>
+    <div class="_1Gv5LM5zal-f72_XSo_qJ_">
+        <nav role="presentation" class="_3wSXAiIJQZ98fJ-Hi6G42Q is-matching">
+            <button type="button" class="">기업 정보 등록<i class="icon-arrow_bottom_fill"></i></button>
+            <ul class="_1I4cqaAHGtwxgFUnJHZb4l">
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="myWanted"><a href="/mywanted" class="">MY 원티드</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="profile">
+                        <a href="/company" class="activeNav">기업 정보 등록</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <button type="button" class="">지원 현황<i class="icon-arrow_bottom_fill"></i></button>
+                    <div data-attribute-id="myPage" data-tab-kind="applications"><a href="/status/applications"
+                                                                                    class="">지원 현황</a></div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <button type="button" class="">제안받기 현황<i class="icon-arrow_bottom_fill"></i></button>
+                    <div data-attribute-id="myPage" data-tab-kind="offersReceived">
+                        <a href="/profile/status" class="">제안받기 현황</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="likes">
+                        <a href="/profile/likes" class="">좋아요</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="bookmarks">
+                        <a href="/profile/bookmarks" class="">북마크</a></div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <button type="button" class="">MY 영상<i class="icon-arrow_bottom_fill"></i></button>
+                    <div data-attribute-id="myPage" data-tab-kind="myVideos"><a href="/profile/myvod" class="">MY 영상</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="points"><a href="/profile/point" class="">포인트</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <button type="button" class="">설정<i class="icon-arrow_bottom_fill"></i></button>
+                    <div data-attribute-id="myPage" data-tab-kind="settings"><a href="/profile/settings" class="">설정</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="_14NzdD9Zqjq8ocf6TORWoN">
+            <aside class="Aside _1dBR38s0D_bqykmPvZBYPu">
+                <header class="Aside-header">
+                    <div class="Aside-avatar">
+                        <div class="Aside-avatar_image"
+                             th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'">
+                            <div class="_1RDFX7ZROHIIPqPMgmtS2E"><input type="file" accept="image/*"><i
+                                    class="icon-camera_icon" role="presentation"></i></div>
+                        </div>
+                    </div>
+                    <div class="Aside-me">
+                        <div class="Aside-me_name">Michael Alehgbccadeda Greenesky</div>
+                        <div class="Aside-me_email">apylknutcy_1607149135@tfbnw.net</div>
+                        <div class="Aside-me_tel"></div>
+                    </div>
+                    <a th:href="@{'/employees/basicinfo/' + ${#authentication.id}}" class="Aside-edit">기본정보 수정</a></header>
+                <div class="MatchUpStatus _s0V-DmOyFivCW3HY7Nh3 is-disabled"><a
+                        href="/profile/status?type=matchup-likes"
+                        class="MatchUpStatus-item disabled"><span
+                        class="MatchUpStatus-label">원해요</span><strong class="MatchUpStatus-value">3</strong></a><a
+                        href="/profile/status?type=matchup-opens" class="MatchUpStatus-item disabled"><span
+                        class="MatchUpStatus-label">열람</span><strong class="MatchUpStatus-value">7</strong></a><a
+                        href="/profile/status?type=matchup-offers" class="MatchUpStatus-item disabled"><span
+                        class="MatchUpStatus-label">받은 제안</span><strong class="MatchUpStatus-value">5</strong></a></div>
+            </aside>
+            <section>
+                <div class="_6zGbQ6Gwdi0O826QWL_gN">
+                    <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi _3IED0gKfPim4KkuZ7BNhTA">
+                        <header class="Form-header">
+                            <dl class="Form-title">
+                                <dt>기업 정보 등록</dt>
+                            </dl>
+                        </header>
+                        <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                            <div class="FormBlock-content content">
+                                <div class="_1hQHY2MOttuKGMBqDe_htT">
+                                    <h2 class="company__title">회사를 등록해 주세요.</h2>
+                                    <h4 class="company__subtitle">원티드는 추천인/후보자들에게 좋은 일자리를 제공하기 위해, 다음 정보를 리뷰하여 회사등록을 승인하고 있습니다.</h4>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">회사 이름</label>
+                                        </b-col>
+                                        <b-form-group
+                                                id="fieldset-1"
+                                                label-for="input-1"
+                                                valid-feedback="Thank you!"
+                                                :invalid-feedback="invalidFeedback"
+                                                :state="state"
+                                        >
+                                            <b-form-input id="input-1" v-model="name" :state="state"></b-form-input>
+                                        </b-form-group>
+                                    </b-row>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">국가*</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-select
+                                                    id="input-1"
+                                                    v-model="countryValue"
+                                                    :options="countryOptions"
+                                                    value-field="item"
+                                                    text-field="name"
+                                                    required
+                                            ></b-form-select>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">지역*</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-select
+                                                    id="input-2"
+                                                    v-model="cityValue"
+                                                    :options="cityOptions"
+                                                    value-field="item"
+                                                    text-field="name"
+                                                    required
+                                            ></b-form-select>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">대표주소*</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-group
+                                                    id="fieldset-2"
+                                                    label-for="input-2"
+                                            >
+                                                <b-form-input id="input-2" v-model="street" trim></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">사업자 등록 번호*</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-group
+                                                    id="fieldset-3"
+                                                    label-for="input-3"
+                                            >
+                                                <b-form-input id="input-3" v-model="businessNum" v-if="this.companyId === null"></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">매출액/투자금액</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-group
+                                                    id="fieldset-3"
+                                                    label-for="input-3"
+                                                    valid-feedback="매출액/투자유치 5억 이상 입력하세요"
+                                                    :invalid-feedback="totalSalesFeedback"
+                                                    :state="stateTotalSales"
+                                            >
+                                                <b-form-input id="input-3" v-model="totalSales" :state="stateTotalSales" trim></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                    <label  class="Static-label">직원수(승인기준: 팀원 10명 이상)*</label>
+                                    <b-form-group
+                                            id="input-group-employees"
+                                            label-for="input-employees">
+                                        <b-form-select
+                                                id="input-employees"
+                                                v-model="employeesValue"
+                                                :options="employeesOptions"
+                                                value-field="item"
+                                                text-field="name"
+                                                required
+                                        ></b-form-select>
+                                    </b-form-group>
+                                    <label  class="Static-label">회사/서비스 소개 (3,000자 제한)*</label>
+                                    <b-form-group label-for="textarea-formatter">
+                                        <b-form-textarea
+                                                id="textarea-formatter"
+                                                v-model="info"
+                                                placeholder="회사 정보 입력"
+                                        ></b-form-textarea>
+                                    </b-form-group>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">설립연도*</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-group
+                                                    id="since"
+                                                    label-for="since"
+                                            >
+                                                <b-form-input id="since" v-model="since" v-if="this.companyId === null"></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">정보 수신 이메일*</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-group
+                                                    id="email"
+                                                    label-for="email"
+                                            >
+                                                <b-form-input id="email" v-model="email" trim></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">담당자 연락처*</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-group
+                                                    id="phone"
+                                                    label-for="phone"
+                                            >
+                                                <b-form-input id="phone" v-model="phone" trim></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row class="my-1">
+                                        <b-col sm="3">
+                                            <label  class="Static-label">웹사이트 주소</label>
+                                        </b-col>
+                                        <b-col sm="8">
+                                            <b-form-group
+                                                    id="homepage"
+                                                    label-for="homepage"
+                                            >
+                                                <b-form-input id="homepage" v-model="homepage" trim></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+                                    <label  class="Static-label">기업회원 이용약관*</label>
+                                    <b-form-group
+                                            class="mb-0"
+                                            label-for="textarea-formatter"
+                                    >
+                                        <b-form-textarea
+                                                id="textarea-formatter"
+                                                rows="10"
+                                                placeholder='제 1 조 (목적)
+                        본 약관은 주식회사 원티드랩 (이하 "회사")이 운영하는 "서비스"를 이용함에 있어 "회사"와 회원간의 이용 조건 및 제반 절차, 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 한다.
 
+                        제 2 조 (용어의 정의)
+                        이 약관에서 사용하는 용어의 정의는 아래와 같다.
+                        1. "사이트"라 함은 회사가 서비스를 "회원"에게 제공하기 위하여 컴퓨터 등 정보 통신 설비를 이용하여 설정한 가상의 영업장 또는 회사가 운영하는 아래 웹사이트를 말한다.
+                        가. ***.wanted.co.kr/wanted.jobs/wntd.co
+                        나. ***. kreditjob.com
+                        2. "서비스"라 함은 회사가 운영하는 사이트를 통해 기업(단체, 사업자, 교육기관)이 직원채용을 목적으로 등록하는 자료를 DB화하여 각각의 목적에 맞게 분류 가공, 집계하여 정보를 제공하는 서비스와 개인이 구직 등의 목적으로 등록한 자료를 제공받는 서비스 및 사이트에서 제공하는 모든 부대 서비스를 말한다.
+                        3. "회원"이라 함은 자사의 직접 고용의 목적으로 채용을 원하는 기업이 본 서비스를 이용하기 위하여 동 약관에 동의하고 "회사"와 이용계약을 체결한 기업회원을 말한다.
+                        4. "서비스 이용계약"이라 함은 회사가 기업회원을 위해 제공하는 서비스를 계속적으로 이용하기 위하여 회사와 이용자 사이에 체결되는 계약을 말한다.
+                        5. "아이디"라 함은 회원의 식별과 회원의 서비스 이용을 위하여 "회원"이 가입 시 사용한 이메일 주소를 말한다.
+                        6. "비밀번호"라 함은 "회사"의 서비스를 이용하려는 사람이 아이디를 부여 받은 자와 동일인임을 확인하고 "회원"의 권익을 보호하기 위하여 "회원"이 선정한 문자와 숫자의 조합 또는 이와 동일한 용도로 쓰이는 “사이트”에서 자동 생성된 인증코드를 말한다.
+                        7. "비회원"이라 함은 "회원"에 가입하지 않고 "회사"가 제공하는 서비스를 이용하는 자를 말한다.
+                        8. "채용공고"라 함은 구인을 위해 "회원"과 "회사"가 제공하는 포지션 등 구인구직 정보 일체를 뜻한다.
+                        9. "포인트"라 함은 "서비스"를 이용하기 위해 "회사"가 "회원"에게 지급, 적립 하는 가상의 적립금을 뜻하며, e-머니/충전금/포인트 등 용어로 갈음 될 수 있다.
+
+                        제 3 조 (약관의 명시와 개정)
+                        1. "회사"는 이 약관의 내용과 상호, 영업소 소재지, 대표자의 성명, 사업자등록번호, 연락처 등을 "회원"이 알 수 있도록 초기 화면에 게시하거나 기타의 방법으로 "회원"에게 공지해야 한다.
+                        2. "회사"는 약관의규제등에관한법률, 전기통신기본법, 전기통신사업법, 정보통신망이용촉진등에관한법률 등 관련법을 위배하지 않는 범위에서 이 약관을 개정할 수 있다.
+                        3. "회사"가 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행약관과 함께 그 개정약관의 적용일자 7일 전부터 적용일자 전일까지 공지한다. 단, "회원"의 권리, 의무에 중대한 영향을 주는 변경의 경우에는 적용일자 30일 전부터 공지하도록 한다.
+                        4. "회원"은 변경된 약관에 대해 거부할 권리가 있다. "회원"은 변경된 약관이 공지된 지 15일 이내에 거부의사를 표명할 수 있다. "회원"이 거부하는 경우 본 서비스 제공자인 "회사"는 15일의 기간을 정하여 "회원"에게 사전 통지 후 당해 "회원"과의 계약을 해지할 수 있다. 만약, "회원"이 거부의사를 표시하지 않거나, 전항에 따라 시행일 이후에 "서비스"를 이용하는 경우에는 동의한 것으로 간주한다.
+                        5. "회사"는 "회원"이 가입 신청시 등록한 이메일, 휴대전화 문자메시지 중 "회원"이 수신에 동의한 수단을 활용하여, "회원"에 대한 각종 고지나 통지를 이행 할 수 있다. 단, "회원"에게 서비스 이용에 대한 정보를 고지, 통지 및 공지가 필요할 경우 수신에 동의한 이외의 수단으로 이행 할 수 있다.
+
+                        제 4 조 (약관의 해석)
+                        1. 이 약관에서 규정하지 않은 사항에 관해서는 약관의규제등에관한법률, 전기통신기본법, 전기통신사업법, 정보통신망이용촉진등에관한법률 등의 관계법령에 따른다.
+                        2. "회원"이 "회사"와 개별 계약을 체결하여 서비스를 이용하는 경우에는 개별 계약이 우선한다.'
+                                                readonly
+                                        ></b-form-textarea>
+                                    </b-form-group>
+                                    <b-form-checkbox
+                                            id="termsCheckbox"
+                                            v-model="status"
+                                            name="termsCheckbox"
+                                            value=true
+                                            class="mb-5 mt-5"
+                                            unchecked-value=false
+                                            v-if="this.companyId === null"
+                                    >
+                                        이용약관 및 원티드 기업회원 가입에 동의합니다.
+                                    </b-form-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="FormFooter _3MqXvmRsKlYS61B7NaqHUC isChild">
+                            <b-button class="BasicInformation-submit" @click.prevent="postCompanyInfo" v-if="this.companyId === null">등록하기</b-button>
+                            <b-button class="mb-5" @click.prevent="putCompanyModify" v-else="this.companyId">수정하기</b-button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 </div>
 
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -214,7 +400,7 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
-    const company_id = urlParams.get('id');
+    const company_id = urlParams.get('companyId');
 
     new Vue({
         el: "#app",
@@ -258,7 +444,7 @@
                     "homepage": this.homepage
                 })
                  .then(() => {
-                    window.location.href = `http://localhost:9090/company/read?id=${company_id}`;
+                    window.location.href = `http://localhost:9090/company/read?companyId=${company_id}`;
                  })
                  .catch((err) => {
                     console.log(err);
@@ -303,7 +489,7 @@
                  })
                   .then((res) => {
                       console.log(res);
-                      window.location.href = `http://localhost:9090/company/read?id=${res.data.company_id}`;
+                      window.location.href = `http://localhost:9090/company/read?companyId=${res.data.company_id}`;
                   })
                   .catch(error => {
                     console.log(error);
