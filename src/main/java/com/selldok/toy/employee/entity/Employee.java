@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,6 +35,6 @@ public class Employee {
         this.info = BasicInfo.builder().name(name).email(email).phoneNumber(phoneNumber).build();
     }
 
-    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplyHistory> appliyHistories;
 }
