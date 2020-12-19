@@ -1,5 +1,5 @@
 ### 입사지원 하기
-POST http://localhost:8080/applyHistories
+POST http://localhost:9090/applyHistories
 Content-Type: application/json
 
 {
@@ -13,11 +13,11 @@ Content-Type: application/json
 }
 
 ### 입사지원 수정하기
-PUT http://localhost:8080/applyHistories
+PUT http://localhost:9090/applyHistories
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": 3,
   "applicantId": 1,
   "name" : "지원자명변경~",
   "email" : "이메일 변경@naver.com",
@@ -28,13 +28,13 @@ Content-Type: application/json
 }
 
 ### 입사지원 취소하기
-PUT http://localhost:8080/applyHistories
+PUT http://localhost:9090/applyHistories
 Content-Type: application/json
 
 {
-  "id": 1,
-  "status~": "PAPERS_PASAGE"
-  ,"status": "CANCELED"
+  "id": 3,
+  "status": "PAPERS_PASAGE"
+  ,"status~": "CANCELED"
   ,"status~~": "CANCELED"
   ,"status~~~": "CANCELED"
   }
