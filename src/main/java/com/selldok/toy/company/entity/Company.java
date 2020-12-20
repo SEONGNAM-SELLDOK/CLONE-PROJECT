@@ -67,6 +67,6 @@ public class Company {
         member.setCompany(this);
     }
     
-    @OneToMany(mappedBy = "appliedCompany", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "appliedCompany", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplyHistory> applyHistory;
 }
