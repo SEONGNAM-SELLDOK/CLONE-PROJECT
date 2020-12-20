@@ -1,11 +1,10 @@
 package com.selldok.toy.company.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.selldok.toy.company.entity.category.Category;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Gogisung
@@ -34,6 +33,6 @@ public class Board extends JpaBaseEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private LocalDate endDate;
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
 }
