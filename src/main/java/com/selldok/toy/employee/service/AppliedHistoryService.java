@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  * 구인공고 지원 서비스
  * @author DongSeok,Kim
  */
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -43,17 +44,17 @@ public class AppliedHistoryService {
 		if(applicant.isPresent()
 			&& company.isPresent()) {
 			BasicInfo memberBasicInfo = BasicInfo.builder()
-																	.name(newApplyHistoryDto.getName())
-																	.email(newApplyHistoryDto.getEmail())
-																	.phoneNumber(newApplyHistoryDto.getPhoneNumber())
-																	.build();
-																	
+			.name(newApplyHistoryDto.getName())
+			.email(newApplyHistoryDto.getEmail())
+			.phoneNumber(newApplyHistoryDto.getPhoneNumber())
+			.build();
+			
 			ApplyHistory applyHistory = ApplyHistory.builder()
-																			.applicant(applicant.get())
-																			.info(memberBasicInfo)
-																			.appliedCompany(company.get())
-																			.status(newApplyHistoryDto.getStatus())
-																			.build();
+			.applicant(applicant.get())
+			.info(memberBasicInfo)
+			.appliedCompany(company.get())
+			.status(newApplyHistoryDto.getStatus())
+			.build();
 			ApplyHistoryRepository.save(applyHistory);
 			newApplyHistoryId = applyHistory.getId();
 		} else {
