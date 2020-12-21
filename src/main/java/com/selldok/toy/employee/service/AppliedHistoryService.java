@@ -96,31 +96,13 @@ public class AppliedHistoryService {
 			if(employmentBoard != null && employmentBoard.isPresent()) {
 				updatingApplyHistory.setEmploymentBoard(employmentBoard.get());
 			}
-			//BasicInfo에 setter가 없음. 모델을 따로 만드는게 나을지, setter를 넣어달라고 하는게 맞을지  
-			BasicInfo existingBasicInfo = updatingApplyHistory.getBasicInfo();
-			BasicInfoBuilder updatingBasicInfoBuilder = BasicInfo.builder();
 			
-			if(updatingApplyHistoryDto.getName() != null) {
-				updatingBasicInfoBuilder.name(updatingApplyHistoryDto.getName());
-			} else {
-				updatingBasicInfoBuilder.name(existingBasicInfo.getName());
-			}
-
-			if(updatingApplyHistoryDto.getEmail() != null) {
-				updatingBasicInfoBuilder.email(updatingApplyHistoryDto.getEmail());
-			} else {
-				updatingBasicInfoBuilder.email(existingBasicInfo.getEmail());
-			}
-
-			if(updatingApplyHistoryDto.getPhoneNumber() != null) {
-				updatingBasicInfoBuilder.phoneNumber(updatingApplyHistoryDto.getPhoneNumber());
-			} else {
-				updatingBasicInfoBuilder.phoneNumber(existingBasicInfo.getPhoneNumber());
-			}
+			BasicInfoBuilder updatingBasicInfoBuilder = BasicInfo.builder()
+			.name(updatingApplyHistoryDto.getName())
+			.email(updatingApplyHistoryDto.getEmail())
+			.phoneNumber(updatingApplyHistoryDto.getPhoneNumber())
+			;
 			
-			if(updatingApplyHistoryDto.getStatus() != null) {
-				updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
-			}
 			updatingApplyHistory.setBasicInfo(updatingBasicInfoBuilder.build());
 
 			ApplyHistoryRepository.save(updatingApplyHistory);			
