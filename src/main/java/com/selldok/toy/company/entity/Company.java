@@ -3,7 +3,6 @@ package com.selldok.toy.company.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import com.selldok.toy.employee.entity.ApplyHistory;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -66,7 +65,4 @@ public class Company {
         this.member = member;
         member.setCompany(this);
     }
-    
-    @OneToMany(mappedBy = "appliedCompany", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ApplyHistory> applyHistory;
 }

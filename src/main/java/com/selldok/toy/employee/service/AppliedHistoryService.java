@@ -2,12 +2,13 @@ package com.selldok.toy.employee.service;
 
 import java.util.Optional;
 
-import com.selldok.toy.company.dao.CompanyRepository;
-import com.selldok.toy.company.entity.Company;
+import com.selldok.toy.company.dao.BoardRepository;
+import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.employee.dao.ApplyHistoryRepository;
 import com.selldok.toy.employee.dao.EmployeeRepository;
 import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.entity.BasicInfo;
+import com.selldok.toy.employee.entity.BasicInfo.BasicInfoBuilder;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 
@@ -29,7 +30,7 @@ public class AppliedHistoryService {
 	@Autowired
 	private ApplyHistoryRepository ApplyHistoryRepository;
 	@Autowired
-	private CompanyRepository companyRepository;
+	private BoardRepository boardRepository;
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
@@ -40,9 +41,9 @@ public class AppliedHistoryService {
 		log.debug("newApplyHistoryDto={}", newApplyHistoryDto);
 		Long newApplyHistoryId = null;
 		Optional<Employee> applicant = employeeRepository.findById(newApplyHistoryDto.getApplicantId());
-		Optional<Company> company = companyRepository.findById(newApplyHistoryDto.getCompanyId());
+		Optional<Board> employmentBoard = boardRepository.findById(newApplyHistoryDto.getEmploymentBoardId());
 		if(applicant.isPresent()
-			&& company.isPresent()) {
+			&& employmentBoard.isPresent()) {
 			BasicInfo memberBasicInfo = BasicInfo.builder()
 			.name(newApplyHistoryDto.getName())
 			.email(newApplyHistoryDto.getEmail())
@@ -51,8 +52,8 @@ public class AppliedHistoryService {
 			
 			ApplyHistory applyHistory = ApplyHistory.builder()
 			.applicant(applicant.get())
-			.info(memberBasicInfo)
-			.appliedCompany(company.get())
+			.basicInfo(memberBasicInfo)
+			.employmentBoard(employmentBoard.get())
 			.status(newApplyHistoryDto.getStatus())
 			.build();
 			ApplyHistoryRepository.save(applyHistory);
@@ -79,11 +80,11 @@ public class AppliedHistoryService {
 			}
 		}
 
-		Optional<Company> company = null;
-		if(updatingApplyHistoryDto.getCompanyId() != null) {
-			company = companyRepository.findById(updatingApplyHistoryDto.getCompanyId());
-			if(company.isEmpty()) {
-				throw new Exception("존재하지 않는 회사입니다");
+		Optional<Board> employmentBoard = null;
+		if(updatingApplyHistoryDto.getEmploymentBoardId() != null) {
+			employmentBoard = boardRepository.findById(updatingApplyHistoryDto.getEmploymentBoardId());
+			if(employmentBoard.isEmpty()) {
+				throw new Exception("존재하지 않는 채용공고입니다");
 			}
 		}
 
@@ -92,15 +93,36 @@ public class AppliedHistoryService {
 			if(applicant != null && applicant.isPresent()) {
 				updatingApplyHistory.setApplicant(applicant.get());
 			}
-			if(company != null && company.isPresent()) {
-				updatingApplyHistory.setAppliedCompany(company.get());
+			if(employmentBoard != null && employmentBoard.isPresent()) {
+				updatingApplyHistory.setEmploymentBoard(employmentBoard.get());
 			}
 			//BasicInfo에 setter가 없음. 모델을 따로 만드는게 나을지, setter를 넣어달라고 하는게 맞을지  
-			//BasicInfo existingBasicInfo = existingApplyHistory.getInfo();
-			//existingApplyHistory.setInfo(memberBasicInfo);
+			BasicInfo existingBasicInfo = updatingApplyHistory.getBasicInfo();
+			BasicInfoBuilder updatingBasicInfoBuilder = BasicInfo.builder();
+			
+			if(updatingApplyHistoryDto.getName() != null) {
+				updatingBasicInfoBuilder.name(updatingApplyHistoryDto.getName());
+			} else {
+				updatingBasicInfoBuilder.name(existingBasicInfo.getName());
+			}
+
+			if(updatingApplyHistoryDto.getEmail() != null) {
+				updatingBasicInfoBuilder.email(updatingApplyHistoryDto.getEmail());
+			} else {
+				updatingBasicInfoBuilder.email(existingBasicInfo.getEmail());
+			}
+
+			if(updatingApplyHistoryDto.getPhoneNumber() != null) {
+				updatingBasicInfoBuilder.phoneNumber(updatingApplyHistoryDto.getPhoneNumber());
+			} else {
+				updatingBasicInfoBuilder.phoneNumber(existingBasicInfo.getPhoneNumber());
+			}
+			
 			if(updatingApplyHistoryDto.getStatus() != null) {
 				updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
 			}
+			updatingApplyHistory.setBasicInfo(updatingBasicInfoBuilder.build());
+
 			ApplyHistoryRepository.save(updatingApplyHistory);			
 		} else {
 			throw new Exception("존재하지 않는 지원이력입니다");

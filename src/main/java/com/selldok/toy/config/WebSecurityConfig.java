@@ -57,6 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
             .antMatchers("/board/**")
             .permitAll()
+            .antMatchers("/applyHistories/**")
+            .permitAll()
             .antMatchers("/employees", HttpMethod.POST.toString())
             .permitAll()
             .antMatchers("/")

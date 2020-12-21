@@ -10,10 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 
-import com.selldok.toy.company.entity.Company;
+import com.selldok.toy.company.entity.Board;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -53,7 +54,7 @@ public class ApplyHistory {
     private Long id;
 
 	@Embedded
-	private BasicInfo info;
+	private BasicInfo basicInfo;
 
 	@Enumerated(EnumType.STRING)
 	@Builder.Default
@@ -63,13 +64,16 @@ public class ApplyHistory {
 	private Timestamp appliedDt;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable=false)
 	private Employee applicant;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Company appliedCompany;
+	@JoinColumn(name="employment_board_id", nullable=false)
+	private Board employmentBoard;
 
 	@PreUpdate
 	protected void onUpdate() {
 		appliedDt = new Timestamp(System.currentTimeMillis());
 	}
 }
+
