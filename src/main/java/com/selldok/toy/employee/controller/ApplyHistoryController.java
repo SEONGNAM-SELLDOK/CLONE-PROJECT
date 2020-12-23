@@ -1,15 +1,18 @@
 package com.selldok.toy.employee.controller;
 
+import java.util.Map;
+
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.service.AppliedHistoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping("applyHistories")
 public class ApplyHistoryController {
 	@Autowired
 	private AppliedHistoryService applyHistoryService;
@@ -34,9 +36,9 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("")
+	@PostMapping("applyHistories")
 	@ResponseBody
-	public ResponseEntity<Long> createOrUpdate(@RequestBody ApplyHistoryDto applyHistoryDto) throws Exception {
+	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto) throws Exception {
 		log.debug("applyHistoryDto={}", applyHistoryDto);
 		return new ResponseEntity<Long>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}
@@ -44,16 +46,27 @@ public class ApplyHistoryController {
 	/**
 	 * 수정하기
 	 * 이 메소드를 쓰면 set 하지 않은 필드들은 null로 갱신되는 문제 있음
-	 * 일부 컬럼만 갱신하는 기능 필요
+	 * 일부 컬럼만 갱신하는 기능 필요할까?
 	 * 
 	 * @param ApplyHistoryDto updatingApplyHistoryDto
 	 * @return
 	 * @throws Exception
 	 */
-	@PutMapping("")
+	@PutMapping("applyHistories/{id}")
 	@ResponseBody
-	public ResponseEntity update(@RequestBody ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
+	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
+		updatingApplyHistoryDto.setId(id);
 		applyHistoryService.update(updatingApplyHistoryDto);
         return new ResponseEntity(HttpStatus.ACCEPTED);
+	}
+
+	/**
+	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
+	 * http://localhost:8080/employees/1/applyHistories/getApplyCount
+	 */
+	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
+	@ResponseBody
+	public ResponseEntity<Map<String, Long>> getApplyCount(@PathVariable Long applicantId) throws Exception {
+        return new ResponseEntity<Map<String, Long>>(applyHistoryService.getApplyCount(applicantId), HttpStatus.ACCEPTED);
 	}
 }

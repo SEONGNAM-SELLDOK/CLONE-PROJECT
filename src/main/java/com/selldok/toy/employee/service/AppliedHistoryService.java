@@ -1,5 +1,7 @@
 package com.selldok.toy.employee.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import com.selldok.toy.company.dao.BoardRepository;
@@ -28,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class AppliedHistoryService {
 	@Autowired
-	private ApplyHistoryRepository ApplyHistoryRepository;
+	private ApplyHistoryRepository applyHistoryRepository;
 	@Autowired
 	private BoardRepository boardRepository;
 	@Autowired
@@ -56,7 +58,7 @@ public class AppliedHistoryService {
 			.employmentBoard(employmentBoard.get())
 			.status(newApplyHistoryDto.getStatus())
 			.build();
-			ApplyHistoryRepository.save(applyHistory);
+			applyHistoryRepository.save(applyHistory);
 			newApplyHistoryId = applyHistory.getId();
 		} else {
 			throw new Exception("지원자 정보 혹은 회사 정보가 없습니다");
@@ -71,7 +73,7 @@ public class AppliedHistoryService {
 	 */
 	public void update(ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
-		Optional<ApplyHistory> existingApplyHistory = ApplyHistoryRepository.findById(updatingApplyHistoryDto.getId());
+		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		Optional<Employee> applicant = null;
 		if(updatingApplyHistoryDto.getApplicantId() != null) {
 			applicant = employeeRepository.findById(updatingApplyHistoryDto.getApplicantId());
@@ -105,9 +107,28 @@ public class AppliedHistoryService {
 			
 			updatingApplyHistory.setBasicInfo(updatingBasicInfoBuilder.build());
 
-			ApplyHistoryRepository.save(updatingApplyHistory);			
+			applyHistoryRepository.save(updatingApplyHistory);			
 		} else {
 			throw new Exception("존재하지 않는 지원이력입니다");
 		}
-	}	
+	}
+
+	/**
+	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
+	 */
+	public Map<String, Long> getApplyCount(Long applicantId) {
+		Map<String, Long> applyCountList = new HashMap<String, Long>();
+		//총 카운트
+		applyCountList.put("allCnt", applyHistoryRepository.countByApplicantId(applicantId));
+		//지원 완료 
+		applyCountList.put("applcnComptCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.APPLCN_COMPT, applicantId));
+		//서류 통과
+		applyCountList.put("papersPasageCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.PAPERS_PASAGE, applicantId));
+		//최종 합격
+		applyCountList.put("lastPsexamCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.LAST_PSEXAM, applicantId));
+		//불합격
+		applyCountList.put("dsqlfctCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.DSQLFC, applicantId));
+		log.debug("applyCountList={}", applyCountList);
+		return applyCountList;
+	}
 }
