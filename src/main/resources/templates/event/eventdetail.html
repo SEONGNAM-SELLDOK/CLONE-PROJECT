@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>이벤트 상세 페이지</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/basicinfo.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/eventdetail.css">
+</head>
+<body style="background-color: #f8f8fa;">
+<script>
+    function myInfoPage(userId) {
+        location.href = '/employees/view/' + userId;
+    }
+</script>
+<div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+    <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+        <nav>
+            <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                    class="icon-logo_new"></i></a></div>
+            <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                <li class="xsHomeButton xsOnly selectedNav" data-attribute-id="gnb" data-gnb-kind="home"><a
+                        href="/" class="">홈</a></li>
+                <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a>
+                </li>
+                <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary"><a href="/salary"
+                                                                                               class="">직군별
+                    연봉</a></li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="resume"><a href="/cv" class="">이력서</a>
+                </li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="refer"><a href="/referral"
+                                                                                           class="">추천</a></li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/events"
+                                                                                           class="">커리어 성장</a>
+                </li>
+                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                        href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+            </ul>
+            <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                <div class="overlay">
+                    <div class="container"></div>
+                </div>
+            </div>
+            <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                <ul>
+                    <li>
+                        <button type="button" class="searchButton" data-attribute-id="gnb"
+                                data-gnb-kind="search"><i class="icon-search"></i></button>
+                    </li>
+                    <li>
+                        <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                class="icon-bell"></i></button>
+                    </li>
+                    <li sec:authorize="isAnonymous()">
+                        <button class="signUpButton" type="button" data-attribute-id="gnb" data-gnb-kind="signupLogin"
+                                onclick="location.href='/auth/view'">회원가입/로그인
+                        </button>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px">
+                        <button type="button"
+                                th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
+                                th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"
+                                data-badge="false"></button>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb"
+                        data-gnb-kind="forEmployers" style="padding-top:10px"><a
+                            class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                    <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb"
+                        data-gnb-kind="forEmployers"
+                        style="padding-top:10px;"><a
+                            class="dashboardButton" href="/auth/logout">로그아웃</a></li>
+                    <li class="xsOnly">
+                        <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo">
+                            <i class="icon-menu"></i></button>
+                    </li>
+                </ul>
+            </aside>
+        </nav>
+    </div>
+</div>
+<div style="height:50px"></div>
+<div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:relative">
+    <div class="_3IaMOv-Z5V_bqNf3jqEKam">
+        <div class="_2j738YkVy09dZT-XF1Kcrs count">
+            <div class="_3ERrOMkHNYLTHMx1X93n4z">
+                <div class="_32QwqMaPVax32zL2PxJEXd">
+                    <ul>
+                        <li>
+                            <button type="button" class="">원티드 북클럽 소개</button>
+                        </li>
+                        <li>
+                            <button type="button" class="">이번 북클럽 소개</button>
+                        </li>
+                        <li>
+                            <button type="button" class="">프로그램 상세</button>
+                        </li>
+                        <li>
+                            <button type="button" class="">클럽장 소개</button>
+                        </li>
+                        <li>
+                            <button type="button" class="">참가 비용</button>
+                        </li>
+                        <li>
+                            <button type="button" class="">북클럽 후기</button>
+                        </li>
+                        <li>
+                            <button type="button" class="">안내</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="_1o6v37Gv3SXRJ_rgQFHF2V"></div>
+            </div>
+        </div>
+        <section class="_1hpAs671IumVkFe2_K79bD">
+            <header class="_222QW5eoFbssShmKnwMDn3">
+                <section class="_313nYopiGHQAHORGKFS_PR"
+                         style="background-image: url(&quot;https://static.wanted.co.kr/images/events/1043/31fb1f61.jpg&quot;);"></section>
+                <section class="_1ybuygt639maz7oET_n5rS"><h2 class="_28fNunuWXwXVU4xByK6QsR">북클럽 : 마케터, 리더십 발휘하여
+                    살아남기</h2><h4 class="_2OZZmtzJ-GGGOh1Y-0MaV0">일자</h4><h5 class="_27vEIGCicqp5iw31zFSzU4">2021.01.14
+                    (목)</h5><h4 class="_2OZZmtzJ-GGGOh1Y-0MaV0">잔여</h4><h5 class="_27vEIGCicqp5iw31zFSzU4"> 8개</h5>
+                    <div class="_1ns3z92rYoy_j60jP0_0qr notFixedPos">
+                        <div>
+                            <button class="_2QgnC1A6jG4_MI5uSnnZzJ" type="button"
+                                    style="background: rgb(51, 102, 255); border: 1px solid rgb(51, 102, 255); color: rgb(255, 255, 255);">
+                                참가신청
+                            </button>
+                        </div>
+                        <div data-attribute-id="event_link" data-event-id="1043"><a href="https://wantededu.channel.io"
+                                                                                    target="_blank" class="">
+                            <button class="_2QgnC1A6jG4_MI5uSnnZzJ" type="button"
+                                    style="background: rgb(255, 255, 255); border: 1px solid rgb(51, 102, 255); color: rgb(51, 102, 255);">
+                                채팅 / 할부 문의
+                            </button>
+                        </a></div>
+                    </div>
+                </section>
+            </header>
+            <div class="_2D6tcYHzp681cKauJHw05V">
+                <div class="_1htZ7cwuBA5E2KysapotuK"></div>
+                <div class="_1oh6FdJEUe2KB2cHYJ8hkY">
+                    <div class="S7XqpMVlcY-PG-N8-H_Qk">유형</div>
+                    <span class="_3s8kamrw_tyq-uhwh7m8M5 is_online"><svg xmlns="http://www.w3.org/2000/svg" width="11"
+                                                                         height="12" viewBox="0 0 11 12"><path
+                            fill="currentColor"
+                            d="M5.98.9A5.09 5.09 0 00.32 6.54l1.03-.1a4.07 4.07 0 014.52-4.53L5.98.89zm4.57 4.56l-1.03.1A4.07 4.07 0 015 10.1l-.11 1.03a5.1 5.1 0 005.66-5.66zM5.76 2.94c-.9-.1-1.84.18-2.53.86a3.06 3.06 0 00-.86 2.54l1.02-.11c-.07-.6.12-1.24.57-1.7a2.05 2.05 0 011.7-.57l.1-1.02zM8.5 5.68l-1.04.12a2 2 0 01-2.24 2.24L5.1 9.06a3.06 3.06 0 003.4-3.4zm-2.53-.22c-.3-.3-.8-.3-1.1 0-.3.3-.29.78.02 1.08.3.3.79.3 1.09 0 .3-.3.3-.78 0-1.08z"></path></svg><span>온라인</span></span><span
+                        class="_3s8kamrw_tyq-uhwh7m8M5 education">교육</span>
+                    <div class="_27PHl_p2Cr4SxA4F2e_6d1"></div>
+                </div>
+                <div class="_2nRYEo-ntSbtEBG7eF75kp">
+                    <div class="S7XqpMVlcY-PG-N8-H_Qk">키워드</div>
+                    <ul class="categories--tags">
+                        <li>
+                            <button type="button"><span class="dKw0lwVyKWjiF7ibY12DG">#마케팅·광고</span></button>
+                        </li>
+                        <li>
+                            <button type="button"><span class="dKw0lwVyKWjiF7ibY12DG">#BookClub</span></button>
+                        </li>
+                    </ul>
+                    <div class="_5bcXJpeCrSarCwOj4BBH- left none"></div>
+                    <div class="_5bcXJpeCrSarCwOj4BBH- right"></div>
+                </div>
+            </div>
+            <div class="_1JK-3Pyw2flzevz6e38qUD">
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2>원티드 북클럽 소개</h2>
+                    <div><span class="colour" style="color: rgb(0, 0, 0);">유튜브, 넷플릭스 등 재미난 할 거리들은 점점 늘어나고, 책 읽는 시간은 점점 줄어들게 됩니다. 읽어야지, 읽어야지 하면서도 못 읽는게 우리 모두의 현실이죠. Wanted Book Club에서는 좋은 책을 꾸준히 읽어가면서 좋은 사람들과 교류할 수 있도록 도와드립니다.&nbsp;</span><br><br>
+                        <ul>
+                            <li dir="ltr"><span class="colour" style="color: rgb(0, 0, 0);">클럽장이 추천한 좋은 책을 멤버들과 함께 1개월 동안 읽어보세요. 혼자 읽는 것이 아니라 누군가와 함께 한다는 사실이 꾸준히, 그리고 끝까지 읽을 수 있도록 도와줍니다.&nbsp;</span>
+                            </li>
+                            <li dir="ltr"><span class="colour" style="color: rgb(0, 0, 0);">책을 읽고 클럽장을 포함한 멤버들과 자연스럽게 이야기 나누어보세요. 같은 책을 읽는다는 것은 같은 관심사와 고민을 가지고 있다는 의미입니다. 같은 관심사를 가진 10명+의 친구를 얻어 가세요.</span>
+                            </li>
+                        </ul>
+                        <br></div>
+                </div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2>이번 북클럽 소개</h2>
+                    <div><b>Wanted Book Club : 마케터, 리더십 발휘하여 살아남기</b><br><br><span class="colour"
+                                                                                   style="color:rgb(0, 0, 0)">‘마케팅’이라는 단어는 참 크고 넓은 의미를 내포하고 있죠. 조직의 성장 단계에 따라 ‘마케터'의 역할은 세분화, 전문화되고 조직마다 요구되는 역할이 다르기도 합니다. 마케팅팀을 이끌어 성과를 내야하는 팀리더는 이 역할 관계를 잘 이해하고 목표와 성과에 대한 책임을 져야하죠. 어깨가 무거울 수 밖에 없는데요.&nbsp;</span><br><br><span
+                            class="colour" style="color:rgb(0, 0, 0)">‘마케팅'의 본 의미를 이해하고, 팀 동료들의 역할별 강점을 이해하는 ‘리더십’을 발휘하기 위한 고민을 나누어보고자 합니다. 또한 마케터로서 강점을 발견하고 ‘업무 리더십'을 발휘할 수 있는 시간이 되었음 합니다.&nbsp;</span><br>
+                    </div>
+                </div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2>프로그램 상세</h2><img
+                        src="https://static.wanted.co.kr/images/events/1043/6061fc26.jpg" alt="프로그램 상세"></div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2></h2><img
+                        src="https://static.wanted.co.kr/images/events/1043/ddf0d5fb.jpg" alt=""></div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2></h2>
+                    <div><b>북클럽 정기 모임&nbsp;:</b> 총 4번의 모임을 통해 멤버들을 알아가고 책에 대하여, 책 내용과 관련된 주제들에 대하여 이야기 나눠보세요.<br><b>상시
+                        온라인 채팅방 : 카카오톡 비밀 채팅방을 통해서, 자료와 의견도 교환하고 자유롭게 소통하세요.</b><br><br><br><br><h4><span class="colour"
+                                                                                                          style="color:rgb(0, 0, 0)"><b>이런 분들께 추천드립니다.&nbsp;</b></span><br>
+                    </h4>
+                        <ul>
+                            <li dir="ltr"><span class="colour" style="color:rgb(0, 0, 0)">마케터의 역할과 강점을 이해하고 싶으신 분</span>
+                            </li>
+                            <li dir="ltr"><span class="colour" style="color:rgb(0, 0, 0)">마케팅 팀의 리더로 성장하고 싶으신 분</span>
+                            </li>
+                            <li dir="ltr"><span class="colour" style="color:rgb(0, 0, 0)">마케팅 팀의 리더 역할을 수행하고 계신 분</span>
+                            </li>
+                            <li dir="ltr"><span class="colour" style="color:rgb(0, 0, 0)">마케팅과 리더십에 대한 고민이 있으신 분</span>
+                            </li>
+                        </ul>
+                        <br></div>
+                </div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2>클럽장 소개</h2><img
+                        src="https://static.wanted.co.kr/images/events/1043/c267c98f.jpg" alt="클럽장 소개"></div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2></h2>
+                    <div><span class="colour"
+                               style="color: rgb(0, 0, 0);">실무 마케터로 살아남았더니 마케팅팀 리더로 살아남기 지령을 받으셨나요?<br><br>가치와 숫자의 하모니가 좋아서 마케터로 살아가고 있는 크몽의 마케팅 디렉터 (마케팅 그룹장) Jane이자, &lt;나를 지켜준 편지&gt;의 공동저자, &lt;마케팅 읽어주는 제인&gt;과 #Jane의책방탐방&nbsp; 운영자, 그리고&nbsp; 퇴근 후에는 안재식당 안주인으로 살고 있는 김민정입니다.&nbsp;</span><br><br><br><span
+                            class="colour" style="color: rgb(0, 0, 0);">퍼포먼스 마케팅 대행사에서 SA specialist로 커리어를 시작해서 에듀테크 스타트업에서 광고전략파트장을 수행하며 TV CF 캠페인부터 디지털 마케팅 전반에 대한 실무를 진행했던 저는 크몽의 마케터 1호로 시작해 현재는 8명의 마케터와 함께하는 마케팅 팀리더 역할을 하고 있어요. 실무자로 마케팅 업무를 잘 수행하는 것과 각 마케터의 강점과 역할 관계를 이해하며 팀을 이끄는 것은 연결되지만 다른 차원의 업무이기도 하죠. “리더는 외로워"는 “사람은 누구나 외롭다”와 이음동의 표현이라 할만한 진리이지만, 비슷한 역할을 수행하는 이들이 모이면 고민을 나누며 연대할 수 있지 않을까요?&nbsp;<i>&nbsp;</i></span><br><br>
+                    </div>
+                </div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2>참가 비용</h2>
+                    <div><br><h4><b><span class="colour" style="color: rgb(0, 0, 0);">회당 비용 : 30,000원</span></b><br>
+                    </h4><span class="colour"
+                               style="color: rgb(0, 0, 0);"><s>200,000원(정가)</s> &gt; 120,000원 (40% 할인)</span><br><br>정원
+                        : 10명<br><b>혜택 :&nbsp;</b><a target="_blank" href="https://www.wanted.co.kr/events/wantedplus">Wanted
+                            Plus</a><b><span class="colour" style="color: rgb(0, 0, 0);">&nbsp;이용권을 구매하시면 북클럽 할인혜택을 받으실 수 있습니다.</span></b><br>
+                    </div>
+                </div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2>북클럽 후기</h2>
+                    <div><br><h6><b>"혼자 책을 읽는 것과 함께 책을 읽는 것은 완전히 다른 경험이다"</b><br></h6><h6></h6><span class="colour"
+                                                                                                     style="color: rgb(0, 0, 0);">혼자 책을 읽는 것과 함께 책을 읽는 것은 완전히 다른 경험이었습니다. 같은 부분을 읽어도 여러 다른 생각을 나눌 수 있어서 좋았고, 서로의 고민에 공감하며 함께 나누는 대화 속에서 많은 에너지를 얻어갈 수 있었습니다. 몇 권의 책으로 좋은 분들과 연결되고 이전보다 더 넓게 생각할 수 있어서 즐거웠습니다.</span><br><br><span
+                            class="colour" style="color: rgb(0, 0, 0);">- 북클럽 참가자 박지영님 -</span><br><br><h6><b>"온라인으로 진행할
+                        수 있다는 점이 가장 마음에 들었다"</b><br></h6><h6></h6><span class="colour" style="color: rgb(0, 0, 0);">평소에 바빠서 독서 모임을 등록하지 못하고 있었는데, 장소 부담 없이 온라인으로 진행할 수 있어서 바로 신청했습니다. 원티드 북클럽을 통해 만난 업계의 리더, 담당자분들과 토론하고, 메신저를 통해 경험, 인사이트를 공유하면서 많은 고민들을 해결할 수 있었습니다. 실질적인 도움을 많이 받아서 너무 좋았습니다. :)</span><br><br><span
+                            class="colour" style="color: rgb(0, 0, 0);">- 북클럽 참가자 김예리님 -</span><br><br><h6><b>"같은 관심사를
+                        갖고 있는 사람들과 함께 고민할 수 있었던 소중한 시간이었다"</b><br></h6><h6></h6><span class="colour"
+                                                                                      style="color: rgb(0, 0, 0);">북클럽에 함께 참여하신 다양한 분들과 함께 소통하고 공유하며 커뮤니티를 형성할 수 있어서 좋았습니다. 같은 관심사를 가지고 있는 분들과 고민을 나누며 본질적인 가치에 더 가깝게 다가갈 수 있었습니다. 여러 방면으로 의미 있는 북클럽이었습니다.</span><br><br><span
+                            class="colour" style="color: rgb(0, 0, 0);">- 북클럽 참가자 박명규님 -</span><br><br><h6><b>"다양한 경험과
+                        노하우를 공유하여 책을 다각도로 보고 생각할 수 있었다"</b><br></h6><h6></h6><span class="colour"
+                                                                                   style="color: rgb(0, 0, 0);">온라인 모임이었지만 생각보다 편했습니다. 평소 인간관계의 틀에서 벗어나 다양한 인사이트, 경험을 가지고 계신 분들과 만나서 신선하고 좋았습니다. 다양한 경험과 노하우를 아낌없이 공유해줘서 책을 다각도로 보고 생각할 수 있었습니다. 또한, 고민을 털어 놓았을 때 모두 함께 해결책을 찾아주려고 애써주시는 모습도 너무 인상적이었습니다. 원티드 북클럽 강추합니다!</span><br><br><span
+                            class="colour" style="color: rgb(0, 0, 0);">- 북클럽 참가자 나윤숙님 -</span><br></div>
+                </div>
+                <div class="_1o9bfTW4IE1j7B_RfPy-NU"><h2>안내</h2>
+                    <div>
+                        <ul>
+                            <li>본 북클럽은 소수 인원의 활발한 소통을 목적으로 하는 모임이기 때문에 조기 마감될 수 있습니다.</li>
+                            <li><span class="colour" style="color: rgb(0, 0, 0);">제한된 인원 사이 신청 후 첫 모임 시작일 2일 전까지 메일 및 문자를 통해 진행 방법이 안내될 예정입니다.</span>
+                            </li>
+                            <li><span class="colour" style="color: rgb(0, 0, 0);">책 구매는 북클럽에서 지원하지 않으며, 오프라인 모임 비용은 참가비용에 포함되어 있습니다.</span>
+                            </li>
+                            <li>환불 정책 :<br>- <span class="colour"
+                                                   style="color: rgb(0, 0, 0);">첫번째 모임 시작일 전, 전액 환불</span><br>- <span
+                                    class="colour" style="color: rgb(0, 0, 0);">첫번째 모임 시작 후 : 구매 금액의 2/3에 해당하는 금액</span><br>-
+                                <span class="colour" style="color: rgb(0, 0, 0);">두번째 모임 시작 후 : 환불 불가</span><br></li>
+                            <li>환불 문의 <a target="_blank" href="https://mailto:help@wantedlab.com">help@wantedlab.com</a>
+                            </li>
+                        </ul>
+                        <br></div>
+                </div>
+            </div>
+        </section>
+        <div class="_20b4RehU9MvV66Y0_it9dk"><h2 class="VZ1n0lqgY21s5KGMyWnD">함께 보면 좋은 이벤트</h2>
+            <ul class="_3Z5WW3nZszMsNJPEU1dyly">
+                <div class="_1xUaQ4k-N5rWyyzyGK-b82 _3GntbnGSaDfXgm_CmfDqFJ"
+                     data-attribute-id="event__relatedEvent__click" data-event-id="1042"
+                     data-event-title="북클럽 : UX를 만드는 사람들" data-related-type="directRelated"
+                     style="--base-font-size:10;"><a href="/events/bookclub11" class="_3oAJfQpb3CxYkhiVimRswZ">
+                    <header class="_34T3NFsxKKHKsd4wK_vORp"
+                            style="background-image: url(&quot;https://static.wanted.co.kr/images/events/1042/fdd49faf.jpg&quot;);"></header>
+                    <div class="_3dWG79xcDIRQ_YXM6__sRD">
+                        <div class="aZCxcc_nqXU5e6r1XIoLX"><span class="pZH0dnpXC-vW96UckAVO0 is-online"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12"><path
+                                fill="currentColor"
+                                d="M5.98.9A5.09 5.09 0 00.32 6.54l1.03-.1a4.07 4.07 0 014.52-4.53L5.98.89zm4.57 4.56l-1.03.1A4.07 4.07 0 015 10.1l-.11 1.03a5.1 5.1 0 005.66-5.66zM5.76 2.94c-.9-.1-1.84.18-2.53.86a3.06 3.06 0 00-.86 2.54l1.02-.11c-.07-.6.12-1.24.57-1.7a2.05 2.05 0 011.7-.57l.1-1.02zM8.5 5.68l-1.04.12a2 2 0 01-2.24 2.24L5.1 9.06a3.06 3.06 0 003.4-3.4zm-2.53-.22c-.3-.3-.8-.3-1.1 0-.3.3-.29.78.02 1.08.3.3.79.3 1.09 0 .3-.3.3-.78 0-1.08z"></path></svg><span
+                                class="_1Hq5B1A3Cvm17KF-VKc5Vg">온라인</span></span><span
+                                class="pZH0dnpXC-vW96UckAVO0 is-education">교육</span></div>
+                        <h2 class="RNDdr3PVNejd717JP6mhx KpzmmdGvTyH0sNLt3SGq4">북클럽 : UX를 만드는 사람들</h2>
+                        <h3 class="RNDdr3PVNejd717JP6mhx _1R-JF4ybnN4J4XKjSj9udp">2021.01.17 (일)</h3>
+                        <div class="_1oLcBHFSvaAHnz6RbJlGEN"><span
+                                class="_1ShL8OYV_lCZNxII1e_BWj">#디자인 #UX #BookClub</span></div>
+                    </div>
+                </a></div>
+                <div class="_1xUaQ4k-N5rWyyzyGK-b82 _3GntbnGSaDfXgm_CmfDqFJ"
+                     data-attribute-id="event__relatedEvent__click" data-event-id="1038"
+                     data-event-title="북클럽 : 미래의 최전선에서 생각하기_SF 소설 모임" data-related-type="directRelated"
+                     style="--base-font-size:10;"><a href="/events/bookclub10" class="_3oAJfQpb3CxYkhiVimRswZ">
+                    <header class="_34T3NFsxKKHKsd4wK_vORp"
+                            style="background-image: url(&quot;https://static.wanted.co.kr/images/events/1038/6242be82.jpg&quot;);"></header>
+                    <div class="_3dWG79xcDIRQ_YXM6__sRD">
+                        <div class="aZCxcc_nqXU5e6r1XIoLX"><span class="pZH0dnpXC-vW96UckAVO0 is-online"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12"><path
+                                fill="currentColor"
+                                d="M5.98.9A5.09 5.09 0 00.32 6.54l1.03-.1a4.07 4.07 0 014.52-4.53L5.98.89zm4.57 4.56l-1.03.1A4.07 4.07 0 015 10.1l-.11 1.03a5.1 5.1 0 005.66-5.66zM5.76 2.94c-.9-.1-1.84.18-2.53.86a3.06 3.06 0 00-.86 2.54l1.02-.11c-.07-.6.12-1.24.57-1.7a2.05 2.05 0 011.7-.57l.1-1.02zM8.5 5.68l-1.04.12a2 2 0 01-2.24 2.24L5.1 9.06a3.06 3.06 0 003.4-3.4zm-2.53-.22c-.3-.3-.8-.3-1.1 0-.3.3-.29.78.02 1.08.3.3.79.3 1.09 0 .3-.3.3-.78 0-1.08z"></path></svg><span
+                                class="_1Hq5B1A3Cvm17KF-VKc5Vg">온라인</span></span><span
+                                class="pZH0dnpXC-vW96UckAVO0 is-education">교육</span></div>
+                        <h2 class="RNDdr3PVNejd717JP6mhx KpzmmdGvTyH0sNLt3SGq4">북클럽 : 미래의 최전선에서 생각하기_SF 소설 모임</h2>
+                        <h3 class="RNDdr3PVNejd717JP6mhx _1R-JF4ybnN4J4XKjSj9udp">2021.01.18 (월)</h3>
+                        <div class="_1oLcBHFSvaAHnz6RbJlGEN"><span
+                                class="_1ShL8OYV_lCZNxII1e_BWj">#크리에이티브 #BookClub</span></div>
+                    </div>
+                </a></div>
+                <div class="_1xUaQ4k-N5rWyyzyGK-b82 _3GntbnGSaDfXgm_CmfDqFJ"
+                     data-attribute-id="event__relatedEvent__click" data-event-id="1026"
+                     data-event-title="북클럽 : 스타트업 주니어는 어떻게 성장해야하는가" data-related-type="directRelated"
+                     style="--base-font-size:10;"><a href="/events/bookclub06" class="_3oAJfQpb3CxYkhiVimRswZ">
+                    <header class="_34T3NFsxKKHKsd4wK_vORp"
+                            style="background-image: url(&quot;https://static.wanted.co.kr/images/events/1026/b85930db.jpg&quot;);"></header>
+                    <div class="_3dWG79xcDIRQ_YXM6__sRD">
+                        <div class="aZCxcc_nqXU5e6r1XIoLX"><span class="pZH0dnpXC-vW96UckAVO0 is-online"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12"><path
+                                fill="currentColor"
+                                d="M5.98.9A5.09 5.09 0 00.32 6.54l1.03-.1a4.07 4.07 0 014.52-4.53L5.98.89zm4.57 4.56l-1.03.1A4.07 4.07 0 015 10.1l-.11 1.03a5.1 5.1 0 005.66-5.66zM5.76 2.94c-.9-.1-1.84.18-2.53.86a3.06 3.06 0 00-.86 2.54l1.02-.11c-.07-.6.12-1.24.57-1.7a2.05 2.05 0 011.7-.57l.1-1.02zM8.5 5.68l-1.04.12a2 2 0 01-2.24 2.24L5.1 9.06a3.06 3.06 0 003.4-3.4zm-2.53-.22c-.3-.3-.8-.3-1.1 0-.3.3-.29.78.02 1.08.3.3.79.3 1.09 0 .3-.3.3-.78 0-1.08z"></path></svg><span
+                                class="_1Hq5B1A3Cvm17KF-VKc5Vg">온라인</span></span><span
+                                class="pZH0dnpXC-vW96UckAVO0 is-education">교육</span></div>
+                        <h2 class="RNDdr3PVNejd717JP6mhx KpzmmdGvTyH0sNLt3SGq4">북클럽 : 스타트업 주니어는 어떻게 성장해야하는가</h2>
+                        <h3 class="RNDdr3PVNejd717JP6mhx _1R-JF4ybnN4J4XKjSj9udp">2021.01.05 (화)</h3>
+                        <div class="_1oLcBHFSvaAHnz6RbJlGEN"><span
+                                class="_1ShL8OYV_lCZNxII1e_BWj">#커리어 #기술/IT #BookClub</span></div>
+                    </div>
+                </a></div>
+                <div class="_1xUaQ4k-N5rWyyzyGK-b82 _3GntbnGSaDfXgm_CmfDqFJ"
+                     data-attribute-id="event__relatedEvent__click" data-event-id="987" data-event-title="북클럽 : N잡 프로젝트"
+                     data-related-type="directRelated" style="--base-font-size:10;"><a href="/events/bookclub05"
+                                                                                       class="_3oAJfQpb3CxYkhiVimRswZ">
+                    <header class="_34T3NFsxKKHKsd4wK_vORp"
+                            style="background-image: url(&quot;https://static.wanted.co.kr/images/events/987/9b77ce64.jpg&quot;);"></header>
+                    <div class="_3dWG79xcDIRQ_YXM6__sRD">
+                        <div class="aZCxcc_nqXU5e6r1XIoLX"><span class="pZH0dnpXC-vW96UckAVO0 is-education">교육</span>
+                        </div>
+                        <h2 class="RNDdr3PVNejd717JP6mhx KpzmmdGvTyH0sNLt3SGq4">북클럽 : N잡 프로젝트</h2>
+                        <h3 class="RNDdr3PVNejd717JP6mhx _1R-JF4ybnN4J4XKjSj9udp">2021.01.04 (월)</h3>
+                        <div class="_1oLcBHFSvaAHnz6RbJlGEN"><span class="_1ShL8OYV_lCZNxII1e_BWj">#경영·비즈니스 #커리어 #BookClub</span>
+                        </div>
+                    </div>
+                </a></div>
+            </ul>
+            <div class="y84u7I4uEUh1FtLDr8vkk"><a href="/events" class="_1wbxktkJ3ZFAS9wrJs1UFQ _3Iw_AsbizO61zyU4kmVFbc"
+                                                  data-attribute-id="event__goToEventList">이벤트 모두 보기
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                    <path fill="currentColor"
+                          d="M4.22 9.72a.75.75 0 001.06 1.06l4.25-4.25a.75.75 0 000-1.06L5.28 1.22a.75.75 0 00-1.06 1.06L7.94 6 4.22 9.72z"></path>
+                </svg>
+            </a></div>
+        </div>
+        <button type="button" class="_1wbxktkJ3ZFAS9wrJs1UFQ D1oKBMsTQGNBiZyIzdgLa is-ghost"
+                data-attribute-id="event__goShare">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19" height="19"
+                 viewBox="0 0 19 19">
+                <defs>
+                    <path id="shareIcon"
+                          d="M5.336 7.75c-.551-.703-1.418-1.136-2.365-1.136C1.337 6.614 0 7.898 0 9.494c0 1.596 1.336 2.879 2.971 2.879.93 0 1.785-.419 2.338-1.102l8.495 4.482c.128.068.276.092.42.068l.025-.004c.213-.036.395-.173.489-.367.101-.21.249-.393.437-.54.673-.526 1.643-.407 2.168.266.526.673.407 1.643-.265 2.167-.673.526-1.643.407-2.168-.266-.226-.29-.644-.34-.933-.115-.29.226-.34.644-.115.933.977 1.251 2.783 1.473 4.034.496 1.25-.976 1.472-2.782.495-4.033-.977-1.251-2.783-1.473-4.033-.496-.169.132-.32.28-.454.442L5.478 9.858c-.322-.241-.816-.145-1 .255-.259.558-.844.93-1.507.93-.913 0-1.642-.7-1.642-1.55 0-.849.73-1.55 1.642-1.55.636 0 1.2.343 1.473.863.107.368.526.64.954.413l9.026-4.762.118-.079.029-.024c.233-.197.303-.527.169-.8-.104-.212-.158-.442-.158-.68 0-.853.692-1.545 1.544-1.545.853 0 1.545.692 1.545 1.544 0 .854-.691 1.545-1.545 1.545-.367 0-.664.297-.664.664 0 .367.297.665.664.665C17.714 5.747 19 4.46 19 2.873 19 1.287 17.713 0 16.126 0c-1.586 0-2.873 1.287-2.873 2.873 0 .224.026.445.076.66L5.336 7.748z"></path>
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <use fill="#36F" xlink:href="#shareIcon"></use>
+                </g>
+            </svg>
+            <span class="hidden-xs">공유하기</span><span class="hidden-sm hidden-md hidden-lg">공유</span></button>
+    </div>
+</div>
+<div style="height:50px"></div>
+</body>
+</html>
