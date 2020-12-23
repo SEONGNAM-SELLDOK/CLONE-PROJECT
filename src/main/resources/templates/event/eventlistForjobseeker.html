@@ -12,8 +12,8 @@
 </head>
 <body>
 <script>
-    function myInfoPage(userId){
-        location.href='/employees/view/' + userId;
+    function myInfoPage(userId) {
+        location.href = '/employees/view/' + userId;
     }
 </script>
 <div id="__next">
@@ -57,17 +57,22 @@
                                         class="icon-bell"></i></button>
                             </li>
                             <li sec:authorize="isAnonymous()">
-                                <button class="signUpButton" type="button" data-attribute-id="gnb" data-gnb-kind="signupLogin" onclick="location.href='/auth/view'">회원가입/로그인</button>
+                                <button class="signUpButton" type="button" data-attribute-id="gnb"
+                                        data-gnb-kind="signupLogin" onclick="location.href='/auth/view'">회원가입/로그인
+                                </button>
                             </li>
-                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px" >
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px">
                                 <button type="button"
                                         th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
-                                        data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"
+                                        data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
+                                        th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"
                                         data-badge="false"></button>
                             </li>
-                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers" style="padding-top:10px"><a
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb"
+                                data-gnb-kind="forEmployers" style="padding-top:10px"><a
                                     class="dashboardButton" href="/dashboard">기업 서비스</a></li>
-                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb"
+                                data-gnb-kind="forEmployers"
                                 style="padding-top:10px;"><a
                                     class="dashboardButton" href="/auth/logout">로그아웃</a></li>
                             <li class="xsOnly">
@@ -96,7 +101,7 @@
                                          data-content-title="온라인 코딩 교육 '코드잇'" tabindex="-1"
                                          style="width: 100%; display: inline-block;"><a href="/company/1939" class="">
                                         <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
-                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/874/12aeb607.jpg&quot;);">
+                                             style="background-image: url(&quot;https://wanted-marketing-image.s3.ap-northeast-2.amazonaws.com/service_introduction/event_list_banner/Web_Event_Banner_2_201123.jpg&quot;);">
                                             <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
                                                 <div><h2>온라인 코딩 교육 '코드잇'</h2>
                                                     <h3>개발·교육·마케팅 포지션 채용!</h3></div>
@@ -196,7 +201,7 @@
                                          data-content-title="뷰티테크 로켓 스타트업" tabindex="-1"
                                          style="width: 100%; display: inline-block;"><a href="/" class="">
                                         <div class="_3xZF4YdAjZ8U8k2ZdvU5yI"
-                                             style="background-image: url(&quot;https://static.wanted.co.kr/images/banners/933/1ab79e6b.jpg&quot;);">
+                                             style="background-image: url(&quot;https://wanted-marketing-image.s3.ap-northeast-2.amazonaws.com/service_introduction/event_list_banner/Web_Event_Banner_2_201123.jpg&quot;);">
                                             <div class="_3VPN_4aZxzx9LByrQ0KfWP hideDesc">
                                                 <div><h2>뷰티테크 로켓 스타트업</h2>
                                                     <h3>[여신티켓] 전직군 채용 중!</h3></div>

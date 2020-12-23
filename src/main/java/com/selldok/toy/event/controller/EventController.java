@@ -47,6 +47,11 @@ public class EventController {
         return "event/eventlist";
     }
 
+    @GetMapping("search")
+    public String searchPage(Model model) {
+        return "event/eventlistForjobseeker";
+    }
+
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<List<Event>> get(@PathVariable("id") Long id) {
