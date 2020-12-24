@@ -1,9 +1,10 @@
 package com.selldok.toy.employee.dao;
 
+import static com.selldok.toy.employee.entity.QApplyHistory.applyHistory;
+
 import java.util.List;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import static com.selldok.toy.employee.entity.QApplyHistory.*;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.QApplyHistoryDto;
 
