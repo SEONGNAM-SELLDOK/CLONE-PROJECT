@@ -72,3 +72,14 @@ configurations {
 compileQuerydsl {
   options.annotationProcessorPath = configurations.querydsl
 }
+
+/*
+* gradle compileQuerydsl 시 AppliedHistoryService.java 에서 import 한 ~employee.entity.BasicInfo.BasicInfoBuilder 를 찾지 못하는 문제 발생하여 아래 추가
+* 참고 https://nhn-commerce.github.io/java/Lombok-CustomBuilder(%EC%9E%91%EC%84%B1%EC%A4%91)/#
+*/
+project.afterEvaluate {
+  project.tasks.compileQuerydsl.options.compilerArgs = [
+    "-proc:only",
+    "-processor", project.querydsl.processors() + ',lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
+  ]
+}
