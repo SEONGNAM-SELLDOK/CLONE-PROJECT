@@ -106,7 +106,6 @@ public class AppliedHistoryService {
 			;
 			
 			updatingApplyHistory.setBasicInfo(updatingBasicInfoBuilder.build());
-
 			applyHistoryRepository.save(updatingApplyHistory);			
 		} else {
 			throw new Exception("존재하지 않는 지원이력입니다");
@@ -130,5 +129,17 @@ public class AppliedHistoryService {
 		applyCountList.put("dsqlfctCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.DSQLFC, applicantId));
 		log.debug("applyCountList={}", applyCountList);
 		return applyCountList;
+	}
+
+	/**
+	 * 상태 변경하기
+	 */
+	public void changeStatus(ApplyHistoryDto updatingApplyHistoryDto) {
+		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
+		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
+		existingApplyHistory.ifPresent(updatingApplyHistory -> {
+            updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
+            applyHistoryRepository.save(updatingApplyHistory);
+        });
 	}
 }

@@ -36,9 +36,10 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("applyHistories")
+	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto) throws Exception {
+	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) throws Exception {
+		applyHistoryDto.setApplicantId(applicantId);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
 		return new ResponseEntity<Long>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}
@@ -52,11 +53,28 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PutMapping("applyHistories/{id}")
+	@PutMapping("employees/{applicantId}/applyHistories/{id}")
 	@ResponseBody
-	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
+	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
 		updatingApplyHistoryDto.setId(id);
+		updatingApplyHistoryDto.setApplicantId(applicantId);
 		applyHistoryService.update(updatingApplyHistoryDto);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
+	}
+
+	/**
+	 * 상태 변경하기
+	 * 
+	 * @param ApplyHistoryDto updatingApplyHistoryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping("employees/{applicantId}/applyHistories/{id}/changeStatus")
+	@ResponseBody
+	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
+		updatingApplyHistoryDto.setId(id);
+		updatingApplyHistoryDto.setApplicantId(applicantId);
+		applyHistoryService.changeStatus(updatingApplyHistoryDto);
         return new ResponseEntity(HttpStatus.ACCEPTED);
 	}
 

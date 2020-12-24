@@ -1,9 +1,8 @@
 ### 입사지원 하기
-POST http://localhost:8080/applyHistories
+POST http://localhost:9090/employees/1/applyHistories
 Content-Type: application/json
 
 {
-  "applicantId": 1,
   "name" : "지원자명",
   "email" : "applicant@naver.com",
   "phoneNumber" : "010-1111-2222",  
@@ -13,11 +12,10 @@ Content-Type: application/json
 }
 
 ### 입사지원 수정하기
-PUT http://localhost:8080/applyHistories/1
+PUT http://localhost:9090/employees/1/applyHistories/5
 Content-Type: application/json
 
 {
-  "applicantId": 1,
   "name" : "이름 수정",
   "email" : "이메일 변경@naver.com",
   "phoneNumber" : "전번변경010-1111-2222",
@@ -26,23 +24,18 @@ Content-Type: application/json
   }
 }
 
-### 입사지원 취소하기
-PUT http://localhost:8080/applyHistories
+### 입사지원 상태변경
+PUT http://localhost:9090/employees/1/applyHistories/5/changeStatus
 Content-Type: application/json
 
 {
-  "id": 3,
   "status": "PAPERS_PASAGE"
-  ,"status~": "CANCELED"
-  ,"status~~": "CANCELED"
-  ,"status~~~": "CANCELED"
-  }
 }
 
 ### 입사지원 카운트 목록
-GET http://localhost:8080/employees/1/applyHistories/getApplyCount
+GET http://localhost:9090/employees/1/applyHistories/getApplyCount
 
 
 ### 입사지원 전체 목록
-GET http://localhost:8080/applyHistories
+GET http://localhost:9090/employees/1/applyHistories
 
