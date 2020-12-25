@@ -12669,6 +12669,13 @@ a:visited ._12742KhA34JLAfD5yCRBQn > a:hover {
     top: 50px; }
 .M6DRRXt81Az4OyHgJDT0a._3BbgI5zdMi3Na1ZsNS0gEE {
     top: 90px; }
+._3hj0Dag1UGVoZJVxaYIT8i {
+    margin-right: 30px;
+}
+._1WlbuagtReqK1vXrIAiZt_{
+    position: absolute;
+    right: 0;
+}
 .M6DRRXt81Az4OyHgJDT0a ._3hj0Dag1UGVoZJVxaYIT8i {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -12679,7 +12686,8 @@ a:visited ._12742KhA34JLAfD5yCRBQn > a:hover {
     flex-direction: row;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between; }
+    justify-content: space-between;
+    margin-left: 30px;}
 .M6DRRXt81Az4OyHgJDT0a ._3hj0Dag1UGVoZJVxaYIT8i._2657s1utPy-u1NEmHBHYDO {
     /* mobile phone safe */
     /* Landscape phones and down */
@@ -24491,7 +24499,8 @@ div.q7slKU2pbJfsl2c3qcFpG .InputGroup-label {
         opacity: 1;
         z-index: 1; } }
 ._1WlbuagtReqK1vXrIAiZt_ {
-    position: relative; }
+    position: absolute;
+    right: 0;}
 ._2mD93PaHSjXjy_ldv8qzIB {
     margin-right: 5px; }
 ._15PXrWbEB34IGd7zYwqOGx {
@@ -24664,15 +24673,6 @@ div.q7slKU2pbJfsl2c3qcFpG .InputGroup-label {
         border-bottom-color: #3366ff; } }
 ._2x4O-3jfusmqXYXwNAN-9w {
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
     /* mobile phone safe */
     /* Landscape phones and down */ }
 @media (max-width: 767px) {
@@ -24683,10 +24683,6 @@ div.q7slKU2pbJfsl2c3qcFpG .InputGroup-label {
 ._1dIMSzSLbpPtzkLowVa0iW {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
     width: 100%;
     background-color: #fff;
     /* mobile phone safe */
@@ -25462,3 +25458,23 @@ div.q7slKU2pbJfsl2c3qcFpG .InputGroup-label {
         padding-top: 42px;
         background-color: #fff; } }
 
+.search_input{
+    height: 39px;
+    width: 100%;
+    margin: 0;
+    padding: 0 10px 0 20px;
+    border: 0;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #333;
+    /* background-color: #e8e8e8; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid;
+}
+
+#not_use .py51HbyJktaZndNqVoiaa::after{
+    content: none;
+}
