@@ -1,6 +1,7 @@
 package com.selldok.toy.event.controller;
 
 import com.selldok.toy.event.entity.Event;
+import com.selldok.toy.event.model.EventSearchRequest;
 import com.selldok.toy.event.model.InsertEventRequest;
 import com.selldok.toy.event.model.UpdateEventRequest;
 import com.selldok.toy.event.service.EventService;
@@ -42,14 +43,14 @@ public class EventController {
     }
 
     @GetMapping("list")
-    public String listPage(Model model) {
-        model.addAttribute("events", eventService.getList(0l));
+    public String listPage(Model model, EventSearchRequest request) {
+        model.addAttribute("events", eventService.getList(request));
         return "event/eventlist";
     }
 
     @GetMapping("search")
-    public String searchPage(Model model) {
-        model.addAttribute("events", eventService.getList(0l));
+    public String searchPage(Model model, EventSearchRequest request) {
+        model.addAttribute("events", eventService.getList(request));
         return "event/eventlistForjobseeker";
     }
 
@@ -58,12 +59,6 @@ public class EventController {
         Optional<Event> eventOptional = eventService.findById(id);
         model.addAttribute("event", eventOptional.orElse(null));
         return "event/eventdetail";
-    }
-
-    @GetMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<List<Event>> get(@PathVariable("id") Long id) {
-        return new ResponseEntity(eventService.getList(id), HttpStatus.OK);
     }
 
     @PostMapping
