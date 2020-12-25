@@ -2,10 +2,8 @@ package com.selldok.toy.employee.dao;
 
 import static com.selldok.toy.employee.entity.QApplyHistory.applyHistory;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.QApplyHistoryDto;
@@ -22,13 +20,6 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 
     @Override
     public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition) {
-/*
-
-        this.companyName = companyName;
-        this.boardTitle = boardTitle;
-        this.appliedDate = appliedDate;
-				this.statusName = statusName;
-				*/
 			return queryFactory
 			.select(
 				new QApplyHistoryDto(
