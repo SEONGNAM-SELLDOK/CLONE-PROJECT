@@ -139,9 +139,9 @@ public class AppliedHistoryService {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
 		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		existingApplyHistory.ifPresent(updatingApplyHistory -> {
-            updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
-            applyHistoryRepository.save(updatingApplyHistory);
-        });
+			updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
+			applyHistoryRepository.save(updatingApplyHistory);
+		});
 	}
 
 	/**
