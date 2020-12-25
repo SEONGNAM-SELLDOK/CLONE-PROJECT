@@ -22,10 +22,24 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 
     @Override
     public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition) {
+/*
 
+        this.companyName = companyName;
+        this.boardTitle = boardTitle;
+        this.appliedDate = appliedDate;
+				this.statusName = statusName;
+				*/
 			return queryFactory
 			.select(
-				new QApplyHistoryDto(applyHistory.basicInfo.name)
+				new QApplyHistoryDto(
+					applyHistory.basicInfo.name
+					,applyHistory.basicInfo.email
+					,applyHistory.basicInfo.phoneNumber
+					,applyHistory.employmentBoard.company.name
+					,applyHistory.employmentBoard.title
+					,applyHistory.appliedDt
+					,applyHistory.status
+				)
 			)
 			.from(applyHistory)
 			.where(

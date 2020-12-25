@@ -1,5 +1,7 @@
 package com.selldok.toy.employee.model;
 
+import java.sql.Timestamp;
+
 import com.querydsl.core.annotations.QueryProjection;
 import com.selldok.toy.employee.entity.ApplyHistory.Status;
 
@@ -26,13 +28,22 @@ public class ApplyHistoryDto {
     private String boardTitle;
     private String companyName;
     private String companyLogoUrl;
-    private String appliedDate;
+    private Timestamp appliedDate;
     private Status status;
-    private String statusName;
     private String recommendStatus;
 
+    public String getStatusName() {
+        return status.friendlyName;
+    }
+
     @QueryProjection
-    public ApplyHistoryDto(String name) {
+    public ApplyHistoryDto(String name, String email, String phoneNumber, String companyName, String boardTitle, Timestamp appliedDate, Status status) {
         this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.companyName = companyName;
+        this.boardTitle = boardTitle;
+        this.appliedDate = appliedDate;
+        this.status = status;
     }
 }
