@@ -22,9 +22,12 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
     public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition) {
 			return queryFactory
 			.select(
-				new QApplyHistoryDto(applyHistory.applicant.info.name)
+				new QApplyHistoryDto(applyHistory.basicInfo.name)
 			)
 			.from(applyHistory)
+			.where(
+				applyHistory.basicInfo.name.eq(searchCondition.getName())
+			)
 			.fetch();
     }
 }

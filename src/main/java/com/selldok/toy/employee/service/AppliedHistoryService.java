@@ -1,6 +1,7 @@
 package com.selldok.toy.employee.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -141,5 +142,14 @@ public class AppliedHistoryService {
             updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
             applyHistoryRepository.save(updatingApplyHistory);
         });
+	}
+
+	/**
+	 * 검색
+	 * @param applyHistoryDto
+	 * @return
+	 */
+	public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition) {
+		return applyHistoryRepository.search(searchCondition);
 	}
 }

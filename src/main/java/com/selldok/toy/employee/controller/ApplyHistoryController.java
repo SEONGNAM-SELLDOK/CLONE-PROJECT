@@ -1,5 +1,6 @@
 package com.selldok.toy.employee.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import com.selldok.toy.employee.model.ApplyHistoryDto;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -87,4 +89,21 @@ public class ApplyHistoryController {
 	public ResponseEntity<Map<String, Long>> getApplyCount(@PathVariable Long applicantId) throws Exception {
         return new ResponseEntity<Map<String, Long>>(applyHistoryService.getApplyCount(applicantId), HttpStatus.ACCEPTED);
 	}
+
+	/**
+	 * 검색
+	 * 
+	 * @param ApplyHistoryDto applyHistoryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("employees/{applicantId}/applyHistories")
+	@ResponseBody
+	public ResponseEntity<List<ApplyHistoryDto>> search(@PathVariable Long applicantId, @RequestParam String name) throws Exception {
+		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
+		applyHistoryDto.setApplicantId(applicantId);
+		applyHistoryDto.setName(name);
+		log.debug("applyHistoryDto={}", applyHistoryDto);
+		return new ResponseEntity<List<ApplyHistoryDto>>(applyHistoryService.search(applyHistoryDto), HttpStatus.ACCEPTED);
+	}	
 }
