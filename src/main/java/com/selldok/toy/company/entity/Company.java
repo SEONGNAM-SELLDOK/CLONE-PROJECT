@@ -3,6 +3,11 @@ package com.selldok.toy.company.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import com.selldok.toy.employee.entity.ApplyHistory;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -38,6 +43,7 @@ public class Company {
     @Embedded
     private Address address;
 
+    @NotEmpty
     private String businessNum; // 사업자 번호
     private String totalSales; // 매출액, 투자금액
 
@@ -46,10 +52,19 @@ public class Company {
 
     private String employees; // 직원수
     private String info; // 회사소개
+
+    @Email
     private String email; // 대표 이메일
+
+    @NotEmpty
     private String since; // 설립연도 ex)2012년
+
+    @NotEmpty
     private String phone; // 대표전화
+
     private String homepage; // 대표사이트
+
+    @AssertTrue
     private boolean terms; //약관동의
 
     /**
@@ -65,4 +80,7 @@ public class Company {
         this.member = member;
         member.setCompany(this);
     }
+    
+    @OneToMany(mappedBy = "appliedCompany", cascade = CascadeType.ALL)
+    private List<ApplyHistory> applyHistory = new ArrayList<>();
 }
