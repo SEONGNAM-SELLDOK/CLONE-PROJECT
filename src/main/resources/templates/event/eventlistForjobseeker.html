@@ -393,7 +393,8 @@
                             <div class="_3hj0Dag1UGVoZJVxaYIT8i">
                                 <div class="py51HbyJktaZndNqVoiaa hidden-xs">
                                     <div class="_2kUO5g0ZZCOcMCUUlSdDOm">
-                                        <input type="search" class="search_input selldock_input_title" placeholder="#이벤트 검색"
+                                        <input type="search" class="search_input selldock_input_title"
+                                               placeholder="#이벤트 검색"
                                                autocomplete="off" value="">
                                     </div>
                                 </div>
@@ -401,7 +402,8 @@
                             <div class="_3hj0Dag1UGVoZJVxaYIT8i">
                                 <div class="py51HbyJktaZndNqVoiaa hidden-xs">
                                     <div class="_2kUO5g0ZZCOcMCUUlSdDOm">
-                                        <input type="date" class="search_input selldock_input_date" placeholder="19880916"
+                                        <input type="date" class="search_input selldock_input_date"
+                                               placeholder="19880916"
                                                autocomplete="off" value="">
                                     </div>
                                 </div>
@@ -409,7 +411,8 @@
                             <div id="not_use" class="_3hj0Dag1UGVoZJVxaYIT8i">
                                 <div class="py51HbyJktaZndNqVoiaa hidden-xs" style="margin-left:30px;">
                                     <div class="_2kUO5g0ZZCOcMCUUlSdDOm" style="width:50px;">
-                                        <input type="checkbox" class="search_input selldock_input_isFree" placeholder="19880916"
+                                        <input type="checkbox" class="search_input selldock_input_isFree"
+                                               placeholder="19880916"
                                                autocomplete="off" value="">
                                     </div>
                                 </div>
@@ -557,34 +560,39 @@
     }</script>
     <script>
         $('.search_btn').click(function () {
-            const url = 'http://localhost:9090/event/search'
+            const title = $('.selldock_input_title').val();
+            const date = $('.selldock_input_date').val();
+            const isFree = $('.selldock_input_isFree').is(":checked");
+            const eventType = $('.selldock_input_eventType option:selected').val();
 
-            $.ajax({
-                url: url,
-                data: JSON.stringify({
-                    'title': $('.selldock_input_title').val(),
-                    'date': $('.selldock_input_date').val(),
-                    'isFree': $('.selldock_input_isFree').is(":checked"),
-                    'eventType': $('.selldock_input_eventType option:selected').val()
-                }),
-                contentType: "application/json; charset=utf-8",
-                dataType: 'json',
-                statusCode: {
-                    200: function () {
-                        console.log("200 Success!");
-                    },
-                    202: function () {
-                        // alert("searched successfully");
-                        // location.href = '/event/list';
-                    },
-                    403: function () {
-                        console.log("403 Error!");
-                    },
-                    404: function () {
-                        console.log("404 Error!");
-                    }
-                }
-            })
+            location.href = 'http://localhost:9090/event/search?title=' + title + '&date=' + date + '&isFree=' + isFree + '&eventType=' + eventType
+
+            // $.ajax({
+            //     url: url,
+            //     data: {
+            //         'title': $('.selldock_input_title').val(),
+            //         'date': $('.selldock_input_date').val(),
+            //         'isFree': $('.selldock_input_isFree').is(":checked"),
+            //         'eventType': $('.selldock_input_eventType option:selected').val()
+            //     },
+            //     contentType: "application/json; charset=utf-8",
+            //     dataType: 'json',
+            //     statusCode: {
+            //         200: function () {
+            //             console.log("200 Success!");
+            //         },
+            //         202: function () {
+            //             // alert("searched successfully");
+            //             // location.href = '/event/list';
+            //         },
+            //         403: function () {
+            //             console.log("403 Error!");
+            //         },
+            //         404: function () {
+            //             console.log("404 Error!");
+            //         }
+            //     }
+            // })
         })
     </script>
 </div>

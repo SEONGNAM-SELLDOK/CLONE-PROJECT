@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,8 @@ public class EventController {
     }
 
     @GetMapping("list")
-    public String listPage(Model model, EventSearchRequest request) {
+    public String listPage(Model model, Principal principal, EventSearchRequest request) {
+        request.setOwner(principal.getName());
         model.addAttribute("events", eventService.getList(request));
         return "event/eventlist";
     }

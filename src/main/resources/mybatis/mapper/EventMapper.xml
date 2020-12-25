@@ -8,19 +8,19 @@
         FROM event e
         WHERE 1 = 1
         <if test="title != null and title != ''">
-            AND e.title == title
+            AND e.title like CONCAT('%',#{title},'%')
         </if>
         <if test="date != null">
-            AND e.date == date
+            AND e.date = #{date}
         </if>
         <if test="isFree != null">
-            AND e.isFree == isFree
+            AND e.is_free = #{isFree}
         </if>
         <if test="eventType != null">
-            AND e.eventType == eventType
+            AND e.type = #{eventType}
         </if>
         <if test="owner != null and owner != ''">
-            AND e.owner == owner
+            AND e.owner = #{owner}
         </if>
     </select>
 </mapper>
