@@ -85,15 +85,15 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     }
 
     private BooleanExpression businessNumEq(String businessNum) {
-        return StringUtils.hasText(businessNum) ? board.company.businessNum.eq(businessNum): null;
+        return StringUtils.hasText(businessNum) ? board.company.businessNum.eq(businessNum) : null;
     }
 
     private BooleanExpression companyCityEq(String companyCity) {
-        return StringUtils.hasText(companyCity) ? board.company.address.city.eq(companyCity): null;
+        return StringUtils.hasText(companyCity) ? board.company.address.city.eq(companyCity) : null;
     }
 
     private BooleanExpression companyCountryEq(String companyCountry) {
-        return StringUtils.hasText(companyCountry) ? board.company.address.country.eq(companyCountry): null;
+        return StringUtils.hasText(companyCountry) ? board.company.address.country.eq(companyCountry) : null;
     }
 
     private BooleanExpression titleEq(String title) {
