@@ -55,8 +55,8 @@ public class EventController {
 
     @GetMapping("detail/{id}")
     public String detailPage(@PathVariable("id") Long id, Model model) {
-        // Optional<Event> eventOptional = eventService.findById(id);
-        // model.addAttribute("event", eventOptional.orElse(null));
+        Optional<Event> eventOptional = eventService.findById(id);
+        model.addAttribute("event", eventOptional.orElse(null));
         return "event/eventdetail";
     }
 
