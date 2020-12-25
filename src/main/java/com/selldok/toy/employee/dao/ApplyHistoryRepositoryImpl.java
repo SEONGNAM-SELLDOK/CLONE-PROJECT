@@ -37,6 +37,7 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 				// where 코딩을 좀 더 깔끔하게 할 수 있는 방법이 없을까요?
 				searchCondition.getName() != null ? applyHistory.basicInfo.name.contains(searchCondition.getName()) : null
 				,searchCondition.getCompanyName() != null ? applyHistory.employmentBoard.company.name.contains(searchCondition.getCompanyName()) : null
+				,searchCondition.getApplicantId() != null ? applyHistory.applicant.id.eq(searchCondition.getApplicantId()) : null
 			)
 			.offset(searchCondition.getOffset())
 			.limit(searchCondition.getLimit())
