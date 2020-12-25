@@ -92,6 +92,7 @@ public class ApplyHistoryController {
 
 	/**
 	 * 검색
+	 * http://localhost:9090/employees/1/applyHistories?name=%EC%A7%80%EC%9B%90&companyName=%EA%B5%AC
 	 * 
 	 * @param ApplyHistoryDto applyHistoryDto
 	 * @return
@@ -99,10 +100,11 @@ public class ApplyHistoryController {
 	 */
 	@GetMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<List<ApplyHistoryDto>> search(@PathVariable Long applicantId, @RequestParam String name) throws Exception {
+	public ResponseEntity<List<ApplyHistoryDto>> search(@PathVariable Long applicantId, @RequestParam(required=false) String name, @RequestParam(required=false) String companyName) throws Exception {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setApplicantId(applicantId);
 		applyHistoryDto.setName(name);
+		applyHistoryDto.setCompanyName(companyName);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
 		return new ResponseEntity<List<ApplyHistoryDto>>(applyHistoryService.search(applyHistoryDto), HttpStatus.ACCEPTED);
 	}	

@@ -39,3 +39,6 @@ GET http://localhost:9090/employees/1/applyHistories/getApplyCount
 ### 입사지원 전체 목록
 GET http://localhost:9090/employees/1/applyHistories
 
+### 입사지원 검섹
+GET http://localhost:9090/employees/1/applyHistories?name=지원&companyName=구
+
