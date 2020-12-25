@@ -100,11 +100,19 @@ public class ApplyHistoryController {
 	 */
 	@GetMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<List<ApplyHistoryDto>> search(@PathVariable Long applicantId, @RequestParam(required=false) String name, @RequestParam(required=false) String companyName) throws Exception {
+	public ResponseEntity<List<ApplyHistoryDto>> search(
+		@PathVariable Long applicantId
+		,@RequestParam(required=false) String name
+		,@RequestParam(required=false) String companyName
+		,@RequestParam(required=false, defaultValue="0") Long offset
+		,@RequestParam(required=false, defaultValue="10") Long limit
+	) throws Exception {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setApplicantId(applicantId);
 		applyHistoryDto.setName(name);
 		applyHistoryDto.setCompanyName(companyName);
+		applyHistoryDto.setOffset(offset);
+		applyHistoryDto.setLimit(limit);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
 		return new ResponseEntity<List<ApplyHistoryDto>>(applyHistoryService.search(applyHistoryDto), HttpStatus.ACCEPTED);
 	}	

@@ -47,6 +47,9 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 				searchCondition.getName() != null ? applyHistory.basicInfo.name.contains(searchCondition.getName()) : null
 				,searchCondition.getCompanyName() != null ? applyHistory.employmentBoard.company.name.contains(searchCondition.getCompanyName()) : null
 			)
+			.offset(searchCondition.getOffset())
+			.limit(searchCondition.getLimit())
+			.orderBy(applyHistory.id.desc())
 			.fetch();
     }
 }

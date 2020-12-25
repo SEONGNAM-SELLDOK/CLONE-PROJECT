@@ -40,5 +40,5 @@ GET http://localhost:9090/employees/1/applyHistories/getApplyCount
 GET http://localhost:9090/employees/1/applyHistories
 
 ### 입사지원 검섹
-GET http://localhost:9090/employees/1/applyHistories?name=지원&companyName=구
+GET http://localhost:9090/employees/1/applyHistories?name=지원&companyName=구&offset=2&limit=3
 

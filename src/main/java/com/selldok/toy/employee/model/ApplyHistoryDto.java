@@ -31,6 +31,8 @@ public class ApplyHistoryDto {
     private Timestamp appliedDate;
     private Status status;
     private String recommendStatus;
+    private Long offset = 0L;
+    private Long limit = 10L;
 
     public String getStatusName() {
         return status.friendlyName;
