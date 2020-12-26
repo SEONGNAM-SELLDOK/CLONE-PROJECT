@@ -31,8 +31,6 @@ public class ApplyHistoryDto {
     private Timestamp appliedDate;
     private Status status;
     private String recommendStatus;
-    private Long offset = 0L;
-    private Long limit = 10L;
 
     @QueryProjection
     public ApplyHistoryDto(String name, String email, String phoneNumber, String companyName, String boardTitle, Timestamp appliedDate, Status status) {

@@ -7,6 +7,7 @@ import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.service.AppliedHistoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,16 +105,13 @@ public class ApplyHistoryController {
 		@PathVariable Long applicantId
 		,@RequestParam(required=false) String name
 		,@RequestParam(required=false) String companyName
-		,@RequestParam(required=false, defaultValue="0") Long offset
-		,@RequestParam(required=false, defaultValue="10") Long limit
+		,Pageable pageable
 	) throws Exception {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setApplicantId(applicantId);
 		applyHistoryDto.setName(name);
 		applyHistoryDto.setCompanyName(companyName);
-		applyHistoryDto.setOffset(offset);
-		applyHistoryDto.setLimit(limit);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
-		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
 	}	
 }

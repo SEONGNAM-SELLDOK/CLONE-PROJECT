@@ -9,6 +9,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.QApplyHistoryDto;
 
+import org.springframework.data.domain.Pageable;
+
 /**
  * @author DongSeok,Kim
  */
@@ -20,7 +22,7 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 	}
 
 	@Override
-	public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition) {
+	public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition, Pageable pageable) {
 		return queryFactory
 			.select(
 				new QApplyHistoryDto(
@@ -39,8 +41,8 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 				,companyNameContains(searchCondition.getCompanyName())
 				,applicantIdEq(searchCondition.getApplicantId())
 			)
-			.offset(searchCondition.getOffset())
-			.limit(searchCondition.getLimit())
+			.offset(pageable.getOffset())
+			.limit(pageable.getPageSize())
 			.orderBy(applyHistory.id.desc())
 			.fetch();
 	}

@@ -16,6 +16,7 @@ import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -150,10 +151,11 @@ public class AppliedHistoryService {
 
 	/**
 	 * 검색
+	 * @param pageable
 	 * @param applyHistoryDto
 	 * @return
 	 */
-	public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition) {
-		return applyHistoryRepository.search(searchCondition);
+	public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition, Pageable pageable) {
+		return applyHistoryRepository.search(searchCondition, pageable);
 	}
 }
