@@ -52,3 +52,14 @@ logging:
     jdbc.sqlonly: DEBUG
     org.springframework.web: DEBUG
     com.zaxxer.hikari.HikariDataSource: ERROR
+
+---
+
+spring:
+  profiles: dev_env_dskim
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost:9092/~/util/h2/db/wanted;INIT=CREATE SCHEMA IF NOT EXISTS wanted\;SET SCHEMA wanted  
+  jpa:
+    hibernate:
+      ddl-auto: update

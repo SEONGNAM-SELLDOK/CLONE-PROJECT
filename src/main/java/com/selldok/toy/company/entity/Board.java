@@ -1,11 +1,15 @@
 package com.selldok.toy.company.entity;
 
 import com.selldok.toy.company.entity.category.Category;
+import com.selldok.toy.employee.entity.ApplyHistory;
+
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Gogisung
@@ -41,4 +45,10 @@ public class Board extends JpaBaseEntity {
 
     @Temporal(TemporalType.DATE)
     private Date endDate;
+
+    /**
+     * 입사지원이력
+     */
+    @OneToMany(mappedBy = "employmentBoard", cascade = CascadeType.ALL)
+    private List<ApplyHistory> applyHistories = new ArrayList<ApplyHistory>();
 }

@@ -1,0 +1,44 @@
+### 입사지원 하기
+POST http://localhost:9090/employees/1/applyHistories
+Content-Type: application/json
+
+{
+  "name" : "지원자명",
+  "email" : "applicant@naver.com",
+  "phoneNumber" : "010-1111-2222",  
+  "status": "APPLCN_COMPT",
+  "employmentBoardId": 4
+  }
+}
+
+### 입사지원 수정하기
+PUT http://localhost:9090/employees/1/applyHistories/11
+Content-Type: application/json
+
+{
+  "name" : "이름 수정",
+  "email" : "이메일 변경@naver.com",
+  "phoneNumber" : "전번변경010-1111-2222",
+  "status": "APPLCN_COMPT",
+  "employmentBoardId": 4
+  }
+}
+
+### 입사지원 상태변경
+PUT http://localhost:9090/employees/1/applyHistories/11/changeStatus
+Content-Type: application/json
+
+{
+  "status": "PAPERS_PASAGE"
+}
+
+### 입사지원 카운트 목록
+GET http://localhost:9090/employees/1/applyHistories/getApplyCount
+
+
+### 입사지원 전체 목록
+GET http://localhost:9090/employees/1/applyHistories
+
+### 입사지원 검섹
+GET http://localhost:9090/employees/1/applyHistories?name=&companyName=구글&offset=0&limit=10
+

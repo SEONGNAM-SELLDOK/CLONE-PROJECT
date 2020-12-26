@@ -80,7 +80,4 @@ public class Company {
         this.member = member;
         member.setCompany(this);
     }
-    
-    @OneToMany(mappedBy = "appliedCompany", cascade = CascadeType.ALL)
-    private List<ApplyHistory> applyHistory = new ArrayList<>();
 }
