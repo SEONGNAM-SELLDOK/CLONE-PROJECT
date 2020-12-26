@@ -114,22 +114,26 @@ public class AppliedHistoryService {
 	}
 
 	/**
-	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
+	 * 상태별 카운트리스트를 map으로 변환
+	 * 
+	 * @param applicantId 지원자의 아이디
+	 * @return
 	 */
-	public Map<String, Long> getApplyCount(Long applicantId) {
-		Map<String, Long> applyCountList = new HashMap<String, Long>();
-		//총 카운트
-		applyCountList.put("allCnt", applyHistoryRepository.countByApplicantId(applicantId));
-		//지원 완료 
-		applyCountList.put("applcnComptCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.APPLCN_COMPT, applicantId));
-		//서류 통과
-		applyCountList.put("papersPasageCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.PAPERS_PASAGE, applicantId));
-		//최종 합격
-		applyCountList.put("lastPsexamCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.LAST_PSEXAM, applicantId));
-		//불합격
-		applyCountList.put("dsqlfctCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.DSQLFC, applicantId));
-		log.debug("applyCountList={}", applyCountList);
-		return applyCountList;
+	public Map<String, Long> groupByCountByStatus(Long applicantId) {
+		List<String[]> groupByCountList = applyHistoryRepository.groupByCountByStatus(applicantId);
+
+		Map<String, Long> groupByCountMap = new HashMap<>();
+		for(String[] groupByCount : groupByCountList) {
+			groupByCountMap.put(groupByCount[0], Long.parseLong(groupByCount[1]));
+		}
+
+		// count가 0인 경우 select 자체가 안되는 문제가 있어 카운트가 없다면 0으로 set
+		for(ApplyHistory.Status status : ApplyHistory.Status.values()) {
+			if(!groupByCountMap.containsKey(status.name())) {
+				groupByCountMap.put(status.name(), 0L);
+			}
+		}		
+		return groupByCountMap;
 	}
 
 	/**

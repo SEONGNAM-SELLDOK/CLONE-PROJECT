@@ -82,12 +82,12 @@ public class ApplyHistoryController {
 
 	/**
 	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
-	 * http://localhost:8080/employees/1/applyHistories/getApplyCount
+	 * http://localhost:9090/employees/1/applyHistories/getApplyCount
 	 */
 	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
-	public ResponseEntity<Map<String, Long>> getApplyCount(@PathVariable Long applicantId) throws Exception {
-        return new ResponseEntity<>(applyHistoryService.getApplyCount(applicantId), HttpStatus.ACCEPTED);
+	public ResponseEntity<Map<String, Long>> groupByCountByStatus(@PathVariable Long applicantId) throws Exception {
+        return new ResponseEntity<>(applyHistoryService.groupByCountByStatus(applicantId), HttpStatus.ACCEPTED);
 	}
 
 	/**
