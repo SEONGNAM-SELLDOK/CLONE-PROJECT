@@ -10,10 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 
-import com.selldok.toy.company.entity.Company;
+import com.selldok.toy.company.entity.Board;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -41,19 +42,25 @@ public class ApplyHistory {
 	 * 신청 상태
 	 */
 	public enum Status {
-		APPLCN_COMPT,	// 신청완료
-		PAPERS_PASAGE,	// 서류통과
-		LAST_PSEXAM,	// 최종합격
-		DSQLFC,			// 불합격
-		CANCELED		// 신청취소
+		APPLCN_COMPT("신청완료"),	// 신청완료
+		PAPERS_PASAGE("서류통과"),	// 서류통과
+		LAST_PSEXAM("최종합격"),	// 최종합격
+		DSQLFC("불합격"),			// 불합격
+		CANCELED("신청취소");		// 신청취소
+		
+		public String friendlyName;
+
+		Status(String friendlyName) {
+			this.friendlyName = friendlyName;
+		}
 	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Embedded
-	private BasicInfo info;
+	private BasicInfo basicInfo;
 
 	@Enumerated(EnumType.STRING)
 	@Builder.Default
@@ -63,13 +70,16 @@ public class ApplyHistory {
 	private Timestamp appliedDt;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable=false)
 	private Employee applicant;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Company appliedCompany;
+	@JoinColumn(name="employment_board_id", nullable=false)
+	private Board employmentBoard;
 
 	@PreUpdate
 	protected void onUpdate() {
 		appliedDt = new Timestamp(System.currentTimeMillis());
 	}
 }
+

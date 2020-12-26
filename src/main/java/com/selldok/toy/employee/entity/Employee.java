@@ -35,6 +35,6 @@ public class Employee {
         this.info = BasicInfo.builder().name(name).email(email).phoneNumber(phoneNumber).build();
     }
 
-    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
     private List<ApplyHistory> appliyHistories;
 }

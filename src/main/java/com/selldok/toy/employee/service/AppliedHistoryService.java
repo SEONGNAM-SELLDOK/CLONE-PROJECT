@@ -1,13 +1,17 @@
 package com.selldok.toy.employee.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-import com.selldok.toy.company.dao.CompanyRepository;
-import com.selldok.toy.company.entity.Company;
+import com.selldok.toy.company.dao.BoardRepository;
+import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.employee.dao.ApplyHistoryRepository;
 import com.selldok.toy.employee.dao.EmployeeRepository;
 import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.entity.BasicInfo;
+import com.selldok.toy.employee.entity.BasicInfo.BasicInfoBuilder;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 
@@ -27,9 +31,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class AppliedHistoryService {
 	@Autowired
-	private ApplyHistoryRepository ApplyHistoryRepository;
+	private ApplyHistoryRepository applyHistoryRepository;
 	@Autowired
-	private CompanyRepository companyRepository;
+	private BoardRepository boardRepository;
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
@@ -40,9 +44,9 @@ public class AppliedHistoryService {
 		log.debug("newApplyHistoryDto={}", newApplyHistoryDto);
 		Long newApplyHistoryId = null;
 		Optional<Employee> applicant = employeeRepository.findById(newApplyHistoryDto.getApplicantId());
-		Optional<Company> company = companyRepository.findById(newApplyHistoryDto.getCompanyId());
+		Optional<Board> employmentBoard = boardRepository.findById(newApplyHistoryDto.getEmploymentBoardId());
 		if(applicant.isPresent()
-			&& company.isPresent()) {
+			&& employmentBoard.isPresent()) {
 			BasicInfo memberBasicInfo = BasicInfo.builder()
 			.name(newApplyHistoryDto.getName())
 			.email(newApplyHistoryDto.getEmail())
@@ -51,11 +55,11 @@ public class AppliedHistoryService {
 			
 			ApplyHistory applyHistory = ApplyHistory.builder()
 			.applicant(applicant.get())
-			.info(memberBasicInfo)
-			.appliedCompany(company.get())
+			.basicInfo(memberBasicInfo)
+			.employmentBoard(employmentBoard.get())
 			.status(newApplyHistoryDto.getStatus())
 			.build();
-			ApplyHistoryRepository.save(applyHistory);
+			applyHistoryRepository.save(applyHistory);
 			newApplyHistoryId = applyHistory.getId();
 		} else {
 			throw new Exception("지원자 정보 혹은 회사 정보가 없습니다");
@@ -70,7 +74,7 @@ public class AppliedHistoryService {
 	 */
 	public void update(ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
-		Optional<ApplyHistory> existingApplyHistory = ApplyHistoryRepository.findById(updatingApplyHistoryDto.getId());
+		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		Optional<Employee> applicant = null;
 		if(updatingApplyHistoryDto.getApplicantId() != null) {
 			applicant = employeeRepository.findById(updatingApplyHistoryDto.getApplicantId());
@@ -79,11 +83,11 @@ public class AppliedHistoryService {
 			}
 		}
 
-		Optional<Company> company = null;
-		if(updatingApplyHistoryDto.getCompanyId() != null) {
-			company = companyRepository.findById(updatingApplyHistoryDto.getCompanyId());
-			if(company.isEmpty()) {
-				throw new Exception("존재하지 않는 회사입니다");
+		Optional<Board> employmentBoard = null;
+		if(updatingApplyHistoryDto.getEmploymentBoardId() != null) {
+			employmentBoard = boardRepository.findById(updatingApplyHistoryDto.getEmploymentBoardId());
+			if(employmentBoard.isEmpty()) {
+				throw new Exception("존재하지 않는 채용공고입니다");
 			}
 		}
 
@@ -92,18 +96,60 @@ public class AppliedHistoryService {
 			if(applicant != null && applicant.isPresent()) {
 				updatingApplyHistory.setApplicant(applicant.get());
 			}
-			if(company != null && company.isPresent()) {
-				updatingApplyHistory.setAppliedCompany(company.get());
+			if(employmentBoard != null && employmentBoard.isPresent()) {
+				updatingApplyHistory.setEmploymentBoard(employmentBoard.get());
 			}
-			//BasicInfo에 setter가 없음. 모델을 따로 만드는게 나을지, setter를 넣어달라고 하는게 맞을지  
-			//BasicInfo existingBasicInfo = existingApplyHistory.getInfo();
-			//existingApplyHistory.setInfo(memberBasicInfo);
-			if(updatingApplyHistoryDto.getStatus() != null) {
-				updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
-			}
-			ApplyHistoryRepository.save(updatingApplyHistory);			
+			
+			BasicInfoBuilder updatingBasicInfoBuilder = BasicInfo.builder()
+			.name(updatingApplyHistoryDto.getName())
+			.email(updatingApplyHistoryDto.getEmail())
+			.phoneNumber(updatingApplyHistoryDto.getPhoneNumber())
+			;
+			
+			updatingApplyHistory.setBasicInfo(updatingBasicInfoBuilder.build());
+			applyHistoryRepository.save(updatingApplyHistory);			
 		} else {
 			throw new Exception("존재하지 않는 지원이력입니다");
 		}
-	}	
+	}
+
+	/**
+	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
+	 */
+	public Map<String, Long> getApplyCount(Long applicantId) {
+		Map<String, Long> applyCountList = new HashMap<String, Long>();
+		//총 카운트
+		applyCountList.put("allCnt", applyHistoryRepository.countByApplicantId(applicantId));
+		//지원 완료 
+		applyCountList.put("applcnComptCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.APPLCN_COMPT, applicantId));
+		//서류 통과
+		applyCountList.put("papersPasageCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.PAPERS_PASAGE, applicantId));
+		//최종 합격
+		applyCountList.put("lastPsexamCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.LAST_PSEXAM, applicantId));
+		//불합격
+		applyCountList.put("dsqlfctCnt", applyHistoryRepository.countByStatusAndApplicantId(ApplyHistory.Status.DSQLFC, applicantId));
+		log.debug("applyCountList={}", applyCountList);
+		return applyCountList;
+	}
+
+	/**
+	 * 상태 변경하기
+	 */
+	public void changeStatus(ApplyHistoryDto updatingApplyHistoryDto) {
+		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
+		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
+		existingApplyHistory.ifPresent(updatingApplyHistory -> {
+			updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
+			applyHistoryRepository.save(updatingApplyHistory);
+		});
+	}
+
+	/**
+	 * 검색
+	 * @param applyHistoryDto
+	 * @return
+	 */
+	public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition) {
+		return applyHistoryRepository.search(searchCondition);
+	}
 }
