@@ -4,6 +4,7 @@ import static com.selldok.toy.employee.entity.QApplyHistory.applyHistory;
 
 import java.util.List;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.QApplyHistoryDto;
@@ -34,14 +35,23 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 			)
 			.from(applyHistory)
 			.where(
-				// where 코딩을 좀 더 깔끔하게 할 수 있는 방법이 없을까요?
-				searchCondition.getName() != null ? applyHistory.basicInfo.name.contains(searchCondition.getName()) : null
-				,searchCondition.getCompanyName() != null ? applyHistory.employmentBoard.company.name.contains(searchCondition.getCompanyName()) : null
-				,searchCondition.getApplicantId() != null ? applyHistory.applicant.id.eq(searchCondition.getApplicantId()) : null
+				nameContains(searchCondition.getName())
+				,companyNameContains(searchCondition.getCompanyName())
+				,applicantIdEq(searchCondition.getApplicantId())
 			)
 			.offset(searchCondition.getOffset())
 			.limit(searchCondition.getLimit())
 			.orderBy(applyHistory.id.desc())
 			.fetch();
+	}
+
+	private BooleanExpression nameContains(String name) {
+		return name != null ? applyHistory.basicInfo.name.contains(name) : null ;
+	}
+	private BooleanExpression companyNameContains(String companyName) {
+		return companyName != null ? applyHistory.employmentBoard.company.name.contains(companyName) : null ;
+	}
+	private BooleanExpression applicantIdEq(Long applicantId) {
+		return applicantId != null ? applyHistory.applicant.id.eq(applicantId) : null ;
 	}
 }
