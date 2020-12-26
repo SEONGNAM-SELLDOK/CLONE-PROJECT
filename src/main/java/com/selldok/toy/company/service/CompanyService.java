@@ -42,7 +42,7 @@ public class CompanyService {
     /**
      * 기업 정보 수정
      * */
-    public void update(Long id, CompanyUpdateRequest request) {
+    public Long update(Long id, CompanyUpdateRequest request) {
         Address address = new Address(request.getCountry(), request.getCity(), request.getStreet());
 
         Optional<Company> company = companyRepository.findById(id);
@@ -58,6 +58,8 @@ public class CompanyService {
             existingCompany.setHomepage(request.getHomepage());
             companyRepository.save(existingCompany);
         });
+
+        return id;
     }
 
     /**

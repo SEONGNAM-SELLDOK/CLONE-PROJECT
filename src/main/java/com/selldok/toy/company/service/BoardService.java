@@ -42,7 +42,7 @@ public class BoardService {
     /**
      * 구직정보수정
      * */
-    public void update(Long id, BoardUpdateRequest request) {
+    public Long update(Long id, BoardUpdateRequest request) {
         Optional<Board> board = boardRepository.findById(id);
 
         board.ifPresent(existingCompany -> {
@@ -52,6 +52,8 @@ public class BoardService {
             existingCompany.setEndDate(request.getEndDate());
             boardRepository.save(existingCompany);
         });
+
+        return id;
     }
 
     /**

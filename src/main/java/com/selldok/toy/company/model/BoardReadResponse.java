@@ -4,7 +4,8 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.Date;
+
 /**
  * @gogisung
  * */
@@ -14,14 +15,14 @@ public class BoardReadResponse {
     private String title;
     private String content;
     private String image;
-    private LocalDate endDate;
+    private Date endDate;
     private String companyName;
     private String companyCountry;
     private String companyCity;
     private String companyStreet;
 
     @QueryProjection
-    public BoardReadResponse(String title, String content, String image, LocalDate endDate, String companyName, String companyCountry, String companyCity, String companyStreet) {
+    public BoardReadResponse(String title, String content, String image, Date endDate, String companyName, String companyCountry, String companyCity, String companyStreet) {
         this.title = title;
         this.content = content;
         this.image = image;

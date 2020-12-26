@@ -10,6 +10,7 @@ import com.selldok.toy.company.model.CompanyProfileResponse;
 import com.selldok.toy.company.model.CompanyUpdateRequest;
 import com.selldok.toy.company.service.CompanyService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -27,6 +29,7 @@ import java.util.Optional;
  */
 
 @Controller
+@Slf4j
 @RequestMapping("company")
 @RequiredArgsConstructor
 public class CompanyController {
@@ -44,10 +47,10 @@ public class CompanyController {
     }
 
     @PostMapping //기업 서비스 가입
-    public ResponseEntity create(@RequestBody CompanyCreateRequest request, BindingResult result) {
+    public ResponseEntity<String> create(final @Valid @RequestBody CompanyCreateRequest request) {
+        log.info(request.toString());
 
         Address address = new Address(request.getCountry(), request.getCity(), request.getStreet());
-
         Company company = Company.builder()
                 .name(request.getName())
                 .address(address)
@@ -60,6 +63,7 @@ public class CompanyController {
                 .since(request.getSince())
                 .phone(request.getPhone())
                 .homepage(request.getHomepage())
+                .terms(request.getTerms())
                 .build();
 
         Long companyId = companyService.create(company);
@@ -84,10 +88,14 @@ public class CompanyController {
     }
 
     @PutMapping("{id}")
-    @ResponseBody
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody CompanyUpdateRequest request) {
-        companyService.update(id, request);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+    public ResponseEntity<String> update(@PathVariable("id") Long id, final @Valid @RequestBody CompanyUpdateRequest request) {
+
+        Long companyId = companyService.update(id, request);
+
+        HashMap<String, Long> map = new HashMap<>();
+        map.put("company_id", companyId);
+
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

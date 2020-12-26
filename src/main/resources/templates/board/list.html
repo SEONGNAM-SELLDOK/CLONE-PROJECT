@@ -15,36 +15,29 @@
         <div class="_1DPyMq6MHTj43gZ2KFduy9 _33qO_oTN15PB4g18zEsNj4">
             <div class="M6DRRXt81Az4OyHgJDT0a clearfix _1GA8o5NuhqhwSpe6wt0GL3">
                 <div class="_3hj0Dag1UGVoZJVxaYIT8i">
-                    <div class="_2uuJbnGtb65i2RMExVSBK9"><button type="button"
-                                                                 class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx _1jJ5sjpmgcHgZ5uM0LZIwI hidden-xs"
-                                                                 data-attribute-id="explore__filter__click" data-filter-screen="explore"
-                                                                 data-filter-name="company_tag" data-job-category-id="" data-job-category="" data-job-role-id=""
-                                                                 data-job-role=""><span class="_243hy5OltkSpnxEC5JmQMo">태그</span><span
-                            class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">딱 맞는 기업찾기</span></button><button
-                            type="button"
-                            class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx _1jJ5sjpmgcHgZ5uM0LZIwI visible-xs"
-                            data-attribute-id="explore__filter__click" data-filter-screen="explore"
-                            data-filter-name="company_tag" data-job-category-id="" data-job-category="" data-job-role-id=""
-                            data-job-role=""><span class="_243hy5OltkSpnxEC5JmQMo">태그</span><span
-                            class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">딱 맞는 기업찾기</span></button><button
-                            type="button" class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx hidden-xs"
-                            data-attribute-id="explore__filter__click" data-filter-screen="explore"
-                            data-filter-name="region" data-job-category-id="" data-job-category="" data-job-role-id=""
-                            data-job-role=""><span class="_243hy5OltkSpnxEC5JmQMo">지역<span
-                            class="_2Uc5zWBIudvxcLWC-j2EsI XtG-WD0jDLMNvZtStxNnG">2</span></span><span
-                            class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">서울 외 </span></button><button
-                            type="button" class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx visible-xs"
-                            data-attribute-id="explore__filter__click" data-filter-screen="explore"
-                            data-filter-name="region" data-job-category-id="" data-job-category="" data-job-role-id=""
-                            data-job-role=""><span class="_243hy5OltkSpnxEC5JmQMo">지역</span><span
-                            class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">서울 외 1</span></button><button
-                            type="button" class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx"
-                            data-attribute-id="explore__filter__click" data-filter-screen="explore"
-                            data-filter-name="experience" data-job-category-id="" data-job-category="" data-job-role-id=""
-                            data-job-role="">
-                        <span class="_243hy5OltkSpnxEC5JmQMo">경력</span>
-                        <span class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">3년</span>
-                    </button>
+                    <div class="_2uuJbnGtb65i2RMExVSBK9">
+                        <button type="button" class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx _1jJ5sjpmgcHgZ5uM0LZIwI hidden-xs"
+                                data-attribute-id="explore__filter__click" data-filter-screen="explore" data-filter-name="company_tag"
+                                data-job-category-id="" data-job-category="" data-job-role-id="" data-job-role="">
+                            <span class="_243hy5OltkSpnxEC5JmQMo">태그</span>
+                            <span class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">딱 맞는 기업찾기</span>
+                        </button>
+                        <button type="button"
+                                class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx _1jJ5sjpmgcHgZ5uM0LZIwI visible-xs"
+                                data-attribute-id="explore__filter__click" data-filter-screen="explore" data-filter-name="company_tag"
+                                data-job-category-id="" data-job-category="" data-job-role-id="" data-job-role="">
+                            <span class="_243hy5OltkSpnxEC5JmQMo">태그</span>
+                            <span class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">딱 맞는 기업찾기</span>
+                        </button>
+                        <b-form-select class="ml-2" v-model="selectedCountry" :options="countryOptions" @change="getBoardSelectDynamic"></b-form-select>
+                        <b-form-select class="ml-2" v-model="selectedCity" :options="cityOptions" @change="getBoardSelectDynamic"></b-form-select>
+                        <button type="button"
+                                class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx" data-attribute-id="explore__filter__click"
+                                data-filter-screen="explore" data-filter-name="experience" data-job-category-id="" data-job-category=""
+                                data-job-role-id="" data-job-role="">
+                            <span class="_243hy5OltkSpnxEC5JmQMo">경력</span>
+                            <span class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">3년</span>
+                        </button>
                         <b-button @click.prevent="goAddWanted">구직 등록하기</b-button>
                     </div>
                     <div class="py51HbyJktaZndNqVoiaa hidden-xs">
@@ -194,6 +187,17 @@
     new Vue({
         el: "#app",
          methods: {
+            getBoardSelectDynamic() {
+                axios.get(`http://localhost:9090/board/boards?city=${this.selectedCity}&country=${this.selectedCountry}`)
+                 .then(res => {
+                    console.log("res", res);
+                    this.options = res.data.content;
+                 })
+                 .catch(error => {
+                    console.log(error);
+                    throw error;
+                 });
+            },
             getBoardList() {
                  axios.get('http://localhost:9090/board/boards')
                  .then(res => {
@@ -221,6 +225,20 @@
             companyName: '',
             companyCity: '',
             options: [],
+            selectedCity: 'seoul',
+            cityOptions: [
+                { value: 'seoul', text: '서울' },
+                { value: 'busan', text: '부산' },
+                { value: 'gwangju', text: '광주' },
+                { value: 'ulsan', text: '울산' }
+            ],
+            selectedCountry: 'KR',
+            countryOptions: [
+                { value: 'KR', text: '한국' },
+                { value: 'EN', text: '미국' },
+                { value: 'CN', text: '중국' },
+                { value: 'JP', text: '일본' }
+            ],
             message: "리스트 페이지!",
         }
     });
