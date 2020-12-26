@@ -34,10 +34,6 @@ public class ApplyHistoryDto {
     private Long offset = 0L;
     private Long limit = 10L;
 
-    public String getStatusName() {
-        return status.friendlyName;
-    }
-
     @QueryProjection
     public ApplyHistoryDto(String name, String email, String phoneNumber, String companyName, String boardTitle, Timestamp appliedDate, Status status) {
         this.name = name;
