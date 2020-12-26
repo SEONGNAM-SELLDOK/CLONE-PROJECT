@@ -43,7 +43,7 @@ public class ApplyHistoryController {
 	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) throws Exception {
 		applyHistoryDto.setApplicantId(applicantId);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
-		return new ResponseEntity<Long>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
+		return new ResponseEntity<>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class ApplyHistoryController {
 	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> getApplyCount(@PathVariable Long applicantId) throws Exception {
-        return new ResponseEntity<Map<String, Long>>(applyHistoryService.getApplyCount(applicantId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(applyHistoryService.getApplyCount(applicantId), HttpStatus.ACCEPTED);
 	}
 
 	/**
@@ -114,6 +114,6 @@ public class ApplyHistoryController {
 		applyHistoryDto.setOffset(offset);
 		applyHistoryDto.setLimit(limit);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
-		return new ResponseEntity<List<ApplyHistoryDto>>(applyHistoryService.search(applyHistoryDto), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto), HttpStatus.ACCEPTED);
 	}	
 }
