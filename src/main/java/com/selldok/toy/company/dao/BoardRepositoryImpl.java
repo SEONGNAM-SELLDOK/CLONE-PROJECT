@@ -57,6 +57,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         company.name.as("companyName")))
                 .from(board)
                 .leftJoin(board.company, company)
+                .orderBy(company.id.desc())
+                .limit(4)
                 .fetch();
     }
 
