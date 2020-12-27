@@ -4,6 +4,7 @@ import com.selldok.toy.company.dao.BoardRepository;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.model.BoardReadResponse;
 import com.selldok.toy.company.model.BoardUpdateRequest;
+import com.selldok.toy.company.model.NewHireListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -29,6 +30,10 @@ public class BoardService {
 
     public List<BoardReadResponse> findBoard(Long id) {
         return boardRepository.findByBoardInfo(id);
+    }
+
+    public List<NewHireListResponse> newHireByBoardInfo() {
+        return boardRepository.newHireByBoardInfo();
     }
 
     /**
