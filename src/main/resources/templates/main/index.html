@@ -16,7 +16,7 @@
         location.href='/employees/view/' + userId;
     }
 </script>
-<div id="__next">
+<div id="app">
     <div>
         <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
             <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
@@ -26,7 +26,8 @@
                     <ul class="_1ghqg44RECsZcnX4nLgXKP">
                         <li class="xsHomeButton xsOnly selectedNav" data-attribute-id="gnb" data-gnb-kind="home"><a
                                 href="/" class="">홈</a></li>
-                        <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a>
+                        <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
+                            <a href="/board/list" class="">탐색</a>
                         </li>
                         <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary"><a href="/salary"
                                                                                                        class="">직군별
@@ -979,58 +980,18 @@
                 <div class="_149pM0jP3KjC5sqyFveoIA"><h2 class="_1izYoerUMqkY4L9y0nwIUZ">신규 채용 회사</h2></div>
                 <div class="_3hvWsESlJV4L2CR21vp_WV">
                     <ul class="clearfix">
-                        <li>
-                            <div class="_26aCfUgDQHFKa_a8MXn3Y3"><a href="/company/1257" class=""
-                                                                    data-attribute-id="company__click"
-                                                                    data-company-id="1257" data-company-name="머니브레인"
-                                                                    data-marketing-case="featured">
-                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/1257/k6ge4hg47yyg9te6__400_400.jpg&quot;);"></header>
+                        <li v-for="item in contents" :key="item.id" :value="item.companyName">
+                            <div class="_26aCfUgDQHFKa_a8MXn3Y3">
+                                <a :href=`board/read?companyId=${companyId}&boardId=${item.id}`
+                                   class=""
+                                   data-attribute-id="company__click"
+                                   data-company-id="1257"
+                                   data-company-name="머니브레인"
+                                   data-marketing-case="featured">
+                                <img :src=`/upload/${item.image}` style="width: 250px; height: 172px;">
                                 <div class="P3VPhb2BdYhk8nJcSL5g3">
                                     <dl>
-                                        <dt>머니브레인</dt>
-                                        <dd>IT, 컨텐츠</dd>
-                                    </dl>
-                                </div>
-                            </a></div>
-                        </li>
-                        <li>
-                            <div class="_26aCfUgDQHFKa_a8MXn3Y3"><a href="/company/3408" class=""
-                                                                    data-attribute-id="company__click"
-                                                                    data-company-id="3408"
-                                                                    data-company-name="패스트레인(여신티켓)"
-                                                                    data-marketing-case="featured">
-                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/3408/qec3bghg5lsoojzs__400_400.jpg&quot;);"></header>
-                                <div class="P3VPhb2BdYhk8nJcSL5g3">
-                                    <dl>
-                                        <dt>패스트레인(여신티켓)</dt>
-                                        <dd>IT, 컨텐츠</dd>
-                                    </dl>
-                                </div>
-                            </a></div>
-                        </li>
-                        <li>
-                            <div class="_26aCfUgDQHFKa_a8MXn3Y3"><a href="/company/12699" class=""
-                                                                    data-attribute-id="company__click"
-                                                                    data-company-id="12699" data-company-name="씨디에프브로스"
-                                                                    data-marketing-case="featured">
-                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/12699/gwbl8waeuwiwbclb__400_400.jpg&quot;);"></header>
-                                <div class="P3VPhb2BdYhk8nJcSL5g3">
-                                    <dl>
-                                        <dt>씨디에프브로스</dt>
-                                        <dd>판매, 유통</dd>
-                                    </dl>
-                                </div>
-                            </a></div>
-                        </li>
-                        <li>
-                            <div class="_26aCfUgDQHFKa_a8MXn3Y3"><a href="/company/2086" class=""
-                                                                    data-attribute-id="company__click"
-                                                                    data-company-id="2086" data-company-name="휴맥스모빌리티"
-                                                                    data-marketing-case="featured">
-                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/2086/rrxe1lociizjzqrt__400_400.jpg&quot;);"></header>
-                                <div class="P3VPhb2BdYhk8nJcSL5g3">
-                                    <dl>
-                                        <dt>휴맥스모빌리티</dt>
+                                        <dt>{{ item.companyName }}</dt>
                                         <dd>IT, 컨텐츠</dd>
                                     </dl>
                                 </div>
@@ -1265,7 +1226,7 @@
             </footer>
         </div>
         <div class="Wfn-nDehMEQjfSy9M_uws"><span class="icon"><i class="icon-check"></i></span></div>
-        <div id="app">
+        <div id="">
             <main class="App-iEDHGk UeTOO" data-reactid=".0">
                 <div data-reactid=".0.0">
                     <div data-reactid=".0.0.0">
@@ -1279,7 +1240,11 @@
         </div>
         <div id="modal"></div>
     </div>
-    <script>window.FEATURES = {
+</div>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
+<script>
+    window.FEATURES = {
         "profile_matchup_banner": false,
         "dashboard_welcome_jp": false,
         "change_country": true,
@@ -1309,8 +1274,31 @@
         "only_tw": false,
         "matchup": true,
         "dashboard_b2b": true
-    }</script>
-</div>
-
+    }
+    
+    new Vue({
+        el: "#app",
+        created() {
+            this.newHireByBoardInfo();
+        },
+        methods: {
+            newHireByBoardInfo() {
+                axios.get(`http://localhost:9090/newHire`)
+                    .then((res) => {
+                        console.log('res', res);
+                        this.contents = res.data;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        throw error;
+                    });
+            },
+        },
+        data: {
+            contents: [],
+            name: ''
+        }
+    });
+</script>
 </body>
 </html>

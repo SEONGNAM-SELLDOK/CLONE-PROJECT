@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Selldok-toy</title>
-    <meta charset="utf-8">
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/employee.css">
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="-1">
-</head>
+    <html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Selldok-toy</title>
+        <meta charset="utf-8">
+        <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/employee.css">
+        <link rel="stylesheet" type="text/css" href="/css/login.css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+    </head>
 <body>
+<script>
+    function myInfoPage(userId){
+        location.href=`/employees/view/${userId}`;
+    }
+</script>
 <div id="app">
     <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
@@ -21,7 +26,9 @@
                 <ul class="_1ghqg44RECsZcnX4nLgXKP">
                     <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
                                                                                                     class="">홈</a></li>
-                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a></li>
+                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
+                        <a href="/board/list" class="">탐색</a>
+                    </li>
                     <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary"><a href="/salary"
                                                                                                    class="">직군별 연봉</a>
                     </li>
