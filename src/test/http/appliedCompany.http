@@ -43,5 +43,5 @@ GET http://localhost:9090/employees/1/applyHistories/groupBycountByStatusAndAppl
 GET http://localhost:9090/employees/1/applyHistories
 
 ### 입사지원 검섹
-GET http://localhost:9090/employees/1/applyHistories?name=&companyName=구글&offset=0&limit=10
+GET http://localhost:9090/employees/1/applyHistories?name=&companyName=구글&size=3&page=0
 

@@ -10,14 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,10 +29,24 @@ import lombok.extern.slf4j.Slf4j;
  * @author DongSeok, Kim
  */
 @Slf4j
-@RestController
+@Controller
+@RequestMapping("employees")
 public class ApplyHistoryController {
 	@Autowired
 	private AppliedHistoryService applyHistoryService;
+
+	/**
+	 * 지원이력 조회
+	 * 
+	 * @param ApplyHistoryDto applyHistoryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("applications/{applicantId}")
+	public String applications(@PathVariable Long applicantId, Model model) throws Exception {
+        //model.addAttribute("employee", response);
+		return "employee/applications";
+    }
 
 	/**
 	 * 지원하기
@@ -39,7 +55,7 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("employees/{applicantId}/applyHistories")
+	@PostMapping("/{applicantId}/applyHistories")
 	@ResponseBody
 	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) throws Exception {
 		applyHistoryDto.setApplicantId(applicantId);
@@ -56,7 +72,7 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PutMapping("employees/{applicantId}/applyHistories/{id}")
+	@PutMapping("/{applicantId}/applyHistories/{id}")
 	@ResponseBody
 	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
 		updatingApplyHistoryDto.setId(id);
@@ -72,7 +88,7 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PutMapping("employees/{applicantId}/applyHistories/{id}/changeStatus")
+	@PutMapping("/{applicantId}/applyHistories/{id}/changeStatus")
 	@ResponseBody
 	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
 		updatingApplyHistoryDto.setId(id);
@@ -85,7 +101,7 @@ public class ApplyHistoryController {
 	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
 	 * http://localhost:9090/employees/1/applyHistories/getApplyCount
 	 */
-	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
+	@GetMapping("/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> groupByCountByStatus(@PathVariable Long applicantId) throws Exception {
         return new ResponseEntity<>(applyHistoryService.groupByCountByStatus(applicantId), HttpStatus.ACCEPTED);
@@ -99,7 +115,7 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@GetMapping("employees/{applicantId}/applyHistories")
+	@GetMapping("/{applicantId}/applyHistories")
 	@ResponseBody
 	public ResponseEntity<List<ApplyHistoryDto>> search(
 		@PathVariable Long applicantId
