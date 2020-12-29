@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.*;
 /**
  * @author Gogisung
@@ -50,10 +51,8 @@ public class BoardController {
     }
 
     @PostMapping("add")
-    public ResponseEntity create(@RequestBody BoardCreateRequest request, BindingResult result) {
-        if(result.hasErrors()) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> create(final @Valid @RequestBody BoardCreateRequest request) {
+
         Company company = companyRepository.findById(request.getCompanyId()).get();
         Board board = Board.builder()
                 .title(request.getTitle())
@@ -74,8 +73,12 @@ public class BoardController {
     @PutMapping("{id}")
     @ResponseBody
     public ResponseEntity update(@PathVariable("id") Long id, @RequestBody BoardUpdateRequest request) {
-        boardService.update(id, request);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        Long boardId = boardService.update(id, request);
+
+        HashMap<String, Long> map = new HashMap<>();
+        map.put("board_id", boardId);
+
+        return new ResponseEntity(map, HttpStatus.OK);
     }
 
     @PostMapping("fileUpload")

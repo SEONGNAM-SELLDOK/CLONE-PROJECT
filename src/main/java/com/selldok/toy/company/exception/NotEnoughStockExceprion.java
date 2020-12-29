@@ -1,6 +1,6 @@
 package com.selldok.toy.company.exception;
 
-public class NotEnoughStockExceprion extends RuntimeException{
+public class  NotEnoughStockExceprion extends RuntimeException{
 
     public NotEnoughStockExceprion() {
         super();

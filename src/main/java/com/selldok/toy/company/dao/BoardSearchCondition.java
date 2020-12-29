@@ -1,9 +1,11 @@
 package com.selldok.toy.company.dao;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.selldok.toy.company.entity.Address;
 import lombok.Data;
 
-import java.time.LocalDate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 /**
  * @gogisung
@@ -13,8 +15,10 @@ public class BoardSearchCondition {
     private String title;
     private String companyName;
     private String businessNum;
+    private String country;
+    private String city;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate endDate;
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
 }
 

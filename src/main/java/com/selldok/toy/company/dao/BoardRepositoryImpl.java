@@ -5,15 +5,15 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.selldok.toy.company.entity.QBoard.*;
 import static com.selldok.toy.company.entity.QCompany.*;
+
+import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDate;
-import com.selldok.toy.company.entity.QBoard;
-import com.selldok.toy.company.entity.QCompany;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,7 +50,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
 
     @Override
     public Page<BoardListResponse> searchBoard(BoardSearchCondition condition, Pageable pageable) {
-                QueryResults<BoardListResponse> results = queryFactory
+
+        QueryResults<BoardListResponse> results = queryFactory
                 .select(new QBoardListResponse(
                         board.id,
                         board.title,
@@ -64,6 +65,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         company.id.eq(board.company.id),
                         companyNameEq(condition.getCompanyName()),
                         businessNumEq(condition.getBusinessNum()),
+                        companyCityEq(condition.getCity()),
+                        companyCountryEq(condition.getCountry()),
                         titleEq(condition.getTitle()),
                         endDateEq(condition.getEndDate())
                 )
@@ -82,14 +85,22 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     }
 
     private BooleanExpression businessNumEq(String businessNum) {
-        return StringUtils.hasText(businessNum) ? board.company.businessNum.eq(businessNum): null;
+        return StringUtils.hasText(businessNum) ? board.company.businessNum.eq(businessNum) : null;
+    }
+
+    private BooleanExpression companyCityEq(String companyCity) {
+        return StringUtils.hasText(companyCity) ? board.company.address.city.eq(companyCity) : null;
+    }
+
+    private BooleanExpression companyCountryEq(String companyCountry) {
+        return StringUtils.hasText(companyCountry) ? board.company.address.country.eq(companyCountry) : null;
     }
 
     private BooleanExpression titleEq(String title) {
         return StringUtils.hasText(title) ? board.title.eq(title) : null;
     }
 
-    private BooleanExpression endDateEq(LocalDate endDate) {
+    private BooleanExpression endDateEq(Date endDate) {
         return endDate != null ? board.endDate.eq(endDate) : null;
     }
 }

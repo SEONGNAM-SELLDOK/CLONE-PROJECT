@@ -1,6 +1,7 @@
 package com.selldok.toy.event.controller;
 
 import com.selldok.toy.event.entity.Event;
+import com.selldok.toy.event.model.EventSearchRequest;
 import com.selldok.toy.event.model.InsertEventRequest;
 import com.selldok.toy.event.model.UpdateEventRequest;
 import com.selldok.toy.event.service.EventService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,15 +44,23 @@ public class EventController {
     }
 
     @GetMapping("list")
-    public String listPage(Model model) {
-        model.addAttribute("events", eventService.getList(0l));
+    public String listPage(Model model, Principal principal, EventSearchRequest request) {
+        request.setOwner(principal.getName());
+        model.addAttribute("events", eventService.getList(request));
         return "event/eventlist";
     }
 
-    @GetMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<List<Event>> get(@PathVariable("id") Long id) {
-        return new ResponseEntity(eventService.getList(id), HttpStatus.OK);
+    @GetMapping("search")
+    public String searchPage(Model model, EventSearchRequest request) {
+        model.addAttribute("events", eventService.getList(request));
+        return "event/eventlistForjobseeker";
+    }
+
+    @GetMapping("detail/{id}")
+    public String detailPage(@PathVariable("id") Long id, Model model) {
+        Optional<Event> eventOptional = eventService.findById(id);
+        model.addAttribute("event", eventOptional.orElse(null));
+        return "event/eventdetail";
     }
 
     @PostMapping
