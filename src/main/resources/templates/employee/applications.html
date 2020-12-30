@@ -7270,7 +7270,7 @@
 								<li><button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
 											class="icon-bell"></i></button></li>
 								<li class="smMoreVisible"><button type="button"
-										style="background-image: url(&quot;https://graph.facebook.com/10157374325911544/picture?height=300&amp;width=300&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);"
+									th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
 										data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" data-badge="false"></button>
 								</li>
 								<li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"><a
