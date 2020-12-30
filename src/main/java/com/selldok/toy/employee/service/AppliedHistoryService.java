@@ -122,11 +122,17 @@ public class AppliedHistoryService {
 	 */
 	public Map<String, Long> groupByCountByStatus(Long applicantId) {
 		List<String[]> groupByCountList = applyHistoryRepository.groupByCountByStatus(applicantId);
+		// repository에서는 상태별로 group by count를 하므로 전체 카운트는 없음. 전체 카운트를 하는 것보다 일단은 상태별카운틀 합하도록 함
+		long allCount = 0;
 
 		Map<String, Long> groupByCountMap = new HashMap<>();
 		for(String[] groupByCount : groupByCountList) {
-			groupByCountMap.put(groupByCount[0], Long.parseLong(groupByCount[1]));
+			long tempGroupByCount = Long.parseLong(groupByCount[1]);
+			allCount = allCount + tempGroupByCount;
+			groupByCountMap.put(groupByCount[0], tempGroupByCount);
 		}
+
+		groupByCountMap.put("allCount", allCount);
 
 		// count가 0인 경우 select 자체가 안되는 문제가 있어 카운트가 없다면 0으로 set
 		for(ApplyHistory.Status status : ApplyHistory.Status.values()) {
