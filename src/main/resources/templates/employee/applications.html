@@ -46,7 +46,7 @@
 		}
 	</style>
 
-	<title class="next-head">커리어 여정을 행복하게, 원티드</title>
+	<title class="next-head">Selldok-toy 지원현황</title>
 	<meta property="og:title" content="커리어 여정을 행복하게, 원티드" class="next-head">
 	<meta name="description" content="커리어 성장과 행복을 위한 여정, 지금 원티드에서 시작하세요." class="next-head">
 	<meta property="og:description" content="커리어 성장과 행복을 위한 여정, 지금 원티드에서 시작하세요." class="next-head">
@@ -7207,26 +7207,61 @@
 		async="" type="text/javascript">
 		</script>
 	<script>
+	var applyHistoryRowTemplate;
+
 	$(document).ready(function () {
 		var applicantId = [[${#authentication.id}]];
-		console.log('applicantId=' +applicantId);
 		$.ajax('/employees/' + applicantId + '/applyHistories/getApplyCount', {
 			type: 'GET',  // http method
+			async: true,
 			//data: { myData: 'This is my data.' },  // data to submit
-			success: function (data, status, xhr) {				
-				$('#allCount1').text(data.allCount);
-				$('#allCount2').text(data.allCount);
-				$('#applcnCompt').text(data.APPLCN_COMPT);
-				$('#papersPasage').text(data.PAPERS_PASAGE);
-				$('#lastPsexam').text(data.LAST_PSEXAM);
-				$('#dsqlfc').text(data.DSQLFC);
-				$('#papersPasage').text(data.PAPERS_PASAGE);
+			success: function (applyCount, status, xhr) {				
+				$('#allCount1').text(applyCount.allCount);
+				$('#allCount2').text(applyCount.allCount);
+				$('#applcnCompt').text(applyCount.APPLCN_COMPT);
+				$('#papersPasage').text(applyCount.PAPERS_PASAGE);
+				$('#lastPsexam').text(applyCount.LAST_PSEXAM);
+				$('#dsqlfc').text(applyCount.DSQLFC);
+				$('#papersPasage').text(applyCount.PAPERS_PASAGE);
 			},
 			error: function (jqXhr, textStatus, errorMessage) {
-				$('p').append('Error' + errorMessage);
+				alert(errorMessage);
+			}
+		});
+
+		applyHistoryRowTemplate = $($('#status_table_row_holder').children()[0]).clone();
+		$('#status_table_row_holder').empty();
+
+		$.ajax('/employees/' + applicantId + '/applyHistories', {
+			type: 'GET',  // http method
+			async: true,
+			//data: { myData: 'This is my data.' },  // data to submit
+			success: function (applyHistories, status, xhr) {
+				$(applyHistories).each(function(index, applyHistory) {
+					//console.log(applyHistory);
+					var tempApplyHistoryRow = $(applyHistoryRowTemplate).clone();
+					$(tempApplyHistoryRow).find('#boardTitle').text(applyHistory.boardTitle);
+					$(tempApplyHistoryRow).find('#companyName').text(applyHistory.companyName);
+					$(tempApplyHistoryRow).find('#appliedDate').text(new Date(applyHistory.appliedDate).toISOString().slice(0,10));
+					$(tempApplyHistoryRow).find('#status').text(statusNames[applyHistory.status]);
+					$(tempApplyHistoryRow).find('#companyLogoUrl').prop('src', applyHistory.companyLogoUrl);
+					
+					$('#status_table_row_holder').append($(tempApplyHistoryRow));
+				});				
+			},
+			error: function (jqXhr, textStatus, errorMessage) {
+				alert(errorMessage);
 			}
 		});
 	});
+
+	var statusNames = {
+		"APPLCN_COMPT":"신청완료"
+		,"PAPERS_PASAGE":"서류통과"
+		,"LAST_PSEXAM":"최종합격"
+		,"DSQLFC":"불합격"
+		,"CANCELED":"신청취소"
+	}
 	</script>
 </head>
 
@@ -7393,56 +7428,58 @@
 																		data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.1.$reward.0.1"></i></span>
 															</div>
 														</div>
-														<div href="" class="reject status-table-row" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0">
-															<div class="status-table-item visible-xs" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0">
-																<dl data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0">
-																	<dt data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.0">
-																		<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.0.1">불합격</span>
-																	</dt>
-																	<dd data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1">
-																		<div data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0">
-																			<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0"><img
-																					src="https://static.wanted.co.kr/images/wdes/0_5.1e70705a.jpg"
-																					class="company-logo"
-																					data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0.0"><span
-																					data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0.2">트렌비</span></span>
-																		</div>
-																		<div data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.1">
-																			자바 백엔드 개발자</div>
-																	</dd><button class="btn-request btn btn-default" type="button"
-																		data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.2"><span
-																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.2.0">보상금
-																			신청</span></button>
-																</dl>
+														<span id="status_table_row_holder">
+															<div href="" class="reject status-table-row" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0">
+																<div class="status-table-item visible-xs" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0">
+																	<dl data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0">
+																		<dt data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.0">
+																			<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.0.1">불합격</span>
+																		</dt>
+																		<dd data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1">
+																			<div data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0">
+																				<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0"><img
+																						src="https://static.wanted.co.kr/images/wdes/0_5.1e70705a.jpg"
+																						class="company-logo"
+																						data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0.0"><span
+																						data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0.2">트렌비</span></span>
+																			</div>
+																			<div data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.1">
+																				자바 백엔드 개발자</div>
+																		</dd><button class="btn-request btn btn-default" type="button"
+																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.2"><span
+																				data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.2.0">보상금
+																				신청</span></button>
+																	</dl>
+																</div>
+																<div class="company status-table-item hidden-xs"
+																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company">
+																	<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0"><img
+																			src="https://static.wanted.co.kr/images/wdes/0_5.1e70705a.jpg" class="company-logo"
+																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0.0" id="companyLogoUrl"><span
+																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0.2" id="companyName">트렌비</span></span>
+																</div>
+																<div class="position status-table-item hidden-xs"
+																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$position" id="boardTitle">
+																	자바 백엔드 개발자</div>
+																<div class="create_time status-table-item hidden-xs"
+																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$create_time" id="appliedDate">
+																	2020. 12. 12</div>
+																<div class="status status-table-item hidden-xs"
+																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$status" id="status">
+																	불합격</div>
+																<div class="recommendation status-table-item hidden-xs"
+																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$recommendation">
+																	<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$recommendation.0">추천인
+																		없음</span>
+																</div>
+																<div class="reward status-table-item hidden-xs"
+																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$reward">
+																	<button class="btn-request btn btn-default" type="button"
+																		data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$reward.0"><span
+																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$reward.0.0">신청</span></button>
+																</div>
 															</div>
-															<div class="company status-table-item hidden-xs"
-																data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company">
-																<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0"><img
-																		src="https://static.wanted.co.kr/images/wdes/0_5.1e70705a.jpg" class="company-logo"
-																		data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0.0"><span
-																		data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0.2">트렌비</span></span>
-															</div>
-															<div class="position status-table-item hidden-xs"
-																data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$position">
-																자바 백엔드 개발자</div>
-															<div class="create_time status-table-item hidden-xs"
-																data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$create_time">
-																2020. 12. 12</div>
-															<div class="status status-table-item hidden-xs"
-																data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$status">
-																불합격</div>
-															<div class="recommendation status-table-item hidden-xs"
-																data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$recommendation">
-																<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$recommendation.0">추천인
-																	없음</span>
-															</div>
-															<div class="reward status-table-item hidden-xs"
-																data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$reward">
-																<button class="btn-request btn btn-default" type="button"
-																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$reward.0"><span
-																		data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$reward.0.0">신청</span></button>
-															</div>
-														</div>
+														</span>
 													</div>
 												</div>
 											</div>
