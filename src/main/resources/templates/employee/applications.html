@@ -7208,9 +7208,9 @@
 		</script>
 	<script>
 	var applyHistoryRowTemplate;
+	var applicantId = [[${#authentication.id}]];
 
 	$(document).ready(function () {
-		var applicantId = [[${#authentication.id}]];
 		$.ajax('/employees/' + applicantId + '/applyHistories/getApplyCount', {
 			type: 'GET',  // http method
 			async: true,
@@ -7230,12 +7230,24 @@
 		});
 
 		applyHistoryRowTemplate = $($('#status_table_row_holder').children()[0]).clone();
-		$('#status_table_row_holder').empty();
+		searchApplyHistory();
 
+		$('#searchKeyword').keypress(function(e) {
+			if (e.which == 13) {
+				searchApplyHistory()
+			}
+		});
+	});
+
+	function searchApplyHistory() {
+		$('#status_table_row_holder').empty();
 		$.ajax('/employees/' + applicantId + '/applyHistories', {
 			type: 'GET',  // http method
 			async: true,
-			//data: { myData: 'This is my data.' },  // data to submit
+			data: { 
+				name: $('#searchKeyword').val() 
+				,companyName: $('#searchKeyword').val() 
+			},
 			success: function (applyHistories, status, xhr) {
 				$(applyHistories).each(function(index, applyHistory) {
 					//console.log(applyHistory);
@@ -7252,8 +7264,8 @@
 			error: function (jqXhr, textStatus, errorMessage) {
 				alert(errorMessage);
 			}
-		});
-	});
+		});		
+	}
 
 	var statusNames = {
 		"APPLCN_COMPT":"신청완료"
@@ -7346,7 +7358,7 @@
 														<div class="aside-nav-item" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$0">
 															<div class="aside-nav-title" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$0.0">
 																작성 중</div>
-															<div class="aside-nav-label" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$0.1">1
+															<div class="aside-nav-label" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$0.1"><!--1-->
 															</div>
 														</div>
 														<div class="aside-nav-item selected" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$1">
@@ -7401,7 +7413,7 @@
 															<div class="inputWrapper" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.0.1"><i
 																	class="icon-search" style="color:#505050;margin-left:10px;"
 																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.0.1.0"></i><input class="Input-hxTtdt kwvWzE"
-																	type="text" placeholder="회사 / 지원자명 검색" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.0.1.1">
+																	type="text" placeholder="회사 / 지원자명 검색" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.0.1.1" id="searchKeyword" onkeyup="">
 															</div>
 														</div>
 														<div class="status-table-header" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.1">

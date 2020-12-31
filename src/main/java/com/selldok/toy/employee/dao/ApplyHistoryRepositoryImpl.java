@@ -37,8 +37,7 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 			)
 			.from(applyHistory)
 			.where(
-				nameContains(searchCondition.getName())
-				,companyNameContains(searchCondition.getCompanyName())
+				contains(searchCondition.getName(), searchCondition.getCompanyName())
 				,applicantIdEq(searchCondition.getApplicantId())
 			)
 			.offset(pageable.getOffset())
@@ -47,6 +46,22 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 			.fetch();
 	}
 
+	/**
+	 * 지원자명과 회사명이 둘 다 넘어오는 경우 or 검색을 수행 함
+	 */
+	private BooleanExpression contains(String name, String companyName) {
+		BooleanExpression contains = null;
+		BooleanExpression nameContains = nameContains(name);
+		BooleanExpression companyNameContains = companyNameContains(companyName);
+		if(nameContains == null && companyNameContains != null) {
+			contains = companyNameContains;
+		} else if(nameContains != null && companyNameContains == null) {
+			contains = nameContains;
+		} else if(nameContains != null) {
+			contains = nameContains.or(companyNameContains);
+		}
+		return contains;
+	}	
 	private BooleanExpression nameContains(String name) {
 		return name != null ? applyHistory.basicInfo.name.contains(name) : null ;
 	}
