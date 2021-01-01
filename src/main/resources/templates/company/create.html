@@ -135,8 +135,8 @@
                         </div>
                     </div>
                     <div class="Aside-me">
-                        <div class="Aside-me_name">Michael Alehgbccadeda Greenesky</div>
-                        <div class="Aside-me_email">apylknutcy_1607149135@tfbnw.net</div>
+                        <div class="Aside-me_name">{{ userName }}</div>
+                        <div class="Aside-me_email">{{ userEmail }}</div>
                         <div class="Aside-me_tel"></div>
                     </div>
                     <a th:href="@{'/employees/basicinfo/' + ${#authentication.id}}" class="Aside-edit">기본정보 수정</a></header>
@@ -435,6 +435,7 @@
             if(company_id != undefined) {
                 this.getCompanyInfo();
             }
+            this.getEmployeeInfo();
         },
         methods: {
             putCompanyModify() {
@@ -503,6 +504,18 @@
                     throw error;
                   });
             },
+            getEmployeeInfo() {
+                axios.get('http://localhost:9090/employees/info/1')
+                  .then((res) => {
+                      console.log(res);
+                      this.userName = res.data.info.name;
+                      this.userEmail = res.data.info.email;
+                  })
+                  .catch(error => {
+                    console.log(error);
+                    throw error;
+                  });
+            },
         },
         data: {
             companyId: company_id,
@@ -536,7 +549,9 @@
             phone: '',
             homepage: '',
             status: false,
-            name: ''
+            name: '',
+            userName: '',
+            userEmail: '',
         }
     });
 </script>
