@@ -4,8 +4,10 @@ import static com.selldok.toy.employee.entity.QApplyHistory.applyHistory;
 
 import java.util.List;
 
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.selldok.toy.company.entity.QAddress;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.QApplyHistoryDto;
 
@@ -29,7 +31,16 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 					applyHistory.basicInfo.name
 					,applyHistory.basicInfo.email
 					,applyHistory.basicInfo.phoneNumber
-					,applyHistory.employmentBoard.company.name
+					//,applyHistory.employmentBoard.company.name
+					,getCompanyCountry(applyHistory.employmentBoard.company.address)
+					/*
+					,applyHistory.as("")
+					,applyHistory.as("")
+					,applyHistory.as("")
+					,getCompanyCountry(applyHistory.employmentBoard.company.address)
+					,getCompanyCountry(applyHistory.employmentBoard.company.address)
+					,getCompanyCountry(applyHistory.employmentBoard.company.address)
+					*/
 					,applyHistory.employmentBoard.title
 					,applyHistory.appliedDt
 					,applyHistory.status
@@ -44,6 +55,11 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 			.limit(pageable.getPageSize())
 			.orderBy(applyHistory.id.desc())
 			.fetch();
+	}
+
+	private Expression<String> getCompanyCountry(QAddress address) {
+		//return address == null ? null : address.country.coalesce("");
+		return address.country.coalesce("");
 	}
 
 	/**

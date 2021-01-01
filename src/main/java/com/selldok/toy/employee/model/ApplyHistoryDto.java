@@ -28,18 +28,32 @@ public class ApplyHistoryDto {
     private String boardTitle;
     private String companyName;
     private String companyLogoUrl;
+    private String companyCountry;
+    private String companyCity;
+    private String companyStreet;
     private Timestamp appliedDate;
     private Status status;
     private String recommendStatus;
 
     @QueryProjection
-    public ApplyHistoryDto(String name, String email, String phoneNumber, String companyName, String boardTitle, Timestamp appliedDate, Status status) {
+    public ApplyHistoryDto(String name, String email, String phoneNumber, String companyName
+    //, String companyCountry, String companyCity, String companyStreet
+    , String boardTitle, Timestamp appliedDate, Status status) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.companyName = companyName;
+        /*
+        this.companyCountry = companyCountry;
+        this.companyCity = companyCity;
+        this.companyStreet = companyStreet;
+        */
         this.boardTitle = boardTitle;
         this.appliedDate = appliedDate;
         this.status = status;
+    }
+
+    public String getCcompanyAddress(){
+        return companyCountry + " " + companyCity + " " + companyStreet;
     }
 }
