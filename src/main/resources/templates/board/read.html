@@ -351,9 +351,10 @@
                                         rel="noreferrer noopener" target="_blank"><span></span></a>
                                 </section>
                             </div>
+                            {{ userName }}
                             <div>
-                                <b-button @click.prevent="goBoardModify">구직 정보 수정하기</b-button>
-                                <b-button @click.prevent="goBoardList">리스트 보기</b-button>
+                                <b-button v-if="userName != ''" @click.prevent="goBoardModify">구직 정보 수정하기</b-button>
+                                <b-button v-if="userName != ''" @click.prevent="goBoardList">리스트 보기</b-button>
                             </div>
                             <section class="_3h_f6TfissC0l7ogPcn7lY"><button type="button" class="left"
                                     data-attribute-id="company__click" data-company-id="645" data-company-name="와디즈">
@@ -827,10 +828,23 @@
                     console.log(error);
                     throw error;
                  });
-            }
+            },
+            getEmployeeInfo() {
+                axios.get('http://localhost:9090/employees/info/1')
+                  .then((res) => {
+                      console.log(res);
+                      this.userName = res.data.info.name;
+                      this.userEmail = res.data.info.email;
+                  })
+                  .catch(error => {
+                    console.log(error);
+                    throw error;
+                  });
+            },
         },
         created() {
             this.getBoardRead();
+            this.getEmployeeInfo();
         },
         data: {
             thumbnail: '',
@@ -841,7 +855,9 @@
             companyName: '',
             companyStreet: '',
             endDate: null,
-            message: "구정 정보 상세 페이지",
+            message: "구직 정보 상세 페이지",
+            userName: '',
+            userEmail: '',
         }
     });
 </script>

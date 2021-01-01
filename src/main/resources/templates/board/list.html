@@ -65,7 +65,7 @@
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
-                            <a class="dashboardButton" @click.prevent="goAddWanted">구직 등록하기</a>
+                            <a class="dashboardButton" v-if="userName != ''" @click.prevent="goAddWanted">구직 등록하기</a>
                         </li>
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
@@ -277,11 +277,24 @@
             },
             goAddWanted() {
                 window.location.href = `http://localhost:9090/board?companyId=${company_id}`;
-            }
+            },
+            getEmployeeInfo() {
+                axios.get('http://localhost:9090/employees/info/1')
+                  .then((res) => {
+                      console.log(res);
+                      this.userName = res.data.info.name;
+                      this.userEmail = res.data.info.email;
+                  })
+                  .catch(error => {
+                    console.log(error);
+                    throw error;
+                  });
+            },
         },
         beforeMount() {
             console.log("11111");
             this.getBoardList();
+            this.getEmployeeInfo();
         },
         data: {
             companyId: company_id,
@@ -306,6 +319,7 @@
                 { value: 'JP', text: '일본' }
             ],
             message: "리스트 페이지!",
+            userName: '',
         }
     });
 </script>
