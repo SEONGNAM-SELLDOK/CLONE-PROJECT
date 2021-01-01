@@ -43,8 +43,8 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@GetMapping("applications/{applicantId}")
-	public String applications(@PathVariable Long applicantId, Model model) throws Exception {
+	@GetMapping("applications")
+	public String applications(Model model) throws Exception {
         //model.addAttribute("employee", response);
 		return "employee/applications";
     }
