@@ -7394,7 +7394,7 @@
 											class="icon-bell"></i></button></li>
 								<li class="smMoreVisible"><button type="button"
 									th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
-										data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" data-badge="false"></button>
+										data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" data-badge="false" th:onclick="'document.location.href=\'/employees/view/' + ${#authentication.id} + '\''"></button>
 								</li>
 								<li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"><a
 										class="dashboardButton" href="/dashboard">기업 서비스</a></li>
