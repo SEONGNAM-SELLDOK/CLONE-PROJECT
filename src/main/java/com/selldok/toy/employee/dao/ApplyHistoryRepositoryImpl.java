@@ -52,13 +52,11 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 			.fetch();
 	}
 
-	private Expression<String> getCompanyCountry(QAddress address) {
-		//return address == null ? null : address.country.coalesce("");
-		return address.country.coalesce("");
-	}
-
 	/**
-	 * 지원자명과 회사명이 둘 다 넘어오는 경우 or 검색을 수행 함
+	 * 지원자명과 회사명이 둘 다 넘어오는 경우 or 검색을 수행
+	 * 
+	 * sql로 표현하자면 and (name like '%키워드' or companuName like '%키워드%') 인데
+	 * 이것을 querydsl로 코딩하려 하니 많이 지저분해집니다. 좋은 방법이 있을까요?
 	 */
 	private BooleanExpression containsOr(String name, String companyName) {
 		BooleanExpression contains = null;
