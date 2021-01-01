@@ -69,6 +69,6 @@ public class AuthService {
 			FaceBookFriendResult response = restTemplate.getForObject(url, FaceBookFriendResult.class);
 			friends = response.getData();
 		}
-		return friends;
+		return friends.size() > 3 ? friends.subList(0,3) : friends;
 	}
 }
