@@ -40,6 +40,6 @@
             p.skills
         FROM employee e
         LEFT OUTER JOIN person_info p
-            ON e.id = p.id AND p.id = #{id};
+            ON e.id = p.id AND e.id = #{id};
     </select>
 </mapper>

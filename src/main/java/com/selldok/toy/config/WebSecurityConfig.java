@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
             .antMatchers("/applyHistories/**")
             .permitAll()
-            .antMatchers("/employees/**")
+            .antMatchers("/employees/friends")
             .permitAll()
             .antMatchers("/employees", HttpMethod.POST.toString())
             .permitAll()
@@ -68,8 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-db/**")
             .permitAll()
             .anyRequest()
-            // .authenticated() // 추후 로그인 적용 이후에 주석 해제할 예정
-           .permitAll()
+            .authenticated() // 추후 로그인 적용 이후에 주석 해제할 예정
+           // .permitAll()
             .and().formLogin().loginPage("/auth/view")
             .successHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/auth/main"))
 //            .successForwardUrl("/auth/main")
