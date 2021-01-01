@@ -33,6 +33,7 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 					,applyHistory.basicInfo.email
 					,applyHistory.basicInfo.phoneNumber
 					,applyHistory.employmentBoard.company.name
+					,applyHistory.employmentBoard.id
 					,applyHistory.employmentBoard.title
 					,applyHistory.appliedDt
 					,applyHistory.status

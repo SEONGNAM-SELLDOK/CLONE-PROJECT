@@ -7241,12 +7241,13 @@
 		// 상세 팝업 버튼 onclick
 		$(".close-button.btn.btn-default").click(function(){
 			$('#detailPop').hide();
+			$('#updatePop').hide();
 		});
 	});
 
 	function searchApplyHistory() {
 		$('#status_table_row_holder').empty();
-		$.ajax('/employees/' + applicantId + '/applyHistories', {
+		$.ajax('/employees/' + applicantId + '/applyHistories?size=999', {
 			type: 'GET',  // http method
 			async: true,
 			data: { 
@@ -7280,13 +7281,52 @@
 								data: JSON.stringify({"status": "CANCELED"}),
 								success: function (applyCount, status, xhr) {
 									alert('지원이 취소되었습니다.');
-									$('#detailPop').hide();
+									//searchApplyHistory(); 목록을 다시 가져오고 싶은데 다시 가져오고 나서 부터 취소시 오동장 발생하여 document.location.reload(); 로 변경
+									document.location.reload();
 								},
 								error: function (jqXhr, textStatus, errorMessage) {
 									alert(errorMessage);
 								}
 							});								
 							}
+						});
+						
+						$('#detailPop').find('#updatePopBtn').click(function() {
+							$('#detailPop').hide();
+							$('#updatePop').show();
+							$('#updatePop').find('#boardTitle').text(applyHistory.boardTitle);
+							$('#updatePop').find('#companyName').text(applyHistory.companyName);
+							$('#updatePop').find('#companyAddress').text(applyHistory.companyAddress);
+							$('#updatePop').find('#applicantName').val(applyHistory.name);
+							$('#updatePop').find('#email').val(applyHistory.email);		
+							$('#updatePop').find('#phoneNumber').val(applyHistory.phoneNumber);
+							$('#updatePop').find('#companyLogoUrl').prop('src', applyHistory.companyLogoUrl);
+							$('#updatePop').find('#updateBtn').click(function() {
+							if(confirm('정보를 수정하시겠습니까?')) {
+								$.ajax('/employees/' + applicantId + '/applyHistories/'+ applyHistory.id, {
+									type: 'PUT',
+									contentType: "application/json",
+									async: true,
+									data: JSON.stringify(
+										{
+											"name" : $('#updatePop').find('#applicantName').val()
+											,"email" : $('#updatePop').find('#email').val()
+											,"phoneNumber" : $('#updatePop').find('#phoneNumber').val()
+											,"status": applyHistory.status
+											,"employmentBoardId": applyHistory.employmentBoardId
+										}
+									),
+									success: function (applyCount, status, xhr) {
+										alert('정보를 수정하었습니다.');
+										//searchApplyHistory(); 목록을 다시 가져오고 싶은데 다시 가져오고 나서 부터 취소시 오동장 발생하여 document.location.reload(); 로 변경
+										document.location.reload();
+									},
+									error: function (jqXhr, textStatus, errorMessage) {
+										alert(errorMessage);
+									}
+								});								
+							}
+						});
 						});
 					});
 					
@@ -7775,7 +7815,7 @@
 	<script type="text/javascript" id="" src="//wcs.naver.net/wcslog.js"></script>
 	<script type="text/javascript"
 		id="">if (!wcs_add) var wcs_add = {}; wcs_add.wa = "s_133d2f67e287"; if (!_nasa) var _nasa = {}; wcs.inflow(); wcs_do(_nasa);</script>
-	<!-- 상세 팝업 ddd -->
+	<!-- 상세 팝업 -->
 	<div id="detailPop" style="display:none;">
 		<div role="dialog" data-reactid=".6">
 			<div class="modal-backdrop fade in" data-reactid=".6.0"></div>
@@ -7788,7 +7828,7 @@
 						<div class="application-modal-header modal-header" aria-label="Close" data-reactid=".6.1.0.0.1">
 							<h4 class="modal-title" data-reactid=".6.1.0.0.1.1:0">지원서</h4>
 							<div class="pull-right" data-reactid=".6.1.0.0.1.1:1"><button type="button" class="btn btn-default"
-									data-reactid=".6.1.0.0.1.1:1.0">수정</button><button type="button" class="btn btn-default"
+									data-reactid=".6.1.0.0.1.1:1.0" id="updatePopBtn">수정</button><button type="button" class="btn btn-default"
 									data-reactid=".6.1.0.0.1.1:1.1" id="cancelApply">지원 취소</button></div>
 						</div>
 						<div class="application-modal-body modal-body" data-reactid=".6.1.0.0.2">
@@ -7851,6 +7891,101 @@
 							</div>
 							<hr data-reactid=".6.1.0.0.2.6">
 							<div class="cb" data-reactid=".6.1.0.0.2.a"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 수정 팝업 -->
+	<div id="updatePop" style="display:none;">
+		<div role="dialog" data-reactid=".a">
+			<div class="modal-backdrop fade in" data-reactid=".a.0"></div>
+			<div style="display:block;" class="fade in modal" role="dialog" tabindex="-1" data-reactid=".a.1">
+				<div class="application-modal modal-dialog" data-reactid=".a.1.0">
+					<div class="modal-content" role="document" data-reactid=".a.1.0.0"><button class="close-button btn btn-default"
+							type="button" data-reactid=".a.1.0.0.0"><img
+								src="https://s3.ap-northeast-2.amazonaws.com/wanted-public/gallery_close.svg" role="presentation"
+								data-reactid=".a.1.0.0.0.0"></button>
+						<div class="application-modal-header modal-header" aria-label="Close" data-reactid=".a.1.0.0.1">
+							<h4 class="modal-title" data-reactid=".a.1.0.0.1.1:0">지원서</h4>
+							<div class="pull-right" data-reactid=".a.1.0.0.1.1:1"><button type="button" class="btn btn-primary"
+									data-reactid=".a.1.0.0.1.1:1.0" id="updateBtn">확인</button></div>
+						</div>
+						<div class="application-modal-body modal-body" data-reactid=".a.1.0.0.2">
+							<div class="top clearfix" data-reactid=".a.1.0.0.2.0">
+								<div data-reactid=".a.1.0.0.2.0.0"><a class="application-img" href="/wd/27707"
+										data-reactid=".a.1.0.0.2.0.0.0"><img src="https://static.wanted.co.kr/images/wdes/0_4.1e70705a.jpg"
+											role="presentation" data-reactid=".a.1.0.0.2.0.0.0.0" id="companyLogoUrl"></a><a class="application-company"
+										href="/wd/27707" data-reactid=".a.1.0.0.2.0.0.1">
+										<h2 data-reactid=".a.1.0.0.2.0.0.1.0" id="boardTitle">자바 백엔드 개발자</h2>
+										<h4 data-reactid=".a.1.0.0.2.0.0.1.1"><span data-reactid=".a.1.0.0.2.0.0.1.1.0" id="companyName">트렌비</span><span
+												data-reactid=".a.1.0.0.2.0.0.1.1.1">&nbsp;</span><span class="location"
+												data-reactid=".a.1.0.0.2.0.0.1.1.2"><span data-reactid=".a.1.0.0.2.0.0.1.1.2.0">· </span><span
+													data-reactid=".a.1.0.0.2.0.0.1.1.2.1" id="companyAddress">서울특별시 강남구 역삼로 112 밀브리지홀 7층</span></span></h4>
+									</a></div>
+								<div class="application-modal-response-section" data-reactid=".a.1.0.0.2.0.1">
+									<ul data-reactid=".a.1.0.0.2.0.1.0">
+										<li data-reactid=".a.1.0.0.2.0.1.0.0">
+											<h4 data-reactid=".a.1.0.0.2.0.1.0.0.0">응답률</h4><span
+												data-reactid=".a.1.0.0.2.0.1.0.0.1">98.9%</span>
+										</li>
+										<li data-reactid=".a.1.0.0.2.0.1.0.1">
+											<h4 data-reactid=".a.1.0.0.2.0.1.0.1.0">평균 응답일</h4><span
+												data-reactid=".a.1.0.0.2.0.1.0.1.1">3일</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="cb" data-reactid=".a.1.0.0.2.1"></div>
+							<div class="form-group has-success" data-reactid=".a.1.0.0.2.2"><label class="control-label col-xs-2"
+									data-reactid=".a.1.0.0.2.2.$label"><span data-reactid=".a.1.0.0.2.2.$label.1">이름</span></label>
+								<div class="col-xs-10" data-reactid=".a.1.0.0.2.2.$wrapper"><input type="text" label="이름" value="동석김"
+										class="form-control" data-reactid=".a.1.0.0.2.2.$wrapper.$input" id="applicantName"></div>
+							</div>
+							<div class="form-group has-success" data-reactid=".a.1.0.0.2.3"><label class="control-label col-xs-2"
+									data-reactid=".a.1.0.0.2.3.$label"><span data-reactid=".a.1.0.0.2.3.$label.1">이메일</span></label>
+								<div class="col-xs-10" data-reactid=".a.1.0.0.2.3.$wrapper"><input type="text" label="이메일"
+										value="bluedskim@gmail.com" class="form-control" data-reactid=".a.1.0.0.2.3.$wrapper.$input" id="email"></div>
+							</div>
+							<div class="form-group has-success" data-reactid=".a.1.0.0.2.4"><label class="control-label col-xs-2"
+									data-reactid=".a.1.0.0.2.4.$label"><span data-reactid=".a.1.0.0.2.4.$label.1">연락처</span></label>
+								<div class="col-xs-10" data-reactid=".a.1.0.0.2.4.$wrapper"><input type="text" label="연락처"
+										value="01073051640" placeholder="연락처를 입력해주세요." class="form-control"
+										data-reactid=".a.1.0.0.2.4.$wrapper.$input" id="phoneNumber"></div>
+							</div>
+							<div data-reactid=".a.1.0.0.2.5">
+								<div id="resume" class="row" data-reactid=".a.1.0.0.2.5.0">
+									<div class="col-xs-2" data-reactid=".a.1.0.0.2.5.0.0"><span data-reactid=".a.1.0.0.2.5.0.0.0">이력서</span>
+									</div>
+									<div class="col-xs-10" data-reactid=".a.1.0.0.2.5.0.1">
+										<div class="file-item-edit" data-reactid=".a.1.0.0.2.5.0.1.$0"><a
+												href="https://www.wanted.co.kr/api/v3/users/rKuVp4-d/resumes/download/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bWVfaWQiOjIxMTQ1MDUsImV4cGlyZXMiOjE2MDk0NzY1OTksInJlcXVlc3RfdXNlcl9pZCI6NzgwNTA0LCJ0YXJnZXRfdXNlcl9pZCI6NzgwNTA0fQ.Jg41H9bDRheI78KiDVCNUUMjy24fb2OrjRL-b5zlsLw"
+												target="_blank" rel="noopener noreferrer" data-reactid=".a.1.0.0.2.5.0.1.$0.0"><i
+													class="icon-format pdf" data-reactid=".a.1.0.0.2.5.0.1.$0.0.0"></i><span
+													data-reactid=".a.1.0.0.2.5.0.1.$0.0.1">김동석 이력서 2020-12-12 18.02.09.pdf</span></a><i
+												class="icon-apply_close" data-reactid=".a.1.0.0.2.5.0.1.$0.1"></i><span class="hidden"
+												data-reactid=".a.1.0.0.2.5.0.1.$0.2"></span></div>
+									</div>
+								</div>
+								<div class="cb" data-reactid=".a.1.0.0.2.5.1"></div>
+								<div class="row" data-reactid=".a.1.0.0.2.5.2">
+									<div class="col-xs-2" data-reactid=".a.1.0.0.2.5.2.0"></div>
+									<div class="col-xs-10" data-reactid=".a.1.0.0.2.5.2.1">
+										<div class="cb" data-reactid=".a.1.0.0.2.5.2.1.0"></div>
+										<div class="file-upload" data-reactid=".a.1.0.0.2.5.2.1.1">
+											<div class="dropzone" data-reactid=".a.1.0.0.2.5.2.1.1.0">
+												<div class="dropzone-contents" data-reactid=".a.1.0.0.2.5.2.1.1.0.0:0"><i class="icon-apply_add"
+														data-reactid=".a.1.0.0.2.5.2.1.1.0.0:0.0"></i></div><span class="dropzone-label"
+													data-reactid=".a.1.0.0.2.5.2.1.1.0.0:1">파일 추가</span><input type="file" style="display:none;"
+													data-reactid=".a.1.0.0.2.5.2.1.1.0.1">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr data-reactid=".a.1.0.0.2.6">
+							<div class="cb" data-reactid=".a.1.0.0.2.a"></div>
 						</div>
 					</div>
 				</div>
