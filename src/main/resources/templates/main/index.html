@@ -273,7 +273,7 @@
                             <div class="XEp_uByHe8zoJIn7c_qnl BQJ6j_UEx8UrY8xwDzcer" data-attribute-id="event__click"
                                  data-event-id="1027" data-event-title="원티드 북클럽 #7 : Winning Startup"
                                  data-event-currency="KRW" data-event-price="189000" th:each="event : ${events}">
-                                <a href="/events/bookclub07" class="">
+                                <a th:href="'/event/detail/' + ${event.id}" class="">
                                     <div class="_2aeg7MwgxmEqgIz5FJfW7w"
                                          th:style="'background-image:url(' + ${event.imageLink} + ');'"></div>
                                     <div class="_2MJP79PdX3p2ZJzaXvnd3N">
