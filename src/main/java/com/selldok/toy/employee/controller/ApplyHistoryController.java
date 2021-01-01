@@ -3,6 +3,7 @@ package com.selldok.toy.employee.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.service.AppliedHistoryService;
 
@@ -121,12 +122,14 @@ public class ApplyHistoryController {
 		@PathVariable Long applicantId
 		,@RequestParam(required=false) String name
 		,@RequestParam(required=false) String companyName
+		,@RequestParam(required=false) ApplyHistory.Status status
 		,Pageable pageable
 	) throws Exception {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setApplicantId(applicantId);
 		applyHistoryDto.setName(name);
 		applyHistoryDto.setCompanyName(companyName);
+		applyHistoryDto.setStatus(status);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
 		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
 	}	

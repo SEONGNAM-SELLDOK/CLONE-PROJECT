@@ -8,6 +8,7 @@ import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.selldok.toy.company.entity.QAddress;
+import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.QApplyHistoryDto;
 
@@ -43,6 +44,7 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 			.where(
 				containsOr(searchCondition.getName(), searchCondition.getCompanyName())
 				,applicantIdEq(searchCondition.getApplicantId())
+				,statusEq(searchCondition.getStatus())
 			)
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize())
@@ -79,5 +81,8 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 	}
 	private BooleanExpression applicantIdEq(Long applicantId) {
 		return applicantId != null ? applyHistory.applicant.id.eq(applicantId) : null ;
+	}
+	private BooleanExpression statusEq(ApplyHistory.Status status) {
+		return status != null ? applyHistory.status.eq(status) : null ;
 	}
 }

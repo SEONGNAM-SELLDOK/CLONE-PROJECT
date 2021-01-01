@@ -7245,9 +7245,9 @@
 		});
 	});
 
-	function searchApplyHistory() {
+	function searchApplyHistory(status) {
 		$('#status_table_row_holder').empty();
-		$.ajax('/employees/' + applicantId + '/applyHistories?size=999', {
+		$.ajax('/employees/' + applicantId + '/applyHistories?size=999' + (status ? '&status=' + status : ''), {
 			type: 'GET',  // http method
 			async: true,
 			data: { 
@@ -7443,31 +7443,31 @@
 										</div>
 										<div class="no-padding Column-cKhjSj jxXhqe" data-reactid=".0.0.0.0.0.1.1">
 											<div class="status-summary applications" data-reactid=".0.0.0.0.0.1.1.0"><a
-													class="status-summary-item active" href="/status/applications"
+													class="status-summary-item active" href="javascript:searchApplyHistory()"
 													data-reactid=".0.0.0.0.0.1.1.0.$0">
 													<dl data-reactid=".0.0.0.0.0.1.1.0.$0.0">
 														<dt data-reactid=".0.0.0.0.0.1.1.0.$0.0.0" id="allCount1">-</dt>
 														<dd data-reactid=".0.0.0.0.0.1.1.0.$0.0.1">전체</dd>
 													</dl>
-												</a><a class="status-summary-item" href="/status/applications?status=accept"
+												</a><a class="status-summary-item" href="javascript:searchApplyHistory('APPLCN_COMPT')"
 													data-reactid=".0.0.0.0.0.1.1.0.$1">
 													<dl data-reactid=".0.0.0.0.0.1.1.0.$1.0">
 														<dt data-reactid=".0.0.0.0.0.1.1.0.$1.0.0" id="applcnCompt">-</dt>
 														<dd data-reactid=".0.0.0.0.0.1.1.0.$1.0.1">지원 완료</dd>
 													</dl>
-												</a><a class="status-summary-item" href="/status/applications?status=pass"
+												</a><a class="status-summary-item" href="javascript:searchApplyHistory('PAPERS_PASAGE')"
 													data-reactid=".0.0.0.0.0.1.1.0.$2">
 													<dl data-reactid=".0.0.0.0.0.1.1.0.$2.0">
 														<dt data-reactid=".0.0.0.0.0.1.1.0.$2.0.0" id="papersPasage">-</dt>
 														<dd data-reactid=".0.0.0.0.0.1.1.0.$2.0.1">서류 통과</dd>
 													</dl>
-												</a><a class="status-summary-item" href="/status/applications?status=hire"
+												</a><a class="status-summary-item" href="javascript:searchApplyHistory('LAST_PSEXAM')"
 													data-reactid=".0.0.0.0.0.1.1.0.$3">
 													<dl data-reactid=".0.0.0.0.0.1.1.0.$3.0">
 														<dt data-reactid=".0.0.0.0.0.1.1.0.$3.0.0" id="lastPsexam">-</dt>
 														<dd data-reactid=".0.0.0.0.0.1.1.0.$3.0.1">최종 합격</dd>
 													</dl>
-												</a><a class="status-summary-item" href="/status/applications?status=reject"
+												</a><a class="status-summary-item" href="javascript:searchApplyHistory('DSQLFC')"
 													data-reactid=".0.0.0.0.0.1.1.0.$4">
 													<dl data-reactid=".0.0.0.0.0.1.1.0.$4.0">
 														<dt data-reactid=".0.0.0.0.0.1.1.0.$4.0.0" id="dsqlfc">-</dt>
