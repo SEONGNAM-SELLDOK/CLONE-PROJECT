@@ -7265,7 +7265,29 @@
 					$(tempApplyHistoryRow).click(function() {
 						$('#detailPop').show();
 						$('#detailPop').find('#boardTitle').text(applyHistory.boardTitle);
+						$('#detailPop').find('#companyName').text(applyHistory.companyName);
 						$('#detailPop').find('#companyAddress').text(applyHistory.companyAddress);
+						$('#detailPop').find('#applicantName').val(applyHistory.name);
+						$('#detailPop').find('#email').val(applyHistory.email);		
+						$('#detailPop').find('#phoneNumber').val(applyHistory.phoneNumber);
+						$('#detailPop').find('#companyLogoUrl').prop('src', applyHistory.companyLogoUrl);
+						$('#detailPop').find('#cancelApply').click(function() {
+							if(confirm('지원을 취소하시겠습니까?')) {
+								$.ajax('/employees/' + applicantId + '/applyHistories/'+ applyHistory.id +'/changeStatus', {
+								type: 'PUT',
+								contentType: "application/json",
+								async: true,
+								data: JSON.stringify({"status": "CANCELED"}),
+								success: function (applyCount, status, xhr) {
+									alert('지원이 취소되었습니다.');
+									$('#detailPop').hide();
+								},
+								error: function (jqXhr, textStatus, errorMessage) {
+									alert(errorMessage);
+								}
+							});								
+							}
+						});
 					});
 					
 					$('#status_table_row_holder').append($(tempApplyHistoryRow));
@@ -7767,16 +7789,16 @@
 							<h4 class="modal-title" data-reactid=".6.1.0.0.1.1:0">지원서</h4>
 							<div class="pull-right" data-reactid=".6.1.0.0.1.1:1"><button type="button" class="btn btn-default"
 									data-reactid=".6.1.0.0.1.1:1.0">수정</button><button type="button" class="btn btn-default"
-									data-reactid=".6.1.0.0.1.1:1.1">지원 취소</button></div>
+									data-reactid=".6.1.0.0.1.1:1.1" id="cancelApply">지원 취소</button></div>
 						</div>
 						<div class="application-modal-body modal-body" data-reactid=".6.1.0.0.2">
 							<div class="top clearfix" data-reactid=".6.1.0.0.2.0">
 								<div data-reactid=".6.1.0.0.2.0.0"><a class="application-img" href="/wd/27707"
 										data-reactid=".6.1.0.0.2.0.0.0"><img src="https://static.wanted.co.kr/images/wdes/0_4.1e70705a.jpg"
-											role="presentation" data-reactid=".6.1.0.0.2.0.0.0.0"></a><a class="application-company"
+											role="presentation" data-reactid=".6.1.0.0.2.0.0.0.0" id="companyLogoUrl"></a><a class="application-company"
 										href="/wd/27707" data-reactid=".6.1.0.0.2.0.0.1">
 										<h2 data-reactid=".6.1.0.0.2.0.0.1.0" id="boardTitle">자바 백엔드 개발자</h2>
-										<h4 data-reactid=".6.1.0.0.2.0.0.1.1"><span data-reactid=".6.1.0.0.2.0.0.1.1.0">트렌비</span><span
+										<h4 data-reactid=".6.1.0.0.2.0.0.1.1"><span data-reactid=".6.1.0.0.2.0.0.1.1.0"  id="companyName">트렌비</span><span
 												data-reactid=".6.1.0.0.2.0.0.1.1.1">&nbsp;</span><span class="location"
 												data-reactid=".6.1.0.0.2.0.0.1.1.2"><span data-reactid=".6.1.0.0.2.0.0.1.1.2.0">· </span><span
 													data-reactid=".6.1.0.0.2.0.0.1.1.2.1" id="companyAddress">서울특별시 강남구 역삼로 112 밀브리지홀 7층</span></span></h4>
@@ -7798,19 +7820,19 @@
 							<div class="form-group has-success" data-reactid=".6.1.0.0.2.2"><label class="control-label col-xs-2"
 									data-reactid=".6.1.0.0.2.2.$label"><span data-reactid=".6.1.0.0.2.2.$label.1">이름</span></label>
 								<div class="col-xs-10" data-reactid=".6.1.0.0.2.2.$wrapper"><input type="text" label="이름" value="동석김"
-										disabled="" class="form-control" data-reactid=".6.1.0.0.2.2.$wrapper.$input"></div>
+										disabled="" class="form-control" data-reactid=".6.1.0.0.2.2.$wrapper.$input" id="applicantName"></div>
 							</div>
 							<div class="form-group has-success" data-reactid=".6.1.0.0.2.3"><label class="control-label col-xs-2"
 									data-reactid=".6.1.0.0.2.3.$label"><span data-reactid=".6.1.0.0.2.3.$label.1">이메일</span></label>
 								<div class="col-xs-10" data-reactid=".6.1.0.0.2.3.$wrapper"><input type="text" label="이메일"
 										value="bluedskim@gmail.com" disabled="" class="form-control"
-										data-reactid=".6.1.0.0.2.3.$wrapper.$input"></div>
+										data-reactid=".6.1.0.0.2.3.$wrapper.$input" id="email"></div>
 							</div>
 							<div class="form-group has-success" data-reactid=".6.1.0.0.2.4"><label class="control-label col-xs-2"
 									data-reactid=".6.1.0.0.2.4.$label"><span data-reactid=".6.1.0.0.2.4.$label.1">연락처</span></label>
 								<div class="col-xs-10" data-reactid=".6.1.0.0.2.4.$wrapper"><input type="text" label="연락처"
 										value="01073051640" disabled="" placeholder="연락처를 입력해주세요." class="form-control"
-										data-reactid=".6.1.0.0.2.4.$wrapper.$input"></div>
+										data-reactid=".6.1.0.0.2.4.$wrapper.$input" id="phoneNumber"></div>
 							</div>
 							<div data-reactid=".6.1.0.0.2.5">
 								<div id="resume" class="row" data-reactid=".6.1.0.0.2.5.0">

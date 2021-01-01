@@ -28,19 +28,11 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 		return queryFactory
 			.select(
 				new QApplyHistoryDto(
-					applyHistory.basicInfo.name
+					applyHistory.id
+					,applyHistory.basicInfo.name
 					,applyHistory.basicInfo.email
 					,applyHistory.basicInfo.phoneNumber
-					//,applyHistory.employmentBoard.company.name
-					,getCompanyCountry(applyHistory.employmentBoard.company.address)
-					/*
-					,applyHistory.as("")
-					,applyHistory.as("")
-					,applyHistory.as("")
-					,getCompanyCountry(applyHistory.employmentBoard.company.address)
-					,getCompanyCountry(applyHistory.employmentBoard.company.address)
-					,getCompanyCountry(applyHistory.employmentBoard.company.address)
-					*/
+					,applyHistory.employmentBoard.company.name
 					,applyHistory.employmentBoard.title
 					,applyHistory.appliedDt
 					,applyHistory.status
