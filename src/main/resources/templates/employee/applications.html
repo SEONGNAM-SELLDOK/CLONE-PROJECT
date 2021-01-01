@@ -7332,6 +7332,10 @@
 					
 					$('#status_table_row_holder').append($(tempApplyHistoryRow));
 				});				
+				
+				if(applyHistories.length == 0) {
+					$('.status-table-emptystate').show();
+				}
 			},
 			error: function (jqXhr, textStatus, errorMessage) {
 				alert(errorMessage);
@@ -7538,23 +7542,22 @@
 																<div class="company status-table-item hidden-xs"
 																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company">
 																	<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0"><img
-																			src="https://static.wanted.co.kr/images/wdes/0_5.1e70705a.jpg" class="company-logo"
+																			src="https://s3.ap-northeast-2.amazonaws.com/static.wanted.co.kr/images/logo_wanted.png" class="company-logo"
 																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0.0" id="companyLogoUrl"><span
 																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0.2" id="companyName">로딩 중</span></span>
 																</div>
 																<div class="position status-table-item hidden-xs"
 																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$position" id="boardTitle">
-																	자바 백엔드 개발자</div>
+																	로딩 중</div>
 																<div class="create_time status-table-item hidden-xs"
 																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$create_time" id="appliedDate">
-																	2020. 12. 12</div>
+																	로딩 중</div>
 																<div class="status status-table-item hidden-xs"
 																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$status" id="status">
-																	불합격</div>
+																	로딩 중</div>
 																<div class="recommendation status-table-item hidden-xs"
 																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$recommendation">
-																	<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$recommendation.0">추천인
-																		없음</span>
+																	<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$recommendation.0">로딩 중</span>
 																</div>
 																<div class="reward status-table-item hidden-xs"
 																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$reward">
@@ -7564,6 +7567,12 @@
 																</div>
 															</div>
 														</span>
+														<!-- 요청하신 결과가 없습니다. -->
+														<dl class="status-table-emptystate" styel="display:none" data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.3">
+															<dt data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.3.0"><i class="icon-search"
+																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.3.0.0"></i></dt>
+															<dd data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.3.1">요청하신 결과가 없습니다.</dd>
+														</dl>														
 													</div>
 												</div>
 											</div>
