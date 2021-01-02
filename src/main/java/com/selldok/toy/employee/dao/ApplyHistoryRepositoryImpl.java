@@ -4,10 +4,8 @@ import static com.selldok.toy.employee.entity.QApplyHistory.applyHistory;
 
 import java.util.List;
 
-import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.selldok.toy.company.entity.QAddress;
 import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.QApplyHistoryDto;
@@ -34,6 +32,9 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 					,applyHistory.basicInfo.email
 					,applyHistory.basicInfo.phoneNumber
 					,applyHistory.employmentBoard.company.name
+					,applyHistory.employmentBoard.company.address.country
+					,applyHistory.employmentBoard.company.address.city
+					,applyHistory.employmentBoard.company.address.street
 					,applyHistory.employmentBoard.id
 					,applyHistory.employmentBoard.title
 					,applyHistory.appliedDt

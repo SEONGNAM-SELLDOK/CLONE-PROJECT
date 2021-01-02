@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 
+import com.querydsl.core.annotations.QueryInit;
 import com.selldok.toy.company.entity.Board;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -69,6 +70,7 @@ public class ApplyHistory {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="employment_board_id", nullable=false)
+	@QueryInit({"company.address"})
 	private Board employmentBoard;
 
 	@PreUpdate
