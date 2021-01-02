@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Selldok-toy</title>
     <meta charset="utf-8">
@@ -10,7 +10,73 @@
     <link rel="stylesheet" type="text/css" href="/css/board.css">
 </head>
 <body>
+<script>
+    function myInfoPage(userId){
+        location.href=`/employees/view/${userId}`;
+    }
+</script>
 <div id="app">
+    <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+        <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+            <nav>
+                <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                        class="icon-logo_new"></i></a></div>
+                <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                    <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
+                                                                                                    class="">홈</a></li>
+                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
+                        <a href="/board/list" class="">탐색</a>
+                    </li>
+                    <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary">
+                        <a href="/salary" class="">직군별 연봉</a>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="resume"><a href="/cv"
+                                                                                                class="">이력서</a></li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="refer"><a href="/referral"
+                                                                                               class="">추천</a></li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/events" class="">이벤트</a>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                            href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+                </ul>
+                <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                    <div class="overlay">
+                        <div class="container"></div>
+                    </div>
+                </div>
+                <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                    <ul>
+                        <li>
+                            <button type="button" class="searchButton" data-attribute-id="gnb" data-gnb-kind="search"><i
+                                    class="icon-search"></i></button>
+                        </li>
+                        <li>
+                            <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                    class="icon-bell"></i></button>
+                        </li>
+                        <li class="smMoreVisible" style="padding-top:5px;">
+<!--                            <button type="button"-->
+<!--                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"-->
+<!--                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>-->
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
+                            <a class="dashboardButton" href="/">기업 서비스</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
+                            <a class="dashboardButton" v-if="userName != ''" @click.prevent="goAddWanted">구직 등록하기</a>
+                        </li>
+                        <li class="xsOnly">
+                            <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
+                                    class="icon-menu"></i></button>
+                        </li>
+                    </ul>
+                </aside>
+            </nav>
+        </div>
+    </div>
+    <div style="height:50px"></div>
     <div class="_2y4sIVmvSrf6Iy63okz9Qh">
         <div class="_1DPyMq6MHTj43gZ2KFduy9 _33qO_oTN15PB4g18zEsNj4">
             <div class="M6DRRXt81Az4OyHgJDT0a clearfix _1GA8o5NuhqhwSpe6wt0GL3">
@@ -38,7 +104,7 @@
                             <span class="_243hy5OltkSpnxEC5JmQMo">경력</span>
                             <span class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">3년</span>
                         </button>
-                        <b-button @click.prevent="goAddWanted">구직 등록하기</b-button>
+<!--                        <b-button @click.prevent="goAddWanted">구직 등록하기</b-button>-->
                     </div>
                     <div class="py51HbyJktaZndNqVoiaa hidden-xs">
                         <div class="_2kUO5g0ZZCOcMCUUlSdDOm">
@@ -211,11 +277,24 @@
             },
             goAddWanted() {
                 window.location.href = `http://localhost:9090/board?companyId=${company_id}`;
-            }
+            },
+            getEmployeeInfo() {
+                axios.get('http://localhost:9090/employees/info/1')
+                  .then((res) => {
+                      console.log(res);
+                      this.userName = res.data.info.name;
+                      this.userEmail = res.data.info.email;
+                  })
+                  .catch(error => {
+                    console.log(error);
+                    throw error;
+                  });
+            },
         },
         beforeMount() {
             console.log("11111");
             this.getBoardList();
+            this.getEmployeeInfo();
         },
         data: {
             companyId: company_id,
@@ -240,6 +319,7 @@
                 { value: 'JP', text: '일본' }
             ],
             message: "리스트 페이지!",
+            userName: '',
         }
     });
 </script>
