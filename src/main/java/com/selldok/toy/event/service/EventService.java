@@ -2,8 +2,6 @@ package com.selldok.toy.event.service;
 
 import com.selldok.toy.event.entity.Event;
 import com.selldok.toy.event.dao.EventRepository;
-import com.selldok.toy.event.mapper.EventMapper;
-import com.selldok.toy.event.model.EventSearchRequest;
 import com.selldok.toy.event.model.InsertEventRequest;
 import com.selldok.toy.event.model.UpdateEventRequest;
 import org.springframework.stereotype.Service;
@@ -18,19 +16,16 @@ import java.util.Optional;
 public class EventService {
     private final EventRepository eventRepository;
 
-    private final EventMapper eventMapper;
-
-    public EventService(EventRepository eventRepository, EventMapper eventMapper) {
+    public EventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
-        this.eventMapper = eventMapper;
     }
 
     public Optional<Event> findById(Long id){
         return eventRepository.findById(id);
     }
 
-    public List<Event> getList(EventSearchRequest request) {
-        return eventMapper.getEvent(request);
+    public List<Event> getList(Long lastId) {
+        return eventRepository.findByIdGreaterThanEqual(lastId);
     }
 
     public void insert(InsertEventRequest request) {

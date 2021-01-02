@@ -40,6 +40,12 @@ public class EmployeeController {
         return response == null ? "/login/login" : "employee/employee";
     }
 
+    @GetMapping("info/{id}")
+    public ResponseEntity<String> getEmployeeInfo(@PathVariable("id") Long id) {
+        EmployeeProfileResponse response = employeeService.getProfile(id);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
     @GetMapping("basicinfo/{id}")
     public String getBasicInfoView(@PathVariable("id") Long id, Model model) {
         Optional<Employee> employee = Optional.ofNullable(employeeService.get(id));
