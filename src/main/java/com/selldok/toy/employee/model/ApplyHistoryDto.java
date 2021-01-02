@@ -21,6 +21,7 @@ import lombok.ToString;
 public class ApplyHistoryDto {
     private Long id;
     private Long applicantId;
+    private Long companyId;    
     private String name;
     private String email;
     private String phoneNumber;

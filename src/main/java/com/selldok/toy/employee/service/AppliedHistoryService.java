@@ -115,14 +115,33 @@ public class AppliedHistoryService {
 	}
 
 	/**
-	 * 상태별 카운트리스트를 map으로 변환
+	 * 지원자 지원 현황 상태별 카운트리스트를 map으로 변환
 	 * 
 	 * @param applicantId 지원자의 아이디
 	 * @return
 	 */
-	public Map<String, Long> groupByCountByStatus(Long applicantId) {
-		List<String[]> groupByCountList = applyHistoryRepository.groupByCountByStatus(applicantId);
-		// repository에서는 상태별로 group by count를 하므로 전체 카운트는 없음. 전체 카운트를 하는 것보다 일단은 상태별카운틀 합하도록 함
+	public Map<String, Long> groupByCountByStatusOfApplicant(Long applicantId) {
+		List<String[]> groupByCountList = applyHistoryRepository.groupByCountByStatusApplicant(applicantId);
+		return groupByCountListToMap(groupByCountList);
+	}
+
+	/**
+	 * 회사 지원 현황 상태별 카운트리스트를 map으로 변환
+	 * 
+	 * @param companyId
+	 * @return
+	 */
+	public Map<String, Long> groupByCountByStatusOfCompany(Long companyId) {
+		List<String[]> groupByCountList = applyHistoryRepository.groupByCountByStatusOfCompany(companyId);
+		return groupByCountListToMap(groupByCountList);
+	}
+
+	/**
+	 * @param groupByCountList
+	 * @return
+	 */
+	private Map<String, Long> groupByCountListToMap(List<String[]> groupByCountList) {
+		//repository에서는 상태별로 group by count를 하므로 전체 카운트는 없음. 전체 카운트를 하는 것보다 일단은 상태별카운틀 합하도록 함
 		long allCount = 0;
 
 		Map<String, Long> groupByCountMap = new HashMap<>();
@@ -139,7 +158,7 @@ public class AppliedHistoryService {
 			if(!groupByCountMap.containsKey(status.name())) {
 				groupByCountMap.put(status.name(), 0L);
 			}
-		}		
+		}
 		return groupByCountMap;
 	}
 

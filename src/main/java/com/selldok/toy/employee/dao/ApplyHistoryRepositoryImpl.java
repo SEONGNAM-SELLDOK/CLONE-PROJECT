@@ -45,6 +45,7 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 			.where(
 				containsOr(searchCondition.getName(), searchCondition.getCompanyName())
 				,applicantIdEq(searchCondition.getApplicantId())
+				,companyIdEq(searchCondition.getCompanyId())
 				,statusEq(searchCondition.getStatus())
 			)
 			.offset(pageable.getOffset())
@@ -80,6 +81,9 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 	}
 	private BooleanExpression applicantIdEq(Long applicantId) {
 		return applicantId != null ? applyHistory.applicant.id.eq(applicantId) : null ;
+	}
+	private BooleanExpression companyIdEq(Long companyId) {
+		return companyId != null ? applyHistory.employmentBoard.company.id.eq(companyId) : null ;
 	}
 	private BooleanExpression statusEq(ApplyHistory.Status status) {
 		return status != null ? applyHistory.status.eq(status) : null ;

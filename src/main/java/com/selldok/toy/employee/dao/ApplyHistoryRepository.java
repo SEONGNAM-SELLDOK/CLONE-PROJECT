@@ -24,5 +24,14 @@ public interface ApplyHistoryRepository extends CrudRepository<ApplyHistory, Lon
 	 * @return
 	 */
 	@Query("SELECT applyHistory.status, COUNT(applyHistory.status) FROM ApplyHistory AS applyHistory Where applyHistory.applicant.id = :applicantId GROUP BY applyHistory.status")
-	List<String[]> groupByCountByStatus(@Param("applicantId") Long applicantId);
+	List<String[]> groupByCountByStatusApplicant(@Param("applicantId") Long applicantId);
+
+	/**
+	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
+	 * 
+	 * @param companyId 회사의 id
+	 * @return
+	 */
+	@Query("SELECT applyHistory.status, COUNT(applyHistory.status) FROM ApplyHistory AS applyHistory Where applyHistory.employmentBoard.company.id = :companyId GROUP BY applyHistory.status")
+	List<String[]> groupByCountByStatusOfCompany(@Param("companyId") Long companyId);	
 }

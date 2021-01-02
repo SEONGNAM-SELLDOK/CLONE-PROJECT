@@ -31,7 +31,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-@RequestMapping("employees")
 public class ApplyHistoryController {
 	@Autowired
 	private AppliedHistoryService applyHistoryService;
@@ -43,12 +42,25 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@GetMapping("applications")
-	public String applications(Model model) throws Exception {
+	@GetMapping("company/applications")
+	public String companyApplications(Model model) throws Exception {
+        //model.addAttribute("employee", response);
+		return "company/applications";
+    }
+		
+	/**
+	 * 지원이력 조회
+	 * 
+	 * @param ApplyHistoryDto applyHistoryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("employees/applications")
+	public String employeesApplications(Model model) throws Exception {
         //model.addAttribute("employee", response);
 		return "employee/applications";
-    }
-
+	}
+		
 	/**
 	 * 지원하기
 	 * 
@@ -56,7 +68,7 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("/{applicantId}/applyHistories")
+	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
 	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) throws Exception {
 		applyHistoryDto.setApplicantId(applicantId);
@@ -73,7 +85,7 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PutMapping("/{applicantId}/applyHistories/{id}")
+	@PutMapping("employees/{applicantId}/applyHistories/{id}")
 	@ResponseBody
 	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
 		updatingApplyHistoryDto.setId(id);
@@ -89,7 +101,7 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PutMapping("/{applicantId}/applyHistories/{id}/changeStatus")
+	@PutMapping("employees/{applicantId}/applyHistories/{id}/changeStatus")
 	@ResponseBody
 	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
 		updatingApplyHistoryDto.setId(id);
@@ -102,23 +114,33 @@ public class ApplyHistoryController {
 	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
 	 * http://localhost:9090/employees/1/applyHistories/getApplyCount
 	 */
-	@GetMapping("/{applicantId}/applyHistories/getApplyCount")
+	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
-	public ResponseEntity<Map<String, Long>> groupByCountByStatus(@PathVariable Long applicantId) throws Exception {
-        return new ResponseEntity<>(applyHistoryService.groupByCountByStatus(applicantId), HttpStatus.ACCEPTED);
+	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfApplicant(@PathVariable Long applicantId) throws Exception {
+        return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.ACCEPTED);
 	}
 
 	/**
-	 * 검색
+	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
+	 * http://localhost:9090/employees/1/applyHistories/getApplyCount
+	 */
+	@GetMapping("company/{companyId}/applyHistories/getApplyCount")
+	@ResponseBody
+	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfCompany(@PathVariable Long companyId) throws Exception {
+        return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.ACCEPTED);
+	}
+
+	/**
+	 * 개인별 지원이력 검색
 	 * http://localhost:9090/employees/1/applyHistories?name=%EC%A7%80%EC%9B%90&companyName=%EA%B5%AC
 	 * 
 	 * @param ApplyHistoryDto applyHistoryDto
 	 * @return
 	 * @throws Exception
 	 */
-	@GetMapping("/{applicantId}/applyHistories")
+	@GetMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<List<ApplyHistoryDto>> search(
+	public ResponseEntity<List<ApplyHistoryDto>> employeesApplyHistoriesSearch(
 		@PathVariable Long applicantId
 		,@RequestParam(required=false) String name
 		,@RequestParam(required=false) String companyName
@@ -127,6 +149,31 @@ public class ApplyHistoryController {
 	) throws Exception {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setApplicantId(applicantId);
+		applyHistoryDto.setName(name);
+		applyHistoryDto.setCompanyName(companyName);
+		applyHistoryDto.setStatus(status);
+		log.debug("applyHistoryDto={}", applyHistoryDto);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
+	}	
+
+	/**
+	 * 회사별 지원이력 검색
+	 * 
+	 * @param ApplyHistoryDto applyHistoryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("company/{companyId}/applyHistories")
+	@ResponseBody
+	public ResponseEntity<List<ApplyHistoryDto>> companyApplyHistoriesSearch(
+		@PathVariable Long companyId
+		,@RequestParam(required=false) String name
+		,@RequestParam(required=false) String companyName
+		,@RequestParam(required=false) ApplyHistory.Status status
+		,Pageable pageable
+	) throws Exception {
+		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
+		applyHistoryDto.setCompanyId(companyId);
 		applyHistoryDto.setName(name);
 		applyHistoryDto.setCompanyName(companyName);
 		applyHistoryDto.setStatus(status);

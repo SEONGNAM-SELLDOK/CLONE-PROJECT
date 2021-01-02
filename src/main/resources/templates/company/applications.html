@@ -7209,9 +7209,10 @@
 	<script>
 	var applyHistoryRowTemplate;
 	var applicantId = [[${#authentication.id}]];
+	var companyId = [[${param.companyId}]];
 
 	$(document).ready(function () {
-		$.ajax('/employees/' + applicantId + '/applyHistories/getApplyCount', {
+		$.ajax('/company/' + companyId + '/applyHistories/getApplyCount', {
 			type: 'GET',  // http method
 			async: true,
 			//data: { myData: 'This is my data.' },  // data to submit
@@ -7245,9 +7246,28 @@
 		});
 	});
 
+	function changeStatus(applyHistoryId, newStatus) {
+		if(confirm(statusNames[newStatus] + '(으)로 상태를 변경하시겠습니까?')) {
+			$.ajax('/employees/' + applicantId + '/applyHistories/'+ applyHistoryId +'/changeStatus', {
+				type: 'PUT',
+				contentType: "application/json",
+				async: true,
+				data: JSON.stringify({"status": newStatus}),
+				success: function (applyCount, status, xhr) {
+					alert(statusNames[newStatus] + '(으)로 상태를 변경하였습니다');
+					//searchApplyHistory(); 목록을 다시 가져오고 싶은데 다시 가져오고 나서 부터 취소시 오동장 발생하여 document.location.reload(); 로 변경
+					document.location.reload();
+				},
+				error: function (jqXhr, textStatus, errorMessage) {
+					alert(errorMessage);
+				}
+			});								
+		}
+	}
+
 	function searchApplyHistory(status) {
 		$('#status_table_row_holder').empty();
-		$.ajax('/employees/' + applicantId + '/applyHistories?size=999' + (status ? '&status=' + status : ''), {
+		$.ajax('/company/' + companyId + '/applyHistories?size=999' + (status ? '&status=' + status : ''), {
 			type: 'GET',  // http method
 			async: true,
 			data: { 
@@ -7272,25 +7292,10 @@
 						$('#detailPop').find('#applicantName').val(applyHistory.name);
 						$('#detailPop').find('#email').val(applyHistory.email);		
 						$('#detailPop').find('#phoneNumber').val(applyHistory.phoneNumber);
-						$('#detailPop').find('#companyLogoUrl').prop('src', applyHistory.companyLogoUrl);
-						$('#detailPop').find('#cancelApply').click(function() {
-							if(confirm('지원을 취소하시겠습니까?')) {
-								$.ajax('/employees/' + applicantId + '/applyHistories/'+ applyHistory.id +'/changeStatus', {
-								type: 'PUT',
-								contentType: "application/json",
-								async: true,
-								data: JSON.stringify({"status": "CANCELED"}),
-								success: function (applyCount, status, xhr) {
-									alert('지원이 취소되었습니다.');
-									//searchApplyHistory(); 목록을 다시 가져오고 싶은데 다시 가져오고 나서 부터 취소시 오동장 발생하여 document.location.reload(); 로 변경
-									document.location.reload();
-								},
-								error: function (jqXhr, textStatus, errorMessage) {
-									alert(errorMessage);
-								}
-							});								
-							}
-						});
+						$('#detailPop').find('#companyLogoUrl').prop('src', applyHistory.companyLogoUrl);						
+						$('#detailPop').find('#papersPasage').click(function() {changeStatus(applyHistory.id, 'PAPERS_PASAGE')});
+						$('#detailPop').find('#lastPsexam').click(function() {changeStatus(applyHistory.id, 'LAST_PSEXAM')});
+						$('#detailPop').find('#dsqlfc').click(function() {changeStatus(applyHistory.id, 'DSQLFC')});
 						
 						$('#detailPop').find('#updatePopBtn').click(function() {
 							$('#detailPop').hide();
@@ -7410,7 +7415,7 @@
 								<li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
 									style="padding-top:10px;">
 									<a class="dashboardButton" href="/company/applications?companyId=2">지원현황</a>
-								</li>
+								</li>								
 								<li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
 									style="padding-top:10px;"><a
 										class="dashboardButton" href="/auth/logout">로그아웃</a></li>
@@ -7438,29 +7443,7 @@
 												data-reactid=".0.0.0.0.0.1.0.0"><button class="btn-title visible-xs btn btn-default"
 													type="button" data-reactid=".0.0.0.0.0.1.0.0.0"><span data-reactid=".0.0.0.0.0.1.0.0.0.0">지원한
 														포지션</span><i class="fa fa-angle-down" data-reactid=".0.0.0.0.0.1.0.0.0.1"></i></button>
-												<div class="hidden-xs aside-nav-group" data-reactid=".0.0.0.0.0.1.0.0.1">
-													<div class="aside-nav-item-group" data-reactid=".0.0.0.0.0.1.0.0.1.$recommendations">
-														<div class="aside-nav-header" data-reactid=".0.0.0.0.0.1.0.0.1.$recommendations.0">등록한 후보자
-														</div>
-														<div class="aside-nav-item" data-reactid=".0.0.0.0.0.1.0.0.1.$recommendations.1:$0">
-															<div class="aside-nav-title" data-reactid=".0.0.0.0.0.1.0.0.1.$recommendations.1:$0.0">
-																추천한 후보자</div>
-														</div>
-													</div>
-													<div class="aside-nav-item-group" data-reactid=".0.0.0.0.0.1.0.0.1.$applications">
-														<div class="aside-nav-header" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.0">지원</div>
-														<div class="aside-nav-item" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$0">
-															<div class="aside-nav-title" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$0.0">
-																작성 중</div>
-															<div class="aside-nav-label" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$0.1"><!--1-->
-															</div>
-														</div>
-														<div class="aside-nav-item selected" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$1">
-															<div class="aside-nav-title" data-reactid=".0.0.0.0.0.1.0.0.1.$applications.1:$1.0">
-																지원한 포지션</div>
-														</div>
-													</div>
-												</div>
+
 											</div>
 										</div>
 										<div class="no-padding Column-cKhjSj jxXhqe" data-reactid=".0.0.0.0.0.1.1">
@@ -7854,9 +7837,11 @@
 								data-reactid=".6.1.0.0.0.0"></button>
 						<div class="application-modal-header modal-header" aria-label="Close" data-reactid=".6.1.0.0.1">
 							<h4 class="modal-title" data-reactid=".6.1.0.0.1.1:0">지원서</h4>
-							<div class="pull-right" data-reactid=".6.1.0.0.1.1:1"><button type="button" class="btn btn-default"
-									data-reactid=".6.1.0.0.1.1:1.0" id="updatePopBtn">수정</button><button type="button" class="btn btn-default"
-									data-reactid=".6.1.0.0.1.1:1.1" id="cancelApply">지원 취소</button></div>
+							<div class="pull-right" data-reactid=".6.1.0.0.1.1:1">
+								<button type="button" class="btn btn-default" data-reactid=".6.1.0.0.1.1:1.0" id="papersPasage">서류 통과</button>
+								<button type="button" class="btn btn-default" data-reactid=".6.1.0.0.1.1:1.0" id="lastPsexam">최종 합격</button>
+								<button type="button" class="btn btn-default" data-reactid=".6.1.0.0.1.1:1.1" id="dsqlfc">불합격</button>
+							</div>
 						</div>
 						<div class="application-modal-body modal-body" data-reactid=".6.1.0.0.2">
 							<div class="top clearfix" data-reactid=".6.1.0.0.2.0">
