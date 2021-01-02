@@ -50,10 +50,17 @@ public class EventController {
         return "event/eventlist";
     }
 
-    @GetMapping("latest")
-    @ResponseBody
-    public List<Event> latestEvents() {
-        return eventService.getLatest(2);
+    @GetMapping("search")
+    public String searchPage(Model model, EventSearchRequest request) {
+        model.addAttribute("events", eventService.getList(request));
+        return "event/eventlistForjobseeker";
+    }
+
+    @GetMapping("detail/{id}")
+    public String detailPage(@PathVariable("id") Long id, Model model) {
+        Optional<Event> eventOptional = eventService.findById(id);
+        model.addAttribute("event", eventOptional.orElse(null));
+        return "event/eventdetail";
     }
 
     @PostMapping

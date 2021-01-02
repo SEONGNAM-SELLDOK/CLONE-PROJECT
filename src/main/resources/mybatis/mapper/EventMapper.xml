@@ -11,7 +11,7 @@
             AND e.title like CONCAT('%',#{title},'%')
         </if>
         <if test="date != null">
-            AND e.date >= #{date}
+            AND e.date = #{date}
         </if>
         <if test="isFree != null">
             AND e.is_free = #{isFree}

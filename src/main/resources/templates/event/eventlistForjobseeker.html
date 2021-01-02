@@ -559,48 +559,40 @@
         "dashboard_b2b": true
     }</script>
     <script>
-        function getParameterByName( name ){
-            var regexS = "[\\?&]"+name+"=([^&#]*)",
-                regex = new RegExp( regexS ),
-                results = regex.exec( window.location.search );
-            if( results == null ){
-                return "";
-            } else{
-                return decodeURIComponent(results[1].replace(/\+/g, " "));
-            }
-        }
-
-        function convertLocalDateToUTCDate(date, toUTC) {
-            date = new Date(date);
-            //Local time converted to UTC
-            console.log("Time: " + date);
-            var localOffset = date.getTimezoneOffset() * 60000;
-            var localTime = date.getTime();
-            if (toUTC) {
-                date = localTime + localOffset;
-            } else {
-                date = localTime - localOffset;
-            }
-            date = new Date(date);
-            console.log("Converted time: " + date);
-            return date;
-        }
-
-        $(function(){
-            $('.selldock_input_title').val(getParameterByName('title'));
-            $('.selldock_input_date').val(getParameterByName('date') ? getParameterByName('date').split('T')[0] : null);
-            $('.selldock_input_isFree').prop('checked',getParameterByName('isFree') == "true");
-            $('.selldock_input_eventType').val(getParameterByName('eventType'));
-        });
-
-
         $('.search_btn').click(function () {
             const title = $('.selldock_input_title').val();
-            const date = $('.selldock_input_date').val() != null ? $('.selldock_input_date').val() + "T00:00:00" : "";
+            const date = $('.selldock_input_date').val();
             const isFree = $('.selldock_input_isFree').is(":checked");
             const eventType = $('.selldock_input_eventType option:selected').val();
 
             location.href = 'http://localhost:9090/event/search?title=' + title + '&date=' + date + '&isFree=' + isFree + '&eventType=' + eventType
+
+            // $.ajax({
+            //     url: url,
+            //     data: {
+            //         'title': $('.selldock_input_title').val(),
+            //         'date': $('.selldock_input_date').val(),
+            //         'isFree': $('.selldock_input_isFree').is(":checked"),
+            //         'eventType': $('.selldock_input_eventType option:selected').val()
+            //     },
+            //     contentType: "application/json; charset=utf-8",
+            //     dataType: 'json',
+            //     statusCode: {
+            //         200: function () {
+            //             console.log("200 Success!");
+            //         },
+            //         202: function () {
+            //             // alert("searched successfully");
+            //             // location.href = '/event/list';
+            //         },
+            //         403: function () {
+            //             console.log("403 Error!");
+            //         },
+            //         404: function () {
+            //             console.log("404 Error!");
+            //         }
+            //     }
+            // })
         })
     </script>
 </div>
