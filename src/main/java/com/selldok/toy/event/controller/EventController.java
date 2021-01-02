@@ -44,15 +44,10 @@ public class EventController {
     }
 
     @GetMapping("list")
-    public String listPage(Model model) {
-        model.addAttribute("events", eventService.getList(0l));
+    public String listPage(Model model, Principal principal, EventSearchRequest request) {
+        request.setOwner(principal.getName());
+        model.addAttribute("events", eventService.getList(request));
         return "event/eventlist";
-    }
-
-    @GetMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<List<Event>> get(@PathVariable("id") Long id) {
-        return new ResponseEntity(eventService.getList(id), HttpStatus.OK);
     }
 
     @GetMapping("latest")

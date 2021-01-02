@@ -1,5 +1,7 @@
 package com.selldok.toy.employee.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,12 +9,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+import com.selldok.toy.company.model.NewHireListResponse;
+import com.selldok.toy.company.service.BoardService;
 import com.selldok.toy.employee.model.EmployeeProfileResponse;
 import com.selldok.toy.employee.model.FaceBookFriend;
 import com.selldok.toy.employee.service.AuthService;
 import com.selldok.toy.event.entity.Event;
 import com.selldok.toy.event.service.EventService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Incheol Jung, Go Gisung
@@ -22,6 +27,10 @@ import lombok.AllArgsConstructor;
 public class MainController {
 
     private final BoardService boardService;
+
+    private final AuthService authService;
+
+    private final EventService eventService;
 
     @GetMapping
     public String getMainView(Model model){
