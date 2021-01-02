@@ -1,10 +1,8 @@
 package com.selldok.toy.event.controller;
 
-import com.selldok.toy.event.entity.Event;
-import com.selldok.toy.event.model.EventSearchRequest;
-import com.selldok.toy.event.model.InsertEventRequest;
-import com.selldok.toy.event.model.UpdateEventRequest;
-import com.selldok.toy.event.service.EventService;
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
+import com.selldok.toy.event.entity.Event;
+import com.selldok.toy.event.model.EventSearchRequest;
+import com.selldok.toy.event.model.InsertEventRequest;
+import com.selldok.toy.event.model.UpdateEventRequest;
+import com.selldok.toy.event.service.EventService;
 
 /**
  * @author HJ Lee
@@ -61,6 +61,12 @@ public class EventController {
         Optional<Event> eventOptional = eventService.findById(id);
         model.addAttribute("event", eventOptional.orElse(null));
         return "event/eventdetail";
+    }
+
+    @GetMapping("latest")
+    @ResponseBody
+    public List<Event> latestEvents() {
+        return eventService.getLatest(2);
     }
 
     @PostMapping
