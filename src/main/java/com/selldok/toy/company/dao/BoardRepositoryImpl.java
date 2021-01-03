@@ -49,6 +49,20 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     }
 
     @Override
+    public List<NewHireListResponse> newHireByBoardInfo() {
+        return queryFactory
+                .select(new QNewHireListResponse(
+                        company.id,
+                        board.image,
+                        company.name.as("companyName")))
+                .from(board)
+                .leftJoin(board.company, company)
+                .orderBy(company.id.desc())
+                .limit(4)
+                .fetch();
+    }
+
+    @Override
     public Page<BoardListResponse> searchBoard(BoardSearchCondition condition, Pageable pageable) {
 
         QueryResults<BoardListResponse> results = queryFactory
