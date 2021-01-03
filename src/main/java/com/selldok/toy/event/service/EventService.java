@@ -6,6 +6,9 @@ import com.selldok.toy.event.mapper.EventMapper;
 import com.selldok.toy.event.model.EventSearchRequest;
 import com.selldok.toy.event.model.InsertEventRequest;
 import com.selldok.toy.event.model.UpdateEventRequest;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -73,5 +76,10 @@ public class EventService {
 
     public void delete(Long id) {
         eventRepository.deleteById(id);
+    }
+
+    public List<Event> getLatest(int size) {
+        PageRequest pageRequest = PageRequest.of(0,size);
+        return eventRepository.findAllByOrderByDateDesc(pageRequest);
     }
 }

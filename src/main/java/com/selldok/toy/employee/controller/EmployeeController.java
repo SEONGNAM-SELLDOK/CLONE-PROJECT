@@ -2,9 +2,12 @@ package com.selldok.toy.employee.controller;
 
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.EmployeeProfileResponse;
+import com.selldok.toy.employee.model.FaceBookFriend;
+import com.selldok.toy.employee.model.FaceBookFriendResult;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
 import com.selldok.toy.employee.model.UpdateEmployeeRequest;
 import com.selldok.toy.employee.model.UpdateProfileRequest;
+import com.selldok.toy.employee.service.AuthService;
 import com.selldok.toy.employee.service.EmployeeService;
 
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,19 +35,18 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {this.employeeService = employeeService;}
+	private final AuthService authService;
+
+	public EmployeeController(EmployeeService employeeService, AuthService authService) {
+		this.employeeService = employeeService;
+		this.authService = authService;
+	}
 
     @GetMapping("view/{id}")
     public String getEmployeeView(@PathVariable("id") Long id, Model model) {
         EmployeeProfileResponse response = employeeService.getProfile(id);
         model.addAttribute("employee", response);
         return response == null ? "/login/login" : "employee/employee";
-    }
-
-    @GetMapping("info/{id}")
-    public ResponseEntity<String> getEmployeeInfo(@PathVariable("id") Long id) {
-        EmployeeProfileResponse response = employeeService.getProfile(id);
-        return new ResponseEntity(response, HttpStatus.OK);
     }
 
     @GetMapping("basicinfo/{id}")
@@ -58,11 +61,17 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("{id}")
-    @ResponseBody
-    public ResponseEntity<Employee> get(@PathVariable("id") Long id) {
-        return new ResponseEntity(employeeService.get(id), HttpStatus.OK);
-    }
+	@GetMapping("friends")
+	@ResponseBody
+	public List<FaceBookFriend> getFriends() {
+		return authService.findFriends();
+	}
+
+	@GetMapping("{id}")
+	@ResponseBody
+	public ResponseEntity<Employee> get(@PathVariable("id") Long id) {
+		return new ResponseEntity(employeeService.get(id), HttpStatus.OK);
+	}
 
     @PostMapping
     @ResponseBody
