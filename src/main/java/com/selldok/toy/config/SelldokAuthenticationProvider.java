@@ -43,6 +43,7 @@ public class SelldokAuthenticationProvider implements AuthenticationProvider{
                                                                accessToken,
                                                                employee.getInfo().getName(),
                                                                employee.getInfo().getEmail(),
+                                                               employee.getInfo().getPhoneNumber(),
                                                                response.getPicture().getData().getUrl(),
                                                                currentRole);
 

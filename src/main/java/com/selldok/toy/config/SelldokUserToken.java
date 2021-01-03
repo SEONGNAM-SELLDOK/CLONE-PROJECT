@@ -18,13 +18,15 @@ public class SelldokUserToken extends UsernamePasswordAuthenticationToken {
     private String accessToken;
     private String name;
     private String email;
+    private String phoneNumber;
     private String picUrl;
 
-    public SelldokUserToken(Long id, String accessToken, String name, String email, String picUrl, ROLE role){
+    public SelldokUserToken(Long id, String accessToken, String name, String email, String phoneNumber, String picUrl, ROLE role){
         super(name, email, List.of(new SimpleGrantedAuthority(role)));
         this.id = id;
         this.accessToken = accessToken;
         this.name = name;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.picUrl = picUrl;
     }
