@@ -886,10 +886,10 @@
             return;
         }
 
-		$.ajax('/employees/' + applicant.id + '/applyHistories', {
-			type: 'POST',  // http method
+        $.ajax('/employees/' + applicant.id + '/applyHistories', {
+            type: 'POST',  // http method
             contentType: "application/json",
-			async: false,
+            async: false,
             data: JSON.stringify({
                 "name" : $('#name').val(),
                 "email" : $('#email').val(),
@@ -897,7 +897,7 @@
                 "status": "APPLCN_COMPT",
                 "employmentBoardId": boardId
             }),            
-			success: function (applyHistoryId, status, xhr) {
+            success: function (applyHistoryId, status, xhr) {
                 console.log('applyHistoryId=' + applyHistoryId);
                 if(confirm('지원을 완료하였습니다. 지원현황화면으로 이동하시겠습니까?')){
                     location.href = '/employees/applications';
@@ -905,11 +905,10 @@
                     history.go(-1);
                 }
             },
-			error: function (jqXhr, textStatus, errorMessage) {
-				alert(errorMessage);
-			}
-		});        
-        
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert(errorMessage);
+            }
+        });
     }    
 </script>
 <aside class="_1p2zgqY1xkYlMQX9p64rWX" style="top: 70px; display:none" id="applyPanel">

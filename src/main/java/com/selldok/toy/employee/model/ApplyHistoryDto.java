@@ -37,11 +37,7 @@ public class ApplyHistoryDto {
     private String recommendStatus;
 
     @QueryProjection
-    public ApplyHistoryDto(Long id, String name, String email, String phoneNumber, String companyName, 
-    String companyCountry,
-    String companyCity,
-    String companyStreet,
-    Long employmentBoardId, String boardTitle, Timestamp appliedDate, Status status) {
+    public ApplyHistoryDto(Long id, String name, String email, String phoneNumber, String companyName, String companyCountry, String companyCity, String companyStreet, Long employmentBoardId, String boardTitle, Timestamp appliedDate, Status status) {
         this.id = id;
         this.name = name;
         this.email = email;
