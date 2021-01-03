@@ -46,8 +46,8 @@ public class ApplyHistory {
 		APPLCN_COMPT,	// 신청완료
 		PAPERS_PASAGE,	// 서류통과
 		LAST_PSEXAM,	// 최종합격
-		DSQLFC,			// 불합격
-		CANCELED;		// 신청취소
+		DSQLFC,		// 불합격
+		CANCELED;	// 신청취소
 	}
 
 	@Id
