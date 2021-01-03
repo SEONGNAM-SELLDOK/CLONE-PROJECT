@@ -10,5 +10,5 @@ import org.springframework.data.domain.Pageable;
  * @author DongSeok,Kim
  */
 public interface ApplyHistoryRepositoryCustom {
-    List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition, Pageable pageable);
+	List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition, Pageable pageable);
 }

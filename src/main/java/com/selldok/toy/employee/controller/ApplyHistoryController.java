@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,7 +45,7 @@ public class ApplyHistoryController {
 	public String companyApplications(Model model) throws Exception {
         //model.addAttribute("employee", response);
 		return "company/applications";
-    }
+	}
 		
 	/**
 	 * 지원이력 조회
@@ -117,7 +116,7 @@ public class ApplyHistoryController {
 	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfApplicant(@PathVariable Long applicantId) throws Exception {
-        return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.ACCEPTED);
 	}
 
 	/**
@@ -127,7 +126,7 @@ public class ApplyHistoryController {
 	@GetMapping("company/{companyId}/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfCompany(@PathVariable Long companyId) throws Exception {
-        return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.ACCEPTED);
 	}
 
 	/**
