@@ -3,6 +3,7 @@
 <head>
     <title>Selldok-toy</title>
     <link rel="stylesheet" type="text/css" href="/css/board.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -404,7 +405,7 @@
                                     <button class="_1mDpuY8IUwYVDtGsJlhWy2" type="button"
                                         data-attribute-id="apply__start" data-job-category-id="10057" data-company-id="645"
                                         data-company-name="와디즈" data-position-id="42881"
-                                        data-position-name="와디즈 푸드 펀딩사업 푸드 전문 PD">지원하기</button>
+                                        data-position-name="와디즈 푸드 펀딩사업 푸드 전문 PD" onclick="$('#applyPanel').show();">지원하기</button>
                                     <div class="_1Yu36Kvo4nPrCUSHKRQmD9"><button class="likes" type="button"><i
                                                 class="icon-ic_favorite_black_24px "></i><span>94</span></button><button
                                             type="button" class="_1FJ5nlDtLwP1KH2tPKnL4H">
@@ -853,5 +854,115 @@
         }
     });
 </script>
+
+<script>
+    // 지원하기(김동석)
+    var applicant = {
+        id : [[${#authentication.id}]]
+        ,name : "[[${#authentication.name}]]"
+        ,email : "[[${#authentication.email}]]"
+        ,phoneNumber : "[[${#authentication.phoneNumber}]]"
+    }
+    console.log('applicant=' + JSON.stringify(applicant));
+
+    // @기성님, thymleaf 에서 http파라미터를 가져올 때는 URLSearchParams 보다는 아래처럼 하는것도 괜찮을 것 같습니다. parameter가 post로 전송될 때도 가져올 수 있다는 장점이 있습니다.
+    var boardId = [[${param.boardId}]];
+
+	$(document).ready(function () {
+        $('#hideApplyPanelBtn').click(function() {
+            $('#applyPanel').hide();
+        });
+        $('#selectedCv').click(function() {
+            $('#submitBtn').prop('disabled', $('#resume-812282').is(':checked'));
+        });
+        
+        $('#name').val(applicant.name);
+        $('#email').val(applicant.email);
+        $('#phoneNumber').text(applicant.phoneNumber);
+    });    
+    
+    function apply() {
+        if(!confirm('제출하시겠습니까?')) {
+            return;
+        }
+
+		$.ajax('/employees/' + applicant.id + '/applyHistories', {
+			type: 'POST',  // http method
+            contentType: "application/json",
+			async: false,
+            data: JSON.stringify({
+                "name" : $('#name').val(),
+                "email" : $('#email').val(),
+                "phoneNumber" : $('#phoneNumber').val(),
+                "status": "APPLCN_COMPT",
+                "employmentBoardId": boardId
+            }),            
+			success: function (applyHistoryId, status, xhr) {
+                console.log('applyHistoryId=' + applyHistoryId);
+                if(confirm('지원을 완료하였습니다. 지원현황화면으로 이동하시겠습니까?')){
+                    location.href = '/employees/applications';
+                } else {
+                    history.go(-1);
+                }
+            },
+			error: function (jqXhr, textStatus, errorMessage) {
+				alert(errorMessage);
+			}
+		});        
+        
+    }    
+</script>
+<aside class="_1p2zgqY1xkYlMQX9p64rWX" style="top: 70px; display:none" id="applyPanel">
+    <div class="aaTl3hlAI8Z6Roj-9ozhB">
+        <header class="_2D9VhGcrogtbHTMqgZj5Si">
+            <h2>지원하기</h2><button type="button" id="hideApplyPanelBtn">뒤로</button>
+        </header>
+        <div class="_1NuOmca9cx5drV4b_sr-Jn scroll-lock " id="MODAL_BODY">
+            <div class="_2JgPg9VwD2R9qHEsAP2bj7">
+                <h3 class="_1kXT3xR3T5Y9lsrdxzOwB5">지원 정보</h3>
+                <div class="information"><label for="name" class="zpsxAVJZguoVOm96EQMOP">
+                        <h4>이름</h4><input type="text" name="name" id="name" value="">
+                    </label><label for="email" class="zpsxAVJZguoVOm96EQMOP">
+                        <h4>이메일</h4><input disabled="" type="text" name="email" id="email" value="">
+                    </label>
+                    <div class="_3FNsNrkc9cjR2ziOMHauRA">
+                        <h4>연락처</h4><button type="button" class="hasMobile"><span id="phoneNumber"></span><i
+                                class="icon-arrow_right"></i></button>
+                    </div>
+                </div>
+                <div class="_1-b6PTiKDdWfQ3yJoCdaso">
+                    <h4>추천인</h4><button type="button" class="_2pTr53ZTmLqXHzbeHUAqBt">선택사항<i
+                            class="icon-arrow_right"></i></button>
+                </div>
+                <h3 class="_3Ysh8hULoW0g9OfVp3k4c6">첨부파일</h3>
+                <ul>
+                    <li class="_1Q0YupMn_0lTAGjyjuL00X">
+                        <div class=" "><label for="resume-812282"><input type="checkbox" id="resume-812282"><i
+                                    class="icon-icon_match_list_save" id="selectedCv"></i></label>
+                            <div>
+                                <h4 class="matched">
+                                    <p style="max-width: calc(100% - 48px);">지원 이력서</p><span>매치업</span>
+                                </h4>
+                                <div><span>한국어</span><span>2020.12.12</span><span>작성 완료</span></div>
+                            </div><a href="/cv/812282?job=50537" class=""><i class="icon-icon_match_btn_next"></i></a>
+                        </div>
+                    </li>
+                </ul>
+                <div tabindex="0" class="_3lj7yvaaWm36kqXk16D-Zv"><input type="file" multiple="" autocomplete="off"
+                        tabindex="-1" style="display: none;"><button type="button" class="_1tmrmBmR0xmPfmWL0HUvmQ">파일
+                        업로드</button></div><button type="button" class="_1sHyGIdyjF8-51Shk-Jhz9">새 이력서 작성</button>
+                <div class="_2Bck5v-SrUnwy6XqcOSI9V">
+                    <div class="_1YIZP7DpmkAOh1NMm-wBbw">
+                        <p>원티드 이력서로 지원하면 최종 합격률이 40% 높아집니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="b1mNDsdSPwy2VOvr3edge"><button type="button" disabled="" data-attribute-id="apply__done__net"
+                data-job-category-id="518" data-job-category="IT" data-company-id="17768" data-company-name="쏠쏠"
+                data-position-id="50537" data-position-name="웹프로그래머, 프론트앤드 개발자(웹개발/하이브리드앱 개발)"
+                data-response-level="very_low" data-response-rate="20" id="submitBtn" onclick="apply()">제출하기</button></footer>
+    </div>
+</aside>
 </body>
 </html>

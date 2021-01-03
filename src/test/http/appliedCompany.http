@@ -36,7 +36,7 @@ Content-Type: application/json
 GET http://localhost:9090/employees/1/applyHistories/getApplyCount
 
 ### 입사지원 카운트 목록
-GET http://localhost:9090/employees/1/applyHistories/groupBycountByStatusAndApplicantId
+GET http://localhost:9090/company/2/applyHistories/getApplyCount
 
 
 ### 입사지원 전체 목록
