@@ -39,13 +39,14 @@ public class SelldokAuthenticationProvider implements AuthenticationProvider{
                 response.getEmail(),
                 response.getPicture().getData().getUrl()));
 
-        Authentication selldokUserToken = new SelldokUserToken(employee.getId(),
+        SelldokUserToken selldokUserToken = new SelldokUserToken(employee.getId(),
                                                                accessToken,
                                                                employee.getInfo().getName(),
                                                                employee.getInfo().getEmail(),
                                                                employee.getInfo().getPhoneNumber(),
                                                                response.getPicture().getData().getUrl(),
-                                                               currentRole);
+                                                               currentRole,
+            response.getId());
 
         SecurityContextHolder.getContext().setAuthentication(selldokUserToken);
         return selldokUserToken;
