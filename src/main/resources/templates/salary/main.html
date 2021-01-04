@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Selldok-toy</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="http://static.wanted.co.kr/vendor/slick.css">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div id="__next">
+    <div>
+        <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+            <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+                <nav>
+                    <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                            class="icon-logo_new"></i></a></div>
+                    <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                        <li class="xsHomeButton xsOnly selectedNav" data-attribute-id="gnb" data-gnb-kind="home"><a
+                                href="/" class="">홈</a></li>
+                        <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/event/search"
+                                                                                                   class="">이벤트</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                                href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+                    </ul>
+                    <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                        <div class="overlay">
+                            <div class="container"></div>
+                        </div>
+                    </div>
+                    <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                        <ul>
+                            <li>
+                                <button type="button" class="searchButton" data-attribute-id="gnb"
+                                        data-gnb-kind="search"><i class="icon-search"></i></button>
+                            </li>
+                            <li>
+                                <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                        class="icon-bell"></i></button>
+                            </li>
+                            <li sec:authorize="isAnonymous()">
+                                <button class="signUpButton" type="button" data-attribute-id="gnb" data-gnb-kind="signupLogin" onclick="location.href='/auth/view'">회원가입/로그인</button>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px" >
+                                <button type="button"
+                                        th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                        data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"
+                                        data-badge="false"></button>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers" style="padding-top:10px"><a
+                                    class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                            <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                                style="padding-top:10px;"><a
+                                    class="dashboardButton" href="/auth/logout">로그아웃</a></li>
+                            <li class="xsOnly">
+                                <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo">
+                                    <i class="icon-menu"></i></button>
+                            </li>
+                        </ul>
+                    </aside>
+                </nav>
+            </div>
+        </div>
+        <div style="height:50px"></div>
+        <div class="_3CCSYgZyoi6BzQlj2VvwfF">
+            <div class="l6yRNjuTFGsKfhaWwCjUF">
+                <section>
+                    <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                        <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                            <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                        </div>
+                        <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                            <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                        </div>
+                    </div>
+                    <canvas height="392" width="784" id="" class="chartjs-render-monitor" style="display: block; width: 784px; height: 392px;"></canvas>
+                </section>
+                <div class="_15fU__fPt_U2iAPon8-Zlk">
+                    <button type="button" class="_1wbxktkJ3ZFAS9wrJs1UFQ">엔지니어링·설계</button>
+                    <button type="button" class="_1wbxktkJ3ZFAS9wrJs1UFQ">I&amp;C 엔지니어</button>
+                </div>
+                <aside>
+                    <h4 class="_3SVBTyLN8vTAnlaZ3DyJHr">신입 I&amp;C 엔지니어 예상 연봉</h4>
+                    <h2 class="_3drCN2YgBn9n_h7JnQypmx">2,980 <sub>만원</sub></h2>
+                </aside><div class="S2N49ETnMbtO4IPEnM5Wb">
+                <div class="_37okLbZk1bJiskGXTtXDlk">
+                    <div class="_1manVBRg8js2bTXFCHeCil">
+                        <div class="_2wGdGRAw_5r98qxMf1KNf4">
+                            <div class="goW96gc0x3OqXMuEJqZZj _1GpFqDKpGCkBQgTr8bgOwJ has-value">
+                                <select name="category">
+                                    <option disabled="">직군</option>
+                                    <option value="518">개발</option>
+                                </select><svg width="20" height="20" viewBox="0 0 24 24" class="_1lcNES_EgXbw0iK5t75SSY">
+                                <path fill="currentColor" d="M16 9.25a.75.75 0 01.586 1.218l-3.986 5a.75.75 0 01-1.17.002l-4.015-5A.75.75 0 018 9.25h8z"></path>
+                            </svg>
+                            </div>
+                        </div>
+                        <div class="_2wGdGRAw_5r98qxMf1KNf4">
+                            <div class="goW96gc0x3OqXMuEJqZZj _1GpFqDKpGCkBQgTr8bgOwJ has-value">
+                                <select name="subCategory">
+                                    <option disabled="">직무</option>
+                                    <option value="0">전체</option>
+                                    <option value="802">.Net 개발자</option>
+                                    <option value="803">JAVA 개발자</option>
+                                    <option value="804">EMBEDDED 개발자</option>
+                                    <option value="805">FE 개발자</option>
+                                </select>
+                                <svg width="20" height="20" viewBox="0 0 24 24" class="_1lcNES_EgXbw0iK5t75SSY">
+                                    <path fill="currentColor" d="M16 9.25a.75.75 0 01.586 1.218l-3.986 5a.75.75 0 01-1.17.002l-4.015-5A.75.75 0 018 9.25h8z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="_2wGdGRAw_5r98qxMf1KNf4">
+                            <div class="goW96gc0x3OqXMuEJqZZj _1GpFqDKpGCkBQgTr8bgOwJ has-value" data-experience="0">
+                                <select>
+                                    <option value="123" disabled="">경력</option>
+                                    <option value="1">1년</option>
+                                    <option value="2">2년</option>
+                                    <option value="3">3년</option>
+                                    <option value="4">4년</option>
+                                    <option value="5">5년</option>
+                                    <option value="6">6년</option>
+                                    <option value="7">7년</option>
+                                    <option value="8">8년</option>
+                                    <option value="9">9년</option>
+                                    <option value="10">10년</option>
+                                </select>
+                                <svg width="20" height="20" viewBox="0 0 24 24" class="_1lcNES_EgXbw0iK5t75SSY">
+                                    <path fill="currentColor" d="M16 9.25a.75.75 0 01.586 1.218l-3.986 5a.75.75 0 01-1.17.002l-4.015-5A.75.75 0 018 9.25h8z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="_1aDv71zSHxE0A-xbjjpdIw">
+                            <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                                <input type="text" name="salary" placeholder="연봉" value=""><span>만원</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="_2Vntq9_s_6BJa9u6_qoQM1">
+                    <div class="_3m4haCoyEvkMrrffu6e8OU">
+                        <div class="S0dDo95Tyq8ocwlJv69zD">
+                            <button type="button" class="_3eAZavUaFEdBmN78AWJGCz">엔지니어링·설계 / I&amp;C 엔지니어 / 신입<i class="icon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="_26s8GihJW32_2iILjD427T">
+            <h5 class="_16E2-ITcgH1GE-5pMopvw7">
+                <sup>*</sup> 이 데이터는 채용 정보에 포함된 직무 별 요구 경력(최저, 최대)과 연봉(최저, 최대)을 바탕으로 추정한 예상 연봉 데이터입니다.</h5>
+            <div class="_3Wr8FPrZhqydjxK2vkpL0g">
+                <div class="IN9ansfDh6l8bEcBlnWbv">이제 밤새워 채용사이트 보지 마세요.</div>
+                <div class="_3G9tRmqd3RCNztUJlVwjkN">원티드 매치업에 프로필을 등록하면, 기업의 인사담당자가 직접 면접을 제안합니다.</div>
+                <div class="_7xsJeOqD8m8F_OrplQupO">
+                    <ul class="_2lbWPbjnIZDAO0Xba14HJw">
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_e7951e6c-5282-42c2-b2b1-741b0824a747.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.9ebf8983.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.ad4abbda.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_35b131c9-5b04-4248-a0bd-1f39240406df.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.18dfe4ff.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_465f0a8c-3b5b-4004-be0b-13f3c1c08200.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.a6ddfb4a.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.a10206f5.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.8f75d757.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.7a05ba42.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.cc9b552a.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.f196b9b9.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.6060f08d.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.e810f1c7.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.985b9922.jpg&quot;); background-position: center center; background-size: cover;"></li>
+                    </ul>
+                    <div class="_2R_noDgKnSHTIcyOsr2NVX">+4790</div>
+                </div>
+                <a href="/profile/matching" class="">시작하기</a>
+            </div>
+            <div class="_1TkzNLl_XaMHBtTCCwk9te">
+                <h2 class="_3R_KRVL6b1DJRrskQ7GX6b">연봉 업그레이드 포지션</h2>
+                <a href="/wdlist/513/838" class="_3ecUcTRBOVFTlb_zoBZfFA" data-attribute-id="salary__seeMore">더 보기</a>
+            </div>
+            <div class="_1DPyMq6MHTj43gZ2KFduy9 _2eohcsxYpLnVnGo9k76VOX">
+                <ul data-cy="job-list" class="clearfix"></ul>
+            </div>
+        </div>
+        <footer class="_27_3GjB7yHXjZPfXE5Do-I">
+            <div class="_30sxjSibzCvCDB5OduTDL2">
+                <div class="_31mZq145QH5Tr7qFOdlgrz ">
+                    <div class="BR_KtsDqOtTp1-yiIVAd1">
+                        <img src="https://s3.ap-northeast-2.amazonaws.com/static.wanted.co.kr/images/logo_wanted.png" alt="" width="100">
+                    </div>
+                    <div class="GHLOcY6gAVfdAJ1aRxk-o">
+                        <div>
+                            <span data-attribute-id="fnb" data-fnb-kind="termsOfUse">
+                                <a href="https://help.wanted.co.kr/hc/ko/articles/360035844551" target="_blank" class="">이용약관</a>
+                            </span>
+                        </div>
+                        <div>
+                            <span data-attribute-id="fnb" data-fnb-kind="privacyPolicy">
+                                <a href="https://www.wanted.co.kr/privacy" target="_blank" class="">개인정보 처리방침</a>
+                            </span>
+                            <span data-attribute-id="fnb" data-fnb-kind="FAQ">
+                                <a href="https://help.wanted.co.kr/hc/ko/" target="_blank" class="">고객센터</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="_1szcV92yXMwsg29wqUAsg-">
+                    <img class="countryIcon" src="https://s3.ap-northeast-2.amazonaws.com/wanted-public/ico_KR.svg" alt="country flag KR">
+                    <select>
+                        <option value="KR">한국 (한국어)</option>
+                        <option value="JP">日本 (日本語)</option>
+                        <option value="TW">台灣 (繁體中文)</option>
+                        <option value="WW">Worldwide (English)</option>
+                        <option value="HK">Hong Kong (English)</option>
+                        <option value="SG">Singapore (English)</option>
+                    </select>
+                    <i class="icon-arrow_bottom_fill"></i>
+                </div>
+            </div>
+            <div class="_30sxjSibzCvCDB5OduTDL2">
+                <p class="_3fovlClfXdF-O6JVLMpk5F">(주)원티드랩 (대표이사:이복기) | 서울특별시 송파구 올림픽로 300 | 통신판매번호 : 2016-서울강남-00207<br>
+    유료직업소개사업등록번호 : (국내) 제2016-3220163-14-5-00001호 | (국외) F1201020170005 | 사업자등록번호 : 299-86-00021<br>
+    © Wantedlab, Inc.</p>
+            </div>
+        </footer>
+        <div class="Wfn-nDehMEQjfSy9M_uws">
+            <span class="icon">
+                <i class="icon-check"></i>
+            </span>
+        </div>
+        <div id="app">
+            <main class="App-iEDHGk UeTOO" data-reactid=".0">
+                <div data-reactid=".0.0">
+                    <div data-reactid=".0.0.0">
+                        <noscript data-reactid=".0.0.0.0"></noscript>
+                        <div class="Notice-iRWNro bdALza" data-reactid=".0.0.0.1">
+                            <span class="icon" data-reactid=".0.0.0.1.0">
+                                <i class="icon-check" data-reactid=".0.0.0.1.0.0"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="Box-cwadsP iKzpWM" data-reactid=".0.2">
+                    <div width="40" class="Content-zwkXZ dzZUIS" data-reactid=".0.2.0">
+                        <div class="Div-hTZHGu fEVoGZ" data-reactid=".0.2.0.$/=11">
+                            <p class="Confirm__ConfirmMessage-fNOBqL cHGGot" data-reactid=".0.2.0.$/=11.0"></p>
+                        </div>
+                        <div class="Div-hTZHGu dXKeOh" data-reactid=".0.2.0.$/=12">
+                            <button color="#B5B5B5" class="Button-kDSBcD euVYDA" data-reactid=".0.2.0.$/=12.0">닫기</button>
+                            <button color="#258BF7" class="Button-kDSBcD iocZoc" data-reactid=".0.2.0.$/=12.1">확인</button>
+                        </div>
+                    </div>
+                    <div class="Overlay-iWuiZb gMLFic" data-reactid=".0.2.3"></div>
+                </div>
+                <div id="alert" class="" data-reactid=".0.3">
+                    <i class="fa fa-check" data-reactid=".0.3.0"></i>
+                    <button type="button" class="btn btn-default" data-reactid=".0.3.2">
+                        <i class="fa fa-times" data-reactid=".0.3.2.0"></i>
+                    </button>
+                </div>
+                <div class="Box-cwadsP iKzpWM" data-reactid=".0.6">
+                    <div width="50" class="_3e_PJFtzWEBAVzad15AWJN Content-zwkXZ kAPNSV" data-reactid=".0.6.0">
+                        <div class="Div-hTZHGu fEVoGZ" data-reactid=".0.6.0.$/=10">
+                            <p class="uploadingText" data-reactid=".0.6.0.$/=10.0">uploading...</p>
+                            <div class="progressBarContainer" data-reactid=".0.6.0.$/=10.1">
+                                <div class="progressBarStatus" style="width:undefined%;" data-reactid=".0.6.0.$/=10.1.0"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Overlay-iWuiZb gMLFic" data-reactid=".0.6.3"></div>
+                </div>
+            </main>
+        </div>
+        <div id="modal"></div>
+    </div>
+</div>
+</body>
+</html>
