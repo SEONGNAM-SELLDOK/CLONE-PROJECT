@@ -1,10 +1,17 @@
 package com.selldok.toy.salary.controller;
 
+import com.selldok.toy.salary.model.SalaryResponse;
 import com.selldok.toy.salary.service.SalaryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+/**
+ * @author Seil Park
+ */
 @Controller
 @RequiredArgsConstructor
 public class SalaryController {
@@ -16,4 +23,9 @@ public class SalaryController {
         return "/salary/main";
     }
 
+    @GetMapping("/salary/{id}")
+    public ResponseEntity<SalaryResponse> getSalary(@PathVariable Long id){
+        SalaryResponse salaryResponse = salaryService.getSalaryById(id);
+        return new ResponseEntity<>(salaryResponse, HttpStatus.OK);
+    }
 }

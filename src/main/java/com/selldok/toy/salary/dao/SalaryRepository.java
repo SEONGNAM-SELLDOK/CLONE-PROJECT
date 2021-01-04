@@ -5,7 +5,11 @@ import com.selldok.toy.salary.entity.Salary;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.Optional;
+
+/**
+ * @author Seil Park
+ */
 public interface SalaryRepository extends CrudRepository<Salary, Long> {
-    Salary findByOccupation(Occupation occupation);
+    public Optional<Salary> findByOccupation(Occupation occupation);
 }
