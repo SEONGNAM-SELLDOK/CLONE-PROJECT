@@ -6,30 +6,32 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
-
+/**
+ * @author Seil Park
+ */
 @Embeddable
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class SalaryInfo {
-    private int firstSalary;
+    private int oneYear;
 
-    private int secondSalary;
+    private int twoYear;
 
-    private int thirdSalary;
+    private int threeYear;
 
-    private int fourthSalary;
+    private int fourYear;
 
-    private int fifthSalary;
+    private int fiveYear;
 
-    private int sixthSalary;
+    private int sixYear;
 
-    private int seventhSalary;
+    private int sevenYear;
 
-    private int eighthSalary;
+    private int eightYear;
 
-    private int ninthSalary;
+    private int nineYear;
 
-    private int tenthSalary;
+    private int tenYear;
 
 }
