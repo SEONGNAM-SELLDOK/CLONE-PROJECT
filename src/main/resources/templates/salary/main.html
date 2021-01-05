@@ -79,15 +79,15 @@
                             <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                         </div>
                     </div>
-                    <canvas height="392" width="784" id="" class="chartjs-render-monitor" style="display: block; width: 784px; height: 392px;"></canvas>
+                    <canvas height="392" width="784" id="graph" class="chartjs-render-monitor" style="display: block; width: 784px; height: 392px;"></canvas>
                 </section>
                 <div class="_15fU__fPt_U2iAPon8-Zlk">
-                    <button type="button" class="_1wbxktkJ3ZFAS9wrJs1UFQ">엔지니어링·설계</button>
-                    <button type="button" class="_1wbxktkJ3ZFAS9wrJs1UFQ">I&amp;C 엔지니어</button>
+                    <button type="button" class="_1wbxktkJ3ZFAS9wrJs1UFQ">개발</button>
+                    <button type="button" class="_1wbxktkJ3ZFAS9wrJs1UFQ" id = "occupation">.Net 개발자</button>
                 </div>
                 <aside>
-                    <h4 class="_3SVBTyLN8vTAnlaZ3DyJHr">신입 I&amp;C 엔지니어 예상 연봉</h4>
-                    <h2 class="_3drCN2YgBn9n_h7JnQypmx">2,980 <sub>만원</sub></h2>
+                    <h4 class="_3SVBTyLN8vTAnlaZ3DyJHr" id = "expectedSalaryColumn">.Net 개발자 1년차 예상 연봉</h4>
+                    <h2 class="_3drCN2YgBn9n_h7JnQypmx" id = "expectedSalary">1,000 <sub>만원</sub></h2>
                 </aside><div class="S2N49ETnMbtO4IPEnM5Wb">
                 <div class="_37okLbZk1bJiskGXTtXDlk">
                     <div class="_1manVBRg8js2bTXFCHeCil">
@@ -283,4 +283,58 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    window.onload = function(){
+        $.ajax({
+            type:'GET',
+            url: '/salary/1'
+        }).done(function(e){
+            var canvas = document.getElementById("graph");
+            var context = canvas.getContext("2d");
+            var sw = canvas.width;
+            var sh = canvas.height;
+            var barwidth=60;
+            var barheight;
+            var xcoord=10;
+            var base=90;
+            barheight=e.oneYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.twoYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.threeYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.fourYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.fiveYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.sixYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.sevenYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.eightYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.nineYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+            barheight=e.tenYear/100;
+            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
+            xcoord+=barwidth + 12;
+
+            function DrawBarchart(context, fillstyleColor, xcoord, ycoord, width, height){
+                context.fillStyle = fillstyleColor;
+                context.fillRect(xcoord,ycoord,width,height);
+            }
+        }).fail(function(e){
+            alert("잠시 후 시도해주세요");
+        })
+    }
+</script>
 </html>
