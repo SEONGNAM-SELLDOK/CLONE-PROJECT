@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="http://static.wanted.co.kr/vendor/slick.css">
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
 <div id="__next">
@@ -79,7 +80,7 @@
                             <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                         </div>
                     </div>
-                    <canvas height="392" width="784" id="graph" class="chartjs-render-monitor" style="display: block; width: 784px; height: 392px;"></canvas>
+                    <canvas height="392" width="784" id="graph" style="display: block; width: 784px; height: 392px;"></canvas>
                 </section>
                 <div class="_15fU__fPt_U2iAPon8-Zlk">
                     <button type="button" class="_1wbxktkJ3ZFAS9wrJs1UFQ">개발</button>
@@ -87,7 +88,7 @@
                 </div>
                 <aside>
                     <h4 class="_3SVBTyLN8vTAnlaZ3DyJHr" id = "expectedSalaryColumn">.Net 개발자 1년차 예상 연봉</h4>
-                    <h2 class="_3drCN2YgBn9n_h7JnQypmx" id = "expectedSalary">1,000 <sub>만원</sub></h2>
+                    <h2 class="_3drCN2YgBn9n_h7JnQypmx" id = "expectedSalary">1000 <sub>만원</sub></h2>
                 </aside><div class="S2N49ETnMbtO4IPEnM5Wb">
                 <div class="_37okLbZk1bJiskGXTtXDlk">
                     <div class="_1manVBRg8js2bTXFCHeCil">
@@ -103,13 +104,12 @@
                         </div>
                         <div class="_2wGdGRAw_5r98qxMf1KNf4">
                             <div class="goW96gc0x3OqXMuEJqZZj _1GpFqDKpGCkBQgTr8bgOwJ has-value">
-                                <select name="subCategory">
+                                <select name="subCategory" id = "occupationChoice">
                                     <option disabled="">직무</option>
-                                    <option value="0">전체</option>
-                                    <option value="802">.Net 개발자</option>
-                                    <option value="803">JAVA 개발자</option>
-                                    <option value="804">EMBEDDED 개발자</option>
-                                    <option value="805">FE 개발자</option>
+                                    <option value="1" selected>.Net 개발자</option>
+                                    <option value="2">JAVA 개발자</option>
+                                    <option value="3">EMBEDDED 개발자</option>
+                                    <option value="4">FE 개발자</option>
                                 </select>
                                 <svg width="20" height="20" viewBox="0 0 24 24" class="_1lcNES_EgXbw0iK5t75SSY">
                                     <path fill="currentColor" d="M16 9.25a.75.75 0 01.586 1.218l-3.986 5a.75.75 0 01-1.17.002l-4.015-5A.75.75 0 018 9.25h8z"></path>
@@ -118,9 +118,9 @@
                         </div>
                         <div class="_2wGdGRAw_5r98qxMf1KNf4">
                             <div class="goW96gc0x3OqXMuEJqZZj _1GpFqDKpGCkBQgTr8bgOwJ has-value" data-experience="0">
-                                <select>
-                                    <option value="123" disabled="">경력</option>
-                                    <option value="1">1년</option>
+                                <select id = "year">
+                                    <option disabled="">경력</option>
+                                    <option value="1" selected>1년</option>
                                     <option value="2">2년</option>
                                     <option value="3">3년</option>
                                     <option value="4">4년</option>
@@ -147,7 +147,7 @@
                 <div class="_2Vntq9_s_6BJa9u6_qoQM1">
                     <div class="_3m4haCoyEvkMrrffu6e8OU">
                         <div class="S0dDo95Tyq8ocwlJv69zD">
-                            <button type="button" class="_3eAZavUaFEdBmN78AWJGCz">엔지니어링·설계 / I&amp;C 엔지니어 / 신입<i class="icon-search"></i>
+                            <button type="button" class="_3eAZavUaFEdBmN78AWJGCz" id = "information">엔지니어링·설계 / I&amp;C 엔지니어 / 신입<i class="icon-search"></i>
                             </button>
                         </div>
                     </div>
@@ -284,57 +284,135 @@
 </div>
 </body>
 <script type="text/javascript">
+    var graph = null;
+    var data = null;
+    function draw(e){
+        data = e;
+        var ctx = document.getElementById("graph").getContext('2d');
+
+        if(graph!=null){
+            graph.destroy();
+        }
+        graph = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["1년차", "2년차", "3년차", "4년차", "5년차", "6년차","7년차","8년차","9년차","10년차"],
+                datasets: [{
+                    label: '# 년차별 연봉',
+                    data: [e.oneYear, e.twoYear, e.threeYear, e.fourYear, e.fiveYear, e.sixYear,e.sevenYear,e.eightYear,e.nineYear,e.tenYear],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(75, 192, 192, 1)'
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+        changeWord(e.occupation,e.oneYear);
+        $('#year').val("1");
+    }
+
+    function changeWord(e,v){
+        var str;
+        if(e == "dotNet"){
+            str = ".NET 개발자";
+        }
+        else if(e == "java"){
+            str = "자바 개발자";
+        }
+        else if(e== "embedded"){
+            str = "임베디드 개발자";
+        }
+        else if(e == "fe"){
+            str = "프론트엔드 개발자";
+        }
+        document.getElementById('occupation').innerText = str;
+        document.getElementById('expectedSalaryColumn').innerText = str + "1년차 예상 연봉";
+        document.getElementById('expectedSalary').innerText = v + "만원";
+    }
+
     window.onload = function(){
         $.ajax({
             type:'GET',
             url: '/salary/1'
         }).done(function(e){
-            var canvas = document.getElementById("graph");
-            var context = canvas.getContext("2d");
-            var sw = canvas.width;
-            var sh = canvas.height;
-            var barwidth=60;
-            var barheight;
-            var xcoord=10;
-            var base=90;
-            barheight=e.oneYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.twoYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.threeYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.fourYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.fiveYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.sixYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.sevenYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.eightYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.nineYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-            barheight=e.tenYear/100;
-            DrawBarchart(context,"green",xcoord, (sh-barheight)-base,barwidth,barheight);
-            xcoord+=barwidth + 12;
-
-            function DrawBarchart(context, fillstyleColor, xcoord, ycoord, width, height){
-                context.fillStyle = fillstyleColor;
-                context.fillRect(xcoord,ycoord,width,height);
-            }
+            draw(e);
         }).fail(function(e){
             alert("잠시 후 시도해주세요");
         })
     }
+
+    $('#occupationChoice').on('change',function(){
+        var value = $(this).find(":selected").val();
+        $.ajax({
+            type:'GET',
+            url:'salary/' + value
+        }).done(function(e){
+            draw(e);
+        }).fail(function(e){
+            alert("잠시 후 시도해주세요");
+        })
+    })
+    $('#year').on('change',function(){
+        var e = $('#occupationChoice').val();
+        var str;
+        if(e == 1){
+            str = ".NET 개발자";
+        }
+        else if(e == 2){
+            str = "자바 개발자";
+        }
+        else if(e== 3){
+            str = "임베디드 개발자";
+        }
+        else if(e == 4){
+            str = "프론트엔드 개발자";
+        }
+        document.getElementById('expectedSalaryColumn').innerText = str + " " + $('#year').val() + "년차 예상 연봉";
+        var t = $('#year').val();
+        var v;
+        if(t==1) v = data.oneYear;
+        else if(t==2) v =data.twoYear;
+        else if(t==3)v =data.threeYear;
+        else if(t==4)v=data.fourYear;
+        else if(t==5)v=data.fiveYear;
+        else if(t==6)v=data.sixYear;
+        else if(t==7) v=data.sevenYear;
+        else if(t==8) v = data.eightYear;
+        else if(t==9) v= data.nineYear;
+        else v = data.tenYear;
+        document.getElementById('expectedSalary').innerText = v + "만원";
+    })
 </script>
 </html>
