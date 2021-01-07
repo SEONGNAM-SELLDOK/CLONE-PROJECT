@@ -15,23 +15,23 @@ import lombok.Setter;
 public class SalaryResponse {
     private Occupation occupation;
 
-    private int oneYear;
+    private int yearOne;
 
-    private int twoYear;
+    private int yearTwo;
 
-    private int threeYear;
+    private int yearThree;
 
-    private int fourYear;
+    private int yearFour;
 
-    private int fiveYear;
+    private int yearFive;
 
-    private int sixYear;
+    private int yearSix;
 
-    private int sevenYear;
+    private int yearSeven;
 
-    private int eightYear;
+    private int yearEight;
 
-    private int nineYear;
+    private int yearNine;
 
-    private int tenYear;
+    private int yearTen;
 }

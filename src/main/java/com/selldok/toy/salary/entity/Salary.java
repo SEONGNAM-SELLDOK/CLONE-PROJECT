@@ -3,6 +3,7 @@ package com.selldok.toy.salary.entity;
 import com.selldok.toy.salary.model.SalaryRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Embedded;
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class Salary {
 
     @Id
@@ -33,8 +35,8 @@ public class Salary {
     }
 
     public void changeSalary(SalaryRequest salaryRequest) {
-        SalaryInfo newSalaryInfo = new SalaryInfo(salaryRequest.getOneYear(), salaryRequest.getTwoYear(), salaryRequest.getThreeYear(), salaryRequest.getFourYear(),
-                salaryRequest.getFiveYear(), salaryRequest.getSixYear(), salaryRequest.getSevenYear(), salaryRequest.getEightYear(), salaryRequest.getNineYear(), salaryRequest.getTenYear());
+        SalaryInfo newSalaryInfo = new SalaryInfo(salaryRequest.getYearOne(), salaryRequest.getYearTwo(), salaryRequest.getYearThree(), salaryRequest.getYearFour(),
+                salaryRequest.getYearFive(), salaryRequest.getYearSix(), salaryRequest.getYearSeven(), salaryRequest.getYearEight(), salaryRequest.getYearNine(), salaryRequest.getYearTen());
         this.salaryInfo = newSalaryInfo;
     }
 }
