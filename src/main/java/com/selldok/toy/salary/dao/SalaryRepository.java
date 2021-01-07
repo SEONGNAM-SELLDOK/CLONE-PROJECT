@@ -11,5 +11,5 @@ import java.util.Optional;
  * @author Seil Park
  */
 public interface SalaryRepository extends CrudRepository<Salary, Long> {
-    public Optional<Salary> findByOccupation(Occupation occupation);
+    Salary findByOccupation(Occupation occupation);
 }

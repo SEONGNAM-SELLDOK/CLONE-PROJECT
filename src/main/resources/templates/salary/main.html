@@ -29,6 +29,8 @@
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
                                 href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                                href="/salary" class="">직군별 연봉</a></li>
                     </ul>
                     <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
                         <div class="overlay">
@@ -89,6 +91,7 @@
                 <aside>
                     <h4 class="_3SVBTyLN8vTAnlaZ3DyJHr" id = "expectedSalaryColumn">.Net 개발자 1년차 예상 연봉</h4>
                     <h2 class="_3drCN2YgBn9n_h7JnQypmx" id = "expectedSalary">1000 <sub>만원</sub></h2>
+                    <h4 class="W8SLlmTrA1CN2c5zYovr5" id = "percentText"></h4>
                 </aside><div class="S2N49ETnMbtO4IPEnM5Wb">
                 <div class="_37okLbZk1bJiskGXTtXDlk">
                     <div class="_1manVBRg8js2bTXFCHeCil">
@@ -138,7 +141,7 @@
                         </div>
                         <div class="_1aDv71zSHxE0A-xbjjpdIw">
                             <div class="_3vBIGLj-mvCYGyCWjmQN8F">
-                                <input type="text" name="salary" placeholder="연봉" value=""><span>만원</span>
+                                <input type="text" id = "inputSalary" name="salary" placeholder="연봉" value=""><span>만원</span>
                             </div>
                         </div>
                     </div>
@@ -160,26 +163,6 @@
             <div class="_3Wr8FPrZhqydjxK2vkpL0g">
                 <div class="IN9ansfDh6l8bEcBlnWbv">이제 밤새워 채용사이트 보지 마세요.</div>
                 <div class="_3G9tRmqd3RCNztUJlVwjkN">원티드 매치업에 프로필을 등록하면, 기업의 인사담당자가 직접 면접을 제안합니다.</div>
-                <div class="_7xsJeOqD8m8F_OrplQupO">
-                    <ul class="_2lbWPbjnIZDAO0Xba14HJw">
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_e7951e6c-5282-42c2-b2b1-741b0824a747.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.9ebf8983.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.ad4abbda.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_35b131c9-5b04-4248-a0bd-1f39240406df.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.18dfe4ff.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5_465f0a8c-3b5b-4004-be0b-13f3c1c08200.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.a6ddfb4a.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.a10206f5.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.8f75d757.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.7a05ba42.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.cc9b552a.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.f196b9b9.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.6060f08d.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.e810f1c7.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                        <li style="background-image: url(&quot;https://static.wanted.co.kr/images/wdes/0_5.985b9922.jpg&quot;); background-position: center center; background-size: cover;"></li>
-                    </ul>
-                    <div class="_2R_noDgKnSHTIcyOsr2NVX">+4790</div>
-                </div>
                 <a href="/profile/matching" class="">시작하기</a>
             </div>
             <div class="_1TkzNLl_XaMHBtTCCwk9te">
@@ -253,10 +236,6 @@
                         <div class="Div-hTZHGu fEVoGZ" data-reactid=".0.2.0.$/=11">
                             <p class="Confirm__ConfirmMessage-fNOBqL cHGGot" data-reactid=".0.2.0.$/=11.0"></p>
                         </div>
-                        <div class="Div-hTZHGu dXKeOh" data-reactid=".0.2.0.$/=12">
-                            <button color="#B5B5B5" class="Button-kDSBcD euVYDA" data-reactid=".0.2.0.$/=12.0">닫기</button>
-                            <button color="#258BF7" class="Button-kDSBcD iocZoc" data-reactid=".0.2.0.$/=12.1">확인</button>
-                        </div>
                     </div>
                     <div class="Overlay-iWuiZb gMLFic" data-reactid=".0.2.3"></div>
                 </div>
@@ -286,6 +265,7 @@
 <script type="text/javascript">
     var graph = null;
     var data = null;
+    var v = 1;
     function draw(e){
         data = e;
         var ctx = document.getElementById("graph").getContext('2d');
@@ -299,7 +279,7 @@
                 labels: ["1년차", "2년차", "3년차", "4년차", "5년차", "6년차","7년차","8년차","9년차","10년차"],
                 datasets: [{
                     label: '# 년차별 연봉',
-                    data: [e.oneYear, e.twoYear, e.threeYear, e.fourYear, e.fiveYear, e.sixYear,e.sevenYear,e.eightYear,e.nineYear,e.tenYear],
+                    data: [e.yearOne, e.yearTwo, e.yearThree, e.yearFour, e.yearFive, e.yearSix,e.yearSeven,e.yearEight,e.yearNine,e.yearTen],
                     backgroundColor: [
                         'rgba(75, 192, 192, 1)',
                         'rgba(75, 192, 192, 1)',
@@ -339,8 +319,19 @@
                 }
             }
         });
-        changeWord(e.occupation,e.oneYear);
+        var t = $('#year').val();
+        if(t==1) v = data.yearOne;
+        else if(t==2) v =data.yearTwo;
+        else if(t==3)v =data.yearThree;
+        else if(t==4)v=data.yearFour;
+        else if(t==5)v=data.yearFive;
+        else if(t==6)v=data.yearSix;
+        else if(t==7) v=data.yearSeven;
+        else if(t==8) v = data.yearEight;
+        else if(t==9) v= data.yearNine;
+        else v = data.yearTen;
         $('#year').val("1");
+        changeWord(e.occupation,e.yearOne);
     }
 
     function changeWord(e,v){
@@ -360,6 +351,7 @@
         document.getElementById('occupation').innerText = str;
         document.getElementById('expectedSalaryColumn').innerText = str + "1년차 예상 연봉";
         document.getElementById('expectedSalary').innerText = v + "만원";
+        changePercent();
     }
 
     window.onload = function(){
@@ -401,18 +393,37 @@
         }
         document.getElementById('expectedSalaryColumn').innerText = str + " " + $('#year').val() + "년차 예상 연봉";
         var t = $('#year').val();
-        var v;
-        if(t==1) v = data.oneYear;
-        else if(t==2) v =data.twoYear;
-        else if(t==3)v =data.threeYear;
-        else if(t==4)v=data.fourYear;
-        else if(t==5)v=data.fiveYear;
-        else if(t==6)v=data.sixYear;
-        else if(t==7) v=data.sevenYear;
-        else if(t==8) v = data.eightYear;
-        else if(t==9) v= data.nineYear;
-        else v = data.tenYear;
+        if(t==1) v = data.yearOne;
+        else if(t==2) v =data.yearTwo;
+        else if(t==3)v =data.yearThree;
+        else if(t==4)v=data.yearFour;
+        else if(t==5)v=data.yearFive;
+        else if(t==6)v=data.yearSix;
+        else if(t==7) v=data.yearSeven;
+        else if(t==8) v = data.yearEight;
+        else if(t==9) v= data.yearNine;
+        else v = data.yearTen;
         document.getElementById('expectedSalary').innerText = v + "만원";
+        changePercent();
     })
+    $("#inputSalary").on("change keyup paste", function() {
+        changePercent();
+    });
+    function changePercent(){
+        var currentVal = $("#inputSalary").val();
+        if(currentVal == null){
+            document.getElementById("percentText").innerHTML = "";
+            return;
+        }
+        var percent = Math.round((Math.abs(currentVal-v) / v) * 100);
+        var str;
+        if(currentVal >= v) {
+            str = "높음";
+        }
+        else {
+            str = "낮음";
+        }
+        document.getElementById("percentText").innerHTML = $('#year').val() + "년차 예상 연봉 대비" + percent + "%" + str;
+    }
 </script>
 </html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Selldok-toy</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="http://static.wanted.co.kr/vendor/slick.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div id="__next">
+        <div>
+            <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+                <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+                    <nav>
+                        <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                                class="icon-logo_new"></i></a></div>
+                        <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                            <li class="xsHomeButton xsOnly selectedNav" data-attribute-id="gnb" data-gnb-kind="home"><a
+                                    href="/" class="">홈</a></li>
+                            <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/wdlist" class="">탐색</a>
+                            </li>
+                            <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/event/search"
+                                                                                                       class="">이벤트</a>
+                            </li>
+                            <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                                    href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+                            <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                                    href="/salary" class="">직군별 연봉</a></li>
+                        </ul>
+                        <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                            <div class="overlay">
+                                <div class="container"></div>
+                            </div>
+                        </div>
+                        <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                            <ul>
+                                <li>
+                                    <button type="button" class="searchButton" data-attribute-id="gnb"
+                                            data-gnb-kind="search"><i class="icon-search"></i></button>
+                                </li>
+                                <li>
+                                    <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                            class="icon-bell"></i></button>
+                                </li>
+                                <li sec:authorize="isAnonymous()">
+                                    <button class="signUpButton" type="button" data-attribute-id="gnb" data-gnb-kind="signupLogin" onclick="location.href='/auth/view'">회원가입/로그인</button>
+                                </li>
+                                <li sec:authorize="isAuthenticated()" class="smMoreVisible" style="padding-top:10px" >
+                                    <button type="button"
+                                            th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                            data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"
+                                            data-badge="false"></button>
+                                </li>
+                                <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers" style="padding-top:10px"><a
+                                        class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                                <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                                    style="padding-top:10px;"><a
+                                        class="dashboardButton" href="/auth/logout">로그아웃</a></li>
+                                <li class="xsOnly">
+                                    <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo">
+                                        <i class="icon-menu"></i></button>
+                                </li>
+                            </ul>
+                        </aside>
+                    </nav>
+                </div>
+            </div>
+            <div style="height:50px"></div>
+            <div class="_3CCSYgZyoi6BzQlj2VvwfF">
+                <div class="l6yRNjuTFGsKfhaWwCjUF">
+                    <h1>변경할 직군</h1>
+                    <br><br>
+                    <div class="goW96gc0x3OqXMuEJqZZj _1GpFqDKpGCkBQgTr8bgOwJ has-value">
+                        <select name="subCategory" id = "occupationChoice">
+                            <option disabled="">직무</option>
+                            <option value="1" selected>.Net 개발자</option>
+                            <option value="2">JAVA 개발자</option>
+                            <option value="3">EMBEDDED 개발자</option>
+                            <option value="4">FE 개발자</option>
+                        </select>
+                        <svg width="20" height="20" viewBox="0 0 24 24" class="_1lcNES_EgXbw0iK5t75SSY">
+                            <path fill="currentColor" d="M16 9.25a.75.75 0 01.586 1.218l-3.986 5a.75.75 0 01-1.17.002l-4.015-5A.75.75 0 018 9.25h8z"></path>
+                        </svg>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "oneYear" name="salary" placeholder="1년차" value="" required><span>만원</span>
+                    </div>
+                    <br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "twoYear" name="salary" placeholder="2년차" value=""required><span>만원</span>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "threeYear" name="salary" placeholder="3년차" value=""required><span>만원</span>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "fourYear" name="salary" placeholder="4년차" value=""required><span>만원</span>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "fiveYear" name="salary" placeholder="5년차" value=""required><span>만원</span>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "sixYear" name="salary" placeholder="6년차" value=""required><span>만원</span>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "sevenYear" name="salary" placeholder="7년차" value=""required><span>만원</span>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "eightYear" name="salary" placeholder="8년차" value=""required><span>만원</span>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "nineYear" name="salary" placeholder="9년차" value=""required><span>만원</span>
+                    </div><br>
+                    <div class="_3vBIGLj-mvCYGyCWjmQN8F">
+                        <input type="text" id = "tenYear" name="salary" placeholder="10년차" value=""required><span>만원</span>
+                    </div><br>
+                    <button class="btn btn-primary" type="button" id = "editBtn">연봉 수정</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    document.getElementById("editBtn").onclick = function(){
+        var v = $("#occupationChoice").val();
+        var data = JSON.stringify({yearOne : $("#oneYear").val(),
+            yearTwo : $("#twoYear").val(),
+            yearThree : $("#threeYear").val(),
+            yearFour : $("#fourYear").val(),
+            yearFive : $("#fiveYear").val(),
+            yearSix : $("#sixYear").val(),
+            yearSeven : $("#sevenYear").val(),
+            yearEight : $("#eightYear").val(),
+            yearNine : $("#nineYear").val(),
+            yearTen : $("#tenYear").val()});
+        $.ajax({
+            type:'PUT',
+            url:'/salary/' + v,
+            data : data ,
+            contentType: 'application/json; charset=utf-8'
+        }).done(function(e){
+            if(e == "success") window.location.href="/salary";
+        }).fail(function(e){
+        })
+    }
+</script>
+</html>

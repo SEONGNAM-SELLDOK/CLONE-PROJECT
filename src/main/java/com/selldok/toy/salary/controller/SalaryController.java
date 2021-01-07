@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Seil Park
@@ -31,9 +29,15 @@ public class SalaryController {
         return new ResponseEntity<>(salaryResponse,HttpStatus.OK);
     }
 
+    @GetMapping("/salary/edit")
+    public String getEditView(){
+        return "/salary/edit";
+    }
+
+    @ResponseBody
     @PutMapping("/salary/{id}")
-    public String updateSalary(@PathVariable Long id, SalaryRequest salaryRequest){
-        salaryService.updateSalary(salaryRequest);
-        return "redirect:/salary/" + id;
+    public String updateSalary(@PathVariable Long id, @RequestBody SalaryRequest salaryRequest){
+        salaryService.updateSalary(id, salaryRequest);
+        return "success";
     }
 }

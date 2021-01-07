@@ -1,10 +1,8 @@
 package com.selldok.toy.salary.model;
 
 import com.selldok.toy.salary.entity.Occupation;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 /**
  * @author Seil Park
  */
@@ -12,25 +10,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SalaryRequest {
-    private Occupation occupation;
+    private int yearOne;
 
-    private int oneYear;
+    private int yearTwo;
 
-    private int twoYear;
+    private int yearThree;
 
-    private int threeYear;
+    private int yearFour;
 
-    private int fourYear;
+    private int yearFive;
 
-    private int fiveYear;
+    private int yearSix;
 
-    private int sixYear;
+    private int yearSeven;
 
-    private int sevenYear;
+    private int yearEight;
 
-    private int eightYear;
+    private int yearNine;
 
-    private int nineYear;
-
-    private int tenYear;
+    private int yearTen;
 }
