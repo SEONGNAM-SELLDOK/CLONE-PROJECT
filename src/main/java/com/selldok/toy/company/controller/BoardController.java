@@ -98,4 +98,10 @@ public class BoardController {
         Page<BoardListResponse> boardListResponses = boardRepository.searchBoard(condition, pageable);
         return new ResponseEntity(boardListResponses, HttpStatus.OK);
     }
+
+    @PostMapping("countPlus/{id}")
+    public ResponseEntity boardCountPlus(@PathVariable("id") Long id) {
+        int count = boardService.boardCountPlus(id);
+        return new ResponseEntity(count, HttpStatus.OK);
+    }
 }

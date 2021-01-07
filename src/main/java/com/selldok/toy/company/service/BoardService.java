@@ -5,6 +5,7 @@ import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.model.BoardReadResponse;
 import com.selldok.toy.company.model.BoardUpdateRequest;
 import com.selldok.toy.company.model.NewHireListResponse;
+import com.selldok.toy.company.model.RecommendThisWeekResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -36,6 +37,11 @@ public class BoardService {
         return boardRepository.newHireByBoardInfo();
     }
 
+    public List<RecommendThisWeekResponse> recommendThisWeek() { return boardRepository.recommendThisWeek(); }
+
+    public int boardCountPlus(Long id) {
+        return boardRepository.boardCountPlus(id);
+    }
     /**
      * 구직 정보 등록
      * */
