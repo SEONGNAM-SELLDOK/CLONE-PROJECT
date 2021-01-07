@@ -16,7 +16,7 @@
                         <ul class="_1ghqg44RECsZcnX4nLgXKP">
                             <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
                                     class="">홈</a></li>
-                            <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/board/list" class="">탐색</a></li>
+                            <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a @click.prevent="goBoardList" class="">탐색</a></li>
                             <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/event/search"
                                     class="">이벤트</a></li>
                             <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
@@ -345,8 +345,8 @@
                             </div>
                             {{ userName }}
                             <div>
-                                <b-button v-if="userName != ''" @click.prevent="goBoardModify">구직 정보 수정하기</b-button>
-                                <b-button v-if="userName != ''" @click.prevent="goBoardList">리스트 보기</b-button>
+                                <b-button @click.prevent="goBoardModify">구직 정보 수정하기</b-button>
+                                <b-button @click.prevent="goBoardList">리스트 보기</b-button>
                             </div>
                             <section class="_3h_f6TfissC0l7ogPcn7lY"><button type="button" class="left"
                                     data-attribute-id="company__click" data-company-id="645" data-company-name="와디즈">

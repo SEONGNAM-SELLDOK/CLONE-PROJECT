@@ -323,30 +323,24 @@
                 <div class="V5hO6ZNtghfPyvqmsP6NX"><h2 class="wBIF1shLjklXsBqHcR0f4">금주의 추천</h2></div>
                 <div class="_1DPyMq6MHTj43gZ2KFduy9">
                     <ul data-cy="job-list" class="clearfix">
-                        <li>
-                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/48422?referer_id=99049"
-                                                                                       class=""
-                                                                                       data-attribute-id="position__click"
-                                                                                       data-job-category-id="530"
-                                                                                       data-company-id="4475"
-                                                                                       data-company-name="누리미디어(DBpia)"
-                                                                                       data-position-id="48422"
-                                                                                       data-position-name="학회 솔루션 운영관리"
-                                                                                       data-response-level="very_high"
-                                                                                       data-response-rate="97.8"
-                                                                                       data-ai-score=""
-                                                                                       data-domain="recommend">
-                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/4475/hmsrk4ngw9kpk6xk__400_400.jpg&quot;);">
-                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
-                                            data-job-category-id="530" data-company-id="4475"
-                                            data-company-name="누리미디어(DBpia)" data-position-id="48422"
-                                            data-position-name="학회 솔루션 운영관리" data-kind="add"><i
-                                            class="icon-ic_favorite_black_24px"></i>3
-                                    </button>
-                                </header>
+                        <li v-for="item in items" :key="item.id" :value="item.companyName">
+                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ">
+                                <a :href=`board/read?companyId=${companyId}&boardId=${item.id}`
+                                   class=""
+                                   data-attribute-id="position__click"
+                                   data-job-category-id="530"
+                                   data-company-id="4475"
+                                   data-company-name="누리미디어(DBpia)"
+                                   data-position-id="48422"
+                                   data-position-name="학회 솔루션 운영관리"
+                                   data-response-level="very_high"
+                                   data-response-rate="97.8"
+                                   data-ai-score=""
+                                   data-domain="recommend">
+                                <img :src=`/upload/${item.image}` style="width: 250px; height: 172px;">
                                 <div class="body">
-                                    <div class="job-card-position">학회 솔루션 운영관리</div>
-                                    <div class="job-card-company-name">누리미디어(DBpia)</div>
+                                    <div class="job-card-position">{{ item.title }}</div>
+                                    <div class="job-card-company-name">{{ item.companyName }}</div>
                                     <div class="uCH6-XdM6YRUS1sAs0rJi">
                                         <button class="_3eFmUgRBWc1IDsJs3FuqLj" type="button">
                                             <div class="_1hsM_0aCJmu4TaTEB-Z4TB _3KU5ZWhZ_cPnB6GR99ASfT">
@@ -354,103 +348,11 @@
                                             <div class="_2svtWByZl5S4XnE27cAWkV">지원 후 응답받을 확률이 95% 이상입니다.</div>
                                         </button>
                                     </div>
-                                    <div class="job-card-company-location">서울<span
-                                            class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                        </li>
-                        <li>
-                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/48531?referer_id=99049"
-                                                                                       class=""
-                                                                                       data-attribute-id="position__click"
-                                                                                       data-job-category-id="518"
-                                                                                       data-company-id="15040"
-                                                                                       data-company-name="태니지먼트랩"
-                                                                                       data-position-id="48531"
-                                                                                       data-position-name="IT개발 총괄책임자 CTO"
-                                                                                       data-response-level="high"
-                                                                                       data-response-rate="93.7"
-                                                                                       data-ai-score=""
-                                                                                       data-domain="recommend">
-                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/15040/zwax3b3wxbv2f7tr__400_400.jpg&quot;);">
-                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
-                                            data-job-category-id="518" data-company-id="15040"
-                                            data-company-name="태니지먼트랩" data-position-id="48531"
-                                            data-position-name="IT개발 총괄책임자 CTO" data-kind="add"><i
-                                            class="icon-ic_favorite_black_24px"></i>1
-                                    </button>
-                                </header>
-                                <div class="body">
-                                    <div class="job-card-position">IT개발 총괄책임자 CTO</div>
-                                    <div class="job-card-company-name">태니지먼트랩</div>
-                                    <div class="job-card-company-location">서울<span
-                                            class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                        </li>
-                        <li>
-                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/48508?referer_id=99049"
-                                                                                       class=""
-                                                                                       data-attribute-id="position__click"
-                                                                                       data-job-category-id="518"
-                                                                                       data-company-id="1257"
-                                                                                       data-company-name="머니브레인"
-                                                                                       data-position-id="48508"
-                                                                                       data-position-name="[인공지능 기업] 풀스택 개발자 (팀장급)"
-                                                                                       data-response-level="very_high"
-                                                                                       data-response-rate="100"
-                                                                                       data-ai-score=""
-                                                                                       data-domain="recommend">
-                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/1257/k6ge4hg47yyg9te6__400_400.jpg&quot;);">
-                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
-                                            data-job-category-id="518" data-company-id="1257" data-company-name="머니브레인"
-                                            data-position-id="48508" data-position-name="[인공지능 기업] 풀스택 개발자 (팀장급)"
-                                            data-kind="add"><i class="icon-ic_favorite_black_24px"></i>0
-                                    </button>
-                                </header>
-                                <div class="body">
-                                    <div class="job-card-position">[인공지능 기업] 풀스택 개발자 (팀장급)</div>
-                                    <div class="job-card-company-name">머니브레인</div>
-                                    <div class="uCH6-XdM6YRUS1sAs0rJi">
-                                        <button class="_3eFmUgRBWc1IDsJs3FuqLj" type="button">
-                                            <div class="_1hsM_0aCJmu4TaTEB-Z4TB _3KU5ZWhZ_cPnB6GR99ASfT">
-                                                <span>응답률 매우 높음</span></div>
-                                            <div class="_2svtWByZl5S4XnE27cAWkV">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button>
+                                    <div class="job-card-company-location">
+                                        {{ item.companyCity }}
+                                        <span class="addressDot">.</span>
+                                        <span>{{ item.companyCountry }}</span>
                                     </div>
-                                    <div class="job-card-company-location">서울<span
-                                            class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                        </li>
-                        <li>
-                            <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ"><a href="/wd/48212?referer_id=99049"
-                                                                                       class=""
-                                                                                       data-attribute-id="position__click"
-                                                                                       data-job-category-id="518"
-                                                                                       data-company-id="9353"
-                                                                                       data-company-name="아티언스"
-                                                                                       data-position-id="48212"
-                                                                                       data-position-name="광고 서버(Bigdata) 개발자"
-                                                                                       data-response-level="normal"
-                                                                                       data-response-rate="81.3"
-                                                                                       data-ai-score=""
-                                                                                       data-domain="recommend">
-                                <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/9353/vyonmo9dpgqu9kyw__400_400.jpg&quot;);">
-                                    <button type="button" class="likeButton" data-attribute-id="position__like__click"
-                                            data-job-category-id="518" data-company-id="9353" data-company-name="아티언스"
-                                            data-position-id="48212" data-position-name="광고 서버(Bigdata) 개발자"
-                                            data-kind="add"><i class="icon-ic_favorite_black_24px"></i>0
-                                    </button>
-                                </header>
-                                <div class="body">
-                                    <div class="job-card-position">광고 서버(Bigdata) 개발자</div>
-                                    <div class="job-card-company-name">아티언스</div>
-                                    <div class="job-card-company-location">서울<span
-                                            class="addressDot">.</span><span>한국</span></div>
                                     <div class="reward">채용보상금 1,000,000원</div>
                                 </div>
                             </a></div>
@@ -542,11 +444,12 @@
         "matchup": true,
         "dashboard_b2b": true
     }
-    
+
     new Vue({
         el: "#app",
         created() {
             this.newHireByBoardInfo();
+            this.thisWeek();
         },
         methods: {
             newHireByBoardInfo() {
@@ -560,9 +463,21 @@
                         throw error;
                     });
             },
+            thisWeek() {
+                axios.get(`http://localhost:9090/thisWeek`)
+                    .then((res) => {
+                        console.log('res', res);
+                        this.items = res.data;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        throw error;
+                    });
+            },
         },
         data: {
             contents: [],
+            items: [],
             name: ''
         }
     });
