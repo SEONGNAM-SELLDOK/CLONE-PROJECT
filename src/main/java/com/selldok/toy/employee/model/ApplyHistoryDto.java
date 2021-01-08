@@ -12,6 +12,7 @@ import lombok.ToString;
 
 /**
  * ApplyHistory용 create/update, select DTO
+ * 
  * @author DongSeok,Kim
  */
 @Getter
@@ -19,33 +20,41 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ApplyHistoryDto {
-    private Long id;
-    private Long applicantId;
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private Long employmentBoardId;
-    private String boardTitle;
-    private String companyName;
-    private String companyLogoUrl;
-    private Timestamp appliedDate;
-    private Status status;
-    private String recommendStatus;
-    private Long offset = 0L;
-    private Long limit = 10L;
+	private Long id;
+	private Long applicantId;
+	private Long companyId;
+	private String name;
+	private String email;
+	private String phoneNumber;
+	private Long employmentBoardId;
+	private String boardTitle;
+	private String companyName;
+	private String companyLogoUrl;
+	private String companyCountry;
+	private String companyCity;
+	private String companyStreet;
+	private Timestamp appliedDate;
+	private Status status;
+	private String recommendStatus;
 
-    public String getStatusName() {
-        return status.friendlyName;
-    }
+	@QueryProjection
+	public ApplyHistoryDto(Long id, String name, String email, String phoneNumber, String companyName, String companyCountry, String companyCity, String companyStreet, Long employmentBoardId, String boardTitle,
+			Timestamp appliedDate, Status status) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.companyName = companyName;
+		this.companyCountry = companyCountry;
+		this.companyCity = companyCity;
+		this.companyStreet = companyStreet;
+		this.employmentBoardId = employmentBoardId;
+		this.boardTitle = boardTitle;
+		this.appliedDate = appliedDate;
+		this.status = status;
+	}
 
-    @QueryProjection
-    public ApplyHistoryDto(String name, String email, String phoneNumber, String companyName, String boardTitle, Timestamp appliedDate, Status status) {
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.companyName = companyName;
-        this.boardTitle = boardTitle;
-        this.appliedDate = appliedDate;
-        this.status = status;
-    }
+	public String getCompanyAddress() {
+		return companyCountry + " " + companyCity + " " + companyStreet;
+	}
 }
