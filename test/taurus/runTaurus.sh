@@ -1,0 +1,1 @@
+bzt test.yml -report
