@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 /**
  * @author Seil Park
@@ -56,8 +57,9 @@ public class SalaryService {
         return salaryResponse;
     }
 
-    public void updateSalary(Occupation occupation,SalaryRequest salaryRequest){
-        Salary salary = salaryRepository.findByOccupation(occupation);
+    public void updateSalary(Long id,SalaryRequest salaryRequest){
+        Optional<Salary> optionalSalary = salaryRepository.findById(id);
+        Salary salary = optionalSalary.get();
         salary.changeSalary(salaryRequest);
     }
 }

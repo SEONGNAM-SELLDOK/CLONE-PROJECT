@@ -36,9 +36,9 @@ public class SalaryController {
     }
 
     @ResponseBody
-    @PutMapping("/salary/{occupation}")
-    public String updateSalary(@PathVariable Occupation occupation, @RequestBody SalaryRequest salaryRequest){
-        salaryService.updateSalary(occupation, salaryRequest);
+    @PutMapping("/salary/{id}")
+    public String updateSalary(@PathVariable Long id, @RequestBody SalaryRequest salaryRequest){
+        salaryService.updateSalary(id, salaryRequest);
         return "success";
     }
 }
