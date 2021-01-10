@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 
+import com.querydsl.core.annotations.QueryInit;
 import com.selldok.toy.company.entity.Board;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,17 +43,11 @@ public class ApplyHistory {
 	 * 신청 상태
 	 */
 	public enum Status {
-		APPLCN_COMPT("신청완료"),	// 신청완료
-		PAPERS_PASAGE("서류통과"),	// 서류통과
-		LAST_PSEXAM("최종합격"),	// 최종합격
-		DSQLFC("불합격"),			// 불합격
-		CANCELED("신청취소");		// 신청취소
-		
-		public String friendlyName;
-
-		Status(String friendlyName) {
-			this.friendlyName = friendlyName;
-		}
+		APPLCN_COMPT,	// 신청완료
+		PAPERS_PASAGE,	// 서류통과
+		LAST_PSEXAM,	// 최종합격
+		DSQLFC,		// 불합격
+		CANCELED;	// 신청취소
 	}
 
 	@Id
@@ -75,6 +70,7 @@ public class ApplyHistory {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="employment_board_id", nullable=false)
+	@QueryInit({"company.address"})
 	private Board employmentBoard;
 
 	@PreUpdate

@@ -6,8 +6,11 @@ import java.util.List;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.QApplyHistoryDto;
+
+import org.springframework.data.domain.Pageable;
 
 /**
  * @author DongSeok,Kim
@@ -20,14 +23,19 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 	}
 
 	@Override
-	public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition) {
+	public List<ApplyHistoryDto> search(ApplyHistoryDto searchCondition, Pageable pageable) {
 		return queryFactory
 			.select(
 				new QApplyHistoryDto(
-					applyHistory.basicInfo.name
+					applyHistory.id
+					,applyHistory.basicInfo.name
 					,applyHistory.basicInfo.email
 					,applyHistory.basicInfo.phoneNumber
 					,applyHistory.employmentBoard.company.name
+					,applyHistory.employmentBoard.company.address.country
+					,applyHistory.employmentBoard.company.address.city
+					,applyHistory.employmentBoard.company.address.street
+					,applyHistory.employmentBoard.id
 					,applyHistory.employmentBoard.title
 					,applyHistory.appliedDt
 					,applyHistory.status
@@ -35,16 +43,36 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 			)
 			.from(applyHistory)
 			.where(
-				nameContains(searchCondition.getName())
-				,companyNameContains(searchCondition.getCompanyName())
+				containsOr(searchCondition.getName(), searchCondition.getCompanyName())
 				,applicantIdEq(searchCondition.getApplicantId())
+				,companyIdEq(searchCondition.getCompanyId())
+				,statusEq(searchCondition.getStatus())
 			)
-			.offset(searchCondition.getOffset())
-			.limit(searchCondition.getLimit())
+			.offset(pageable.getOffset())
+			.limit(pageable.getPageSize())
 			.orderBy(applyHistory.id.desc())
 			.fetch();
 	}
 
+	/**
+	 * 지원자명과 회사명이 둘 다 넘어오는 경우 or 검색을 수행
+	 * 
+	 * sql로 표현하자면 and (name like '%키워드%' or companuName like '%키워드%') 인데
+	 * 이것을 querydsl로 코딩하려 하니 많이 지저분해집니다. 좋은 방법이 있을까요?
+	 */
+	private BooleanExpression containsOr(String name, String companyName) {
+		BooleanExpression contains = null;
+		BooleanExpression nameContains = nameContains(name);
+		BooleanExpression companyNameContains = companyNameContains(companyName);
+		if(nameContains == null && companyNameContains != null) {
+			contains = companyNameContains;
+		} else if(nameContains != null && companyNameContains == null) {
+			contains = nameContains;
+		} else if(nameContains != null) {
+			contains = nameContains.or(companyNameContains);
+		}
+		return contains;
+	}	
 	private BooleanExpression nameContains(String name) {
 		return name != null ? applyHistory.basicInfo.name.contains(name) : null ;
 	}
@@ -53,5 +81,11 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 	}
 	private BooleanExpression applicantIdEq(Long applicantId) {
 		return applicantId != null ? applyHistory.applicant.id.eq(applicantId) : null ;
+	}
+	private BooleanExpression companyIdEq(Long companyId) {
+		return companyId != null ? applyHistory.employmentBoard.company.id.eq(companyId) : null ;
+	}
+	private BooleanExpression statusEq(ApplyHistory.Status status) {
+		return status != null ? applyHistory.status.eq(status) : null ;
 	}
 }
