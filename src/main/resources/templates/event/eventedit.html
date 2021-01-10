@@ -150,7 +150,7 @@
                     <div class="FormBlock-content content">
                         <label for="imageLink" class="_2av-JJO4CWxQEEfPx7dOBH">
                             <h6>이벤트 메인 이미지</h6>
-                            <input id="imageLink" class="selldock_input_imageLink" type="text" autocomplete="off"
+                            <input type="file" id="imageLink" class="selldock_input_imageLink" autocomplete="off"
                                    th:value="*{event?.imageLink}"></label>
                         <label for="eventType" class="_2av-JJO4CWxQEEfPx7dOBH">
                             <h6>이벤트 종류</h6>
@@ -218,23 +218,25 @@
         const url = eventId ? 'http://localhost:9090/event/' + eventId : 'http://localhost:9090/event/'
         const type = eventId ? 'put' : 'post'
 
+        var formdata = new FormData();
+        formdata.append('image', $('.selldock_input_imageLink').prop('files')[0]);
+        formdata.append('type', $('.selldock_input_eventType option:selected').val());
+        formdata.append('title', $('.selldock_input_title').val());
+        formdata.append('text', $('.selldock_input_text').val());
+        formdata.append('date', $('.selldock_input_date').val());
+        formdata.append('keywords', $('.selldock_input_keywords').val());
+        formdata.append('owner', $('.selldock_input_name').val());
+        formdata.append('location', $('.selldock_input_location').val());
+        formdata.append('isFree', $('.selldock_input_isFree').is(":checked"));
+        formdata.append('isRecommend', $('.selldock_input_isRecommend').is(":checked"));
+
         $.ajax({
             url: url,
             type: type,
-            data: JSON.stringify({
-                'imageLink': $('.selldock_input_imageLink').val(),
-                'type': $('.selldock_input_eventType option:selected').val(),
-                'title': $('.selldock_input_title').val(),
-                'text': $('.selldock_input_text').val(),
-                'date': $('.selldock_input_date').val(),
-                'keywords': $('.selldock_input_keywords').val(),
-                'owner': $('.selldock_input_name').val(),
-                'location': $('.selldock_input_location').val(),
-                'isFree': $('.selldock_input_isFree').is(":checked") ,
-                'isRecommend': $('.selldock_input_isRecommend').is(":checked")
-            }),
-            contentType: "application/json; charset=utf-8",
-            dataType: 'json',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            cache: false,
             statusCode: {
                 200: function () {
                     console.log("200 Success!");

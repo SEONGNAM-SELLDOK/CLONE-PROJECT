@@ -1,20 +1,21 @@
 package com.selldok.toy.company.service;
 
-import com.selldok.toy.company.dao.BoardRepository;
-import com.selldok.toy.company.entity.Board;
-import com.selldok.toy.company.model.BoardReadResponse;
-import com.selldok.toy.company.model.BoardUpdateRequest;
-import com.selldok.toy.company.model.NewHireListResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.util.List;
-import java.util.Optional;
+import com.selldok.toy.company.dao.BoardRepository;
+import com.selldok.toy.company.entity.Board;
+import com.selldok.toy.company.model.BoardReadResponse;
+import com.selldok.toy.company.model.BoardUpdateRequest;
+import com.selldok.toy.company.model.NewHireListResponse;
+import com.selldok.toy.config.CelldokFileUtil;
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Gogisung
  */
@@ -25,8 +26,7 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    @Value("${spring.servlet.multipart.location}")
-    String uploadFileDir;
+    private final CelldokFileUtil celldokFileUtil;
 
     public List<BoardReadResponse> findBoard(Long id) {
         return boardRepository.findByBoardInfo(id);
@@ -65,13 +65,7 @@ public class BoardService {
      * 파일 업로드
      * */
     public String saveUploadFile(MultipartFile upload_file) {
-        String file_name = System.currentTimeMillis() + "_" + upload_file.getOriginalFilename();
-        try{
-            upload_file.transferTo(new File(uploadFileDir + file_name));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file_name;
+        return celldokFileUtil.upload(upload_file);
     }
 
 
