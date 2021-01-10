@@ -1,5 +1,6 @@
 package com.selldok.toy.salary.controller;
 
+import com.selldok.toy.salary.entity.Occupation;
 import com.selldok.toy.salary.model.SalaryRequest;
 import com.selldok.toy.salary.model.SalaryResponse;
 import com.selldok.toy.salary.service.SalaryService;
@@ -35,9 +36,9 @@ public class SalaryController {
     }
 
     @ResponseBody
-    @PutMapping("/salary/{id}")
-    public String updateSalary(@PathVariable Long id, @RequestBody SalaryRequest salaryRequest){
-        salaryService.updateSalary(id, salaryRequest);
+    @PutMapping("/salary/{occupation}")
+    public String updateSalary(@PathVariable Occupation occupation, @RequestBody SalaryRequest salaryRequest){
+        salaryService.updateSalary(occupation, salaryRequest);
         return "success";
     }
 }

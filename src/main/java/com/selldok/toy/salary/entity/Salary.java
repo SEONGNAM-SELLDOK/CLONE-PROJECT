@@ -1,6 +1,7 @@
 package com.selldok.toy.salary.entity;
 
 import com.selldok.toy.salary.model.SalaryRequest;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -35,8 +36,11 @@ public class Salary {
     }
 
     public void changeSalary(SalaryRequest salaryRequest) {
-        SalaryInfo newSalaryInfo = new SalaryInfo(salaryRequest.getYearOne(), salaryRequest.getYearTwo(), salaryRequest.getYearThree(), salaryRequest.getYearFour(),
-                salaryRequest.getYearFive(), salaryRequest.getYearSix(), salaryRequest.getYearSeven(), salaryRequest.getYearEight(), salaryRequest.getYearNine(), salaryRequest.getYearTen());
+        SalaryInfo newSalaryInfo = SalaryInfo.builder().yearOne(salaryRequest.getYearOne()).yearTwo(salaryRequest.getYearTwo())
+                                                        .yearThree(salaryRequest.getYearThree()).yearFour(salaryRequest.getYearFour())
+                                                        .yearFive(salaryRequest.getYearFive()).yearSix(salaryRequest.getYearSix())
+                                                        .yearSeven(salaryRequest.getYearSeven()).yearEight(salaryRequest.getYearEight())
+                                                        .yearNine(salaryRequest.getYearNine()).yearTen(salaryRequest.getYearTen()).build();
         this.salaryInfo = newSalaryInfo;
     }
 }

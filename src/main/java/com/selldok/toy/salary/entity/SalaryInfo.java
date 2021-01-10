@@ -1,15 +1,13 @@
 package com.selldok.toy.salary.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 /**
  * @author Seil Park
  */
 @Embeddable
+@Builder
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
