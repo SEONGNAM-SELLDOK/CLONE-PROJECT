@@ -68,6 +68,10 @@
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
+                            <a class="dashboardButton" @click="goCompanyList">기업 리스트</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
                             <a class="dashboardButton" @click="recruitPosition">구직 등록</a>
                         </li>
                         <li class="xsOnly">
@@ -290,6 +294,9 @@
             },
             goCompanyModify() {
                 window.location.href = `http://localhost:9090/company?companyId=${companyId }`;
+            },
+            goCompanyList() {
+                window.location.href = `http://localhost:9090/company/list`;
             },
             getCompanyInfo() {
                  axios.get(`http://localhost:9090/company/${companyId }`)

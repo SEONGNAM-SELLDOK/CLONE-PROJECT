@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <html>
 <head>
     <title>Selldok-toy</title>
@@ -7,6 +8,11 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
+<script>
+    function myInfoPage(userId){
+        location.href=`/employees/view/${userId}`;
+    }
+</script>
 <div id="app">
     <div id="__next">
         <div>
@@ -273,10 +279,11 @@
                                             class="icon-search"></i></button></li>
                                 <li><button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
                                             class="icon-bell"></i></button></li>
-                                <li class="smMoreVisible"><button type="button"
-                                        style="background-image: url(&quot;https://static.wanted.co.kr/images/avatars/478756/b019f1de.jpg&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);"
-                                        data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
-                                        data-badge="false"></button></li>
+                                <li class="smMoreVisible" style="padding-top:5px;">
+                                    <button type="button"
+                                            th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                            data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                                </li>
                                 <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"><a
                                         class="dashboardButton" href="/dashboard">기업 서비스</a></li>
                                 <li class="xsOnly"><button class="menuButton" type="button" data-attribute-id="gnb"
