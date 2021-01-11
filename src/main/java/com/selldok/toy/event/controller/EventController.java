@@ -72,7 +72,7 @@ public class EventController {
 	public ResponseEntity insert(HttpServletRequest servletRequest,
 		@RequestParam(value = "image", required = false) MultipartFile file,
 		InsertEventRequest request) {
-		eventService.insert(servletRequest, file, request);
+		eventService.insert(file, request);
 		return new ResponseEntity(HttpStatus.ACCEPTED);
 	}
 

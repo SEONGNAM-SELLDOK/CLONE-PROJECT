@@ -43,7 +43,7 @@ public class EventService {
 		return eventMapper.getEvent(request);
 	}
 
-	public void insert(HttpServletRequest servletRequest, MultipartFile file,
+	public void insert(MultipartFile file,
 		InsertEventRequest request) {
 		String imageUrl = celldokFileUtil.upload(file);
 		Event event = Event.builder()
