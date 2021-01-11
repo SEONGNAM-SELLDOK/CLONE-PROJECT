@@ -68,8 +68,9 @@
                                         data-badge="false"></button>
                             </li>
                             <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
-                                style="padding-top:10px"><a
-                                    class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                                style="padding-top:10px">
+                                <a class="dashboardButton" @click="goCompanyList">기업 목록 보기</a>
+                            </li>
                             <li sec:authorize="isAuthenticated()" class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                                 style="padding-top:10px;"><a
                                     class="dashboardButton" href="/company/applications?companyId=1">지원현황</a></li>                                                         
@@ -478,6 +479,9 @@
                         console.log(err);
                         throw error;
                     });
+            },
+            goCompanyList() {
+                window.location.href = `http://localhost:9090/company/list`;
             },
         },
         data: {
