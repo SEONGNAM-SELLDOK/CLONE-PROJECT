@@ -1,26 +1,27 @@
 package com.selldok.toy.event.service;
 
-import com.selldok.toy.config.CelldokFileUtil;
-import com.selldok.toy.event.entity.Event;
-import com.selldok.toy.event.dao.EventRepository;
-import com.selldok.toy.event.mapper.EventMapper;
-import com.selldok.toy.event.model.EventSearchRequest;
-import com.selldok.toy.event.model.InsertEventRequest;
-import com.selldok.toy.event.model.UpdateEventRequest;
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
+import com.selldok.toy.config.CelldokFileUtil;
+import com.selldok.toy.event.dao.EventRepository;
+import com.selldok.toy.event.entity.Event;
+import com.selldok.toy.event.mapper.EventMapper;
+import com.selldok.toy.event.model.EventSearchRequest;
+import com.selldok.toy.event.model.InsertEventRequest;
+import com.selldok.toy.event.model.UpdateEventRequest;
 
 /**
  * @author HJ Lee
  */
 @Service
+@Transactional
 public class EventService {
 	private final EventRepository eventRepository;
 
