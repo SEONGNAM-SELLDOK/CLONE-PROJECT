@@ -1,5 +1,7 @@
 package com.selldok.toy.event.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.selldok.toy.event.entity.EventType;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InsertEventRequest {
-    private String imageLink;
+
     private EventType type;
     private String title;
     private String text;

@@ -35,9 +35,13 @@ spring:
         default-page-size: 5
   servlet:
     multipart:
-      location: C:/Users/ggs/Documents/workspaces/CLONE-PROJECT/src/main/resources/static/upload/
+      location: src/main/resources/static
       maxFileSize: 10MB
       maxRequestSize: 10MB
+celldok:
+  file:
+    pathPrefix: src/main/resources/static
+    pathLast: /img/
 
 #  webflux:
 #    static-path-pattern: "/resources/**"
@@ -59,7 +63,7 @@ spring:
   profiles: dev_env_dskim
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost:9092/~/util/h2/db/wanted;INIT=CREATE SCHEMA IF NOT EXISTS wanted\;SET SCHEMA wanted  
+    url: jdbc:h2:tcp://localhost:9092/~/util/h2/db/wanted;INIT=CREATE SCHEMA IF NOT EXISTS wanted\;SET SCHEMA wanted
   jpa:
     hibernate:
       ddl-auto: update

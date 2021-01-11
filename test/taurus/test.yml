@@ -1,0 +1,67 @@
+---
+execution:
+# 시나리오별로 프로파일을 다르게 설정할 수 있습니다.
+- scenario: webViewTests
+  # 동시 사용자 수
+  concurrency: 50
+  #ramp-up: 1m
+  #동시 사용자 수 수치까지 증가하는데 소요될 시간
+  ramp-up: 10s
+  #hold-for: 1m30s
+  # 동시 사용자 수 유지 시간
+  hold-for: 60s  
+- scenario: apiTests
+  concurrency: 50
+  #동시 사용자 수 수치까지 증가하는데 소요될 시간
+  #ramp-up: 1m
+  ramp-up: 10s
+  #hold-for: 1m30s
+  # 동시 사용자 수 유지 시간
+  hold-for: 60s
+
+scenarios:
+  # 화면 테스트 시나리오
+  webViewTests:
+    #요청 사이의 시간간격
+    think-time: 0.75
+    #브라우저 캐시 흉내내기. 기본값은 true
+    store-cache: true
+    #브라우저 쿠키 저장기능 흉내내기 . 기본값은 true
+    store-cookie: true
+    default-address: http://localhost:9090
+    #화면에 삽입된 리소스를 모두 로드 할 것인지 여부. true로 했을 때는 외부 리소스의 로딩시간에 영향을 받습니다.
+    retrieve-resources: true
+    requests:
+      - url: '/'
+      - url: '/board/list'
+      - url: '/event/search'
+  # api 테스트 시나리오
+  apiTests:
+    timeout: 5s
+    default-address: http://localhost:9090
+    #해당 시나리오 전체에 적용될 헤더
+    headers:
+      User-Agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
+      Accept-Encoding: 'gzip, deflate, sdch'
+    requests:
+       # 신규 구인 목록
+      - url: '/newHire'
+       # 탐색
+      - url: '/board/boards'
+       # 신규 사용자 등록
+      - url: '/employees'
+        method: POST
+        #해당 리퀘스트에 적용될 헤더
+        headers:
+          Content-Type: application/json
+        body:
+          name: 'userName'
+          email: '1@2.com'
+          phoneNumber: '010-1234-5678'
+
+#blazemeter에 사용자 등록하였다면 결과를 blazemeter 사이트에서 볼 수 있습니다. token 값을 본인의 정보로 변경하고 아래 주석을 해제하세요
+#modules:
+#  blazemeter:
+#    token: {ip}:{pw}
+
+#blazemeter에 비회원으로도 조회 가능합니다. 실행시 '-report' 옵션을 추가해주세요
