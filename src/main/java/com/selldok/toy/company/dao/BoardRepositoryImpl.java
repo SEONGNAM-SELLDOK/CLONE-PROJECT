@@ -30,14 +30,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     public List<BoardReadResponse> findByBoardInfo(Long id) {
         return queryFactory
                 .select(new QBoardReadResponse(
-                board.title,
-                board.content,
-                board.image,
-                board.endDate,
-                company.name.as("companyName"),
-                company.address.country.as("companyCountry"),
-                company.address.city.as("companyCity"),
-                company.address.street.as("companyStreet")))
+                    board.title,
+                    board.content,
+                    board.image,
+                    board.endDate,
+                    company.name.as("companyName"),
+                    company.address.country.as("companyCountry"),
+                    company.address.city.as("companyCity"),
+                    company.address.street.as("companyStreet")))
                 .from(board)
                 .leftJoin(board.company, company)
                 .where(
@@ -59,6 +59,22 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                 .leftJoin(board.company, company)
                 .orderBy(company.id.desc())
                 .limit(4)
+                .fetch();
+    }
+
+    @Override
+    public List<RecommendThisWeekResponse> recommendThisWeek() {
+        return queryFactory
+                .select(new QRecommendThisWeekResponse(
+                    board.id,
+                    board.title,
+                    company.name.as("companyName"),
+                    company.address.country.as("companyCountry"),
+                    company.address.city.as("companyCity"),
+                    board.image))
+                .from(board)
+                .leftJoin(board.company, company)
+                .orderBy(board.recommendation.desc())
                 .fetch();
     }
 

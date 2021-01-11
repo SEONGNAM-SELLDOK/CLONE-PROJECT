@@ -1,21 +1,21 @@
 package com.selldok.toy.company.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.selldok.toy.company.dao.BoardRepository;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.model.BoardReadResponse;
 import com.selldok.toy.company.model.BoardUpdateRequest;
 import com.selldok.toy.company.model.NewHireListResponse;
-import com.selldok.toy.config.CelldokFileUtil;
+import com.selldok.toy.company.model.RecommendThisWeekResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.util.List;
+import java.util.Optional;
 /**
  * @author Gogisung
  */
@@ -36,6 +36,11 @@ public class BoardService {
         return boardRepository.newHireByBoardInfo();
     }
 
+    public List<RecommendThisWeekResponse> recommendThisWeek() { return boardRepository.recommendThisWeek(); }
+
+    public int boardCountPlus(Long id) {
+        return boardRepository.boardCountPlus(id);
+    }
     /**
      * 구직 정보 등록
      * */

@@ -46,6 +46,8 @@ public class Board extends JpaBaseEntity {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
+    private int recommendation;
+
     /**
      * 입사지원이력
      */
