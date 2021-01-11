@@ -1,5 +1,6 @@
 package com.selldok.toy.employee.controller;
 
+import com.selldok.toy.company.model.RecommendThisWeekResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -46,5 +47,11 @@ public class MainController {
     public ResponseEntity<String> newHireByBoardInfo() {
         List<NewHireListResponse> newHire = boardService.newHireByBoardInfo();
         return new ResponseEntity(newHire, HttpStatus.OK);
+    }
+
+    @GetMapping("thisWeek")
+    public ResponseEntity<String> recommendThisWeek() {
+        List<RecommendThisWeekResponse> recommendThisWeek = boardService.recommendThisWeek();
+        return new ResponseEntity(recommendThisWeek, HttpStatus.OK);
     }
 }

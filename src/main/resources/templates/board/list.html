@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="-1">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="/css/board.css">
 </head>
 <body>
@@ -19,11 +20,15 @@
     <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
             <nav>
-                <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
-                        class="icon-logo_new"></i></a></div>
+                <div data-attribute-id="gnb" data-gnb-kind="home">
+                    <a href="/" class="wantedLogo">
+                        <i class="icon-logo_new"></i>
+                    </a>
+                </div>
                 <ul class="_1ghqg44RECsZcnX4nLgXKP">
-                    <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
-                                                                                                    class="">홈</a></li>
+                    <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home">
+                        <a href="/" class="">홈</a>
+                    </li>
                     <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
                         <a href="/board/list" class="">탐색</a>
                     </li>
@@ -65,7 +70,7 @@
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
-                            <a class="dashboardButton" v-if="userName != ''" @click.prevent="goAddWanted">구직 등록하기</a>
+                            <a class="dashboardButton" @click.prevent="goAddWanted">구직 등록하기</a>
                         </li>
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
@@ -82,98 +87,10 @@
             <div class="M6DRRXt81Az4OyHgJDT0a clearfix _1GA8o5NuhqhwSpe6wt0GL3">
                 <div class="_3hj0Dag1UGVoZJVxaYIT8i">
                     <div class="_2uuJbnGtb65i2RMExVSBK9">
-                        <button type="button" class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx _1jJ5sjpmgcHgZ5uM0LZIwI hidden-xs"
-                                data-attribute-id="explore__filter__click" data-filter-screen="explore" data-filter-name="company_tag"
-                                data-job-category-id="" data-job-category="" data-job-role-id="" data-job-role="">
-                            <span class="_243hy5OltkSpnxEC5JmQMo">태그</span>
-                            <span class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">딱 맞는 기업찾기</span>
-                        </button>
-                        <button type="button"
-                                class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx _1jJ5sjpmgcHgZ5uM0LZIwI visible-xs"
-                                data-attribute-id="explore__filter__click" data-filter-screen="explore" data-filter-name="company_tag"
-                                data-job-category-id="" data-job-category="" data-job-role-id="" data-job-role="">
-                            <span class="_243hy5OltkSpnxEC5JmQMo">태그</span>
-                            <span class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">딱 맞는 기업찾기</span>
-                        </button>
                         <b-form-select class="ml-2" v-model="selectedCountry" :options="countryOptions" @change="getBoardSelectDynamic"></b-form-select>
                         <b-form-select class="ml-2" v-model="selectedCity" :options="cityOptions" @change="getBoardSelectDynamic"></b-form-select>
-                        <button type="button"
-                                class="rcqdYh7jQOna89KEkhNjv _2bDCAQDQrgRRu7KXVVR7zx" data-attribute-id="explore__filter__click"
-                                data-filter-screen="explore" data-filter-name="experience" data-job-category-id="" data-job-category=""
-                                data-job-role-id="" data-job-role="">
-                            <span class="_243hy5OltkSpnxEC5JmQMo">경력</span>
-                            <span class="_2foD8bDTDg3fLFC4TeOkd1 _3iPFHHPhQ1gbis_X27idaU">3년</span>
-                        </button>
 <!--                        <b-button @click.prevent="goAddWanted">구직 등록하기</b-button>-->
                     </div>
-                    <div class="py51HbyJktaZndNqVoiaa hidden-xs">
-                        <div class="_2kUO5g0ZZCOcMCUUlSdDOm">
-                            <div class="hidden-xs _1yKuWN52RL7nbmY_pkNKi1"><button class="" type="button"
-                                                                                   data-attribute-id="explore__sort__click" data-job-category-id="" data-job-role-id=""
-                                                                                   data-sort-screen="explore">최신순</button>
-                                <ul style="display: none;">
-                                    <li><button name="job.compensation_order" type="button"
-                                                data-attribute-id="explore__sort__update" data-sort-kind="reward"
-                                                data-job-category-id="" data-job-role-id=""
-                                                data-sort-screen="explore">보상금순</button></li>
-                                    <li><button name="job.popularity_order" type="button"
-                                                data-attribute-id="explore__sort__update" data-sort-kind="popular"
-                                                data-job-category-id="" data-job-role-id=""
-                                                data-sort-screen="explore">인기순</button></li>
-                                    <li><button name="company.response_rate_order" type="button"
-                                                data-attribute-id="explore__sort__update" data-sort-kind="responseRate"
-                                                data-job-category-id="" data-job-role-id=""
-                                                data-sort-screen="explore">응답률순</button></li>
-                                </ul>
-                            </div><select class="visible-xs">
-                            <option value="job.latest_order" data-attribute-id="explore__sort__update"
-                                    data-sort-kind="latest" data-job-category-id="" data-job-role-id=""
-                                    data-sort-screen="explore">최신순</option>
-                            <option value="job.compensation_order" data-attribute-id="explore__sort__update"
-                                    data-sort-kind="reward" data-job-category-id="" data-job-role-id=""
-                                    data-sort-screen="explore">보상금순</option>
-                            <option value="job.popularity_order" data-attribute-id="explore__sort__update"
-                                    data-sort-kind="popular" data-job-category-id="" data-job-role-id=""
-                                    data-sort-screen="explore">인기순</option>
-                            <option value="company.response_rate_order" data-attribute-id="explore__sort__update"
-                                    data-sort-kind="responseRate" data-job-category-id="" data-job-role-id=""
-                                    data-sort-screen="explore">응답률순</option>
-                        </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="py51HbyJktaZndNqVoiaa _2zFXeeSoDxhtfFZ7FNNUCW visible-xs">
-                <div class="_2kUO5g0ZZCOcMCUUlSdDOm">
-                    <div class="hidden-xs _1yKuWN52RL7nbmY_pkNKi1"><button class="" type="button"
-                                                                           data-attribute-id="explore__sort__click" data-job-category-id="" data-job-role-id=""
-                                                                           data-sort-screen="explore">최신순</button>
-                        <ul style="display: none;">
-                            <li><button name="job.compensation_order" type="button"
-                                        data-attribute-id="explore__sort__update" data-sort-kind="reward"
-                                        data-job-category-id="" data-job-role-id="" data-sort-screen="explore">보상금순</button>
-                            </li>
-                            <li><button name="job.popularity_order" type="button" data-attribute-id="explore__sort__update"
-                                        data-sort-kind="popular" data-job-category-id="" data-job-role-id=""
-                                        data-sort-screen="explore">인기순</button></li>
-                            <li><button name="company.response_rate_order" type="button"
-                                        data-attribute-id="explore__sort__update" data-sort-kind="responseRate"
-                                        data-job-category-id="" data-job-role-id="" data-sort-screen="explore">응답률순</button>
-                            </li>
-                        </ul>
-                    </div><select class="visible-xs">
-                    <option value="job.latest_order" data-attribute-id="explore__sort__update" data-sort-kind="latest"
-                            data-job-category-id="" data-job-role-id="" data-sort-screen="explore">최신순</option>
-                    <option value="job.compensation_order" data-attribute-id="explore__sort__update"
-                            data-sort-kind="reward" data-job-category-id="" data-job-role-id="" data-sort-screen="explore">
-                        보상금순</option>
-                    <option value="job.popularity_order" data-attribute-id="explore__sort__update"
-                            data-sort-kind="popular" data-job-category-id="" data-job-role-id="" data-sort-screen="explore">
-                        인기순</option>
-                    <option value="company.response_rate_order" data-attribute-id="explore__sort__update"
-                            data-sort-kind="responseRate" data-job-category-id="" data-job-role-id=""
-                            data-sort-screen="explore">응답률순</option>
-                </select>
                 </div>
             </div>
             <div class="_330sPkZI0qbpoGGda3DE8v"><button data-attribute-id="explore__bookmarkPage__click" type="button">
@@ -198,7 +115,7 @@
             <ul data-cy="job-list" class="clearfix">
                 <li v-for="item in options" :key="item.id" :value="item.title">
                     <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ">
-                        <a :href=`read?companyId=${companyId}&boardId=${item.id}` class=""
+                        <a :href=`read?companyId=${companyId}&boardId=${item.id}` @click.prevent="postBoardCountPlus(item.id)" class=""
                            data-attribute-id="position__click" data-job-category-id="518" data-company-id="1211"
                            data-company-name="믹스앤픽스(mixnfix)" data-position-id="48849" data-position-name="워드프레스 웹개발자"
                            data-response-level="high" data-response-rate="92.3" data-ai-score="">
@@ -274,6 +191,17 @@
                     console.log(error);
                     throw error;
                  });
+            },
+            postBoardCountPlus(boardId) {
+                axios.post(`http://localhost:9090/board/countPlus/${boardId}`)
+                    .then(res => {
+                        console.log("res", res);
+                        window.location.href = `http://localhost:9090/board/read?companyId=${company_id}&boardId=${boardId}`;
+                     })
+                     .catch(error => {
+                        console.log(error);
+                        throw error;
+                     });
             },
             goAddWanted() {
                 window.location.href = `http://localhost:9090/board?companyId=${company_id}`;
