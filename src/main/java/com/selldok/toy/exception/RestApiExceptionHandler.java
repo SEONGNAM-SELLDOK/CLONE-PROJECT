@@ -21,32 +21,34 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class RestApiExceptionHandler {
 	/**
-	 * 처리할 Exception.class 지정
+	 * 처리할 Exception 지정
 	 * @param ex
 	 * @return
 	 */
 	@ExceptionHandler(RestApiException.class)
-	public ResponseEntity<ApiErrorMsg> handleException(RestApiException ex)
+	public ResponseEntity<ApiErrorMsg> handleRestApiException(RestApiException ex)
 	{
 		log.error("handleException in {} ex.getApiErrorMsg()={}", this.getClass().getSimpleName(), ex.getApiErrorMsg());
 		return new ResponseEntity<>(ex.getApiErrorMsg(), ex.getApiErrorMsg().getStatus());
 	}
 
 	/**
-	 * 데모용 
-	 * 정상 처리 테스트 : ~/throwExceptionDemo?throwException=true
-	 * 오류 발생 테스트 : ~/throwExceptionDemo?throwException=false
+	 * 데모용 정상 처리 테스트 : ~/throwExceptionDemo?throwException=true 오류 발생 테스트 :
+	 * ~/throwExceptionDemo?throwException=false
 	 * 
-	 * <ApiErrorMsg 샘플>
-	 * ApiErrorMsg apiErrorMsg = new ApiErrorMsg("호출자에게 알려줄 상세한 오류 메시지");
-	 * ApiErrorMsg apiErrorMsg = new ApiErrorMsg("호출자에게 알려줄 상세한 오류 메시지", "ERR001(해당 시스템에서 정의한 오류 코드)");
+	 * <ApiErrorMsg 샘플> ApiErrorMsg apiErrorMsg = new ApiErrorMsg("호출자에게 알려줄 상세한 오류
+	 * 메시지"); ApiErrorMsg apiErrorMsg = new ApiErrorMsg("호출자에게 알려줄 상세한 오류 메시지",
+	 * "ERR001(해당 시스템에서 정의한 오류 코드)");
+	 * 
+	 * @param throwException
+	 * @return
 	 */
 	@GetMapping(value = "/throwExceptionDemo")
-	public Map<String, Object> throwExceptionTest(@RequestParam(required = false) Boolean throwException) {		
+	public Map<String, Object> throwExceptionTest(@RequestParam(required = false) Boolean throwException) {
 		log.error("throwException={}", throwException);
 
 		Map<String, Object> rtn = null;
-		if(throwException == null || !throwException) {
+		if(throwException != null && throwException) {
 			throw new RestApiException(new ApiErrorMsg("호출자에게 알려줄 상세한 오류 메시지", "ERR001(해당 시스템에서 정의한 오류 코드)", HttpStatus.INTERNAL_SERVER_ERROR), new RuntimeException());
 		} else {
 			rtn = new HashMap<>();
