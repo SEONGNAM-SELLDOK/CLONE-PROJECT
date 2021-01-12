@@ -46,7 +46,6 @@ public class AppliedHistoryService {
 	 * 
 	 * @param newApplyHistoryDto
 	 * @return
-	 * @throws RestApiException
 	 */
 	public Long create(ApplyHistoryDto newApplyHistoryDto) {
 		log.debug("newApplyHistoryDto={}", newApplyHistoryDto);
@@ -81,7 +80,6 @@ public class AppliedHistoryService {
 	 * 갱신
 	 * 
 	 * @param updatingApplyHistoryDto
-	 * @throws RestApiException
 	 */
 	public void update(ApplyHistoryDto updatingApplyHistoryDto) {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);

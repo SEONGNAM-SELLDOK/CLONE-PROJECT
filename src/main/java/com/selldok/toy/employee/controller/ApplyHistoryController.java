@@ -64,9 +64,9 @@ public class ApplyHistoryController {
 	/**
 	 * 지원하기
 	 * 
-	 * @param ApplyHistoryDto applyHistoryDto
+	 * @param applyHistoryDto
+	 * @param applicantId
 	 * @return
-	 * @throws RestApiException
 	 */
 	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
@@ -80,9 +80,10 @@ public class ApplyHistoryController {
 	 * 이 메소드를 쓰면 set 하지 않은 필드들은 null로 갱신되는 문제 있음
 	 * 일부 컬럼만 갱신하는 기능 필요할까?
 	 * 
-	 * @param ApplyHistoryDto updatingApplyHistoryDto
+	 * @param id
+	 * @param updatingApplyHistoryDto
+	 * @param applicantId
 	 * @return
-	 * @throws Exception
 	 */
 	@PutMapping("employees/{applicantId}/applyHistories/{id}")
 	@ResponseBody
