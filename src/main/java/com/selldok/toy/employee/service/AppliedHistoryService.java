@@ -48,7 +48,7 @@ public class AppliedHistoryService {
 	 * @return
 	 * @throws RestApiException
 	 */
-	public Long create(ApplyHistoryDto newApplyHistoryDto) throws RestApiException {
+	public Long create(ApplyHistoryDto newApplyHistoryDto) {
 		log.debug("newApplyHistoryDto={}", newApplyHistoryDto);
 		Long newApplyHistoryId = null;
 		Optional<Employee> applicant = employeeRepository.findById(newApplyHistoryDto.getApplicantId());
@@ -83,7 +83,7 @@ public class AppliedHistoryService {
 	 * @param updatingApplyHistoryDto
 	 * @throws RestApiException
 	 */
-	public void update(ApplyHistoryDto updatingApplyHistoryDto) throws RestApiException {
+	public void update(ApplyHistoryDto updatingApplyHistoryDto) {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
 		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		Optional<Employee> applicant = null;

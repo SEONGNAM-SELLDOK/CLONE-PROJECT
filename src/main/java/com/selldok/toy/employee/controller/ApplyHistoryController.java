@@ -70,7 +70,7 @@ public class ApplyHistoryController {
 	 */
 	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) throws RestApiException {
+	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) {
 		applyHistoryDto.setApplicantId(applicantId);
 		return new ResponseEntity<>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}
@@ -86,7 +86,7 @@ public class ApplyHistoryController {
 	 */
 	@PutMapping("employees/{applicantId}/applyHistories/{id}")
 	@ResponseBody
-	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
+	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) {
 		updatingApplyHistoryDto.setId(id);
 		updatingApplyHistoryDto.setApplicantId(applicantId);
 		applyHistoryService.update(updatingApplyHistoryDto);
@@ -102,7 +102,7 @@ public class ApplyHistoryController {
 	 */
 	@PutMapping("employees/{applicantId}/applyHistories/{id}/changeStatus")
 	@ResponseBody
-	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
+	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) {
 		updatingApplyHistoryDto.setId(id);
 		updatingApplyHistoryDto.setApplicantId(applicantId);
 		applyHistoryService.changeStatus(updatingApplyHistoryDto);
