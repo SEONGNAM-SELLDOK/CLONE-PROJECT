@@ -8,7 +8,18 @@ Content-Type: application/json
   "phoneNumber" : "010-1111-2222",  
   "status": "APPLCN_COMPT",
   "employmentBoardId": 4
-  }
+}
+
+### 입사지원 하기 오류 발생
+POST http://localhost:9090/employees/999/applyHistories
+Content-Type: application/json
+
+{
+  "name" : "지원자명",
+  "email" : "applicant@naver.com",
+  "phoneNumber" : "010-1111-2222",  
+  "status": "APPLCN_COMPT",
+  "employmentBoardId": 4
 }
 
 ### 입사지원 수정하기

@@ -14,9 +14,12 @@ import com.selldok.toy.employee.entity.BasicInfo;
 import com.selldok.toy.employee.entity.BasicInfo.BasicInfoBuilder;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
+import com.selldok.toy.exception.ApiErrorMsg;
+import com.selldok.toy.exception.RestApiException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -40,8 +43,12 @@ public class AppliedHistoryService {
 
 	/**
 	 * 신규 생성
+	 * 
+	 * @param newApplyHistoryDto
+	 * @return
+	 * @throws RestApiException
 	 */
-	public Long create(ApplyHistoryDto newApplyHistoryDto) throws Exception {
+	public Long create(ApplyHistoryDto newApplyHistoryDto) throws RestApiException {
 		log.debug("newApplyHistoryDto={}", newApplyHistoryDto);
 		Long newApplyHistoryId = null;
 		Optional<Employee> applicant = employeeRepository.findById(newApplyHistoryDto.getApplicantId());
@@ -63,7 +70,7 @@ public class AppliedHistoryService {
 			applyHistoryRepository.save(applyHistory);
 			newApplyHistoryId = applyHistory.getId();
 		} else {
-			throw new Exception("지원자 정보 혹은 회사 정보가 없습니다");
+			throw new RestApiException(new ApiErrorMsg("지원자 정보 혹은 회사 정보가 없습니다", "ERR001", HttpStatus.NOT_FOUND), new RuntimeException());
 		}
 		log.debug("newApplyHistoryId={}", newApplyHistoryId);
 
@@ -72,15 +79,18 @@ public class AppliedHistoryService {
 
 	/**
 	 * 갱신
+	 * 
+	 * @param updatingApplyHistoryDto
+	 * @throws RestApiException
 	 */
-	public void update(ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
+	public void update(ApplyHistoryDto updatingApplyHistoryDto) throws RestApiException {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
 		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		Optional<Employee> applicant = null;
 		if(updatingApplyHistoryDto.getApplicantId() != null) {
 			applicant = employeeRepository.findById(updatingApplyHistoryDto.getApplicantId());
 			if(applicant.isEmpty()) {
-				throw new Exception("존재하지 않는 구직자입니다");
+				throw new RestApiException(new ApiErrorMsg("존재하지 않는 구직자입니다", "ERR002", HttpStatus.NOT_FOUND), new RuntimeException());
 			}
 		}
 
@@ -88,7 +98,7 @@ public class AppliedHistoryService {
 		if(updatingApplyHistoryDto.getEmploymentBoardId() != null) {
 			employmentBoard = boardRepository.findById(updatingApplyHistoryDto.getEmploymentBoardId());
 			if(employmentBoard.isEmpty()) {
-				throw new Exception("존재하지 않는 채용공고입니다");
+				throw new RestApiException(new ApiErrorMsg("존재하지 않는 채용공고입니다", "ERR003", HttpStatus.NOT_FOUND), new RuntimeException());
 			}
 		}
 
@@ -110,7 +120,7 @@ public class AppliedHistoryService {
 			updatingApplyHistory.setBasicInfo(updatingBasicInfoBuilder.build());
 			applyHistoryRepository.save(updatingApplyHistory);			
 		} else {
-			throw new Exception("존재하지 않는 지원이력입니다");
+			throw new RestApiException(new ApiErrorMsg("존재하지 않는 지원이력입니다", "ERR004", HttpStatus.NOT_FOUND), new RuntimeException());
 		}
 	}
 

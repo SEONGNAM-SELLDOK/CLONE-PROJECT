@@ -6,6 +6,7 @@ import java.util.Map;
 import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.service.AppliedHistoryService;
+import com.selldok.toy.exception.RestApiException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -65,13 +66,12 @@ public class ApplyHistoryController {
 	 * 
 	 * @param ApplyHistoryDto applyHistoryDto
 	 * @return
-	 * @throws Exception
+	 * @throws RestApiException
 	 */
 	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) throws Exception {
+	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) throws RestApiException {
 		applyHistoryDto.setApplicantId(applicantId);
-		log.debug("applyHistoryDto={}", applyHistoryDto);
 		return new ResponseEntity<>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}
 
