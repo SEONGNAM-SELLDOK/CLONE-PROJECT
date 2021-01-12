@@ -284,8 +284,12 @@
                                             th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
                                             data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
                                 </li>
-                                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"><a
-                                        class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers">
+                                    <a class="dashboardButton" href="/dashboard">기업 서비스</a>
+                                </li>
+                                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers">
+                                    <a class="dashboardButton" @click.prevent="goBoardModify">구직 정보 수정</a>
+                                </li>
                                 <li class="xsOnly"><button class="menuButton" type="button" data-attribute-id="gnb"
                                         data-gnb-kind="photo"><i class="icon-menu"></i></button></li>
                             </ul>
@@ -358,11 +362,10 @@
                                         rel="noreferrer noopener" target="_blank"><span></span></a>
                                 </section>
                             </div>
-                            {{ userName }}
-                            <div>
-                                <b-button @click.prevent="goBoardModify">구직 정보 수정하기</b-button>
-                                <b-button @click.prevent="goBoardList">리스트 보기</b-button>
-                            </div>
+<!--                            <div>-->
+<!--                                <b-button @click.prevent="goBoardModify">구직 정보 수정하기</b-button>-->
+<!--                                <b-button @click.prevent="goBoardList">리스트 보기</b-button>-->
+<!--                            </div>-->
                             <section class="_3h_f6TfissC0l7ogPcn7lY"><button type="button" class="left"
                                     data-attribute-id="company__click" data-company-id="645" data-company-name="와디즈">
                                     <div class="logo"
