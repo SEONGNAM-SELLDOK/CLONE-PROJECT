@@ -3,6 +3,8 @@ package com.selldok.toy.exception;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,20 +23,39 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class RestApiExceptionHandler {
 	/**
-	 * 처리할 Exception 지정
-	 * @param ex
+	 * RestApiException 처리
+	 * @param RestApiException ex
 	 * @return
 	 */
 	@ExceptionHandler(RestApiException.class)
+	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public ResponseEntity<ApiErrorMsg> handleRestApiException(RestApiException ex)
 	{
-		log.error("handleException in {} ex.getApiErrorMsg()={}", this.getClass().getSimpleName(), ex.getApiErrorMsg());
+		log.error("handleException in {} ex.getApiErrorMsg()={}", this.getClass().getSimpleName(), ex.getApiErrorMsg(), ex);
 		return new ResponseEntity<>(ex.getApiErrorMsg(), ex.getApiErrorMsg().getStatus());
 	}
 
 	/**
-	 * 데모용 정상 처리 테스트 : ~/throwExceptionDemo?throwException=true 오류 발생 테스트 :
-	 * ~/throwExceptionDemo?throwException=false
+	 * Exception 처리
+	 * 다른 핸들러가 추가될 수 있으므로 이 메소드는 LOWEST_PRECEDENCE로 지정함
+	 * 
+	 * @param Exception ex
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class)
+	@Order(Ordered.LOWEST_PRECEDENCE)
+	public ResponseEntity<ApiErrorMsg> handleException(Exception ex)
+	{
+		log.error("handleException in {}", this.getClass().getSimpleName(), ex);
+		ApiErrorMsg apiErrorMsg = new ApiErrorMsg("정의되지 않은 오류가 발생하였습니다.", "N/A", HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(apiErrorMsg, apiErrorMsg.getStatus());
+	}	
+
+	/**
+	 * 데모용 
+	 * 
+	 * 정상 처리 테스트 : ~/throwExceptionDemo?throwException=true 
+	 * 오류 발생 테스트 : ~/throwExceptionDemo?throwException=false
 	 * 
 	 * <ApiErrorMsg 샘플> ApiErrorMsg apiErrorMsg = new ApiErrorMsg("호출자에게 알려줄 상세한 오류
 	 * 메시지"); ApiErrorMsg apiErrorMsg = new ApiErrorMsg("호출자에게 알려줄 상세한 오류 메시지",
