@@ -10,7 +10,7 @@ Content-Type: application/json
   "employmentBoardId": 4
 }
 
-### 입사지원 하기 오류 발생
+### 입사지원 오류 발생
 POST http://localhost:9090/employees/999/applyHistories
 Content-Type: application/json
 
