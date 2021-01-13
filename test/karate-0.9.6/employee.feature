@@ -31,7 +31,6 @@ Scenario: 입사 지원
 	And request 
 	"""
 		{
-
 			"employmentBoardId": 999
 		}
 	"""		
