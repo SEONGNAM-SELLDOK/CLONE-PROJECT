@@ -6,7 +6,6 @@ import java.util.Map;
 import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.service.AppliedHistoryService;
-import com.selldok.toy.exception.RestApiException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +42,7 @@ public class ApplyHistoryController {
 	 * @throws Exception
 	 */
 	@GetMapping("company/applications")
-	public String companyApplications(Model model) throws Exception {
+	public String companyApplications(Model model){
         //model.addAttribute("employee", response);
 		return "company/applications";
 	}
@@ -56,7 +55,7 @@ public class ApplyHistoryController {
 	 * @throws Exception
 	 */
 	@GetMapping("employees/applications")
-	public String employeesApplications(Model model) throws Exception {
+	public String employeesApplications(Model model) {
         //model.addAttribute("employee", response);
 		return "employee/applications";
 	}
@@ -116,7 +115,7 @@ public class ApplyHistoryController {
 	 */
 	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
-	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfApplicant(@PathVariable Long applicantId) throws Exception {
+	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfApplicant(@PathVariable Long applicantId) {
 		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.ACCEPTED);
 	}
 
@@ -126,7 +125,7 @@ public class ApplyHistoryController {
 	 */
 	@GetMapping("company/{companyId}/applyHistories/getApplyCount")
 	@ResponseBody
-	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfCompany(@PathVariable Long companyId) throws Exception {
+	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfCompany(@PathVariable Long companyId) {
 		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.ACCEPTED);
 	}
 
@@ -146,7 +145,7 @@ public class ApplyHistoryController {
 		,@RequestParam(required=false) String companyName
 		,@RequestParam(required=false) ApplyHistory.Status status
 		,Pageable pageable
-	) throws Exception {
+	) {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setApplicantId(applicantId);
 		applyHistoryDto.setName(name);
@@ -171,7 +170,7 @@ public class ApplyHistoryController {
 		,@RequestParam(required=false) String companyName
 		,@RequestParam(required=false) ApplyHistory.Status status
 		,Pageable pageable
-	) throws Exception {
+	) {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setCompanyId(companyId);
 		applyHistoryDto.setName(name);
