@@ -69,7 +69,7 @@ public class AppliedHistoryService {
 			applyHistoryRepository.save(applyHistory);
 			newApplyHistoryId = applyHistory.getId();
 		} else {
-			throw new RestApiException(new ApiErrorMsg("지원자 정보 혹은 회사 정보가 없습니다", "ERR001", HttpStatus.NOT_FOUND), new RuntimeException());
+			throw new RestApiException(new ApiErrorMsg("지원자 정보 혹은 회사 정보가 없습니다", "ERR001", HttpStatus.NOT_FOUND));
 		}
 		log.debug("newApplyHistoryId={}", newApplyHistoryId);
 
@@ -88,7 +88,7 @@ public class AppliedHistoryService {
 		if(updatingApplyHistoryDto.getApplicantId() != null) {
 			applicant = employeeRepository.findById(updatingApplyHistoryDto.getApplicantId());
 			if(applicant.isEmpty()) {
-				throw new RestApiException(new ApiErrorMsg("존재하지 않는 구직자입니다", "ERR002", HttpStatus.NOT_FOUND), new RuntimeException());
+				throw new RestApiException(new ApiErrorMsg("존재하지 않는 구직자입니다", "ERR002", HttpStatus.NOT_FOUND));
 			}
 		}
 
@@ -96,7 +96,7 @@ public class AppliedHistoryService {
 		if(updatingApplyHistoryDto.getEmploymentBoardId() != null) {
 			employmentBoard = boardRepository.findById(updatingApplyHistoryDto.getEmploymentBoardId());
 			if(employmentBoard.isEmpty()) {
-				throw new RestApiException(new ApiErrorMsg("존재하지 않는 채용공고입니다", "ERR003", HttpStatus.NOT_FOUND), new RuntimeException());
+				throw new RestApiException(new ApiErrorMsg("존재하지 않는 채용공고입니다", "ERR003", HttpStatus.NOT_FOUND));
 			}
 		}
 
@@ -118,7 +118,7 @@ public class AppliedHistoryService {
 			updatingApplyHistory.setBasicInfo(updatingBasicInfoBuilder.build());
 			applyHistoryRepository.save(updatingApplyHistory);			
 		} else {
-			throw new RestApiException(new ApiErrorMsg("존재하지 않는 지원이력입니다", "ERR004", HttpStatus.NOT_FOUND), new RuntimeException());
+			throw new RestApiException(new ApiErrorMsg("존재하지 않는 지원이력입니다", "ERR004", HttpStatus.NOT_FOUND));
 		}
 	}
 
