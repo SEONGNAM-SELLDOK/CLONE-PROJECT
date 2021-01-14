@@ -16,25 +16,20 @@ import com.selldok.toy.event.mapper.EventMapper;
 import com.selldok.toy.event.model.EventSearchRequest;
 import com.selldok.toy.event.model.InsertEventRequest;
 import com.selldok.toy.event.model.UpdateEventRequest;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author HJ Lee
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class EventService {
 	private final EventRepository eventRepository;
 
 	private final EventMapper eventMapper;
 
 	private final CelldokFileUtil celldokFileUtil;
-
-	public EventService(EventRepository eventRepository, EventMapper eventMapper,
-		CelldokFileUtil celldokFileUtil) {
-		this.eventRepository = eventRepository;
-		this.eventMapper = eventMapper;
-		this.celldokFileUtil = celldokFileUtil;
-	}
 
 	public Optional<Event> findById(Long id) {
 		return eventRepository.findById(id);
