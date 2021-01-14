@@ -73,44 +73,7 @@ dependencies {
 
 }
 
-jacoco {
-  // JaCoCo 버전
-  toolVersion = '0.8.5'
 
-//  테스트결과 리포트를 저장할 경로 변경
-//  default는 "${project.reporting.baseDir}/jacoco"
-//  reportsDir = file("$buildDir/customJacocoReportDir")
-}
-
-// 바이너리 커버리지 결과를 사람이 읽기 좋은 형태의 리포트로 저장
-jacocoTestReport {
-  reports {
-    // 원하는 리포트를 켜고 끌 수 있습니다.
-    html.enabled true
-    xml.enabled true
-    csv.enabled true
-
-//  각 리포트 타입 마다 리포트 저장 경로를 설정할 수 있습니다.
-//  html.destination file("$buildDir/jacocoHtml")
-//  xml.destination file("$buildDir/jacoco.xml")
-  }
-}
-
-// 원하는 커버리지 기준을 만족하는지 확인해 주는 task
-jacocoTestCoverageVerification {
-  // 이 커버리지 기준은 이 글의 맨 아래에서 다시 설명하겠습니다.
-  violationRules {
-    rule {
-      element = 'CLASS'
-
-      limit {
-        counter = 'BRANCH'
-        value = 'COVEREDRATIO'
-        minimum = 0.90
-      }
-    }
-  }
-}
 
 ext {
   snippetsDir = file('build/generated-snippets')
@@ -137,8 +100,86 @@ test {
 //    jmx = false
   }
 
-  jacocoTestReport
-  jacocoTestCoverageVerification
+//  finalizedBy 'jacocoTestReport'
+}
+
+jacoco {
+  // JaCoCo 버전
+  toolVersion = '0.8.5'
+
+//  테스트결과 리포트를 저장할 경로 변경
+//  default는 "${project.reporting.baseDir}/jacoco"
+//  reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+// 바이너리 커버리지 결과를 사람이 읽기 좋은 형태의 리포트로 저장
+jacocoTestReport {
+  reports {
+    // 원하는 리포트를 켜고 끌 수 있습니다.
+    html.enabled true
+    xml.enabled true
+    csv.enabled true
+
+//  각 리포트 타입 마다 리포트 저장 경로를 설정할 수 있습니다.
+//  html.destination file("$buildDir/jacocoHtml")
+//  xml.destination file("$buildDir/jacoco.xml")
+  }
+
+//  finalizedBy 'jacocoTestCoverageVerification'
+}
+
+// 원하는 커버리지 기준을 만족하는지 확인해 주는 task
+jacocoTestCoverageVerification {
+  // 이 커버리지 기준은 이 글의 맨 아래에서 다시 설명하겠습니다.
+  violationRules {
+    rule {
+      element = 'CLASS'
+
+      // 브랜치 커버리지를 최소한 90% 만족시켜야 합니다.
+      limit {
+        counter = 'BRANCH'
+        value = 'COVEREDRATIO'
+        minimum = 0.90
+      }
+
+      // 라인 커버리지를 최소한 80% 만족시켜야 합니다.
+      limit {
+        counter = 'LINE'
+        value = 'COVEREDRATIO'
+        minimum = 0.80
+      }
+
+      // 빈 줄을 제외한 코드의 라인수를 최대 200라인으로 제한합니다.
+      limit {
+        counter = 'LINE'
+        value = 'TOTALCOUNT'
+        maximum = 200
+      }
+      includes = [
+        '*.service.*',
+      ]
+//      excludes = [
+//        '*.test.*',
+//        '*.entity.*',
+//        '*.controller.*',
+//        '*.model.*',
+//        '*.config.*',
+//        '*.Q*'
+//      ]
+    }
+  }
+}
+
+task testCoverage(type: Test) {
+  group 'verification'
+  description 'Runs the unit tests with coverage'
+
+  dependsOn(':test',
+          ':jacocoTestReport',
+          ':jacocoTestCoverageVerification')
+
+  tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+  tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
 }
 
 asciidoctor {
