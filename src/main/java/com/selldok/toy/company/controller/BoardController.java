@@ -7,6 +7,7 @@ import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.*;
 import com.selldok.toy.company.service.BoardService;
+import com.selldok.toy.company.service.WdlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,6 +32,7 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
     private final CompanyRepository companyRepository;
+    private final WdlistService wdlistService;
 
     @GetMapping
     public String getBoardView() {
@@ -103,5 +104,15 @@ public class BoardController {
     public ResponseEntity boardCountPlus(@PathVariable("id") Long id) {
         int count = boardService.boardCountPlus(id);
         return new ResponseEntity(count, HttpStatus.OK);
+    }
+
+    /**
+     * wdlist에 쓰일 부분입니다.
+     */
+    @ResponseBody
+    @PostMapping("/sync")
+    public String getDataFromWanted() {
+        wdlistService.getDetailBoard();
+        return "success";
     }
 }

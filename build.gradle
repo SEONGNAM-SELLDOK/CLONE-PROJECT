@@ -66,6 +66,8 @@ dependencies {
   compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 // https://mvnrepository.com/artifact/commons-io/commons-io
   compile group: 'commons-io', name: 'commons-io', version: '2.6'
+// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+  compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 
 
 }
