@@ -119,6 +119,7 @@ ext {
 test {
   outputs.dir snippetsDir
   useJUnitPlatform()
+
   // https://docs.gradle.org/current/dsl/org.gradle.testing.jacoco.plugins.JacocoTaskExtension.html 참고
   jacoco {
 //    enabled = true
@@ -135,6 +136,9 @@ test {
 //    port = 6300
 //    jmx = false
   }
+
+  jacocoTestReport
+  jacocoTestCoverageVerification
 }
 
 asciidoctor {
