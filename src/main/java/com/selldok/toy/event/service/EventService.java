@@ -39,7 +39,7 @@ public class EventService {
 		return eventMapper.getEvent(request);
 	}
 
-	public void insert(MultipartFile file,
+	public long insert(MultipartFile file,
 		InsertEventRequest request) {
 		String imageUrl = celldokFileUtil.upload(file);
 		Event event = Event.builder()
@@ -55,7 +55,7 @@ public class EventService {
 			.isRecommend(request.getIsRecommend())
 			.build();
 
-		eventRepository.save(event);
+		return eventRepository.save(event).getId();
 	}
 
 	public void update(Long id, UpdateEventRequest request) {
