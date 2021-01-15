@@ -43,6 +43,7 @@ public class WdlistService {
 		return webElementList;
 	}
 
+	// 상수형으로 지정한 인터벌 횟수와 타임만큼 해당 페이지를 스크롤 다운하여 랜더링 되는 마크업 페이지를 로딩한다.
 	private void loadElementsByScrollDown() {
 		JavascriptExecutor js = (JavascriptExecutor)getWdlistDriver;
 
