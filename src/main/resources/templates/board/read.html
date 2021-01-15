@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <html>
 <head>
     <title>Selldok-toy</title>
@@ -273,12 +274,17 @@
                                             class="icon-search"></i></button></li>
                                 <li><button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
                                             class="icon-bell"></i></button></li>
-                                <li class="smMoreVisible"><button type="button"
-                                        style="background-image: url(&quot;https://static.wanted.co.kr/images/avatars/478756/b019f1de.jpg&quot;), url(&quot;https://static.wanted.co.kr/images/profile_default.png&quot;);"
-                                        data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton"
-                                        data-badge="false"></button></li>
-                                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"><a
-                                        class="dashboardButton" href="/dashboard">기업 서비스</a></li>
+                                <li class="smMoreVisible" style="padding-top:5px;">
+                                    <button type="button"
+                                            th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                            data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                                </li>
+                                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers">
+                                    <a class="dashboardButton" href="/dashboard">기업 서비스</a>
+                                </li>
+                                <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers">
+                                    <a class="dashboardButton" @click.prevent="goBoardModify">구직 정보 수정</a>
+                                </li>
                                 <li class="xsOnly"><button class="menuButton" type="button" data-attribute-id="gnb"
                                         data-gnb-kind="photo"><i class="icon-menu"></i></button></li>
                             </ul>
@@ -351,11 +357,10 @@
                                         rel="noreferrer noopener" target="_blank"><span></span></a>
                                 </section>
                             </div>
-                            {{ userName }}
-                            <div>
-                                <b-button @click.prevent="goBoardModify">구직 정보 수정하기</b-button>
-                                <b-button @click.prevent="goBoardList">리스트 보기</b-button>
-                            </div>
+<!--                            <div>-->
+<!--                                <b-button @click.prevent="goBoardModify">구직 정보 수정하기</b-button>-->
+<!--                                <b-button @click.prevent="goBoardList">리스트 보기</b-button>-->
+<!--                            </div>-->
                             <section class="_3h_f6TfissC0l7ogPcn7lY"><button type="button" class="left"
                                     data-attribute-id="company__click" data-company-id="645" data-company-name="와디즈">
                                     <div class="logo"
@@ -796,11 +801,16 @@
 <script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
 
 <script>
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
     const company_id = urlParams.get('companyId');
     const board_id = urlParams.get('boardId');
+
+    function myInfoPage(userId){
+        location.href=`/employees/view/${userId}?companyId=${company_id}`;
+    }
 
     new Vue({
         el: "#app",

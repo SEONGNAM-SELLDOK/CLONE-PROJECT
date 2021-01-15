@@ -12,11 +12,6 @@
         <meta http-equiv="Expires" content="-1">
     </head>
 <body>
-<script>
-    function myInfoPage(userId){
-        location.href=`/employees/view/${userId}`;
-    }
-</script>
 <div id="app">
     <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
@@ -52,7 +47,8 @@
                         <li class="smMoreVisible" style="padding-top:5px;">
                             <button type="button"
                                     th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
-                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'">
+                            </button>
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
@@ -68,11 +64,16 @@
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
+                            <a class="dashboardButton" @click="goCompanyList">기업 리스트</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
                             <a class="dashboardButton" @click="recruitPosition">구직 등록</a>
                         </li>
                         <li class="xsOnly">
-                            <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
-                                    class="icon-menu"></i></button>
+                            <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo">
+                                <i class="icon-menu"></i>
+                            </button>
                         </li>
                     </ul>
                 </aside>
@@ -272,6 +273,10 @@
 
     const companyId  = urlParams.get('companyId');
 
+    function myInfoPage(userId){
+        location.href=`/employees/view/${userId}?companyId=${companyId}`;
+    }
+
     new Vue({
         el: "#app",
          methods: {
@@ -289,10 +294,13 @@
                  });
             },
             goCompanyModify() {
-                window.location.href = `http://localhost:9090/company?companyId=${companyId }`;
+                window.location.href = `http://localhost:9090/company?companyId=${companyId}`;
+            },
+            goCompanyList() {
+                window.location.href = `http://localhost:9090/company/list?companyId=${companyId}`;
             },
             getCompanyInfo() {
-                 axios.get(`http://localhost:9090/company/${companyId }`)
+                 axios.get(`http://localhost:9090/company/${companyId}`)
                  .then((res) => {
                     console.log("res", res);
                     this.name = res.data.name;

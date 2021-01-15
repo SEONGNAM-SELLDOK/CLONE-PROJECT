@@ -60,18 +60,19 @@
                                     class="icon-bell"></i></button>
                         </li>
                         <li class="smMoreVisible" style="padding-top:5px;">
-<!--                            <button type="button"-->
-<!--                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"-->
-<!--                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>-->
+                            <button type="button"
+                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'">
+                            </button>
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
                             <a class="dashboardButton" href="/">기업 서비스</a>
                         </li>
-                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
-                            style="padding-top:10px;">
-                            <a class="dashboardButton" @click.prevent="goAddWanted">구직 등록하기</a>
-                        </li>
+<!--                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"-->
+<!--                            style="padding-top:10px;">-->
+<!--                            <a class="dashboardButton" @click.prevent="goAddWanted">구직 등록하기</a>-->
+<!--                        </li>-->
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
                                     class="icon-menu"></i></button>
