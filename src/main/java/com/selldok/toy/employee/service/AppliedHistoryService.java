@@ -137,6 +137,17 @@ public class AppliedHistoryService {
 	}
 
 	/**
+	 * 회사 지원 현황 상태별 카운트리스트를 map으로 변환
+	 * 
+	 * @param companyId
+	 * @return
+	 */	
+	public Map<String, Long> groupByCountByStatusOfRepresentativeCompany(Long representativeId) {
+		List<String[]> groupByCountList = applyHistoryRepository.groupByCountByStatusOfRepresentativeCompany(representativeId);
+		return groupByCountListToMap(groupByCountList);
+	}
+
+	/**
 	 * @param groupByCountList
 	 * @return
 	 */
