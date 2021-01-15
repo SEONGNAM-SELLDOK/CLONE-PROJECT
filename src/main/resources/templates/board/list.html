@@ -116,7 +116,7 @@
             <ul data-cy="job-list" class="clearfix">
                 <li v-for="item in options" :key="item.id" :value="item.title">
                     <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ">
-                        <a :href=`read?companyId=${companyId}&boardId=${item.id}` @click.prevent="postBoardCountPlus(item.id)" class=""
+                        <a :href=`read?companyId=${companyId}&boardId=${item.id}` class=""
                            data-attribute-id="position__click" data-job-category-id="518" data-company-id="1211"
                            data-company-name="믹스앤픽스(mixnfix)" data-position-id="48849" data-position-name="워드프레스 웹개발자"
                            data-response-level="high" data-response-rate="92.3" data-ai-score="">
@@ -192,17 +192,6 @@
                     console.log(error);
                     throw error;
                  });
-            },
-            postBoardCountPlus(boardId) {
-                axios.post(`http://localhost:9090/board/countPlus/${boardId}`)
-                    .then(res => {
-                        console.log("res", res);
-                        window.location.href = `http://localhost:9090/board/read?companyId=${company_id}&boardId=${boardId}`;
-                     })
-                     .catch(error => {
-                        console.log(error);
-                        throw error;
-                     });
             },
             goAddWanted() {
                 window.location.href = `http://localhost:9090/board?companyId=${company_id}`;

@@ -8,6 +8,7 @@ import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.*;
 import com.selldok.toy.company.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,7 @@ import java.util.*;
 /**
  * @author Gogisung
  */
+@Slf4j
 @Controller
 @RequestMapping("board")
 @RequiredArgsConstructor
@@ -100,8 +102,15 @@ public class BoardController {
     }
 
     @PostMapping("countPlus/{id}")
-    public ResponseEntity boardCountPlus(@PathVariable("id") Long id) {
+    public ResponseEntity boardCountPlus(@PathVariable("id") Long id) throws InterruptedException{
+
+        long start = System.currentTimeMillis();
         int count = boardService.boardCountPlus(id);
+        long end = System.currentTimeMillis();
+        boardService.refresh(id);
+
+        log.info(id + " 글의 Cache 수행 시간: " + Long.toString(end-start) );
+
         return new ResponseEntity(count, HttpStatus.OK);
     }
 }

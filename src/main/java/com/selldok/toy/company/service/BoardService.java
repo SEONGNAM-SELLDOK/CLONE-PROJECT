@@ -3,6 +3,10 @@ package com.selldok.toy.company.service;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * @author Gogisung
  */
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -41,8 +46,24 @@ public class BoardService {
 		return boardRepository.recommendThisWeek();
 	}
 
+	@Cacheable(value = "countPlus")
 	public int boardCountPlus(Long id) {
 		return boardRepository.boardCountPlus(id);
+	}
+
+	@CacheEvict(value = "countPlus", allEntries = true)
+	public void refresh(Long id) {
+		slowQuery(60000);
+		log.info(id + "의 Cache Clear!!");
+	}
+
+	// 빅쿼리를 돌린다는 가정
+	private void slowQuery(long seconds) {
+		try {
+			Thread.sleep(seconds);
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	/**
