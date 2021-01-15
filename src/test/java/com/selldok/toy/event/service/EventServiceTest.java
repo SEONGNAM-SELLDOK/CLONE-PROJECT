@@ -86,7 +86,9 @@ public class EventServiceTest {
 			.isRecommend(true)
 			.build();
 
-		eventService.insert(file, request);
+		Long new_id = eventService.insert(file, request);
+		Optional<Event> event = eventService.findById(new_id);
+		Assertions.assertTrue(event.isPresent());
 	}
 
 	@Test
