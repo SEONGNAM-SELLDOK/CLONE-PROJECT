@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.selldok.toy.company.entity.Company;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +40,7 @@ public class Employee {
 
     @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
     private List<ApplyHistory> appliyHistories;
+
+    @OneToOne(mappedBy = "representative", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Company company;
 }

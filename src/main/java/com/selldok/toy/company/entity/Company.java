@@ -7,7 +7,8 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import com.selldok.toy.employee.entity.ApplyHistory;
+import com.selldok.toy.employee.entity.Employee;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -40,6 +41,11 @@ public class Company {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // 회사 대표자
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "emplyee_id")
+    private Employee representative;    
+        
     @Embedded
     private Address address;
 
