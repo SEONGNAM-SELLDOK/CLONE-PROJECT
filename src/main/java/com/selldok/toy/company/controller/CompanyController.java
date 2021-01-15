@@ -9,6 +9,10 @@ import com.selldok.toy.company.model.CompanyListResponse;
 import com.selldok.toy.company.model.CompanyProfileResponse;
 import com.selldok.toy.company.model.CompanyUpdateRequest;
 import com.selldok.toy.company.service.CompanyService;
+import com.selldok.toy.config.SelldokUserToken;
+import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.employee.entity.Employee;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,6 +25,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -35,6 +41,7 @@ import java.util.Optional;
 public class CompanyController {
     private final CompanyService companyService;
     private final CompanyRepository companyRepository;
+    private final EmployeeRepository employeeRepository;
 
     @GetMapping
     public String getCompanyCreate() {
@@ -50,7 +57,11 @@ public class CompanyController {
     public String getCompanyList() {return "company/list"; }
 
     @PostMapping //기업 서비스 가입
-    public ResponseEntity<String> create(final @Valid @RequestBody CompanyCreateRequest request) {
+    public ResponseEntity<String> create(final @Valid @RequestBody CompanyCreateRequest request, Principal principal) {
+        SelldokUserToken selldokUserToken = (SelldokUserToken)principal;
+        log.debug("selldokUserToken.getId()", selldokUserToken.getId());
+        Optional<Employee> optionalEmployee = employeeRepository.findById(selldokUserToken.getId());
+
         log.info(request.toString());
 
         Address address = new Address(request.getCountry(), request.getCity(), request.getStreet());
@@ -67,6 +78,7 @@ public class CompanyController {
                 .phone(request.getPhone())
                 .homepage(request.getHomepage())
                 .terms(request.getTerms())
+                .representative(optionalEmployee.get())
                 .build();
 
         Long companyId = companyService.create(company);
