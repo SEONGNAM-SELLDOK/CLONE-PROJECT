@@ -21,7 +21,7 @@
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
             <nav>
                 <div data-attribute-id="gnb" data-gnb-kind="home">
-                    <a href="/" class="wantedLogo">
+                    <a @click.prevent="goHome" class="wantedLogo">
                         <i class="icon-logo_new"></i>
                     </a>
                 </div>
@@ -30,7 +30,7 @@
                         <a href="/" class="">홈</a>
                     </li>
                     <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
-                        <a href="/board/list" class="">탐색</a>
+                        <a @click.prevent="goSearchList" class="">탐색</a>
                     </li>
                     <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary">
                         <a href="/salary" class="">직군별 연봉</a>
@@ -195,6 +195,12 @@
             },
             goAddWanted() {
                 window.location.href = `http://localhost:9090/board?companyId=${company_id}`;
+            },
+            goHome() {
+                window.location.href = `http://localhost:9090?companyId=${company_id}`;
+            },
+            goSearchList() {
+                window.location.href = `http://localhost:9090/board/list?companyId=${company_id}`;
             },
             getEmployeeInfo() {
                 axios.get('http://localhost:9090/employees/info/1')

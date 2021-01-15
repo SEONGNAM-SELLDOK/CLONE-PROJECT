@@ -59,10 +59,6 @@
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
-                            <a class="dashboardButton" href="/company">기업 정보 등록</a>
-                        </li>
-                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
-                            style="padding-top:10px;">
                             <a class="dashboardButton" @click="recruitPosition">구직 등록</a>
                         </li>
                         <li class="xsOnly">
@@ -85,7 +81,7 @@
                 </li>
                 <li class="_1ft7OZSrbzL35bkI-omU2b">
                     <div data-attribute-id="myPage" data-tab-kind="profile"><a href="/profile/matching"
-                                                                               class="activeNav">기업 정보 상세</a></div>
+                                                                               class="activeNav">기업 정보 리스트</a></div>
                 </li>
                 <li class="_1ft7OZSrbzL35bkI-omU2b">
                     <button type="button" class="">지원 현황<i class="icon-arrow_bottom_fill"></i></button>
@@ -233,7 +229,8 @@
         data: {
             message: "리스트 페이지!",
             fields: ['name', 'email', 'phone', 'homepage', 'show_details'],
-            items: []
+            items: [],
+            company: companyId
         }
     });
 </script>
