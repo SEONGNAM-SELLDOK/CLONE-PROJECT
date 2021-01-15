@@ -1,7 +1,5 @@
 package com.selldok.toy.event.service;
 
-import static org.mockito.Mockito.*;
-
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,17 +10,13 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.selldok.toy.event.dao.EventRepository;
 import com.selldok.toy.event.entity.Event;
 import com.selldok.toy.event.entity.EventType;
-import com.selldok.toy.event.mapper.EventMapper;
 import com.selldok.toy.event.model.EventSearchRequest;
 import com.selldok.toy.event.model.InsertEventRequest;
 import com.selldok.toy.event.model.UpdateEventRequest;
@@ -34,7 +28,6 @@ import com.selldok.toy.event.model.UpdateEventRequest;
  */
 @SpringBootTest
 @Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
 public class EventServiceTest {
 	@Autowired
 	private EventService eventService;
