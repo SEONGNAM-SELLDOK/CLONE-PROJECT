@@ -46,6 +46,9 @@ public class CompanyController {
         return "company/read";
     }
 
+    @GetMapping("list")
+    public String getCompanyList() {return "company/list"; }
+
     @PostMapping //기업 서비스 가입
     public ResponseEntity<String> create(final @Valid @RequestBody CompanyCreateRequest request) {
         log.info(request.toString());

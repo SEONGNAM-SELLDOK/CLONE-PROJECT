@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CompanyListResponse {
 
+    private Long id;
     private String name; // 기업명
     private String employees; // 직원수
     private String email; // 대표 이메일
@@ -19,7 +20,8 @@ public class CompanyListResponse {
     private String memberName;
 
     @QueryProjection
-    public CompanyListResponse(String name, String employees, String email, String phone, String homepage, Long memberId, String memberName) {
+    public CompanyListResponse(Long id, String name, String employees, String email, String phone, String homepage, Long memberId, String memberName) {
+        this.id = id;
         this.name = name;
         this.employees = employees;
         this.email = email;
