@@ -42,7 +42,7 @@ public class ApplyHistoryController {
 	 * @throws Exception
 	 */
 	@GetMapping("company/applications")
-	public String companyApplications(Model model) throws Exception {
+	public String companyApplications(Model model){
         //model.addAttribute("employee", response);
 		return "company/applications";
 	}
@@ -55,7 +55,7 @@ public class ApplyHistoryController {
 	 * @throws Exception
 	 */
 	@GetMapping("employees/applications")
-	public String employeesApplications(Model model) throws Exception {
+	public String employeesApplications(Model model) {
         //model.addAttribute("employee", response);
 		return "employee/applications";
 	}
@@ -63,15 +63,14 @@ public class ApplyHistoryController {
 	/**
 	 * 지원하기
 	 * 
-	 * @param ApplyHistoryDto applyHistoryDto
+	 * @param applyHistoryDto
+	 * @param applicantId
 	 * @return
-	 * @throws Exception
 	 */
 	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) throws Exception {
+	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) {
 		applyHistoryDto.setApplicantId(applicantId);
-		log.debug("applyHistoryDto={}", applyHistoryDto);
 		return new ResponseEntity<>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}
 
@@ -80,13 +79,14 @@ public class ApplyHistoryController {
 	 * 이 메소드를 쓰면 set 하지 않은 필드들은 null로 갱신되는 문제 있음
 	 * 일부 컬럼만 갱신하는 기능 필요할까?
 	 * 
-	 * @param ApplyHistoryDto updatingApplyHistoryDto
+	 * @param id
+	 * @param updatingApplyHistoryDto
+	 * @param applicantId
 	 * @return
-	 * @throws Exception
 	 */
 	@PutMapping("employees/{applicantId}/applyHistories/{id}")
 	@ResponseBody
-	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
+	public ResponseEntity update(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) {
 		updatingApplyHistoryDto.setId(id);
 		updatingApplyHistoryDto.setApplicantId(applicantId);
 		applyHistoryService.update(updatingApplyHistoryDto);
@@ -102,7 +102,7 @@ public class ApplyHistoryController {
 	 */
 	@PutMapping("employees/{applicantId}/applyHistories/{id}/changeStatus")
 	@ResponseBody
-	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) throws Exception {
+	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) {
 		updatingApplyHistoryDto.setId(id);
 		updatingApplyHistoryDto.setApplicantId(applicantId);
 		applyHistoryService.changeStatus(updatingApplyHistoryDto);
@@ -115,7 +115,7 @@ public class ApplyHistoryController {
 	 */
 	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
-	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfApplicant(@PathVariable Long applicantId) throws Exception {
+	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfApplicant(@PathVariable Long applicantId) {
 		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.ACCEPTED);
 	}
 
@@ -125,7 +125,7 @@ public class ApplyHistoryController {
 	 */
 	@GetMapping("company/{companyId}/applyHistories/getApplyCount")
 	@ResponseBody
-	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfCompany(@PathVariable Long companyId) throws Exception {
+	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfCompany(@PathVariable Long companyId) {
 		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.ACCEPTED);
 	}
 
@@ -145,7 +145,7 @@ public class ApplyHistoryController {
 		,@RequestParam(required=false) String companyName
 		,@RequestParam(required=false) ApplyHistory.Status status
 		,Pageable pageable
-	) throws Exception {
+	) {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setApplicantId(applicantId);
 		applyHistoryDto.setName(name);
@@ -170,7 +170,7 @@ public class ApplyHistoryController {
 		,@RequestParam(required=false) String companyName
 		,@RequestParam(required=false) ApplyHistory.Status status
 		,Pageable pageable
-	) throws Exception {
+	) {
 		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
 		applyHistoryDto.setCompanyId(companyId);
 		applyHistoryDto.setName(name);
