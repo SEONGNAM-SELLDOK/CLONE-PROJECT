@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.selldok.toy.company.entity.Company;
 
 import lombok.Getter;
@@ -25,6 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Employee {
 
     @Id
@@ -38,9 +41,11 @@ public class Employee {
         this.info = BasicInfo.builder().name(name).email(email).phoneNumber(phoneNumber).build();
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
     private List<ApplyHistory> appliyHistories;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "representative", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Company company;
 }
