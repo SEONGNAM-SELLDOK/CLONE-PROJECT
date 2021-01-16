@@ -100,7 +100,7 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PutMapping("/applyHistories/{id}/changeStatus")
+	@PutMapping("applyHistories/{id}/changeStatus")
 	@ResponseBody
 	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
 		updatingApplyHistoryDto.setId(id);
