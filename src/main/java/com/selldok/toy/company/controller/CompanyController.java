@@ -58,9 +58,15 @@ public class CompanyController {
 
     @PostMapping //기업 서비스 가입
     public ResponseEntity<String> create(final @Valid @RequestBody CompanyCreateRequest request, Principal principal) {
-        SelldokUserToken selldokUserToken = (SelldokUserToken)principal;
-        log.debug("selldokUserToken.getId()", selldokUserToken.getId());
-        Optional<Employee> optionalEmployee = employeeRepository.findById(selldokUserToken.getId());
+        Employee representative = null;
+        if(principal != null) {
+            SelldokUserToken selldokUserToken = (SelldokUserToken)principal;
+            log.debug("selldokUserToken.getId()", selldokUserToken.getId());
+            Optional<Employee> optionalEmployee = employeeRepository.findById(selldokUserToken.getId());
+            if(optionalEmployee.isPresent()) {
+                representative = optionalEmployee.get();
+            }
+        }
 
         log.info(request.toString());
 
@@ -78,7 +84,7 @@ public class CompanyController {
                 .phone(request.getPhone())
                 .homepage(request.getHomepage())
                 .terms(request.getTerms())
-                .representative(optionalEmployee.get())
+                .representative(representative)
                 .build();
 
         Long companyId = companyService.create(company);
