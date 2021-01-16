@@ -852,14 +852,15 @@
                   });
             },
             postBoardCountPlus() {
-                axios.post(`http://localhost:9090/board/countPlus/${board_id}`)
-                    .then(res => {
-                        console.log("res", res);
-                     })
-                     .catch(error => {
-                        console.log(error);
-                        throw error;
-                     });
+                axios.post('http://localhost:9090/board/countPlus', {
+                    boardId: board_id,
+                    employeeId: 1,
+                }).then(res => {
+                    console.log("res", res);
+                }).catch(error => {
+                    console.log(error);
+                    throw error;
+                });
             },
         },
         created() {

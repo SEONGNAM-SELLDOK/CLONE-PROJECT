@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 import javax.persistence.EntityManager;
 
-@EnableCaching
 @SpringBootApplication
 public class ToyApplication {
 

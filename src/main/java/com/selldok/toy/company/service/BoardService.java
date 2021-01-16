@@ -3,6 +3,7 @@ package com.selldok.toy.company.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.selldok.toy.employee.entity.Employee;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.cache.annotation.CacheEvict;
@@ -47,23 +48,8 @@ public class BoardService {
 	}
 
 	@Cacheable(value = "countPlus")
-	public int boardCountPlus(Long id) {
-		return boardRepository.boardCountPlus(id);
-	}
-
-	@CacheEvict(value = "countPlus", allEntries = true)
-	public void refresh(Long id) {
-		slowQuery(60000);
-		log.info(id + "의 Cache Clear!!");
-	}
-
-	// 빅쿼리를 돌린다는 가정
-	private void slowQuery(long seconds) {
-		try {
-			Thread.sleep(seconds);
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
-		}
+	public int boardCountPlus(Long boardId) {
+		return boardRepository.boardCountPlus(boardId);
 	}
 
 	/**

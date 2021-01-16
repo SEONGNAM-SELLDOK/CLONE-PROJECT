@@ -7,6 +7,8 @@ import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.*;
 import com.selldok.toy.company.service.BoardService;
+import com.selldok.toy.employee.entity.Employee;
+import com.selldok.toy.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.PropertySource;
@@ -34,6 +36,7 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
     private final CompanyRepository companyRepository;
+    private final EmployeeService employeeService;
 
     @GetMapping
     public String getBoardView() {
@@ -101,16 +104,16 @@ public class BoardController {
         return new ResponseEntity(boardListResponses, HttpStatus.OK);
     }
 
-    @PostMapping("countPlus/{id}")
-    public ResponseEntity boardCountPlus(@PathVariable("id") Long id) throws InterruptedException{
+    @PostMapping("countPlus")
+    public ResponseEntity boardCountPlus(final @RequestBody BoardCountPlusRequest request) {
+        Optional<Employee> employee = Optional.ofNullable(employeeService.get(request.getEmployeeId()));
 
-        long start = System.currentTimeMillis();
-        int count = boardService.boardCountPlus(id);
-        long end = System.currentTimeMillis();
-        boardService.refresh(id);
-
-        log.info(id + " 글의 Cache 수행 시간: " + Long.toString(end-start) );
-
+        int count = 0;
+        if (employee.isPresent()) {
+            count = boardService.boardCountPlus(request.getBoardId());
+            long start = System.currentTimeMillis();
+            log.info(request.getBoardId() + " 글의 Cache 수행 시작 시간: " + Long.toString(start) );
+        }
         return new ResponseEntity(count, HttpStatus.OK);
     }
 }
