@@ -1,3 +1,15 @@
+### 구인 공고 추가
+POST https://localhost:8443/board/add
+Content-Type: application/json
+
+{
+  "title" : "제목"
+  ,"content" : "내용"
+  ,"image" : "썸네일 이미지"
+  ,"endDate" : "2020-01-16"
+  ,"companyId" : 1
+}
+
 ### 입사지원 하기
 POST http://localhost:9090/employees/1/applyHistories
 Content-Type: application/json
@@ -55,3 +67,20 @@ GET http://localhost:9090/employees/1/company/applyHistories
 
 ### 입사지원 카운트 목록 : 회사 대표자 아이디별
 GET http://localhost:9090/employees/1/company/applyHistories/getApplyCount
+
+
+### 로그인 테스트
+POST https://localhost:8443/auth/check
+Content-Type: application/json
+
+{
+  "authResponse": {
+    "accessToken": "EAADCsvIBG8oBALcPVM4YgR2VOPAOl5HYWhUEPMbP0AKc0a3z9D06lgeUyaSGU9EjRAyWNZAzkS9IdP3K7nXwIZAafaFLBMkLhhZB8Cyzt2ZC0qg4Ve4oVzzskxcvgdKpRXiUKGhUysfEHBLlVzfGoQRElYsiWP9e8BE875vnPH1la2rQ6EuHdGYymhSJlIDlkYnc2G2o3SGFVHZCfIN3m",
+    "userID": "100754358568341",
+    "expiresIn": 6420,
+    "signedRequest": "QLk-siOip86go30SigBj-MlKqlsZE3tOhVdzRIi0-6A.eyJ1c2VyX2lkIjoiMTAwNzU0MzU4NTY4MzQxIiwiY29kZSI6IkFRQW1iODBzTGd4Q3ZrU1ctdDY0NnJWWTJyLUt1bDhneHkxdWRsOFVNeHpsdUpxU2ZkS2wyVnVSSFNyUThVSS15dHVSdDZsVm9iSmI5ZE1WajNJOWdqNDYzSzdnNHJPN0VvSjlHdXFuZjlDRWJrZmI3VFVTaThUdDg4dWwtclBmSDBfR1FSdmJIVGlHdGlqR0I5cFNVazlkbkFLY2JGbjhKdzRtZXF2QWVyd29CSm5MM01yRjFXT2ZjdmVDWGU1RXNUQUczQmc0MFUwN2Z4VnpyWWtzbmpuemR3cDFKczVTdUlNeFVHMEZSRTh4Y0lCdWpCdExTYkVOYUVVZGFfMEhzeFFPWmd0QW13ZGRwalRKV2JULVpLaVR4T0hkTm94SUtRZjJQazE3Y3dOMk01cTZfWGNfckRhVDRKd0FXQjhKM3RwM3pIdGpBWkZQektTTDBxQXZLbGx6IiwiYWxnb3JpdGhtIjoiSE1BQy1TSEEyNTYiLCJpc3N1ZWRfYXQiOjE2MTA3NjY3ODB9",
+    "graphDomain": "facebook",
+    "data_access_expiration_time": 1618542780
+  },
+  "status": "connected"
+}
