@@ -40,7 +40,7 @@ public class RestApiExceptionHandler {
 	public ResponseEntity<ApiErrorMsg> handleException(Exception ex)
 	{
 		log.error("handleException in {}", this.getClass().getSimpleName(), ex);
-		ApiErrorMsg apiErrorMsg = new ApiErrorMsg("정의되지 않은 오류가 발생하였습니다.", "N/A", HttpStatus.INTERNAL_SERVER_ERROR);
+		ApiErrorMsg apiErrorMsg = new ApiErrorMsg(CommonErrorCode.CMM_001.geErrorMessage(), CommonErrorCode.CMM_001.name(), HttpStatus.INTERNAL_SERVER_ERROR);
 		return new ResponseEntity<>(apiErrorMsg, apiErrorMsg.getStatus());
 	}	
 }
