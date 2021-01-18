@@ -2,9 +2,9 @@ Feature: 입사지원
 
 Background:
 	* def conf = read('karate-config.js')
+	* url baseUrl
 	# url을 임시로 변경하고자 할 때 사용
 	#* url "https://localhost:8443"
-	#* url "http://localhost:9090"
 	* def name = '회사이름';
 	* def address = '회사 주소';
 
@@ -15,7 +15,7 @@ Scenario: 지원할 회사와 공고 생성 & 입사지원 후 지원 내용 수
 	And header Content-Type = 'application/json; charset=utf-8'
 	And request 
 	"""
-	{"authResponse":{"accessToken":"EAADCsvIBG8oBAAnFzdmZAurFjm0lB9Wr54Mze95kT3mB9lNucqM8uO3l5N0OSf8xxHmRu1iGsB2TkhscV4iTnQCOnguvf3xx7TwVohjhmdPvjkno6GroQ6MvJOGIlFwIWGBYVubSKPW3VaTmHR0HCEzVJi8NUkc6fIM2ZBCEbSrntU3tUkSnIuK0xVxKbIRV6cdWgjxAmxCr19JNLT","userID":"100754358568341","expiresIn":7050,"signedRequest":"uCL4rQs_XfnLa1A3sok-1zsjt7H31iaSziEF1kzsqiM.eyJ1c2VyX2lkIjoiMTAwNzU0MzU4NTY4MzQxIiwiY29kZSI6IkFRRHFJMEN6VXZ5REl2MGFlaEhBa2FJWXZOWTFUemhEZ09fSWE3empqeENTSlhQTDFocUZCZW01SlU5ckNMOTRHSGVWSUpKYTFpX0o2aHlrTk9oakUyMG1Bd25pSlR3OVJfZk1HclQwUWtGY21RUGNXd2NFX09aV2NpT0pRcHBoLXdJQmVzZktnR3J0Tml2N0o2U3pham9WTF9NZUlSeTdPM2UydGsxOEFpakNLZ3RxTmJBMXJRVVc0d1FDVTV1OU1samVDdDFtbEdkSVp0eEVMRTluMFhyYnVOczE2cnFwNzBYWURLT3lvbnYwcnUyNV80aUhXcU9Bd2FJcU9paUNFdmN1dmlTQV90cklwNE1adlBWeUlfUWlxOHR3SnpQMjJvNXVWalhxekhPSXVFSDY3Y1h6NWlhR0l4SEUtT294UmtPMjdCaHFPV1pGbEM5dFdfenNtN0JWIiwiYWxnb3JpdGhtIjoiSE1BQy1TSEEyNTYiLCJpc3N1ZWRfYXQiOjE2MTA3OTEzNTB9","graphDomain":"facebook","data_access_expiration_time":1618567350},"status":"connected"}
+	{"authResponse":{"accessToken":"EAADCsvIBG8oBACOFKSxCJkZAcZBZBSMniP0UnADLNZAUZAr0OFhtB0ZCyJes3xEcsShX6JhMuZBE58UKsLh2hZArtj15DyJLaJJDX8cHcU4EpZBEVNlY8W16zZBlCprAsLWxNV7OO2rnuKVg5yvbpI3QD1uJTSiiJ3otMruFzRCOZCZAuaZAAswOoPZBFqot9hHoTKsgE5HxUbGanpZBWePu17SZBgsD","userID":"100754358568341","expiresIn":6191,"signedRequest":"MIaZ4wWNyVF5rIUwF6kSrGrHJJCAIgsxv1LPsXVNpgE.eyJ1c2VyX2lkIjoiMTAwNzU0MzU4NTY4MzQxIiwiY29kZSI6IkFRQjBqdEJkT3JqUEZVbXdJWnU3VU1hVUhLR0ZnMURHYmN6Y0RiSWVnUDVGZnE4MTNkdDNfUzFhVEx3VThHRG1IWTZIaGJxNTd2RUhvanFGRlQ1aGc2REVmUUVxdFR2eE91OGp5SzZhQ091QTZTc1R0WURnaElCUFFOWFVLRlAwX1AtN2tzcld6OUpUemViR1JQSUZvR2phSDBmekVPckpLM3JKcmk4UWk5TXVlMjlJRE1FeFpqYzNpZ2Y5alBVNElQZEJISDJQSmNNWkhFUXVXYkwySGdYTGNSdU5nUHlmWkhpRXZRRDJwNjdRYTJhYmFnZThqUDNRdE9yRFFkYWZSN1Z5Q21IWmhrT1M1R0daNWhMSzV5RXZPN0pWV1BKanFEWS04ZjFsUFl0RW9tRFFEQXhTOW5xWVdUczJNRloxQnZWamhRR2sxNFVEdzl0UzV0aVI0Mm1PIiwiYWxnb3JpdGhtIjoiSE1BQy1TSEEyNTYiLCJpc3N1ZWRfYXQiOjE2MTA5NzU4MDl9","graphDomain":"facebook","data_access_expiration_time":1618751809},"status":"connected"}
 	"""
 	When method post
 	Then status 200
