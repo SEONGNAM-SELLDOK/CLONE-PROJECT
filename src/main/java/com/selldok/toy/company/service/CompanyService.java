@@ -6,11 +6,13 @@ import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.CompanyUpdateRequest;
 import com.selldok.toy.company.validation.Validation;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Gogisung
@@ -67,5 +69,25 @@ public class CompanyService {
      * */
     public void delete(Long id) {
         companyRepository.deleteById(id);
+    }
+
+
+    /**
+     * wdlist에 쓰일 부분입니다.
+     * 회사관련해서 정보를 어떻게 넣을지 애매해서
+     * 필요한값만 임의로 넣었습니다.
+     */
+    public Company createTempCompany(String name){
+        Optional<Company> optionalCompany = companyRepository.findByName(name);
+        if(optionalCompany.isPresent()) return optionalCompany.get();
+        Company company = Company.builder()
+                .name(name)
+                .businessNum("1234u701234")
+                .since("2020")
+                .phone("010-1234-5678")
+                .terms(true)
+                .build();
+        companyRepository.save(company);
+        return company;
     }
 }

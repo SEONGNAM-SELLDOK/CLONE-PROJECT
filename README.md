@@ -40,6 +40,12 @@
 gradlew bootrun
 ```
 
+## 테스트
+### 테스트 리포트 및 검증
+```
+./gradlew --console verbose test jacocoTestReport jacocoTestCoverageVerification
+```
+
 ## 확인 방법
 ### http Plugin 활용
 ```

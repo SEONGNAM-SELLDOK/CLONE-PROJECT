@@ -9,6 +9,7 @@
     <meta http-equiv="Expires" content="-1">
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="/css/board.css">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <script>
@@ -21,7 +22,7 @@
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
             <nav>
                 <div data-attribute-id="gnb" data-gnb-kind="home">
-                    <a href="/" class="wantedLogo">
+                    <a @click.prevent="goHome" class="wantedLogo">
                         <i class="icon-logo_new"></i>
                     </a>
                 </div>
@@ -30,7 +31,7 @@
                         <a href="/" class="">홈</a>
                     </li>
                     <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
-                        <a href="/board/list" class="">탐색</a>
+                        <a @click.prevent="goSearchList" class="">탐색</a>
                     </li>
                     <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary">
                         <a href="/salary" class="">직군별 연봉</a>
@@ -112,21 +113,15 @@
                     </path>
                 </svg>
             </button>
+                <button class = "btn btn-default" onclick="javascript:getData()">동기화</button>
             </div>
             <ul data-cy="job-list" class="clearfix">
                 <li v-for="item in options" :key="item.id" :value="item.title">
                     <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ">
-                        <a :href=`read?companyId=${companyId}&boardId=${item.id}` @click.prevent="postBoardCountPlus(item.id)" class=""
+                        <a :href=`read?companyId=${companyId}&boardId=${item.id}` class=""
                            data-attribute-id="position__click" data-job-category-id="518" data-company-id="1211"
                            data-company-name="믹스앤픽스(mixnfix)" data-position-id="48849" data-position-name="워드프레스 웹개발자"
                            data-response-level="high" data-response-rate="92.3" data-ai-score="">
-                            <!--                            <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/1211/wlh1rupk96juvqjd__400_400.jpg&quot;);">-->
-                            <!--                                <button type="button" class="likeButton" data-attribute-id="position__like__click"-->
-                            <!--                                    data-job-category-id="518" data-company-id="1211" data-company-name="믹스앤픽스(mixnfix)"-->
-                            <!--                                    data-position-id="48849" data-position-name="워드프레스 웹개발자" data-kind="add">-->
-                            <!--                                    <i class="icon-ic_favorite_black_24px"></i>0-->
-                            <!--                                </button>-->
-                            <!--                            </header>-->
                             <img :src=`${item.image}` style="width: 247px; height: 185px;">
                             <div class="body">
                                 <div class="job-card-position">{{ item.title }}</div>
@@ -139,7 +134,15 @@
                     </div>
                 </li>
             </ul>
-            <b-button></b-button>
+            <div class="" style="">
+                <b-pagination
+                    v-model="currentPage"
+                    :total-rows="rows"
+                    :per-page="perPage"
+                    aria-controls="my-table"
+                    @input="getBoardList(currentPage-1)"
+                ></b-pagination>
+            </div>
         </div>
     </div>
 </div>
@@ -163,6 +166,52 @@
 <script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
 
 <script>
+
+    function LoadingWithMask() {
+        //화면의 높이와 너비를 구합니다.
+        const maskHeight = $(document).height();
+        const maskWidth  = window.document.body.clientWidth;
+
+        //화면에 출력할 마스크를 설정해줍니다.
+        var mask       ="<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+        var loadingImg ='';
+
+        loadingImg +="<div id='loadingImg'>";
+        loadingImg +=" <img src='/img/LoadingImg.gif' style='position: relative; display: block; margin: 0px auto;'/>";
+        loadingImg +="</div>";
+
+        //화면에 레이어 추가
+        $('body')
+            .append(mask)
+            .append(loadingImg)
+
+        //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
+        $('#mask').css({
+            'width' : maskWidth
+            ,'height': maskHeight
+            ,'opacity' :'0.3'
+        });
+
+        //마스크 표시
+        $('#mask').show();
+
+        //로딩중 이미지 표시
+        $('#loadingImg').show();
+    }
+
+    function getData(){
+        LoadingWithMask();
+        $.ajax({
+            type:'POST',
+            url:'/board/sync'
+        }).done(function(e){
+            window.location.href = "/board/list";
+        }).fail(function(e){
+            console.log(e);
+            alert("잠시 후 시도해주세요");
+        })
+    }
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
@@ -170,11 +219,10 @@
 
     new Vue({
         el: "#app",
-         methods: {
+        methods: {
             getBoardSelectDynamic() {
                 axios.get(`http://localhost:9090/board/boards?city=${this.selectedCity}&country=${this.selectedCountry}`)
                  .then(res => {
-                    console.log("res", res);
                     this.options = res.data.content;
                  })
                  .catch(error => {
@@ -182,30 +230,29 @@
                     throw error;
                  });
             },
-            getBoardList() {
-                 axios.get('http://localhost:9090/board/boards')
-                 .then(res => {
+            getBoardList(page) {
+<!--                console.log('page', page);-->
+                axios.get(`http://localhost:9090/board/boards?page=${page}`)
+                .then(res => {
                     console.log("res", res);
                     this.options = res.data.content;
-                 })
-                 .catch(error => {
+                    this.currentPage = res.data.pageable.pageNumber + 1;
+                    this.perPage = res.data.size;
+                    this.rows = res.data.totalElements;
+                })
+                .catch(error => {
                     console.log(error);
                     throw error;
-                 });
-            },
-            postBoardCountPlus(boardId) {
-                axios.post(`http://localhost:9090/board/countPlus/${boardId}`)
-                    .then(res => {
-                        console.log("res", res);
-                        window.location.href = `http://localhost:9090/board/read?companyId=${company_id}&boardId=${boardId}`;
-                     })
-                     .catch(error => {
-                        console.log(error);
-                        throw error;
-                     });
+                });
             },
             goAddWanted() {
                 window.location.href = `http://localhost:9090/board?companyId=${company_id}`;
+            },
+            goHome() {
+                window.location.href = `http://localhost:9090?companyId=${company_id}`;
+            },
+            goSearchList() {
+                window.location.href = `http://localhost:9090/board/list?companyId=${company_id}`;
             },
             getEmployeeInfo() {
                 axios.get('http://localhost:9090/employees/info/1')
@@ -234,6 +281,9 @@
             companyCity: '',
             options: [],
             selectedCity: 'seoul',
+            perPage: 0,
+            currentPage: 0,
+            rows: 0,
             cityOptions: [
                 { value: 'seoul', text: '서울' },
                 { value: 'busan', text: '부산' },
@@ -251,6 +301,7 @@
             userName: '',
         }
     });
+
 </script>
 </body>
 </html>
