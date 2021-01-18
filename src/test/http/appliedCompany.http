@@ -1,3 +1,15 @@
+### 구인 공고 추가
+POST https://localhost:8443/board/add
+Content-Type: application/json
+
+{
+  "title" : "제목"
+  ,"content" : "내용"
+  ,"image" : "썸네일 이미지"
+  ,"endDate" : "2020-01-16"
+  ,"companyId" : 1
+}
+
 ### 입사지원 하기
 POST http://localhost:9090/employees/1/applyHistories
 Content-Type: application/json
@@ -43,19 +55,34 @@ Content-Type: application/json
   "status": "PAPERS_PASAGE"
 }
 
-### 입사지원 카운트 목록
+### 입사지원 카운트 목록 : 지원자별
 GET http://localhost:9090/employees/1/applyHistories/getApplyCount
 
-### 입사지원 카운트 목록
+### 입사지원 카운트 목록 : 회사별
 GET http://localhost:9090/company/2/applyHistories/getApplyCount
 
 
-### 입사지원 전체 목록
+### 입사지원 전체 목록 : 지원자별
 GET http://localhost:9090/employees/1/applyHistories
 
 ### 입사지원 검섹
 GET http://localhost:9090/employees/1/applyHistories?name=&companyName=구글&size=3&page=0
 
 
-### 입사지원 검섹
+### 입사지원 검섹 : 회사별
 GET http://localhost:9090/company/1/applyHistories?name=&companyName=구글&size=3&page=0
+
+
+### 입사지원 검섹 : 회사 대표자 아이디별
+GET http://localhost:9090/employees/1/company/applyHistories
+
+### 입사지원 카운트 목록 : 회사 대표자 아이디별
+GET http://localhost:9090/employees/1/company/applyHistories/getApplyCount
+
+
+### 로그인 테스트
+#POST https://localhost:8443/auth/check
+POST http://localhost:9090/auth/check
+Content-Type: application/json
+
+{"authResponse":{"accessToken":"EAADCsvIBG8oBAO0ZBnccaJkIlPgTrqaVKp2KUtcGDczea8ia6NZC3FSnTo6lJBoqrHrZB58WtTESq2Le2RszmZCGEj5roVXBrE7dnK2m5eLzkWZC8s4JFiQwrt7d9aXjz4O2KgQSdZBQNZApsxEXDnRMqzAez5Q5sPZAKiQjyNED26lgfK1vYEvsibgZCUzgVmgiSiihMKNbzmauFtpAWYWEm","userID":"100754358568341","expiresIn":6801,"signedRequest":"DDwz9PMga-MQin9p4l3-1HHslEhSH3KGaDz5L8sIt5U.eyJ1c2VyX2lkIjoiMTAwNzU0MzU4NTY4MzQxIiwiY29kZSI6IkFRQXRXWFFkQjZLd1Z2NzdlckhkdXZOVmZxWUJ2SGV6T3RoazZnWjRlZVQzYkp3NldudVFVSjFEYzJpVFdHWFk2NkIzdlZ2eWNWelRuU1g4cVpxV2NCbU5PNk1lZXNZeFBVd09YYjMwTlpyX2Rkc2hyUEllMWxRbG1fUk1vcnpMM3pmdkQxOWE3X2dBRFZZMUJXeXltb0FyUkJ2enZoTDh2TGVKVGJLdVhxaV80M3RnQUxOYjViTDlPdlJxMjUzQVlmVF9vSHVJdGxsRVJOZDgyWmtRV0pqQm40U1RTVExfZTN1NjlaRmRqZHdfZ2FDbGdVMWlfekJhcWI1Vmd2cEFvOGJ1cFlUVmpNWHpXZ3lBNk8xeVF6VVNHOER4NlVrWmo2Ui1mLUphSzdpVGstaV9MM3NxakV6QzhPeW94TU9IUXA5NExQVkhPdHFpQXExNXlJaThabWxoIiwiYWxnb3JpdGhtIjoiSE1BQy1TSEEyNTYiLCJpc3N1ZWRfYXQiOjE2MTA3ODc5OTl9","graphDomain":"facebook","data_access_expiration_time":1618563999},"status":"connected"}

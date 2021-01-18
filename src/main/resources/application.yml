@@ -64,6 +64,8 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:tcp://localhost:9092/~/util/h2/db/wanted;INIT=CREATE SCHEMA IF NOT EXISTS wanted\;SET SCHEMA wanted
+    #driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #url: jdbc:log4jdbc:h2:mem:testdb
   jpa:
     hibernate:
       ddl-auto: update

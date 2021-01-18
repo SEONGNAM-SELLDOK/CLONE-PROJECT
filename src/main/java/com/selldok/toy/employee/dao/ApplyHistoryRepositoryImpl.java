@@ -47,6 +47,7 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 				,applicantIdEq(searchCondition.getApplicantId())
 				,companyIdEq(searchCondition.getCompanyId())
 				,statusEq(searchCondition.getStatus())
+				,reporesentativeCompanyIdEq(searchCondition.getRepresentativeId())
 			)
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize())
@@ -88,4 +89,8 @@ public class ApplyHistoryRepositoryImpl implements ApplyHistoryRepositoryCustom 
 	private BooleanExpression statusEq(ApplyHistory.Status status) {
 		return status != null ? applyHistory.status.eq(status) : null ;
 	}
+
+	private BooleanExpression reporesentativeCompanyIdEq(Long representativeId) {
+		return representativeId != null ? applyHistory.employmentBoard.company.representative.id.eq(representativeId) : null ;
+	}		
 }

@@ -70,7 +70,7 @@ public class ApplyHistory {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="employment_board_id", nullable=false)
-	@QueryInit({"company.address"})
+	@QueryInit({"company.address", "company.representative"})
 	private Board employmentBoard;
 
 	@PreUpdate

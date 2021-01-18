@@ -7,7 +7,9 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import com.selldok.toy.employee.entity.ApplyHistory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.selldok.toy.employee.entity.Employee;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -32,6 +34,7 @@ public class Company {
     private String name;
 
     // 연관관계: 하나의 회사는 여러개의 게시글을 가질 수 있다.
+    @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Board> boards = new ArrayList<>();
 
@@ -40,6 +43,12 @@ public class Company {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // 회사 대표자
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "emplyee_id")
+    private Employee representative;    
+        
     @Embedded
     private Address address;
 
