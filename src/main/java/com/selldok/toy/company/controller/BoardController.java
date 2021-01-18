@@ -7,7 +7,10 @@ import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.*;
 import com.selldok.toy.company.service.BoardService;
+import com.selldok.toy.employee.entity.Employee;
+import com.selldok.toy.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +27,7 @@ import java.util.*;
 /**
  * @author Gogisung
  */
+@Slf4j
 @Controller
 @RequestMapping("board")
 @RequiredArgsConstructor
@@ -32,6 +36,7 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
     private final CompanyRepository companyRepository;
+    private final EmployeeService employeeService;
 
     @GetMapping
     public String getBoardView() {
@@ -99,9 +104,16 @@ public class BoardController {
         return new ResponseEntity(boardListResponses, HttpStatus.OK);
     }
 
-    @PostMapping("countPlus/{id}")
-    public ResponseEntity boardCountPlus(@PathVariable("id") Long id) {
-        int count = boardService.boardCountPlus(id);
+    @PostMapping("countPlus")
+    public ResponseEntity boardCountPlus(final @RequestBody BoardCountPlusRequest request) {
+        Optional<Employee> employee = Optional.ofNullable(employeeService.get(request.getEmployeeId()));
+
+        int count = 0;
+        if (employee.isPresent()) {
+            count = boardService.boardCountPlus(request.getBoardId());
+            long start = System.currentTimeMillis();
+            log.info(request.getBoardId() + " 글의 Cache 수행 시작 시간: " + Long.toString(start) );
+        }
         return new ResponseEntity(count, HttpStatus.OK);
     }
 }

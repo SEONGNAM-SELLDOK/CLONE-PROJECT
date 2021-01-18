@@ -3,6 +3,11 @@ package com.selldok.toy.company.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.selldok.toy.employee.entity.Employee;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * @author Gogisung
  */
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -41,8 +47,9 @@ public class BoardService {
 		return boardRepository.recommendThisWeek();
 	}
 
-	public int boardCountPlus(Long id) {
-		return boardRepository.boardCountPlus(id);
+	@Cacheable(value = "countPlus")
+	public int boardCountPlus(Long boardId) {
+		return boardRepository.boardCountPlus(boardId);
 	}
 
 	/**
