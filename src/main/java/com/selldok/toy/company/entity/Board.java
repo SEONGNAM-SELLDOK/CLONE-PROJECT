@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.sql.Clob;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,12 @@ public class Board extends JpaBaseEntity {
     @NotBlank
     private String title;
 
+    /**
+     * default값이 255라 다 안들어가서
+     * 수정했는데, 특수문자나 개행이 잘 안받아지는 것 같습니다.
+     */
     @NotBlank
+    @Column(length = 65535)
     private String content;
 
     @NotBlank
