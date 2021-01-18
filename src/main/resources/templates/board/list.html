@@ -22,7 +22,7 @@
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
             <nav>
                 <div data-attribute-id="gnb" data-gnb-kind="home">
-                    <a href="/" class="wantedLogo">
+                    <a @click.prevent="goHome" class="wantedLogo">
                         <i class="icon-logo_new"></i>
                     </a>
                 </div>
@@ -31,7 +31,7 @@
                         <a href="/" class="">홈</a>
                     </li>
                     <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
-                        <a href="/board/list" class="">탐색</a>
+                        <a @click.prevent="goSearchList" class="">탐색</a>
                     </li>
                     <li class="microMoreVisible" data-attribute-id="gnb" data-gnb-kind="salary">
                         <a href="/salary" class="">직군별 연봉</a>
@@ -61,18 +61,19 @@
                                     class="icon-bell"></i></button>
                         </li>
                         <li class="smMoreVisible" style="padding-top:5px;">
-<!--                            <button type="button"-->
-<!--                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"-->
-<!--                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>-->
+                            <button type="button"
+                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'">
+                            </button>
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
                             <a class="dashboardButton" href="/">기업 서비스</a>
                         </li>
-                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
-                            style="padding-top:10px;">
-                            <a class="dashboardButton" @click.prevent="goAddWanted">구직 등록하기</a>
-                        </li>
+<!--                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"-->
+<!--                            style="padding-top:10px;">-->
+<!--                            <a class="dashboardButton" @click.prevent="goAddWanted">구직 등록하기</a>-->
+<!--                        </li>-->
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
                                     class="icon-menu"></i></button>
@@ -117,17 +118,10 @@
             <ul data-cy="job-list" class="clearfix">
                 <li v-for="item in options" :key="item.id" :value="item.title">
                     <div data-cy="job-card" class="_3D4OeuZHyGXN7wwibRM5BJ">
-                        <a :href=`read?companyId=${companyId}&boardId=${item.id}` @click.prevent="postBoardCountPlus(item.id)" class=""
+                        <a :href=`read?companyId=${companyId}&boardId=${item.id}` class=""
                            data-attribute-id="position__click" data-job-category-id="518" data-company-id="1211"
                            data-company-name="믹스앤픽스(mixnfix)" data-position-id="48849" data-position-name="워드프레스 웹개발자"
                            data-response-level="high" data-response-rate="92.3" data-ai-score="">
-                            <!--                            <header style="background-image: url(&quot;https://static.wanted.co.kr/images/company/1211/wlh1rupk96juvqjd__400_400.jpg&quot;);">-->
-                            <!--                                <button type="button" class="likeButton" data-attribute-id="position__like__click"-->
-                            <!--                                    data-job-category-id="518" data-company-id="1211" data-company-name="믹스앤픽스(mixnfix)"-->
-                            <!--                                    data-position-id="48849" data-position-name="워드프레스 웹개발자" data-kind="add">-->
-                            <!--                                    <i class="icon-ic_favorite_black_24px"></i>0-->
-                            <!--                                </button>-->
-                            <!--                            </header>-->
                             <img :src=`${item.image}` style="width: 247px; height: 185px;">
                             <div class="body">
                                 <div class="job-card-position">{{ item.title }}</div>
@@ -140,7 +134,15 @@
                     </div>
                 </li>
             </ul>
-            <b-button></b-button>
+            <div class="" style="">
+                <b-pagination
+                    v-model="currentPage"
+                    :total-rows="rows"
+                    :per-page="perPage"
+                    aria-controls="my-table"
+                    @input="getBoardList(currentPage-1)"
+                ></b-pagination>
+            </div>
         </div>
     </div>
 </div>
@@ -217,11 +219,10 @@
 
     new Vue({
         el: "#app",
-         methods: {
+        methods: {
             getBoardSelectDynamic() {
                 axios.get(`http://localhost:9090/board/boards?city=${this.selectedCity}&country=${this.selectedCountry}`)
                  .then(res => {
-                    console.log("res", res);
                     this.options = res.data.content;
                  })
                  .catch(error => {
@@ -229,30 +230,29 @@
                     throw error;
                  });
             },
-            getBoardList() {
-                 axios.get('http://localhost:9090/board/boards')
-                 .then(res => {
+            getBoardList(page) {
+<!--                console.log('page', page);-->
+                axios.get(`http://localhost:9090/board/boards?page=${page}`)
+                .then(res => {
                     console.log("res", res);
                     this.options = res.data.content;
-                 })
-                 .catch(error => {
+                    this.currentPage = res.data.pageable.pageNumber + 1;
+                    this.perPage = res.data.size;
+                    this.rows = res.data.totalElements;
+                })
+                .catch(error => {
                     console.log(error);
                     throw error;
-                 });
-            },
-            postBoardCountPlus(boardId) {
-                axios.post(`http://localhost:9090/board/countPlus/${boardId}`)
-                    .then(res => {
-                        console.log("res", res);
-                        window.location.href = `http://localhost:9090/board/read?companyId=${company_id}&boardId=${boardId}`;
-                     })
-                     .catch(error => {
-                        console.log(error);
-                        throw error;
-                     });
+                });
             },
             goAddWanted() {
                 window.location.href = `http://localhost:9090/board?companyId=${company_id}`;
+            },
+            goHome() {
+                window.location.href = `http://localhost:9090?companyId=${company_id}`;
+            },
+            goSearchList() {
+                window.location.href = `http://localhost:9090/board/list?companyId=${company_id}`;
             },
             getEmployeeInfo() {
                 axios.get('http://localhost:9090/employees/info/1')
@@ -281,6 +281,9 @@
             companyCity: '',
             options: [],
             selectedCity: 'seoul',
+            perPage: 0,
+            currentPage: 0,
+            rows: 0,
             cityOptions: [
                 { value: 'seoul', text: '서울' },
                 { value: 'busan', text: '부산' },

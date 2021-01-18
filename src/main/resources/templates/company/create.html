@@ -29,7 +29,9 @@
                 <ul class="_1ghqg44RECsZcnX4nLgXKP">
                     <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
                                                                                                     class="">홈</a></li>
-                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/board/list" class="">탐색</a></li>
+                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
+                        <a href="/board/list" class="">탐색</a>
+                    </li>
                     <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/event/search" class="">이벤트</a>
                     </li>
                     <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
@@ -220,11 +222,8 @@
                                             <label  class="Static-label">사업자 등록 번호*</label>
                                         </b-col>
                                         <b-col sm="8">
-                                            <b-form-group
-                                                    id="fieldset-3"
-                                                    label-for="input-3"
-                                            >
-                                                <b-form-input id="input-3" v-model="businessNum" v-if="this.companyId === null"></b-form-input>
+                                            <b-form-group id="fieldset-3" label-for="input-3">
+                                                <b-form-input id="input-3" v-model="businessNum"></b-form-input>
                                             </b-form-group>
                                         </b-col>
                                     </b-row>
@@ -270,11 +269,8 @@
                                             <label  class="Static-label">설립연도*</label>
                                         </b-col>
                                         <b-col sm="8">
-                                            <b-form-group
-                                                    id="since"
-                                                    label-for="since"
-                                            >
-                                                <b-form-input id="since" v-model="since" v-if="this.companyId === null"></b-form-input>
+                                            <b-form-group id="since" label-for="since">
+                                                <b-form-input id="since" v-model="since"></b-form-input>
                                             </b-form-group>
                                         </b-col>
                                     </b-row>
@@ -362,7 +358,6 @@
                                             value=true
                                             class="mb-5 mt-5"
                                             unchecked-value=false
-                                            v-if="this.companyId === null"
                                     >
                                         이용약관 및 원티드 기업회원 가입에 동의합니다.
                                     </b-form-checkbox>
@@ -548,6 +543,7 @@
             name: '',
             userName: '',
             userEmail: '',
+            companyId: company_id,
         }
     });
 </script>

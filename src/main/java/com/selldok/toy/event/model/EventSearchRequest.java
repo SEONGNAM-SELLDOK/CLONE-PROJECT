@@ -3,7 +3,10 @@ package com.selldok.toy.event.model;
 import java.time.LocalDateTime;
 
 import com.selldok.toy.event.entity.EventType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**  * EventSearchRequest
@@ -13,6 +16,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class EventSearchRequest {
 	private String title;
 	private LocalDateTime date;

@@ -1,17 +1,170 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Selldok-toy</title>
+    <meta charset="utf-8">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/employee.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
 </head>
 <body>
 <div id="app">
-    {{ message }}
-    <div>
-        <b-table striped hover :items="items" :fields="fields">
-            <template #cell(show_details)="row">
-                <b-button size="sm" @click="row.toggleDetails" class="mr-2">수정</b-button>
-            </template>
-        </b-table>
+    <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
+        <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
+            <nav>
+                <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
+                        class="icon-logo_new"></i></a></div>
+                <ul class="_1ghqg44RECsZcnX4nLgXKP">
+                    <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home">
+                        <a href="/" class="">홈</a>
+                    </li>
+                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
+                        <a href="/board/list" class="">탐색</a>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event">
+                        <a href="/event/search" class="">이벤트</a>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                            href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
+                            href="/salary" class="">직군별 연봉</a></li>
+                </ul>
+                <div role="presentation" style="top:50px" class="_20ifPcRwe0HfDn42RqwaqR">
+                    <div class="overlay">
+                        <div class="container"></div>
+                    </div>
+                </div>
+                <aside class="_1_C3JjCbQiF2wpzdXK0i_Y">
+                    <ul>
+                        <li>
+                            <button type="button" class="searchButton" data-attribute-id="gnb" data-gnb-kind="search"><i
+                                    class="icon-search"></i></button>
+                        </li>
+                        <li>
+                            <button type="button" class="notiButton" data-attribute-id="gnb" data-gnb-kind="bell"><i
+                                    class="icon-bell"></i></button>
+                        </li>
+                        <li class="smMoreVisible" style="padding-top:5px;">
+                            <button type="button"
+                                    th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'"
+                                    data-attribute-id="gnb" data-gnb-kind="photo" class="profileButton" th:onclick="'myInfoPage(' + ${#authentication.id} + ');'"></button>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
+                            <a class="dashboardButton" href="/">기업 서비스</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
+                            <a class="dashboardButton" @click="recruitPosition">구직 등록</a>
+                        </li>
+                        <li class="xsOnly">
+                            <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
+                                    class="icon-menu"></i></button>
+                        </li>
+                    </ul>
+                </aside>
+            </nav>
+        </div>
+    </div>
+    <div style="height:50px"></div>
+    <div class="_1Gv5LM5zal-f72_XSo_qJ_">
+        <nav role="presentation" class="_3wSXAiIJQZ98fJ-Hi6G42Q is-matching">
+            <button type="button" class="">프로필<i class="icon-arrow_bottom_fill"></i></button>
+            <ul class="_1I4cqaAHGtwxgFUnJHZb4l">
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="myWanted"><a href="/mywanted" class="">MY 원티드</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="profile"><a href="/profile/matching"
+                                                                               class="activeNav">기업 정보 리스트</a></div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <button type="button" class="">지원 현황<i class="icon-arrow_bottom_fill"></i></button>
+                    <div data-attribute-id="myPage" data-tab-kind="applications"><a href="/status/applications"
+                                                                                    class="">지원 현황</a></div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <button type="button" class="">제안받기 현황<i class="icon-arrow_bottom_fill"></i></button>
+                    <div data-attribute-id="myPage" data-tab-kind="offersReceived"><a href="/profile/status" class="">제안받기
+                        현황</a></div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="likes"><a href="/profile/likes" class="">좋아요</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="bookmarks"><a href="/profile/bookmarks"
+                                                                                 class="">북마크</a></div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <button type="button" class="">MY 영상<i class="icon-arrow_bottom_fill"></i></button>
+                    <div data-attribute-id="myPage" data-tab-kind="myVideos"><a href="/profile/myvod" class="">MY 영상</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <div data-attribute-id="myPage" data-tab-kind="points"><a href="/profile/point" class="">포인트</a>
+                    </div>
+                </li>
+                <li class="_1ft7OZSrbzL35bkI-omU2b">
+                    <button type="button" class="">설정<i class="icon-arrow_bottom_fill"></i></button>
+                    <div data-attribute-id="myPage" data-tab-kind="settings"><a href="/profile/settings" class="">설정</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="_14NzdD9Zqjq8ocf6TORWoN">
+            <aside class="Aside _1dBR38s0D_bqykmPvZBYPu">
+                <header class="Aside-header">
+                    <div class="Aside-avatar">
+                        <div class="Aside-avatar_image"
+                             th:style="'background-image:url(' + ${#authentication.picUrl} + '), url(' + ${#authentication.picUrl} + ');'">
+                            <div class="_1RDFX7ZROHIIPqPMgmtS2E"><input type="file" accept="image/*"><i
+                                    class="icon-camera_icon" role="presentation"></i></div>
+                        </div>
+                    </div>
+                    <div class="Aside-me">
+                        <div class="Aside-me_name">Michael Alehgbccadeda Greenesky</div>
+                        <div class="Aside-me_email">apylknutcy_1607149135@tfbnw.net</div>
+                        <div class="Aside-me_tel"></div>
+                    </div>
+                    <a th:href="@{'/employees/basicinfo/' + ${#authentication.id}}" class="Aside-edit">기본정보 수정</a></header>
+                <div class="MatchUpStatus _s0V-DmOyFivCW3HY7Nh3 is-disabled"><a
+                        href="/profile/status?type=matchup-likes"
+                        class="MatchUpStatus-item disabled"><span
+                        class="MatchUpStatus-label">원해요</span><strong class="MatchUpStatus-value">3</strong></a><a
+                        href="/profile/status?type=matchup-opens" class="MatchUpStatus-item disabled"><span
+                        class="MatchUpStatus-label">열람</span><strong class="MatchUpStatus-value">7</strong></a><a
+                        href="/profile/status?type=matchup-offers" class="MatchUpStatus-item disabled"><span
+                        class="MatchUpStatus-label">받은 제안</span><strong class="MatchUpStatus-value">5</strong></a></div>
+            </aside>
+            <section>
+                <div class="_6zGbQ6Gwdi0O826QWL_gN">
+                    <div class="MatchUpForm _1DBZ1F8aWXUpL5ry5a_nRi _3IED0gKfPim4KkuZ7BNhTA">
+                        <header class="Form-header">
+                            <dl class="Form-title">
+                                <dt>기업 정보 List</dt>
+                            </dl>
+                        </header>
+                        <div class="FormBlock _3jRGSvRhv5E53D3OVwfvlL">
+                            <div class="MainResume-fieldset">
+                                <div>
+                                    <b-table striped hover :items="items" :fields="fields">
+                                        <template #cell(show_details)="row">
+                                            <b-button size="sm" @click="goCompanyRead(row.item.id)" class="mr-2">상세보기</b-button>
+                                        </template>
+                                    </b-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </div>
 
@@ -34,19 +187,40 @@
 <script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
 
 <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const companyId = urlParams.get('companyId');
+    const board_id = urlParams.get('boardId');
+
+    function myInfoPage(userId) {
+        location.href=`/employees/view/${userId}?companyId=${companyId}`;
+    }
+
     new Vue({
         el: "#app",
-         methods: {
+        methods: {
+            recruitPosition() {
+                if(companyId != undefined) {
+                    window.location.href = `http://localhost:9090/board?companyId=${companyId}`;
+                } else {
+                    alert('기업 등록 후 구직 등록 이용 가능 합니다.');
+                }
+            },
             getCompanyList() {
-                 axios.get('http://localhost:9090/company')
+                 axios.get('http://localhost:9090/company/companies')
                  .then(res => {
                     console.log("res", res);
+                    this.items = res.data.content
                  })
                  .catch(error => {
                     console.log(error);
                     throw error;
                  });
-            }
+            },
+            goCompanyRead(companyId) {
+                window.location.href = `http://localhost:9090/company/read?companyId=${companyId}`;
+            },
         },
         beforeMount() {
             console.log("11111");
@@ -54,13 +228,9 @@
         },
         data: {
             message: "리스트 페이지!",
-            fields: ['기업명', '직원수', 'Email', '연락처', '웹사이트', 'show_details'],
-            items: [
-              { 기업명: '삼성', 직원수: '1~5명', Email: 'admin@example.com', 연락처: 01015664545, 웹사이트: 'https://www.wanted.co.kr/', },
-              { 기업명: '삼성', 직원수: '10~50명', Email: 'admin@example.com', 연락처: 01015664545, 웹사이트: 'https://www.wanted.co.kr/'},
-              { 기업명: '삼성', 직원수: '100~500명', Email: 'admin@example.com', 연락처: 01015664545, 웹사이트: 'https://www.wanted.co.kr/'},
-              { 기업명: '삼성', 직원수: '1~5명', Email: 'admin@example.com', 연락처: 01015664545, 웹사이트: 'https://www.wanted.co.kr/'}
-            ]
+            fields: ['name', 'email', 'phone', 'homepage', 'show_details'],
+            items: [],
+            company: companyId
         }
     });
 </script>

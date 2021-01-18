@@ -26,13 +26,14 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
     public List<CompanyListResponse> search(CompanySearchCondition condition) {
         List<CompanyListResponse> fetch = queryFactory
                 .select(new QCompanyListResponse(
-                company.name,
-                company.employees,
-                company.email,
-                company.phone,
-                company.homepage,
-                member.id.as("memberId"),
-                member.name.as("memberName")))
+                    company.id,
+                    company.name,
+                    company.employees,
+                    company.email,
+                    company.phone,
+                    company.homepage,
+                    member.id.as("memberId"),
+                    member.name.as("memberName")))
                 .from(company)
                 .leftJoin(company.member, member)
                 .fetch();
@@ -44,6 +45,7 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
     public Page<CompanyListResponse> searchPage(CompanySearchCondition condition, Pageable pageable) {
         QueryResults<CompanyListResponse> results = queryFactory
                 .select(new QCompanyListResponse(
+                        company.id,
                         company.name,
                         company.employees,
                         company.email,

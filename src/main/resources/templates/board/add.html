@@ -13,12 +13,8 @@
     <div class="header">
         <div class="container">
             <header role="navigation" class="navbar bd-navbar flex-column flex-md-row navbar-dark navbar-expand">
-                <b-link href="#foo">Wanted for Employers</b-link>
-                <b-dropdown text="기업명">
-                    <b-dropdown-item href="#">기업 프로필</b-dropdown-item>
-                    <b-dropdown-item href="#">로그아웃</b-dropdown-item>
-                </b-dropdown>
-                <b-button>원티드 홈</b-button>
+                <b-link href="/" class="mr-30">원티드 홈</b-link>
+                <b-button @click="goCompanyList">기업 목록 보기</b-button>
             </header>
         </div>
     </div>
@@ -112,6 +108,9 @@
         methods: {
             close() {
                 window.location.href = `http://localhost:9090/board/read?companyId=${company_id}&boardId=${board_id}`;
+            },
+            goCompanyList() {
+                window.location.href = `http://localhost:9090/company/list?companyId=${company_id}`;
             },
             fileUpload() {
                 const formData = new FormData();

@@ -7,22 +7,24 @@
     <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
 <body>
-<script>
-    function myInfoPage(userId){
-        location.href='/employees/view/' + userId;
-    }
-</script>
 <div id="app">
     <div role="presentation" class="_18n9ahfYSkH2qwpg5s7sYW" style="position:fixed">
         <div class="MGugNQX2O1RJkenNGmHO9" role="presentation">
             <nav>
-                <div data-attribute-id="gnb" data-gnb-kind="home"><a href="/" class="wantedLogo"><i
-                        class="icon-logo_new"></i></a></div>
+                <div data-attribute-id="gnb" data-gnb-kind="home">
+                    <a @click.prevent="goHome" class="wantedLogo">
+                        <i class="icon-logo_new"></i>
+                    </a>
+                </div>
                 <ul class="_1ghqg44RECsZcnX4nLgXKP">
-                    <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home"><a href="/"
-                                                                                                    class="">홈</a></li>
-                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore"><a href="/board/list" class="">탐색</a></li>
-                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event"><a href="/event/search" class="">이벤트</a>
+                    <li class="xsHomeButton xsOnly" data-attribute-id="gnb" data-gnb-kind="home">
+                        <a href="/" class="">홈</a>
+                    </li>
+                    <li class="" data-attribute-id="gnb" data-gnb-kind="explore">
+                        <a @click.prevent="goSearchList" class="">탐색</a>
+                    </li>
+                    <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="event">
+                        <a href="/event/search" class="">이벤트</a>
                     </li>
                     <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="matchup"><a
                             href="/matchup/intro?from_gnb=true" class="">매치업</a></li>
@@ -55,11 +57,19 @@
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
                             style="padding-top:10px;">
-                            <a class="dashboardButton" href="/company">기업 정보 등록</a>
+                            <a class="dashboardButton" href="/company" v-if="company != 1">기업 정보 등록</a>
                         </li>
                         <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
-                            style="padding-top:10px;"><a
-                                class="dashboardButton" href="/auth/logout">로그아웃</a></li>
+                            style="padding-top:10px;">
+                            <a class="dashboardButton" @click.prevent="goCompanyList">기업 목록 보기</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
+                            <a class="dashboardButton" @click.prevent="recruitPosition">구직 등록</a>
+                        </li>
+                        <li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
+                            style="padding-top:10px;">
+                            <a class="dashboardButton" href="/auth/logout">로그아웃</a></li>
                         <li class="xsOnly">
                             <button class="menuButton" type="button" data-attribute-id="gnb" data-gnb-kind="photo"><i
                                     class="icon-menu"></i></button>
@@ -280,10 +290,12 @@
                         </div>
                     </div>
                     <input type="hidden" class="selldock_input_id" th:value="*{employee.id}">
+                </div>
             </section>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     $('.BasicInformation-submit').click(function () {
         $.ajax({
@@ -326,6 +338,42 @@
             }
         })
     })
+</script>
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const companyId  = urlParams.get('companyId');
+
+    function myInfoPage(userId) {
+        location.href=`/employees/view/${userId}?companyId=${companyId}`;
+    }
+
+    new Vue({
+        el: "#app",
+        methods: {
+            recruitPosition() {
+                if(companyId != undefined) {
+                    window.location.href = `http://localhost:9090/board?companyId=${companyId}`;
+                } else {
+                    alert('기업 등록 후 구직 등록 이용 가능 합니다.');
+                }
+            },
+            goCompanyList() {
+                window.location.href = `http://localhost:9090/company/list?companyId=${companyId}`;
+            },
+            goHome() {
+                window.location.href = `http://localhost:9090/?companyId=${companyId}`;
+            },
+            goSearchList() {
+                window.location.href = `http://localhost:9090/board/list?companyId=${companyId}`;
+            },
+        },
+        data: {
+            test: '',
+            company: companyId,
+        }
+    });
 </script>
 </body>
 </html>

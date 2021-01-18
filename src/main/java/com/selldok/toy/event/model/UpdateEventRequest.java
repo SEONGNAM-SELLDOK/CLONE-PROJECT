@@ -1,7 +1,10 @@
 package com.selldok.toy.event.model;
 
 import com.selldok.toy.event.entity.EventType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -9,6 +12,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UpdateEventRequest {
     private String imageLink;
     private EventType type;
