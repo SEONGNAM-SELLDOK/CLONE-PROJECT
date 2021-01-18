@@ -1,25 +1,23 @@
 package com.selldok.toy.employee.service;
 
-import com.selldok.toy.config.SelldokUserToken;
-import com.selldok.toy.employee.dao.EmployeeRepository;
-import com.selldok.toy.employee.entity.Employee;
-import com.selldok.toy.employee.model.FaceBookFriend;
-import com.selldok.toy.employee.model.FaceBookFriendResult;
-import com.selldok.toy.employee.model.FaceBookTokenResponse;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
+import com.selldok.toy.config.SelldokUserToken;
+import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.employee.entity.Employee;
+import com.selldok.toy.employee.model.FaceBookFriend;
+import com.selldok.toy.employee.model.FaceBookFriendResult;
+import com.selldok.toy.employee.model.FaceBookTokenResponse;
 import lombok.RequiredArgsConstructor;
 
 /**
