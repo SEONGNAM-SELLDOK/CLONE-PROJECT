@@ -155,11 +155,11 @@ public class ApplyHistoryController {
 		,@RequestParam(required=false) ApplyHistory.Status status
 		,Pageable pageable
 	) throws Exception {
-		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
-		applyHistoryDto.setApplicantId(applicantId);
-		applyHistoryDto.setName(name);
-		applyHistoryDto.setCompanyName(companyName);
-		applyHistoryDto.setStatus(status);
+		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
+										.applicantId(applicantId)
+										.name(name)
+										.companyName(companyName)
+										.status(status).build();
 		log.debug("applyHistoryDto={}", applyHistoryDto);
 		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
 	}	

@@ -62,10 +62,7 @@ public class CompanyController {
         if(principal != null) {
             SelldokUserToken selldokUserToken = (SelldokUserToken)principal;
             log.debug("selldokUserToken.getId()", selldokUserToken.getId());
-            Optional<Employee> optionalEmployee = employeeRepository.findById(selldokUserToken.getId());
-            if(optionalEmployee.isPresent()) {
-                representative = optionalEmployee.get();
-            }
+            representative = employeeRepository.findById(selldokUserToken.getId()).orElse(null);
         }
 
         log.info(request.toString());
