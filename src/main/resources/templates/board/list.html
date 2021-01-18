@@ -167,8 +167,8 @@
 
     function LoadingWithMask() {
         //화면의 높이와 너비를 구합니다.
-        var maskHeight = $(document).height();
-        var maskWidth  = window.document.body.clientWidth;
+        const maskHeight = $(document).height();
+        const maskWidth  = window.document.body.clientWidth;
 
         //화면에 출력할 마스크를 설정해줍니다.
         var mask       ="<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";

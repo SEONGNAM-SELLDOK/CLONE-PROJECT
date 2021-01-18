@@ -77,7 +77,7 @@ public class CompanyService {
      * 회사관련해서 정보를 어떻게 넣을지 애매해서
      * 필요한값만 임의로 넣었습니다.
      */
-    public Company findCompanyByName(String name){
+    public Company createTempCompany(String name){
         Optional<Company> optionalCompany = companyRepository.findByName(name);
         if(optionalCompany.isPresent()) return optionalCompany.get();
         Company company = Company.builder()

@@ -112,7 +112,7 @@ public class BoardController {
     @ResponseBody
     @PostMapping("/sync")
     public String getDataFromWanted() {
-        wdlistService.getDetailBoard();
+        wdlistService.syncWithWanted();
         return "success";
     }
 }

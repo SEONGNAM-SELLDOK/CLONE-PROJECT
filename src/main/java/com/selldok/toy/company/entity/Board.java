@@ -35,7 +35,7 @@ public class Board extends JpaBaseEntity {
      * 수정했는데, 특수문자나 개행이 잘 안받아지는 것 같습니다.
      */
     @NotBlank
-    @Column(columnDefinition = "varchar(65535)")
+    @Column(length = 65535)
     private String content;
 
     @NotBlank
