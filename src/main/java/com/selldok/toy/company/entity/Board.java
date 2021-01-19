@@ -58,5 +58,6 @@ public class Board extends JpaBaseEntity {
      * 입사지원이력
      */
     @OneToMany(mappedBy = "employmentBoard", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<ApplyHistory> applyHistories = new ArrayList<ApplyHistory>();
 }
