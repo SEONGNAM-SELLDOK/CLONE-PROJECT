@@ -15,6 +15,7 @@ import com.selldok.toy.employee.model.UpdateEmployeeRequest;
 import com.selldok.toy.employee.model.UpdateProfileRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,72 +25,81 @@ import lombok.RequiredArgsConstructor;
  * @author Incheol Jung
  */
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
-    private final EmployeeMapper employeeMapper;
-    private final PersonInfoRepository personInfoRepository;
+	private final EmployeeRepository employeeRepository;
+	private final EmployeeMapper employeeMapper;
+	private final PersonInfoRepository personInfoRepository;
 
-    public Employee get(Long id) {
-        return employeeRepository.findById(id).orElseThrow();
-    }
+	public Employee get(Long id) {
+		return employeeRepository.findById(id).orElseThrow();
+	}
 
-    public void insert(InsertEmployeeRequest request) {
-        Employee employee = new Employee(request.getName(), request.getEmail(), request.getPhoneNumber());
-        employeeRepository.save(employee);
-    }
+	public Employee findByEmail(String Email) {
+		return employeeRepository.findByInfoEmail(Email).orElseThrow();
+	}
 
-    public void update(Long id, UpdateEmployeeRequest request) {
-        Optional<Employee> employee = employeeRepository.findById(id);
-        employee.ifPresent(existingEmployee -> {
-            existingEmployee.setInfo(BasicInfo.builder()
-                                              .name(request.getName())
-                                              .email(request.getEmail())
-                                              .phoneNumber(request.getPhoneNumber())
-                                              .build());
-            employeeRepository.save(existingEmployee);
-        });
-    }
+	public void insert(InsertEmployeeRequest request) {
+		Employee employee = new Employee(request.getName(), request.getEmail(), request.getPhoneNumber());
+		employeeRepository.save(employee);
+	}
 
-    public void delete(Long id) {
-        employeeRepository.deleteById(id);
-    }
+	@Transactional
+	public void update(Long id, UpdateEmployeeRequest request) {
+		Optional<Employee> employee = employeeRepository.findById(id);
+		employee.ifPresent(existingEmployee -> {
+			existingEmployee.setInfo(BasicInfo.builder()
+				.name(request.getName())
+				.email(request.getEmail())
+				.phoneNumber(request.getPhoneNumber())
+				.build());
+			employeeRepository.save(existingEmployee);
+		});
+	}
 
-    public EmployeeProfileResponse getProfile(Long id) {
-        return employeeMapper.getEmployee(id);
-    }
+	@Transactional
+	public void delete(Long id) {
+		employeeRepository.deleteById(id);
+	}
 
-    public void updateProfile(Long id, UpdateProfileRequest request) {
-        Optional<Employee> employee = employeeRepository.findById(id);
+	public EmployeeProfileResponse getProfile(Long id) {
+		return employeeMapper.getEmployee(id);
+	}
 
-        employee.ifPresent(existingEmployee -> {
-            PersonInfo personInfo = personInfoRepository.findByEmployeeId(existingEmployee.getId()).orElseGet(PersonInfo::new);
+	@Transactional
+	public void updateProfile(Long id, UpdateProfileRequest request) {
+		Optional<Employee> employee = employeeRepository.findById(id);
 
-            personInfo.setResume(request.getResume());
-            personInfo.setEmployeeId(id);
-            personInfo.setCompany(Company.builder()
-                                         .companyName(request.getCompany().getCompanyName())
-                                         .position(request.getCompany().getPosition())
-                                         .rank(request.getCompany().getRank())
-                                         .build());
-            personInfo.setExpertise(Expertise.builder()
-                                             .carrer(request.getExpertise().getCarrer())
-                                             .occupation(request.getExpertise().getOccupation())
-                                             .skills(request.getExpertise().getSkills())
-                                             .task(request.getExpertise().getTask())
-                                             .build());
-            personInfo.setSchool(School.builder()
-                                       .schoolName(request.getSchool().getSchoolName())
-                                       .department(request.getSchool().getDepartment())
-                                       .build());
+		employee.ifPresent(existingEmployee -> {
+			PersonInfo personInfo = personInfoRepository.findByEmployeeId(existingEmployee.getId())
+				.orElseGet(PersonInfo::new);
 
-            personInfoRepository.save(personInfo);
-        });
-    }
+			personInfo.setResume(request.getResume());
+			personInfo.setEmployeeId(id);
+			personInfo.setCompany(Company.builder()
+				.companyName(request.getCompany().getCompanyName())
+				.position(request.getCompany().getPosition())
+				.rank(request.getCompany().getRank())
+				.build());
+			personInfo.setExpertise(Expertise.builder()
+				.carrer(request.getExpertise().getCarrer())
+				.occupation(request.getExpertise().getOccupation())
+				.skills(request.getExpertise().getSkills())
+				.task(request.getExpertise().getTask())
+				.build());
+			personInfo.setSchool(School.builder()
+				.schoolName(request.getSchool().getSchoolName())
+				.department(request.getSchool().getDepartment())
+				.build());
 
-    public Employee insert(String name, String email, String url) {
-        Employee employee = new Employee(name, email, "");
-        return employeeRepository.save(employee);
-    }
+			personInfoRepository.save(personInfo);
+		});
+	}
+
+	public Employee insert(String name, String email, String url) {
+		Employee employee = new Employee(name, email, "");
+		return employeeRepository.save(employee);
+	}
 }
