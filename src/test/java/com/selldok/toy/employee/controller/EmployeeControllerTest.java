@@ -110,12 +110,24 @@ class EmployeeControllerTest {
 	}
 
 	@Test
-	void insert() {
+	void insert() throws Exception {
 		//given
+		doNothing().when(employeeService).insert(any());
 
 		//when
+		ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.post("/employees"));
 
 		//then
+		resultActions
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andDo(document("employees-insert",
+				requestFields(
+					fieldWithPath("name").description("Name of new company"),
+					fieldWithPath("homepage").description("homepage of new company"),
+					fieldWithPath("terms").description("terms of new company")
+				)
+			)).andReturn();
 	}
 
 	@Test
