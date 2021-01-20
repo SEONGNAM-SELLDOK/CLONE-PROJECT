@@ -1,14 +1,7 @@
 package com.selldok.toy.employee.controller;
 
-import com.selldok.toy.employee.entity.Employee;
-import com.selldok.toy.employee.model.EmployeeProfileResponse;
-import com.selldok.toy.employee.model.FaceBookFriend;
-import com.selldok.toy.employee.model.FaceBookFriendResult;
-import com.selldok.toy.employee.model.InsertEmployeeRequest;
-import com.selldok.toy.employee.model.UpdateEmployeeRequest;
-import com.selldok.toy.employee.model.UpdateProfileRequest;
-import com.selldok.toy.employee.service.AuthService;
-import com.selldok.toy.employee.service.EmployeeService;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-import java.util.Optional;
+import com.selldok.toy.employee.entity.Employee;
+import com.selldok.toy.employee.model.EmployeeProfileResponse;
+import com.selldok.toy.employee.model.EmployeeResponse;
+import com.selldok.toy.employee.model.FaceBookFriend;
+import com.selldok.toy.employee.model.InsertEmployeeRequest;
+import com.selldok.toy.employee.model.UpdateEmployeeRequest;
+import com.selldok.toy.employee.model.UpdateProfileRequest;
+import com.selldok.toy.employee.service.AuthService;
+import com.selldok.toy.employee.service.EmployeeService;
 
 /**
  * @author Incheol Jung
@@ -69,8 +69,8 @@ public class EmployeeController {
 
 	@GetMapping("{id}")
 	@ResponseBody
-	public ResponseEntity<Employee> get(@PathVariable("id") Long id) {
-		return new ResponseEntity(employeeService.get(id), HttpStatus.OK);
+	public ResponseEntity<EmployeeResponse> get(@PathVariable("id") Long id) {
+		return new ResponseEntity(EmployeeResponse.of(employeeService.get(id)), HttpStatus.OK);
 	}
 
     @PostMapping
