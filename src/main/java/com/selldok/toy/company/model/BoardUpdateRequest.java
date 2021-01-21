@@ -14,6 +14,7 @@ import java.util.Date;
 @Getter
 @ToString
 @AllArgsConstructor
+@Builder
 public class BoardUpdateRequest {
 
     @NotBlank

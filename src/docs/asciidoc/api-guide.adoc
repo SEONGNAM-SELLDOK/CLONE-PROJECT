@@ -84,4 +84,37 @@ include::{snippets}/create-company/curl-request.adoc[]
 include::{snippets}/create-company/http-response.adoc[]
 include::{snippets}/create-company/response-fields.adoc[]
 include::{snippets}/create-company/response-body.adoc[]
-//operation::create-company[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-update-company]]
+=== 기업 수정
+
+`PUT` 요청을 사용해서 기업을 수정 할 수 있다.
+
+include::{snippets}/update-company/request-fields.adoc[]
+include::{snippets}/update-company/curl-request.adoc[]
+include::{snippets}/update-company/http-response.adoc[]
+include::{snippets}/update-company/response-fields.adoc[]
+include::{snippets}/update-company/response-body.adoc[]
+
+[[resources-create-board]]
+=== 구직 등록
+
+`POST` 요청을 사용해서 신규 구직을 만들 수 있다.
+
+include::{snippets}/create-board/request-fields.adoc[]
+include::{snippets}/create-board/curl-request.adoc[]
+include::{snippets}/create-board/http-response.adoc[]
+include::{snippets}/create-board/response-fields.adoc[]
+include::{snippets}/create-board/response-body.adoc[]
+
+[[resources-update-company]]
+=== 구직 수정
+
+`PUT` 요청을 사용해서 기업을 수정 할 수 있다.
+
+include::{snippets}/update-board/request-fields.adoc[]
+include::{snippets}/update-board/curl-request.adoc[]
+include::{snippets}/update-board/http-response.adoc[]
+include::{snippets}/update-board/response-fields.adoc[]
+include::{snippets}/update-board/response-body.adoc[]
+

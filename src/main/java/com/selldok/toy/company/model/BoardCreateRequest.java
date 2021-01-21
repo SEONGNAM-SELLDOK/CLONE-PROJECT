@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @ToString
+@Builder
 @AllArgsConstructor
 public class BoardCreateRequest {
 
