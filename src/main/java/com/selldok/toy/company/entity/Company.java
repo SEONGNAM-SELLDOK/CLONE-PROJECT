@@ -1,5 +1,6 @@
 package com.selldok.toy.company.entity;
 
+import com.selldok.toy.employee.entity.Employee;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,8 +41,8 @@ public class Company {
 
     // 하나의 회사는 하나의 마스터 매니저를 가진다.
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     // 회사 대표자
     @JsonIgnore
@@ -85,8 +86,8 @@ public class Company {
         board.setCompany(this);
     }
 
-    public void setMember(Member member) {
-        this.member = member;
-        member.setCompany(this);
+    public void setMember(Employee employee) {
+        this.employee = employee;
+        employee.setCompany(this);
     }
 }

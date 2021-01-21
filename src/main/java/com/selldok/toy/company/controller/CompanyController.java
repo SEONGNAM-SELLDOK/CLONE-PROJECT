@@ -102,10 +102,11 @@ public class CompanyController {
     @GetMapping("{id}")
     @ResponseBody
     public ResponseEntity<CompanyProfileResponse> getProfile(@PathVariable("id") Long id) {
-        return new ResponseEntity(companyRepository.findById(id), HttpStatus.OK);
+        return new ResponseEntity(companyService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("{id}")
+    @ResponseBody
     public ResponseEntity<String> update(@PathVariable("id") Long id, final @Valid @RequestBody CompanyUpdateRequest request) {
 
         Long companyId = companyService.update(id, request);
@@ -122,4 +123,5 @@ public class CompanyController {
         companyService.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
 }
