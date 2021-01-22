@@ -87,13 +87,22 @@ include::{snippets}/create-company/response-body.adoc[]
 //operation::create-company[snippets='request-fields,curl-request,http-response,response-fields,response-body']
 
 [[resources-apply-history]]
-=== 구직 등록
+=== 구직 관리
 
-`POST` 요청을 사용해서 새 기업을 만들 수 있다.
+==== 구직 신청
 
-include::{snippets}/apply-history/request-fields.adoc[]
-include::{snippets}/apply-history/curl-request.adoc[]
-include::{snippets}/apply-history/http-response.adoc[]
-include::{snippets}/apply-history/response-fields.adoc[]
-include::{snippets}/apply-history/response-body.adoc[]
-//operation::apply-history[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+include::{snippets}/apply-create/request-fields.adoc[]
+include::{snippets}/apply-create/curl-request.adoc[]
+include::{snippets}/apply-create/http-response.adoc[]
+include::{snippets}/apply-create/response-fields.adoc[]
+include::{snippets}/apply-create/response-body.adoc[]
+//operation::apply-create[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 구직 신청 내용 수정
+
+response body는 없습니다. 상태가 accecpted (202)이면 성공으로 판단해주세요.
+
+include::{snippets}/apply-update/request-fields.adoc[]
+include::{snippets}/apply-update/curl-request.adoc[]
+include::{snippets}/apply-update/http-response.adoc[]
+//operation::apply-create[snippets='request-fields,curl-request,http-response,response-fields,response-body']

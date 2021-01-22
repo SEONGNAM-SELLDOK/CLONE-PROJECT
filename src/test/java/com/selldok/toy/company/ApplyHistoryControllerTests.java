@@ -9,6 +9,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,16 +20,16 @@ import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.service.BoardService;
 import com.selldok.toy.company.service.CompanyService;
-import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
 import com.selldok.toy.employee.service.EmployeeService;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -37,10 +38,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @SpringBootTest
 @Transactional
@@ -78,7 +77,7 @@ public class ApplyHistoryControllerTests {
 	*/
 	@Test
 	@Order(1)
-	public void createCompany() throws Exception {
+	public void apply() throws Exception {
 		//이 테스트는 할 필요 없지만 다른 테스트에서 company_id 가 필요하므로 수행 함
 		Address newAddress = new Address("country", "city", "street");
 		Company newCompany = Company.builder()
@@ -111,69 +110,109 @@ public class ApplyHistoryControllerTests {
 		employeeService.insert(insertEmployeeRequest);
 		//employeeService.insert() 가 void라 employeeId를 받아올 수 없음. 정상 동작했다면 1을 반환할 것이므로 1으로 하드코딩 함
 		employeeId = 1L;
-		
+
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.name("name")
 		.email("email")
 		.phoneNumber("phoneNumber")
-		.status(ApplyHistory.Status.APPLCN_COMPT)
+		//.status(ApplyHistory.Status.APPLCN_COMPT)
 		.employmentBoardId(boardId)
 		.build();
 		
-		mockMvc.perform(post("/employees/"+ employeeId + "/applyHistories")
+		// 입사지원
+		MvcResult applyResult = mockMvc.perform(post("/employees/"+ employeeId + "/applyHistories")
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
 		.content(objectMapper.writeValueAsString(applyHistoryDto)))
 		.andDo(print())
 		.andExpect(status().isOk())
-		.andDo(document("apply-history",
+		.andDo(document("apply-create",
 			requestHeaders(
 				headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
 			),
 			requestFields(
-				fieldWithPath("id").description(""),
-				fieldWithPath("name").description(""),
-				fieldWithPath("email").description(""),
-				fieldWithPath("applicantId").description(""),
-				fieldWithPath("representativeId").description(""),
-				fieldWithPath("companyId").description(""),
-				fieldWithPath("phoneNumber").description(""),
-				fieldWithPath("employmentBoardId").description(""),
-				fieldWithPath("boardTitle").description(""),
-				fieldWithPath("companyName").description(""),
-				fieldWithPath("companyLogoUrl").description(""),
-				fieldWithPath("companyCountry").description(""),
-				fieldWithPath("companyCity").description(""),
-				fieldWithPath("companyStreet").description(""),
-				fieldWithPath("appliedDate").description(""),
-				fieldWithPath("status").description(""),
-				fieldWithPath("recommendStatus").description(""),
-				fieldWithPath("companyAddress").description("")
+				fieldWithPath("id").description("지원이력 식별자. null로 넘겨주세요"),
+				fieldWithPath("name").description("지원자명"),
+				fieldWithPath("email").description("지원자 이메일"),
+				fieldWithPath("phoneNumber").description("지원자 전화번호"),
+				fieldWithPath("applicantId").description("지원자 식별자. path parameter를 사용할 것이므로 null로 넘겨주세요"),
+				fieldWithPath("representativeId").description("회사 대표자 아이디. null로 넘겨주세요"),
+				fieldWithPath("companyId").description("회사 아이디(필수)"),				
+				fieldWithPath("employmentBoardId").description("구인 게시물 식별자(필수)"),
+				fieldWithPath("boardTitle").description("구인 게시물 제목. null로 넘겨주세요"),
+				fieldWithPath("companyName").description("회사명. null로 넘겨주세요"),
+				fieldWithPath("companyLogoUrl").description("회사로고 주소. null로 넘겨주세요"),
+				fieldWithPath("companyCountry").description("회사 국가명. null로 넘겨주세요"),
+				fieldWithPath("companyCity").description("회사 소재지 도시명. null로 넘겨주세요"),
+				fieldWithPath("companyStreet").description("회사 소재지 도로명. null로 넘겨주세요"),
+				fieldWithPath("companyAddress").description("회사 주소. null로 넘겨주세요"),
+				fieldWithPath("appliedDate").description("지원일. null로 넘겨주세요"),
+				fieldWithPath("status").description("지원상태. null로 넘겨주세요"),
+				fieldWithPath("recommendStatus").description("추천상태. null로 넘겨주세요")
 			),
 			responseHeaders(
 				headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
 			),
 			responseFields(
-				fieldWithPath("id").description(""),
-				fieldWithPath("name").description(""),
-				fieldWithPath("email").description(""),
-				fieldWithPath("applicantId").description(""),
-				fieldWithPath("representativeId").description(""),
-				fieldWithPath("companyId").description(""),
-				fieldWithPath("phoneNumber").description(""),
-				fieldWithPath("employmentBoardId").description(""),
-				fieldWithPath("boardTitle").description(""),
-				fieldWithPath("companyName").description(""),
-				fieldWithPath("companyLogoUrl").description(""),
-				fieldWithPath("companyCountry").description(""),
-				fieldWithPath("companyCity").description(""),
-				fieldWithPath("companyStreet").description(""),
-				fieldWithPath("appliedDate").description(""),
-				fieldWithPath("status").description(""),
-				fieldWithPath("recommendStatus").description(""),
-				fieldWithPath("companyAddress").description("")
+				fieldWithPath("id").description("지원이력 식별자"),
+				fieldWithPath("name").description("지원자명"),
+				fieldWithPath("email").description("지원자 이메일"),
+				fieldWithPath("phoneNumber").description("지원자 전화번호"),
+				fieldWithPath("applicantId").description("지원자 식별자"),
+				fieldWithPath("representativeId").description("회사 대표자 아이디"),
+				fieldWithPath("companyId").description("회사 아이디"),				
+				fieldWithPath("employmentBoardId").description("구인 게시물 식별자"),
+				fieldWithPath("boardTitle").description("구인 게시물 제목"),
+				fieldWithPath("companyName").description("회사명"),
+				fieldWithPath("companyLogoUrl").description("회사로고 주소"),
+				fieldWithPath("companyCountry").description("회사 국가명"),
+				fieldWithPath("companyCity").description("회사 소재지 도시명"),
+				fieldWithPath("companyStreet").description("회사 소재지 도로명"),
+				fieldWithPath("companyAddress").description("회사 주소"),
+				fieldWithPath("appliedDate").description("지원일"),
+				fieldWithPath("status").description("지원상태"),
+				fieldWithPath("recommendStatus").description("추천상태")
 			)
-		))
-		;
+		)).andReturn();
+		
+		ApplyHistoryDto resultApplyHistoryDto = objectMapper.readValue(applyResult.getResponse().getContentAsString(), ApplyHistoryDto.class);
+		logger.debug("applyId={}", resultApplyHistoryDto.getId());
+
+		applyHistoryDto.setName("수정할 지원자명");
+
+		// 지원내용 수정
+		applyResult = mockMvc.perform(put("/employees/"+ employeeId + "/applyHistories/" + resultApplyHistoryDto.getId())
+		.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.content(objectMapper.writeValueAsString(applyHistoryDto)))
+		.andDo(print())
+		.andExpect(status().isAccepted())
+		.andDo(document("apply-update",
+			requestHeaders(
+				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+			),
+			requestFields(
+				fieldWithPath("id").description("null로 넘겨주세요"),
+				fieldWithPath("name").description("수정할 지원자명"),
+				fieldWithPath("email").description("지원자 이메일"),
+				fieldWithPath("phoneNumber").description("지원자 전화번호"),
+				fieldWithPath("applicantId").description("지원자 식별자. path parameter를 사용할 것이므로 null로 넘겨주세요"),
+				fieldWithPath("representativeId").description("회사 대표자 아이디. null로 넘겨주세요"),
+				fieldWithPath("companyId").description("회사 아이디(필수)"),				
+				fieldWithPath("employmentBoardId").description("구인 게시물 식별자(필수)"),
+				fieldWithPath("boardTitle").description("구인 게시물 제목. null로 넘겨주세요"),
+				fieldWithPath("companyName").description("회사명. null로 넘겨주세요"),
+				fieldWithPath("companyLogoUrl").description("회사로고 주소. null로 넘겨주세요"),
+				fieldWithPath("companyCountry").description("회사 국가명. null로 넘겨주세요"),
+				fieldWithPath("companyCity").description("회사 소재지 도시명. null로 넘겨주세요"),
+				fieldWithPath("companyStreet").description("회사 소재지 도로명. null로 넘겨주세요"),
+				fieldWithPath("companyAddress").description("회사 주소. null로 넘겨주세요"),
+				fieldWithPath("appliedDate").description("지원일. null로 넘겨주세요"),
+				fieldWithPath("status").description("지원상태. null로 넘겨주세요"),
+				fieldWithPath("recommendStatus").description("추천상태. null로 넘겨주세요")
+			),
+			responseHeaders(
+				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
+			)
+		)).andReturn();		
 	}
 
 }
