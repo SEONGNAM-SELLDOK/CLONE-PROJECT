@@ -13,6 +13,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selldok.toy.common.RestDocsConfiguration;
 import com.selldok.toy.company.entity.Address;
@@ -111,18 +114,16 @@ public class ApplyHistoryControllerTests {
 		//employeeService.insert() 가 void라 employeeId를 받아올 수 없음. 정상 동작했다면 1을 반환할 것이므로 1으로 하드코딩 함
 		employeeId = 1L;
 
-		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
-		.name("name")
-		.email("email")
-		.phoneNumber("phoneNumber")
-		//.status(ApplyHistory.Status.APPLCN_COMPT)
-		.employmentBoardId(boardId)
-		.build();
+		Map<String, Object> applyData = new HashMap<>();
+		applyData.put("name", "지원자명");
+		applyData.put("email", "이메일주소");
+		applyData.put("phoneNumber", "지원자 전화번호");
+		applyData.put("employmentBoardId", boardId);
 		
 		// 입사지원
 		MvcResult applyResult = mockMvc.perform(post("/employees/"+ employeeId + "/applyHistories")
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
-		.content(objectMapper.writeValueAsString(applyHistoryDto)))
+		.content(objectMapper.writeValueAsString(applyData)))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andDo(document("apply-create",
@@ -130,24 +131,10 @@ public class ApplyHistoryControllerTests {
 				headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
 			),
 			requestFields(
-				fieldWithPath("id").description("지원이력 식별자. null로 넘겨주세요"),
 				fieldWithPath("name").description("지원자명"),
 				fieldWithPath("email").description("지원자 이메일"),
 				fieldWithPath("phoneNumber").description("지원자 전화번호"),
-				fieldWithPath("applicantId").description("지원자 식별자. path parameter를 사용할 것이므로 null로 넘겨주세요"),
-				fieldWithPath("representativeId").description("회사 대표자 아이디. null로 넘겨주세요"),
-				fieldWithPath("companyId").description("회사 아이디(필수)"),				
-				fieldWithPath("employmentBoardId").description("구인 게시물 식별자(필수)"),
-				fieldWithPath("boardTitle").description("구인 게시물 제목. null로 넘겨주세요"),
-				fieldWithPath("companyName").description("회사명. null로 넘겨주세요"),
-				fieldWithPath("companyLogoUrl").description("회사로고 주소. null로 넘겨주세요"),
-				fieldWithPath("companyCountry").description("회사 국가명. null로 넘겨주세요"),
-				fieldWithPath("companyCity").description("회사 소재지 도시명. null로 넘겨주세요"),
-				fieldWithPath("companyStreet").description("회사 소재지 도로명. null로 넘겨주세요"),
-				fieldWithPath("companyAddress").description("회사 주소. null로 넘겨주세요"),
-				fieldWithPath("appliedDate").description("지원일. null로 넘겨주세요"),
-				fieldWithPath("status").description("지원상태. null로 넘겨주세요"),
-				fieldWithPath("recommendStatus").description("추천상태. null로 넘겨주세요")
+				fieldWithPath("employmentBoardId").description("구인 게시물 식별자")
 			),
 			responseHeaders(
 				headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
@@ -177,12 +164,16 @@ public class ApplyHistoryControllerTests {
 		ApplyHistoryDto resultApplyHistoryDto = objectMapper.readValue(applyResult.getResponse().getContentAsString(), ApplyHistoryDto.class);
 		logger.debug("applyId={}", resultApplyHistoryDto.getId());
 
-		applyHistoryDto.setName("수정할 지원자명");
+		applyData = new HashMap<>();
+		applyData.put("name", "수정할 지원자명");
+		applyData.put("email", "수정할 이메일주소");
+		applyData.put("phoneNumber", "수정할 지원자 전화번호");
+		applyData.put("employmentBoardId", boardId);
 
 		// 지원내용 수정
 		applyResult = mockMvc.perform(put("/employees/"+ employeeId + "/applyHistories/" + resultApplyHistoryDto.getId())
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
-		.content(objectMapper.writeValueAsString(applyHistoryDto)))
+		.content(objectMapper.writeValueAsString(applyData)))
 		.andDo(print())
 		.andExpect(status().isAccepted())
 		.andDo(document("apply-update",
@@ -190,24 +181,10 @@ public class ApplyHistoryControllerTests {
 				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
 			),
 			requestFields(
-				fieldWithPath("id").description("null로 넘겨주세요"),
 				fieldWithPath("name").description("수정할 지원자명"),
-				fieldWithPath("email").description("지원자 이메일"),
-				fieldWithPath("phoneNumber").description("지원자 전화번호"),
-				fieldWithPath("applicantId").description("지원자 식별자. path parameter를 사용할 것이므로 null로 넘겨주세요"),
-				fieldWithPath("representativeId").description("회사 대표자 아이디. null로 넘겨주세요"),
-				fieldWithPath("companyId").description("회사 아이디(필수)"),				
-				fieldWithPath("employmentBoardId").description("구인 게시물 식별자(필수)"),
-				fieldWithPath("boardTitle").description("구인 게시물 제목. null로 넘겨주세요"),
-				fieldWithPath("companyName").description("회사명. null로 넘겨주세요"),
-				fieldWithPath("companyLogoUrl").description("회사로고 주소. null로 넘겨주세요"),
-				fieldWithPath("companyCountry").description("회사 국가명. null로 넘겨주세요"),
-				fieldWithPath("companyCity").description("회사 소재지 도시명. null로 넘겨주세요"),
-				fieldWithPath("companyStreet").description("회사 소재지 도로명. null로 넘겨주세요"),
-				fieldWithPath("companyAddress").description("회사 주소. null로 넘겨주세요"),
-				fieldWithPath("appliedDate").description("지원일. null로 넘겨주세요"),
-				fieldWithPath("status").description("지원상태. null로 넘겨주세요"),
-				fieldWithPath("recommendStatus").description("추천상태. null로 넘겨주세요")
+				fieldWithPath("email").description("수정할 지원자 이메일"),
+				fieldWithPath("phoneNumber").description("수정할 지원자 전화번호"),
+				fieldWithPath("employmentBoardId").description("구인 게시물 식별자")
 			),
 			responseHeaders(
 				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
