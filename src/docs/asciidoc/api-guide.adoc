@@ -85,3 +85,15 @@ include::{snippets}/create-company/http-response.adoc[]
 include::{snippets}/create-company/response-fields.adoc[]
 include::{snippets}/create-company/response-body.adoc[]
 //operation::create-company[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-apply-history]]
+=== 구직 등록
+
+`POST` 요청을 사용해서 새 기업을 만들 수 있다.
+
+include::{snippets}/apply-history/request-fields.adoc[]
+include::{snippets}/apply-history/curl-request.adoc[]
+include::{snippets}/apply-history/http-response.adoc[]
+include::{snippets}/apply-history/response-fields.adoc[]
+include::{snippets}/apply-history/response-body.adoc[]
+//operation::apply-history[snippets='request-fields,curl-request,http-response,response-fields,response-body']

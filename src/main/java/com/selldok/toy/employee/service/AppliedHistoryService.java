@@ -47,7 +47,7 @@ public class AppliedHistoryService {
 	 * @param newApplyHistoryDto
 	 * @return
 	 */
-	public Long create(ApplyHistoryDto newApplyHistoryDto) {
+	public ApplyHistoryDto create(ApplyHistoryDto newApplyHistoryDto) {
 		log.debug("newApplyHistoryDto={}", newApplyHistoryDto);
 		Long newApplyHistoryId = null;
 		Optional<Employee> applicant = employeeRepository.findById(newApplyHistoryDto.getApplicantId());
@@ -72,10 +72,11 @@ public class AppliedHistoryService {
 			.build();
 			applyHistoryRepository.save(applyHistory);
 			newApplyHistoryId = applyHistory.getId();
+			newApplyHistoryDto.setId(applyHistory.getId());
 		}
 		log.debug("newApplyHistoryId={}", newApplyHistoryId);
 
-		return newApplyHistoryId;
+		return newApplyHistoryDto;
 	}
 
 	/**

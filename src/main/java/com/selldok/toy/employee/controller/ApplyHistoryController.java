@@ -69,7 +69,7 @@ public class ApplyHistoryController {
 	 */
 	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) {
+	public ResponseEntity<ApplyHistoryDto> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) {
 		applyHistoryDto.setApplicantId(applicantId);
 		return new ResponseEntity<>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}

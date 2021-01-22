@@ -1,25 +1,31 @@
 package com.selldok.toy.company;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selldok.toy.common.RestDocsConfiguration;
-import com.selldok.toy.company.model.CompanyCreateRequest;
+import com.selldok.toy.company.entity.Address;
+import com.selldok.toy.company.entity.Board;
+import com.selldok.toy.company.entity.Company;
+import com.selldok.toy.company.service.BoardService;
 import com.selldok.toy.company.service.CompanyService;
+import com.selldok.toy.employee.entity.ApplyHistory;
+import com.selldok.toy.employee.model.ApplyHistoryDto;
+import com.selldok.toy.employee.model.InsertEmployeeRequest;
+import com.selldok.toy.employee.service.EmployeeService;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -31,12 +37,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
@@ -44,6 +49,10 @@ import lombok.extern.slf4j.Slf4j;
 @Import(RestDocsConfiguration.class)
 @TestMethodOrder(OrderAnnotation.class)
 public class ApplyHistoryControllerTests {
+	// gradle test 시 @Slf4j 찾을 수 없는 문제 발생하여 package lombok.extern.slf4j does not exist
+	// Logger 객체를 직접 가져오도록 함
+	static Logger logger = LoggerFactory.getLogger(ApplyHistoryControllerTests.class);
+
 	@Autowired
 	MockMvc mockMvc;
 
@@ -51,63 +60,120 @@ public class ApplyHistoryControllerTests {
 	CompanyService companyService;
 
 	@Autowired
+	BoardService boardService;
+
+	@Autowired
+	EmployeeService employeeService;
+
+	@Autowired
 	ObjectMapper objectMapper;
 	
-	static Integer company_id = null;
+	// static으로 하지 않으면 다른 메소드에서 사용불가. 일반적인 클래스에서는 이런식으로 쓰면 안되지만 테스트 클래스니깐 이렇게 써도 되지 않을까
+	static Long companyId = null;
+	static Long boardId = null;
+	static Long employeeId = null;
 
 	/**
 	* 실제 업무 테스트를 위해 기업 생성, 구인 생성
-	* 이 테스트는 할 필요 없지만 다른 테스트에서 company_id 가 필요하므로 수행 함
 	*/
 	@Test
 	@Order(1)
 	public void createCompany() throws Exception {
-		CompanyCreateRequest companyCreateRequest = CompanyCreateRequest.builder()
-		.name("삼성전자1111")
-		.country("KR")
-		.city("seoul")
-		.street("성남대로 1111")
-		.businessNum("1212131415")
-		.totalSales("190000")
-		.employees("10to100")
-		.info("삼성전자 소개입니다.")
-		.email("ggs0707@naver.com")
-		.since("2020")
-		.phone("01012127878")
-		.homepage("https://www.wanted.co.kr/")
+		//이 테스트는 할 필요 없지만 다른 테스트에서 company_id 가 필요하므로 수행 함
+		Address newAddress = new Address("country", "city", "street");
+		Company newCompany = Company.builder()
+		.address(newAddress)
+		.since("since")
+		.businessNum("since")
+		.phone("phone")
 		.terms(true)
+		.build()
+		;
+
+		companyId = companyService.create(newCompany);
+		
+		logger.debug("company_id={}", companyId);
+
+		Board newBoard = Board.builder()
+		.content("content")
+		.image("image")
+		.title("title")
+		.company(newCompany)
 		.build();
 
-		MvcResult result = mockMvc.perform(post("/company")
+		boardId = boardService.create(newBoard);
+		logger.debug("boardId={}", boardId);
+		//assert를 굳이 할 필요는 없지만 sonarlint(java:S2699) 경고를 보이지 않게 하기 위해 넣음
+		assertNotNull(boardId);
+
+		InsertEmployeeRequest insertEmployeeRequest = new InsertEmployeeRequest();
+		 
+		employeeService.insert(insertEmployeeRequest);
+		//employeeService.insert() 가 void라 employeeId를 받아올 수 없음. 정상 동작했다면 1을 반환할 것이므로 1으로 하드코딩 함
+		employeeId = 1L;
+		
+		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
+		.name("name")
+		.email("email")
+		.phoneNumber("phoneNumber")
+		.status(ApplyHistory.Status.APPLCN_COMPT)
+		.employmentBoardId(boardId)
+		.build();
+		
+		mockMvc.perform(post("/employees/"+ employeeId + "/applyHistories")
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
-		.content(objectMapper.writeValueAsString(companyCreateRequest)))
+		.content(objectMapper.writeValueAsString(applyHistoryDto)))
 		.andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("company_id").exists())
-		.andDo(document("create-company",
+		.andDo(document("apply-history",
 			requestHeaders(
 				headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+			),
+			requestFields(
+				fieldWithPath("id").description(""),
+				fieldWithPath("name").description(""),
+				fieldWithPath("email").description(""),
+				fieldWithPath("applicantId").description(""),
+				fieldWithPath("representativeId").description(""),
+				fieldWithPath("companyId").description(""),
+				fieldWithPath("phoneNumber").description(""),
+				fieldWithPath("employmentBoardId").description(""),
+				fieldWithPath("boardTitle").description(""),
+				fieldWithPath("companyName").description(""),
+				fieldWithPath("companyLogoUrl").description(""),
+				fieldWithPath("companyCountry").description(""),
+				fieldWithPath("companyCity").description(""),
+				fieldWithPath("companyStreet").description(""),
+				fieldWithPath("appliedDate").description(""),
+				fieldWithPath("status").description(""),
+				fieldWithPath("recommendStatus").description(""),
+				fieldWithPath("companyAddress").description("")
 			),
 			responseHeaders(
 				headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
 			),
 			responseFields(
-				fieldWithPath("company_id").description("company_id of new company")
+				fieldWithPath("id").description(""),
+				fieldWithPath("name").description(""),
+				fieldWithPath("email").description(""),
+				fieldWithPath("applicantId").description(""),
+				fieldWithPath("representativeId").description(""),
+				fieldWithPath("companyId").description(""),
+				fieldWithPath("phoneNumber").description(""),
+				fieldWithPath("employmentBoardId").description(""),
+				fieldWithPath("boardTitle").description(""),
+				fieldWithPath("companyName").description(""),
+				fieldWithPath("companyLogoUrl").description(""),
+				fieldWithPath("companyCountry").description(""),
+				fieldWithPath("companyCity").description(""),
+				fieldWithPath("companyStreet").description(""),
+				fieldWithPath("appliedDate").description(""),
+				fieldWithPath("status").description(""),
+				fieldWithPath("recommendStatus").description(""),
+				fieldWithPath("companyAddress").description("")
 			)
-		)).andReturn();
-
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode company = mapper.readTree(result.getResponse().getContentAsString());
-		company_id = company.path("company_id").asInt();
-		log.debug("company_id={}", company_id);
-		assertNotNull(company_id);
-	}
-
-	@Test
-	@Order(2)
-	public void apply() throws Exception {
-		log.debug("company_id={}", company_id);
-		assertTrue(company_id != null);
+		))
+		;
 	}
 
 }
