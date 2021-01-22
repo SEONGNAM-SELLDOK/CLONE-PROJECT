@@ -69,18 +69,17 @@ public class ApplyHistoryControllerTests {
 
 	@Autowired
 	ObjectMapper objectMapper;
-	
-	// static으로 하지 않으면 다른 메소드에서 사용불가. 일반적인 클래스에서는 이런식으로 쓰면 안되지만 테스트 클래스니깐 이렇게 써도 되지 않을까
-	static Long companyId = null;
-	static Long boardId = null;
-	static Long employeeId = null;
 
 	/**
-	* 실제 업무 테스트를 위해 기업 생성, 구인 생성
+	* 실제 업무 테스트를 위해 기업 생성, 구인 생성함
 	*/
 	@Test
 	@Order(1)
 	public void apply() throws Exception {
+		Long companyId = null;
+		Long boardId = null;
+		Long employeeId = null;
+
 		//이 테스트는 할 필요 없지만 다른 테스트에서 company_id 가 필요하므로 수행 함
 		Address newAddress = new Address("country", "city", "street");
 		Company newCompany = Company.builder()
@@ -190,6 +189,26 @@ public class ApplyHistoryControllerTests {
 				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
 			)
 		)).andReturn();		
+
+		// 상태 변경
+		applyData = new HashMap<>();
+		applyData.put("status", "PAPERS_PASAGE");
+		applyResult = mockMvc.perform(put("/applyHistories/"+ resultApplyHistoryDto.getId() + "/changeStatus")
+		.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.content(objectMapper.writeValueAsString(applyData)))
+		.andDo(print())
+		.andExpect(status().isAccepted())
+		.andDo(document("apply-change-status",
+			requestHeaders(
+				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
+			),
+			requestFields(
+				fieldWithPath("status").description("변경할 상태")
+			),
+			responseHeaders(
+				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
+			)
+		)).andReturn();				
 	}
 
 }

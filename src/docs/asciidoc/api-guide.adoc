@@ -105,4 +105,13 @@ response body는 없습니다. 상태가 accecpted (202)이면 성공으로 판�
 include::{snippets}/apply-update/request-fields.adoc[]
 include::{snippets}/apply-update/curl-request.adoc[]
 include::{snippets}/apply-update/http-response.adoc[]
-//operation::apply-create[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+//operation::apply-update[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 구직 신청 상태변경
+
+response body는 없습니다. 상태가 accecpted (202)이면 성공으로 판단해주세요.
+
+include::{snippets}/apply-change-status/request-fields.adoc[]
+include::{snippets}/apply-change-status/curl-request.adoc[]
+include::{snippets}/apply-change-status/http-response.adoc[]
+//operation::apply-change-status[snippets='request-fields,curl-request,http-response,response-fields,response-body']
