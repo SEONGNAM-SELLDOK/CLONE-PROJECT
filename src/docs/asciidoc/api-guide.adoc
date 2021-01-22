@@ -116,7 +116,7 @@ include::{snippets}/apply-change-status/curl-request.adoc[]
 include::{snippets}/apply-change-status/http-response.adoc[]
 //operation::apply-change-status[snippets='request-fields,curl-request,http-response,response-fields,response-body']
 
-==== 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격)
+==== 지원 상태 카운트
 
 ===== 구직자별
 
@@ -131,3 +131,12 @@ include::{snippets}/apply-groupByCountByStatusOfCompany/curl-request.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfCompany/http-response.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfCompany/response-fields.adoc[]
 //operation::apply-groupByCountByStatusOfCompany[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+
+==== 개인별 지원이력 검색
+
+include::{snippets}/apply-employeesApplyHistoriesSearch/request-fields.adoc[]
+include::{snippets}/apply-employeesApplyHistoriesSearch/curl-request.adoc[]
+include::{snippets}/apply-employeesApplyHistoriesSearch/request-parameters.adoc[]
+include::{snippets}/apply-employeesApplyHistoriesSearch/response-fields.adoc[]
+//operation::apply-employeesApplyHistoriesSearch[snippets='request-fields,curl-request,http-response,response-fields,response-body']

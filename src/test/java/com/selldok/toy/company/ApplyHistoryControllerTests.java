@@ -3,9 +3,11 @@ package com.selldok.toy.company;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -211,9 +213,7 @@ public class ApplyHistoryControllerTests {
 			)
 		)).andReturn();				
 
-		// 지원 상태 카운트(지원자별)
-		applyData = new HashMap<>();
-		applyData.put("status", "PAPERS_PASAGE");
+		// 지원 상태 카운트(지원자별
 		applyResult = mockMvc.perform(get("/employees/" + employeeId + "/applyHistories/getApplyCount"))
 		.andDo(print())
 		.andExpect(status().isOk())
@@ -230,8 +230,6 @@ public class ApplyHistoryControllerTests {
 		)).andReturn();				
 
 		// 지원 상태 카운트(회사별)
-		applyData = new HashMap<>();
-		applyData.put("status", "PAPERS_PASAGE");
 		applyResult = mockMvc.perform(get("/company/" + companyId + "/applyHistories/getApplyCount"))
 		.andDo(print())
 		.andExpect(status().isOk())
@@ -245,8 +243,45 @@ public class ApplyHistoryControllerTests {
 				fieldWithPath("CANCELED").description("신청취소"),
 				fieldWithPath("allCount").description("전체 카운트")
 			)
-		)).andReturn();			
-	}
+		)).andReturn();		
 
-	
+		// 개인별 지원이력 검색
+		applyResult = mockMvc.perform(
+			get("/employees/" + employeeId + "/applyHistories")
+			.param("name", "지원자명")
+			.param("companyName", "회사명")
+			.param("status", "PAPERS_PASAGE")
+		)
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andDo(document(
+			"apply-employeesApplyHistoriesSearch"
+			,requestParameters(
+				parameterWithName("name").description("검색할 지원자명")
+				,parameterWithName("companyName").description("검색할 회사명")
+				,parameterWithName("status").description("검색할 상태")
+			)	
+			,responseFields(
+				fieldWithPath("[].id").description("지원이력 식별자"),
+				fieldWithPath("[].name").description("지원자명"),
+				fieldWithPath("[].email").description("지원자 이메일"),
+				fieldWithPath("[].phoneNumber").description("지원자 전화번호"),
+				fieldWithPath("[].applicantId").description("지원자 식별자"),
+				fieldWithPath("[].representativeId").description("회사 대표자 아이디"),
+				fieldWithPath("[].companyId").description("회사 아이디"),				
+				fieldWithPath("[].employmentBoardId").description("구인 게시물 식별자"),
+				fieldWithPath("[].boardTitle").description("구인 게시물 제목"),
+				fieldWithPath("[].companyName").description("회사명"),
+				fieldWithPath("[].companyLogoUrl").description("회사로고 주소"),
+				fieldWithPath("[].companyCountry").description("회사 국가명"),
+				fieldWithPath("[].companyCity").description("회사 소재지 도시명"),
+				fieldWithPath("[].companyStreet").description("회사 소재지 도로명"),
+				fieldWithPath("[].companyAddress").description("회사 주소"),
+				fieldWithPath("[].appliedDate").description("지원일"),
+				fieldWithPath("[].status").description("지원상태"),
+				fieldWithPath("[].recommendStatus").description("추천상태")
+			)
+		)).andReturn();				
+
+	}	
 }
