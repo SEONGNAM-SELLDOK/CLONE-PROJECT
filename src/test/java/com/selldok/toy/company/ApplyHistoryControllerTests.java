@@ -10,6 +10,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -209,6 +210,16 @@ public class ApplyHistoryControllerTests {
 				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
 			)
 		)).andReturn();				
+
+		// 상태 변경
+		applyData = new HashMap<>();
+		applyData.put("status", "PAPERS_PASAGE");
+		applyResult = mockMvc.perform(get("/employees/" + employeeId + "/applyHistories/getApplyCount"))
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andDo(document("apply-groupByCountByStatusOfCompany"	
+		)).andReturn();				
 	}
 
+	
 }
