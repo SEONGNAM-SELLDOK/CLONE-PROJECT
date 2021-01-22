@@ -135,8 +135,21 @@ include::{snippets}/apply-groupByCountByStatusOfCompany/response-fields.adoc[]
 
 ==== 개인별 지원이력 검색
 
-include::{snippets}/apply-employeesApplyHistoriesSearch/request-fields.adoc[]
 include::{snippets}/apply-employeesApplyHistoriesSearch/curl-request.adoc[]
 include::{snippets}/apply-employeesApplyHistoriesSearch/request-parameters.adoc[]
 include::{snippets}/apply-employeesApplyHistoriesSearch/response-fields.adoc[]
 //operation::apply-employeesApplyHistoriesSearch[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 회사별 지원이력 검색
+
+include::{snippets}/apply-companyApplyHistoriesSearch/curl-request.adoc[]
+include::{snippets}/apply-companyApplyHistoriesSearch/request-parameters.adoc[]
+include::{snippets}/apply-companyApplyHistoriesSearch/response-fields.adoc[]
+//operation::apply-companyApplyHistoriesSearch[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 대표자 id로 회사별 지원이력 검색
+
+include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/curl-request.adoc[]
+include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/request-parameters.adoc[]
+include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/response-fields.adoc[]
+//operation::apply-representativeCompanyApplyHistoriesSearch[snippets='request-fields,curl-request,http-response,response-fields,response-body']

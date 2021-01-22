@@ -3,16 +3,16 @@ package com.selldok.toy.company;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,6 +26,7 @@ import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.service.BoardService;
 import com.selldok.toy.company.service.CompanyService;
+import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
 import com.selldok.toy.employee.service.EmployeeService;
@@ -83,6 +84,14 @@ public class ApplyHistoryControllerTests {
 		Long boardId = null;
 		Long employeeId = null;
 
+		InsertEmployeeRequest insertEmployeeRequest = new InsertEmployeeRequest();
+		 
+		employeeService.insert(insertEmployeeRequest);
+		//employeeService.insert() 가 void라 employeeId를 받아올 수 없음. 정상 동작했다면 1을 반환할 것이므로 1으로 하드코딩 함
+		employeeId = 1L;
+
+		Employee representative = employeeService.get(employeeId);
+
 		//이 테스트는 할 필요 없지만 다른 테스트에서 company_id 가 필요하므로 수행 함
 		Address newAddress = new Address("country", "city", "street");
 		Company newCompany = Company.builder()
@@ -91,6 +100,7 @@ public class ApplyHistoryControllerTests {
 		.businessNum("since")
 		.phone("phone")
 		.terms(true)
+		.representative(representative)
 		.build()
 		;
 
@@ -109,12 +119,6 @@ public class ApplyHistoryControllerTests {
 		logger.debug("boardId={}", boardId);
 		//assert를 굳이 할 필요는 없지만 sonarlint(java:S2699) 경고를 보이지 않게 하기 위해 넣음
 		assertNotNull(boardId);
-
-		InsertEmployeeRequest insertEmployeeRequest = new InsertEmployeeRequest();
-		 
-		employeeService.insert(insertEmployeeRequest);
-		//employeeService.insert() 가 void라 employeeId를 받아올 수 없음. 정상 동작했다면 1을 반환할 것이므로 1으로 하드코딩 함
-		employeeId = 1L;
 
 		Map<String, Object> applyData = new HashMap<>();
 		applyData.put("name", "지원자명");
@@ -283,5 +287,80 @@ public class ApplyHistoryControllerTests {
 			)
 		)).andReturn();				
 
+		// 회사별 지원이력 검색
+		applyResult = mockMvc.perform(
+			get("/company/" + companyId + "/applyHistories")
+			.param("name", "지원자명")
+			.param("companyName", "회사명")
+			.param("status", "PAPERS_PASAGE")
+		)
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andDo(document(
+			"apply-companyApplyHistoriesSearch"
+			,requestParameters(
+				parameterWithName("name").description("검색할 지원자명")
+				,parameterWithName("companyName").description("검색할 회사명")
+				,parameterWithName("status").description("검색할 상태")
+			)	
+			,responseFields(
+				fieldWithPath("[].id").description("지원이력 식별자"),
+				fieldWithPath("[].name").description("지원자명"),
+				fieldWithPath("[].email").description("지원자 이메일"),
+				fieldWithPath("[].phoneNumber").description("지원자 전화번호"),
+				fieldWithPath("[].applicantId").description("지원자 식별자"),
+				fieldWithPath("[].representativeId").description("회사 대표자 아이디"),
+				fieldWithPath("[].companyId").description("회사 아이디"),				
+				fieldWithPath("[].employmentBoardId").description("구인 게시물 식별자"),
+				fieldWithPath("[].boardTitle").description("구인 게시물 제목"),
+				fieldWithPath("[].companyName").description("회사명"),
+				fieldWithPath("[].companyLogoUrl").description("회사로고 주소"),
+				fieldWithPath("[].companyCountry").description("회사 국가명"),
+				fieldWithPath("[].companyCity").description("회사 소재지 도시명"),
+				fieldWithPath("[].companyStreet").description("회사 소재지 도로명"),
+				fieldWithPath("[].companyAddress").description("회사 주소"),
+				fieldWithPath("[].appliedDate").description("지원일"),
+				fieldWithPath("[].status").description("지원상태"),
+				fieldWithPath("[].recommendStatus").description("추천상태")
+			)
+		)).andReturn();	
+
+		// 대표자 id로 회사별 지원이력 검색
+		applyResult = mockMvc.perform(
+			get("/employees/" + employeeId + "/company/applyHistories")
+			.param("name", "지원자명")
+			.param("companyName", "회사명")
+			.param("status", "PAPERS_PASAGE")
+		)
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andDo(document(
+			"apply-representativeCompanyApplyHistoriesSearch"
+			,requestParameters(
+				parameterWithName("name").description("검색할 지원자명")
+				,parameterWithName("companyName").description("검색할 회사명")
+				,parameterWithName("status").description("검색할 상태")
+			)	
+			,responseFields(
+				fieldWithPath("[].id").description("지원이력 식별자"),
+				fieldWithPath("[].name").description("지원자명"),
+				fieldWithPath("[].email").description("지원자 이메일"),
+				fieldWithPath("[].phoneNumber").description("지원자 전화번호"),
+				fieldWithPath("[].applicantId").description("지원자 식별자"),
+				fieldWithPath("[].representativeId").description("회사 대표자 아이디"),
+				fieldWithPath("[].companyId").description("회사 아이디"),				
+				fieldWithPath("[].employmentBoardId").description("구인 게시물 식별자"),
+				fieldWithPath("[].boardTitle").description("구인 게시물 제목"),
+				fieldWithPath("[].companyName").description("회사명"),
+				fieldWithPath("[].companyLogoUrl").description("회사로고 주소"),
+				fieldWithPath("[].companyCountry").description("회사 국가명"),
+				fieldWithPath("[].companyCity").description("회사 소재지 도시명"),
+				fieldWithPath("[].companyStreet").description("회사 소재지 도로명"),
+				fieldWithPath("[].companyAddress").description("회사 주소"),
+				fieldWithPath("[].appliedDate").description("지원일"),
+				fieldWithPath("[].status").description("지원상태"),
+				fieldWithPath("[].recommendStatus").description("추천상태")
+			)
+		)).andReturn();	
 	}	
 }
