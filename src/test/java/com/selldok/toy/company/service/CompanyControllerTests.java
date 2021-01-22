@@ -1,4 +1,4 @@
-package com.selldok.toy.company;
+package com.selldok.toy.company.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

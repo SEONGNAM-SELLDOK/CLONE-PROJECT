@@ -1,4 +1,4 @@
-package com.selldok.toy.company;
+package com.selldok.toy.company.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selldok.toy.common.RestDocsConfiguration;
@@ -8,10 +8,7 @@ import com.selldok.toy.company.dao.BoardRepository;
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
-import com.selldok.toy.company.model.BoardCreateRequest;
-import com.selldok.toy.company.model.BoardListResponse;
-import com.selldok.toy.company.model.BoardReadResponse;
-import com.selldok.toy.company.model.BoardUpdateRequest;
+import com.selldok.toy.company.model.*;
 import com.selldok.toy.company.service.BoardService;
 import com.selldok.toy.company.service.CompanyService;
 import org.junit.jupiter.api.Assertions;
@@ -25,8 +22,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -35,6 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -161,8 +161,6 @@ public class BoardControllerTests {
                                 fieldWithPath("board_id").description("board_id of update board")
                         )
                 ));
-
-
     }
 
     @Test
@@ -171,6 +169,40 @@ public class BoardControllerTests {
 
         Optional<Board> byId = boardService.findById(boardId);
         Assertions.assertTrue(byId.isEmpty());
+    }
+
+    @Test
+    void findBoardInfo() throws Exception {
+        List<BoardReadResponse> boardInfo = boardService.findBoardInfo(boardId);
+
+        Assertions.assertTrue(boardInfo.size() > 0);
+    }
+
+    @Test
+    void  boardCountPlus() throws Exception {
+        int count = boardService.boardCountPlus(boardId);
+        Assertions.assertTrue(count > 0);
+    }
+
+    @Test
+    void saveUploadFile() {
+        String text = "file upload test";
+        MultipartFile multipartFile = new MockMultipartFile("files", "temp.csv", "text/plain", text.getBytes(StandardCharsets.UTF_8));
+        String test = boardService.saveUploadFile(multipartFile);
+        System.out.println("test = " + test);
+        Assertions.assertNotNull(test);
+    }
+
+    @Test
+    void newHireByBoardInfo() {
+        List<NewHireListResponse> newHireListResponses = boardService.newHireByBoardInfo();
+        Assertions.assertTrue(newHireListResponses.size() > 0);
+    }
+
+    @Test
+    void recommendThisWeek() {
+        List<RecommendThisWeekResponse> recommendThisWeekResponses = boardService.recommendThisWeek();
+        Assertions.assertTrue(recommendThisWeekResponses.size() > 0);
     }
 
 }
