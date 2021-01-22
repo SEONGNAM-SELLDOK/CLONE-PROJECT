@@ -211,14 +211,41 @@ public class ApplyHistoryControllerTests {
 			)
 		)).andReturn();				
 
-		// 상태 변경
+		// 지원 상태 카운트(지원자별)
 		applyData = new HashMap<>();
 		applyData.put("status", "PAPERS_PASAGE");
 		applyResult = mockMvc.perform(get("/employees/" + employeeId + "/applyHistories/getApplyCount"))
 		.andDo(print())
 		.andExpect(status().isOk())
-		.andDo(document("apply-groupByCountByStatusOfCompany"	
+		.andDo(document(
+			"apply-groupByCountByStatusOfApplicant",
+			responseFields(
+				fieldWithPath("APPLCN_COMPT").description("지원완료"),
+				fieldWithPath("PAPERS_PASAGE").description("서류통과"),
+				fieldWithPath("LAST_PSEXAM").description("최종합격"),
+				fieldWithPath("DSQLFC").description("불합격"),
+				fieldWithPath("CANCELED").description("신청취소"),
+				fieldWithPath("allCount").description("전체 카운트")
+			)
 		)).andReturn();				
+
+		// 지원 상태 카운트(회사별)
+		applyData = new HashMap<>();
+		applyData.put("status", "PAPERS_PASAGE");
+		applyResult = mockMvc.perform(get("/company/" + companyId + "/applyHistories/getApplyCount"))
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andDo(document(
+			"apply-groupByCountByStatusOfCompany",
+			responseFields(
+				fieldWithPath("APPLCN_COMPT").description("지원완료"),
+				fieldWithPath("PAPERS_PASAGE").description("서류통과"),
+				fieldWithPath("LAST_PSEXAM").description("최종합격"),
+				fieldWithPath("DSQLFC").description("불합격"),
+				fieldWithPath("CANCELED").description("신청취소"),
+				fieldWithPath("allCount").description("전체 카운트")
+			)
+		)).andReturn();			
 	}
 
 	

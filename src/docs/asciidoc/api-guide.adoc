@@ -120,6 +120,14 @@ include::{snippets}/apply-change-status/http-response.adoc[]
 
 ===== 구직자별
 
+include::{snippets}/apply-groupByCountByStatusOfApplicant/curl-request.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfApplicant/http-response.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfApplicant/response-fields.adoc[]
+//operation::apply-groupByCountByStatusOfApplicant[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+===== 회시별
+
 include::{snippets}/apply-groupByCountByStatusOfCompany/curl-request.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfCompany/http-response.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfCompany/response-fields.adoc[]
 //operation::apply-groupByCountByStatusOfCompany[snippets='request-fields,curl-request,http-response,response-fields,response-body']
