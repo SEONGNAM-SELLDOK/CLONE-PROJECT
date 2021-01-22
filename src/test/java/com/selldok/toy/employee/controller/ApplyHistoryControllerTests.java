@@ -1,4 +1,4 @@
-package com.selldok.toy.company;
+package com.selldok.toy.employee.controller;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
