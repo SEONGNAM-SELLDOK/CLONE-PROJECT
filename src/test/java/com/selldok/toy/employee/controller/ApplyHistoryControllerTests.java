@@ -48,6 +48,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 김동석
+ * 2021.01.22
+ */
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc

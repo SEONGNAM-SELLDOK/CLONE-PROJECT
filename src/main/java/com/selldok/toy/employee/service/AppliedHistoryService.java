@@ -84,7 +84,7 @@ public class AppliedHistoryService {
 	 * 
 	 * @param updatingApplyHistoryDto
 	 */
-	public void update(ApplyHistoryDto updatingApplyHistoryDto) {
+	public Boolean update(ApplyHistoryDto updatingApplyHistoryDto) {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
 		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		Optional<Employee> applicant = null;
@@ -123,6 +123,7 @@ public class AppliedHistoryService {
 		} else {
 			throw new RestApiException(ApplyErrorCode.APY_003, HttpStatus.NOT_FOUND);
 		}
+		return true;
 	}
 
 	/**
