@@ -2,6 +2,9 @@ package com.selldok.toy.employee.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.transaction.Transactional;
 
 import com.selldok.toy.company.dao.BoardRepository;
@@ -21,6 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 /**  * EventServiceTest
  *
@@ -167,5 +172,72 @@ public class AppliedHistoryServiceTest {
 		.build();
 		Boolean isSuccess = appliedHistoryService.update(this.newApplyHistoryDto);
 		Assertions.assertTrue(isSuccess);
+	}		
+
+	@Test
+	public void changeStatusTest() {
+		saveSuccess();
+		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
+		logger.debug("this.newEmployee={}", this.newEmployee);
+	
+		Boolean isSuccess = appliedHistoryService.changeStatus(this.newApplyHistoryDto);
+		Assertions.assertTrue(isSuccess);
+	}	
+
+	@Test
+	public void groupByCountByStatusOfApplicantTest() {
+		saveSuccess();
+		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
+		logger.debug("this.newEmployee={}", this.newEmployee);
+	
+		Map<String, Long> countByStatus = appliedHistoryService.groupByCountByStatusOfApplicant(this.newApplyHistoryDto.getId());
+		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
+		Assertions.assertNotNull(countByStatus.get("PAPERS_PASAGE"));
+		Assertions.assertNotNull(countByStatus.get("LAST_PSEXAM"));
+		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
+		Assertions.assertNotNull(countByStatus.get("CANCELED"));
+		Assertions.assertNotNull(countByStatus.get("allCount"));
+	}
+
+	@Test
+	public void groupByCountByStatusOfCompanyTest() {
+		saveSuccess();
+		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
+		logger.debug("this.newEmployee={}", this.newEmployee);
+	
+		Map<String, Long> countByStatus = appliedHistoryService.groupByCountByStatusOfCompany(this.newApplyHistoryDto.getId());
+		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
+		Assertions.assertNotNull(countByStatus.get("PAPERS_PASAGE"));
+		Assertions.assertNotNull(countByStatus.get("LAST_PSEXAM"));
+		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
+		Assertions.assertNotNull(countByStatus.get("CANCELED"));
+		Assertions.assertNotNull(countByStatus.get("allCount"));
+	}
+
+	@Test
+	public void groupByCountByStatusOfRepresentativeCompanyTest() {
+		saveSuccess();
+		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
+		logger.debug("this.newEmployee={}", this.newEmployee);
+	
+		Map<String, Long> countByStatus = appliedHistoryService.groupByCountByStatusOfRepresentativeCompany(this.newApplyHistoryDto.getId());
+		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
+		Assertions.assertNotNull(countByStatus.get("PAPERS_PASAGE"));
+		Assertions.assertNotNull(countByStatus.get("LAST_PSEXAM"));
+		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
+		Assertions.assertNotNull(countByStatus.get("CANCELED"));
+		Assertions.assertNotNull(countByStatus.get("allCount"));
+	}	
+
+	@Test
+	public void searchTest() {
+		saveSuccess();
+		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
+		logger.debug("this.newEmployee={}", this.newEmployee);
+	
+		Pageable pageable = PageRequest.of(0, 10);
+
+		List<ApplyHistoryDto> applyHistoryDtoList = appliedHistoryService.search(this.newApplyHistoryDto, pageable);
+		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}		
 }
