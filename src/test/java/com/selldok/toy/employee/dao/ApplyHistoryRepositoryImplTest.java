@@ -15,6 +15,7 @@ import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.service.AppliedHistoryService;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +46,36 @@ public class ApplyHistoryRepositoryImplTest {
 	private AppliedHistoryService appliedHistoryService;
 
 	// 전체 메소드에서 사용하기 위해 임시 변수를 만듬
-	Employee tempEmployee = null;
-	Company tempCompany = null;
-	Board tempBoard = null;
+	private Employee tempEmployee = null;
+	private Company tempCompany = null;
+	private Board tempBoard = null;
 
+	@BeforeEach
+	public void setup(){
+		tempEmployee = employeeRepository.save(new Employee());
+
+		tempCompany = Company.builder()
+		.name("회사명입니다")
+		.address(new Address("country", "city", "street"))
+		.since("since")
+		.businessNum("since")
+		.phone("phone")
+		.terms(true)
+		.representative(tempEmployee)
+		.build()
+		;
+		companyRepository.save(tempCompany);
+
+		tempBoard = Board.builder()
+		.content("content")
+		.image("image")
+		.title("title")
+		.company(tempCompany)
+		.build();
+		tempBoard.setCompany(tempCompany);
+		boardRepository.save(tempBoard);
+	}
+		
 	/**
 	 * 데이터가 없는 경우
 	 */
@@ -66,41 +93,18 @@ public class ApplyHistoryRepositoryImplTest {
 	 */
 	@Test
 	public void searchNameTest() {
-		tempEmployee = employeeRepository.save(new Employee());
-		
-		tempCompany = Company.builder()
-		.name("회사명")
-		.address(new Address("country", "city", "street"))
-		.since("since")
-		.businessNum("since")
-		.phone("phone")
-		.terms(true)
-		.representative(tempEmployee)
-		.build()
-		;
-		companyRepository.save(tempCompany);
-
-		Board tempBoard = Board.builder()
-		.content("content")
-		.image("image")
-		.title("title")
-		.company(tempCompany)
-		.build();
-		tempBoard.setCompany(tempCompany);
-		boardRepository.save(tempBoard);
-
 		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
-		.name("이름")
+		.name("지원자 이름입니다.")
 		.applicantId(tempEmployee.getId())
 		.employmentBoardId(tempBoard.getId())
 		.build();
-		newApplyHistoryDto = appliedHistoryService.create(newApplyHistoryDto);
+		appliedHistoryService.create(newApplyHistoryDto);
 
-		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
+		ApplyHistoryDto applyHistorySearchDto = ApplyHistoryDto.builder()
 		.name("이름")
 		.build();
 		Pageable pageable = PageRequest.of(0, 10);
-		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistoryDto, pageable);
+		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistorySearchDto, pageable);
 		Assertions.assertNotNull(applyHistoryDtoList);
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}	
@@ -110,13 +114,17 @@ public class ApplyHistoryRepositoryImplTest {
 	 */
 	@Test
 	public void searchCompanyNameTest() {
-		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
-		searchNameTest();
-		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
+		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		appliedHistoryService.create(newApplyHistoryDto);
+
+		ApplyHistoryDto applyHistorySearchDto = ApplyHistoryDto.builder()
 		.companyName("회사명")
 		.build();
 		Pageable pageable = PageRequest.of(0, 10);
-		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistoryDto, pageable);
+		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistorySearchDto, pageable);
 		Assertions.assertNotNull(applyHistoryDtoList);
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}		
@@ -126,14 +134,19 @@ public class ApplyHistoryRepositoryImplTest {
 	 */
 	@Test
 	public void searchNameAndCompanyNameTest() {
-		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
-		searchNameTest();
-		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
+		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("지원자 이름입니다.")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		appliedHistoryService.create(newApplyHistoryDto);
+
+		ApplyHistoryDto applyHistorySearchDto = ApplyHistoryDto.builder()
 		.name("이름")
 		.companyName("회사명")
 		.build();
 		Pageable pageable = PageRequest.of(0, 10);
-		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistoryDto, pageable);
+		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistorySearchDto, pageable);
 		Assertions.assertNotNull(applyHistoryDtoList);
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}		
@@ -143,8 +156,13 @@ public class ApplyHistoryRepositoryImplTest {
 	 */
 	@Test
 	public void applicantIdEqTest() {
-		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
-		searchNameTest();
+		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("지원자 이름입니다.")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		appliedHistoryService.create(newApplyHistoryDto);
+
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.applicantId(tempEmployee.getId())
 		.build();
@@ -159,7 +177,13 @@ public class ApplyHistoryRepositoryImplTest {
 	 */
 	@Test
 	public void companyIdEqTest() {
-		searchNameTest();
+		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("지원자 이름입니다.")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		appliedHistoryService.create(newApplyHistoryDto);
+
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.companyId(tempCompany.getId())
 		.build();
@@ -174,8 +198,13 @@ public class ApplyHistoryRepositoryImplTest {
 	 */
 	@Test
 	public void statusEqTest() {
-		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
-		searchNameTest();
+		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("지원자 이름입니다.")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		appliedHistoryService.create(newApplyHistoryDto);
+
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.status(ApplyHistory.Status.APPLCN_COMPT)
 		.build();
@@ -190,8 +219,13 @@ public class ApplyHistoryRepositoryImplTest {
 	 */
 	@Test
 	public void reporesentativeCompanyIdEqTest() {
-		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
-		searchNameTest();
+		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("지원자 이름입니다.")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		appliedHistoryService.create(newApplyHistoryDto);
+		
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.representativeId(tempEmployee.getId())
 		.build();
