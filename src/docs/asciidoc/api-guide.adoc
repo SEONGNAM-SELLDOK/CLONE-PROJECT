@@ -132,7 +132,6 @@ include::{snippets}/apply-groupByCountByStatusOfCompany/http-response.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfCompany/response-fields.adoc[]
 //operation::apply-groupByCountByStatusOfCompany[snippets='request-fields,curl-request,http-response,response-fields,response-body']
 
-
 ==== 개인별 지원이력 검색
 
 include::{snippets}/apply-employeesApplyHistoriesSearch/curl-request.adoc[]
