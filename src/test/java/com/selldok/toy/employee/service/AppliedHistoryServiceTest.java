@@ -26,21 +26,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
-/**  * EventServiceTest
- *
- * @author incheol.jung
- * @since 2021. 01. 15.
+/**
+ * 김동석
+ * 2021.01.23
  */
 @SpringBootTest
 @Transactional
+@Component
 public class AppliedHistoryServiceTest {
 	// gradle test 시 @Slf4j 찾을 수 없는 문제 발생하여 package lombok.extern.slf4j does not exist
 	// Logger 객체를 직접 가져오도록 함
 	static Logger logger = LoggerFactory.getLogger(AppliedHistoryServiceTest.class);
 
-    @Autowired
-	private ApplyHistoryRepository applyHistoryRepository;
 	@Autowired
 	private CompanyRepository companyRepository;
 	@Autowired

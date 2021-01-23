@@ -188,13 +188,14 @@ public class AppliedHistoryService {
 	/**
 	 * 상태 변경하기
 	 */
-	public void changeStatus(ApplyHistoryDto updatingApplyHistoryDto) {
+	public Boolean changeStatus(ApplyHistoryDto updatingApplyHistoryDto) {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
 		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		existingApplyHistory.ifPresent(updatingApplyHistory -> {
 			updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
 			applyHistoryRepository.save(updatingApplyHistory);
 		});
+		return true;
 	}
 
 	/**
