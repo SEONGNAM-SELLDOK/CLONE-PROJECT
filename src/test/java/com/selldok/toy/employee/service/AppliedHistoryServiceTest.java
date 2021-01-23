@@ -239,7 +239,7 @@ public class AppliedHistoryServiceTest {
 		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
 		Assertions.assertNotNull(countByStatus.get("CANCELED"));
 		Assertions.assertNotNull(countByStatus.get("allCount"));
-		Assertions.assertEquals(1L, countByStatus.get("APPLCN_COMPT"));
+		Assertions.assertEquals(countByStatus.get("APPLCN_COMPT"), Long.valueOf(1L));
 
 		countByStatus = appliedHistoryService.groupByCountByStatusOfCompany(tempCompany.getId());
 		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
@@ -248,7 +248,7 @@ public class AppliedHistoryServiceTest {
 		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
 		Assertions.assertNotNull(countByStatus.get("CANCELED"));
 		Assertions.assertNotNull(countByStatus.get("allCount"));
-		Assertions.assertEquals(1L, countByStatus.get("APPLCN_COMPT"));		
+		Assertions.assertEquals(countByStatus.get("APPLCN_COMPT"), Long.valueOf(1L));
 
 		countByStatus = appliedHistoryService.groupByCountByStatusOfRepresentativeCompany(tempCompany.getRepresentative().getId());
 		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
@@ -257,7 +257,7 @@ public class AppliedHistoryServiceTest {
 		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
 		Assertions.assertNotNull(countByStatus.get("CANCELED"));
 		Assertions.assertNotNull(countByStatus.get("allCount"));
-		Assertions.assertEquals(1L, countByStatus.get("APPLCN_COMPT"));		
+		Assertions.assertEquals(countByStatus.get("APPLCN_COMPT"), Long.valueOf(1L));
 	}
 
 	@Test
