@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -14,11 +15,14 @@ import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.employee.dao.ApplyHistoryRepository;
 import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.employee.entity.ApplyHistory;
+import com.selldok.toy.employee.entity.ApplyHistory.Status;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.exception.RestApiException;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,11 +52,41 @@ public class AppliedHistoryServiceTest {
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private AppliedHistoryService appliedHistoryService;
+	@Autowired
+	private ApplyHistoryRepository applyHistoryRepository;
 
-	ApplyHistoryDto newApplyHistoryDto;
-	Board newBoard;
-	Employee newEmployee;
+	private Company tempCompany = null;
+	private Board tempBoard = null;
+	private Employee tempEmployee = null;
 
+	@BeforeEach
+	public void setup(){
+		tempEmployee = employeeRepository.save(new Employee());
+
+		tempCompany = Company.builder()
+		.address(new Address("country", "city", "street"))
+		.since("since")
+		.businessNum("since")
+		.phone("phone")
+		.terms(true)
+		.representative(tempEmployee)
+		.build()
+		;
+		companyRepository.save(tempCompany);
+
+		tempBoard = Board.builder()
+		.content("content")
+		.image("image")
+		.title("title")
+		.company(tempCompany)
+		.build();
+		tempBoard.setCompany(tempCompany);
+		boardRepository.save(tempBoard);
+	}
+
+	/**
+	 * 지원자 식별자에 해당하는 지원자가 없거나 구인게시물 식별자에 해당하는 게시물이 없으면 RestApiException 발생
+	 */
 	@Test
 	public void saveWithEmplyNotFound() {
 		assertThrows(RestApiException.class,
@@ -65,6 +99,9 @@ public class AppliedHistoryServiceTest {
 		});
 	}
 
+	/**
+	 * 구인게시물 식별자에 해당하는 게시물이 없으면 RestApiException 발생
+	 */
 	@Test
 	public void saveWithEmploymentBoardIdNotFound() {
 		Employee newEmployee = employeeRepository.save(new Employee());
@@ -78,43 +115,26 @@ public class AppliedHistoryServiceTest {
 		});
 	}
 
+	/**
+	 * 입사 지원 성공
+	 */
 	@Test
 	public void saveSuccess() {
-		Employee newEmployee = employeeRepository.save(new Employee());
-		this.newEmployee = newEmployee;
-		Company newCompany = Company.builder()
-		.address(new Address("country", "city", "street"))
-		.since("since")
-		.businessNum("since")
-		.phone("phone")
-		.terms(true)
-		.representative(newEmployee)
-		.build()
-		;
-		companyRepository.save(newCompany);
-		Board newBoard = Board.builder()
-		.content("content")
-		.image("image")
-		.title("title")
-		.company(newCompany)
-		.build();
-		newBoard.setCompany(newCompany);
-		boardRepository.save(newBoard);
-		this.newBoard = newBoard;
-
 		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
-		.applicantId(newEmployee.getId())
-		.employmentBoardId(newBoard.getId())
+		.name("지원자명")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
 		.build();
-		this.newApplyHistoryDto = appliedHistoryService.create(newApplyHistoryDto);
+		appliedHistoryService.create(newApplyHistoryDto);
 		
 		Assertions.assertTrue(newApplyHistoryDto.getId() > 0);
 	}	
 
+	/**
+	 * 지원자 식별자에 해당하는 지원자가 없거나 구인게시물 식별자에 해당하는 게시물이 없으면 RestApiException 발생
+	 */
 	@Test
 	public void updateWithEmplyNotFound() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
 		assertThrows(RestApiException.class,
 		()->{		
 			ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
@@ -126,117 +146,133 @@ public class AppliedHistoryServiceTest {
 		});
 	}	
 
+	/**
+	 * 구인게시물 식별자에 해당하는 게시물이 없으면 RestApiException 발생
+	 */
 	@Test
 	public void updateWithEmploymentBoardIdNotFound() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
-		logger.debug("this.newEmployee={}", this.newEmployee);
 		assertThrows(RestApiException.class,
 		()->{		
-			ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
-			.applicantId(this.newEmployee.getId())
-			.employmentBoardId(999L)
+			ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
+			.applicantId(tempEmployee.getId())
+			.employmentBoardId(Long.MAX_VALUE)
 			.id(1L)
 			.build();
-			appliedHistoryService.update(newApplyHistoryDto);
+			appliedHistoryService.update(applyHistoryDto);
 		});
 	}
 
+	/**
+	 * 구직 이력 식별자에 해당하는 게시물이 없으면 RestApiException 발생
+	 */
 	@Test
 	public void updateWithApplyHistoryNotFound() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
-		logger.debug("this.newEmployee={}", this.newEmployee);
 		assertThrows(RestApiException.class,
 		()->{		
-			ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
-			.applicantId(this.newEmployee.getId())
-			.employmentBoardId(this.newBoard.getId())
+			ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
+			.applicantId(tempEmployee.getId())
+			.employmentBoardId(tempBoard.getId())
 			.id(Long.MAX_VALUE)
 			.build();
-			appliedHistoryService.update(newApplyHistoryDto);
+			appliedHistoryService.update(applyHistoryDto);
 		});
 	}
 
+	/**
+	 * 지원내용 변경 성공 테스트
+	 */
 	@Test
-	public void updateSuccess() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
-		logger.debug("this.newEmployee={}", this.newEmployee);
-	
-		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
-		.applicantId(this.newEmployee.getId())
-		.employmentBoardId(this.newBoard.getId())
-		.id(1L)
+	public void updateSuccess() {	
+		String newName = "변경된 이름";
+		ApplyHistoryDto tempApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("원래 이름")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
 		.build();
-		Boolean isSuccess = appliedHistoryService.update(this.newApplyHistoryDto);
+		tempApplyHistoryDto = appliedHistoryService.create(tempApplyHistoryDto);
+
+		tempApplyHistoryDto.setName(newName);
+		Boolean isSuccess = appliedHistoryService.update(tempApplyHistoryDto);
 		Assertions.assertTrue(isSuccess);
+
+		Optional<ApplyHistory> optionalApplyHistory = applyHistoryRepository.findById(tempApplyHistoryDto.getId());
+		Assertions.assertTrue(optionalApplyHistory.isPresent());
+		Assertions.assertEquals(newName, optionalApplyHistory.get().getBasicInfo().getName());
 	}		
 
+	/**
+	 * 지원상태 변경 성공 테스트
+	 */
 	@Test
-	public void changeStatusTest() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
-		logger.debug("this.newEmployee={}", this.newEmployee);
-	
-		Boolean isSuccess = appliedHistoryService.changeStatus(this.newApplyHistoryDto);
+	public void changeStatusTest() {	
+		Status newStatus = Status.CANCELED;
+		ApplyHistoryDto tempApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("지원자명")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		tempApplyHistoryDto = appliedHistoryService.create(tempApplyHistoryDto);
+		tempApplyHistoryDto.setStatus(newStatus);
+
+		Boolean isSuccess = appliedHistoryService.changeStatus(tempApplyHistoryDto);
 		Assertions.assertTrue(isSuccess);
+
+		Optional<ApplyHistory> optionalApplyHistory = applyHistoryRepository.findById(tempApplyHistoryDto.getId());
+		Assertions.assertTrue(optionalApplyHistory.isPresent());
+		Assertions.assertEquals(newStatus, optionalApplyHistory.get().getStatus());
 	}	
 
 	@Test
 	public void groupByCountByStatusOfApplicantTest() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
-		logger.debug("this.newEmployee={}", this.newEmployee);
-	
-		Map<String, Long> countByStatus = appliedHistoryService.groupByCountByStatusOfApplicant(this.newApplyHistoryDto.getId());
+		ApplyHistoryDto tempApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("지원자명")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		tempApplyHistoryDto = appliedHistoryService.create(tempApplyHistoryDto);
+		logger.debug("tempApplyHistoryDto={}", tempApplyHistoryDto);
+
+		Map<String, Long> countByStatus = appliedHistoryService.groupByCountByStatusOfApplicant(tempApplyHistoryDto.getApplicantId());
 		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
 		Assertions.assertNotNull(countByStatus.get("PAPERS_PASAGE"));
 		Assertions.assertNotNull(countByStatus.get("LAST_PSEXAM"));
 		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
 		Assertions.assertNotNull(countByStatus.get("CANCELED"));
 		Assertions.assertNotNull(countByStatus.get("allCount"));
+		Assertions.assertEquals(1L, countByStatus.get("APPLCN_COMPT"));
+
+		countByStatus = appliedHistoryService.groupByCountByStatusOfCompany(tempCompany.getId());
+		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
+		Assertions.assertNotNull(countByStatus.get("PAPERS_PASAGE"));
+		Assertions.assertNotNull(countByStatus.get("LAST_PSEXAM"));
+		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
+		Assertions.assertNotNull(countByStatus.get("CANCELED"));
+		Assertions.assertNotNull(countByStatus.get("allCount"));
+		Assertions.assertEquals(1L, countByStatus.get("APPLCN_COMPT"));		
+
+		countByStatus = appliedHistoryService.groupByCountByStatusOfRepresentativeCompany(tempCompany.getRepresentative().getId());
+		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
+		Assertions.assertNotNull(countByStatus.get("PAPERS_PASAGE"));
+		Assertions.assertNotNull(countByStatus.get("LAST_PSEXAM"));
+		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
+		Assertions.assertNotNull(countByStatus.get("CANCELED"));
+		Assertions.assertNotNull(countByStatus.get("allCount"));
+		Assertions.assertEquals(1L, countByStatus.get("APPLCN_COMPT"));		
 	}
 
 	@Test
-	public void groupByCountByStatusOfCompanyTest() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
-		logger.debug("this.newEmployee={}", this.newEmployee);
-	
-		Map<String, Long> countByStatus = appliedHistoryService.groupByCountByStatusOfCompany(this.newApplyHistoryDto.getId());
-		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
-		Assertions.assertNotNull(countByStatus.get("PAPERS_PASAGE"));
-		Assertions.assertNotNull(countByStatus.get("LAST_PSEXAM"));
-		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
-		Assertions.assertNotNull(countByStatus.get("CANCELED"));
-		Assertions.assertNotNull(countByStatus.get("allCount"));
-	}
+	public void searchTest() {	
+		ApplyHistoryDto tempApplyHistoryDto = ApplyHistoryDto.builder()
+		.name("지원자명")
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
+		.build();
+		tempApplyHistoryDto = appliedHistoryService.create(tempApplyHistoryDto);
+		logger.debug("tempApplyHistoryDto={}", tempApplyHistoryDto);
 
-	@Test
-	public void groupByCountByStatusOfRepresentativeCompanyTest() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
-		logger.debug("this.newEmployee={}", this.newEmployee);
-	
-		Map<String, Long> countByStatus = appliedHistoryService.groupByCountByStatusOfRepresentativeCompany(this.newApplyHistoryDto.getId());
-		Assertions.assertNotNull(countByStatus.get("APPLCN_COMPT"));
-		Assertions.assertNotNull(countByStatus.get("PAPERS_PASAGE"));
-		Assertions.assertNotNull(countByStatus.get("LAST_PSEXAM"));
-		Assertions.assertNotNull(countByStatus.get("DSQLFC"));
-		Assertions.assertNotNull(countByStatus.get("CANCELED"));
-		Assertions.assertNotNull(countByStatus.get("allCount"));
-	}	
-
-	@Test
-	public void searchTest() {
-		saveSuccess();
-		logger.debug("this.newApplyHistoryDto={}", this.newApplyHistoryDto);
-		logger.debug("this.newEmployee={}", this.newEmployee);
-	
 		Pageable pageable = PageRequest.of(0, 10);
 
-		List<ApplyHistoryDto> applyHistoryDtoList = appliedHistoryService.search(this.newApplyHistoryDto, pageable);
+		List<ApplyHistoryDto> applyHistoryDtoList = appliedHistoryService.search(tempApplyHistoryDto, pageable);
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}		
 }
