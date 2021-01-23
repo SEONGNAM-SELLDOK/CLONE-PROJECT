@@ -26,15 +26,11 @@ import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.service.BoardService;
 import com.selldok.toy.company.service.CompanyService;
+import com.selldok.toy.employee.dao.EmployeeRepository;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
-import com.selldok.toy.employee.model.InsertEmployeeRequest;
-import com.selldok.toy.employee.service.EmployeeService;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +53,6 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @Import(RestDocsConfiguration.class)
-@TestMethodOrder(OrderAnnotation.class)
 public class ApplyHistoryControllerTests {
 	// gradle test 시 @Slf4j 찾을 수 없는 문제 발생하여 package lombok.extern.slf4j does not exist
 	// Logger 객체를 직접 가져오도록 함
@@ -73,7 +68,7 @@ public class ApplyHistoryControllerTests {
 	BoardService boardService;
 
 	@Autowired
-	EmployeeService employeeService;
+	EmployeeRepository employeeRepository;
 
 	@Autowired
 	ObjectMapper objectMapper;
@@ -82,19 +77,14 @@ public class ApplyHistoryControllerTests {
 	* 실제 업무 테스트를 위해 기업 생성, 구인 생성함
 	*/
 	@Test
-	@Order(1)
 	public void apply() throws Exception {
 		Long companyId = null;
 		Long boardId = null;
 		Long employeeId = null;
 
-		InsertEmployeeRequest insertEmployeeRequest = new InsertEmployeeRequest();
-		 
-		employeeService.insert(insertEmployeeRequest);
-		//employeeService.insert() 가 void라 employeeId를 받아올 수 없음. 정상 동작했다면 1을 반환할 것이므로 1으로 하드코딩 함
-		employeeId = 1L;
-
-		Employee representative = employeeService.get(employeeId);
+		Employee representative = new Employee();
+		employeeRepository.save(representative);
+		employeeId = representative.getId();
 
 		//이 테스트는 할 필요 없지만 다른 테스트에서 company_id 가 필요하므로 수행 함
 		Address newAddress = new Address("country", "city", "street");
