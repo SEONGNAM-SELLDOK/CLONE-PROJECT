@@ -92,8 +92,8 @@ public class AppliedHistoryServiceTest {
 		assertThrows(RestApiException.class,
 		()->{		
 			ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
-			.applicantId(999L)
-			.employmentBoardId(999L)
+			.applicantId(Long.MAX_VALUE)
+			.employmentBoardId(Long.MAX_VALUE)
 			.build();
 			appliedHistoryService.create(newApplyHistoryDto);
 		});
@@ -109,7 +109,7 @@ public class AppliedHistoryServiceTest {
 		()->{		
 			ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
 			.applicantId(newEmployee.getId())
-			.employmentBoardId(999L)
+			.employmentBoardId(Long.MAX_VALUE)
 			.build();
 			appliedHistoryService.create(newApplyHistoryDto);
 		});
@@ -138,8 +138,8 @@ public class AppliedHistoryServiceTest {
 		assertThrows(RestApiException.class,
 		()->{		
 			ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
-			.applicantId(999L)
-			.employmentBoardId(999L)
+			.applicantId(Long.MAX_VALUE)
+			.employmentBoardId(Long.MAX_VALUE)
 			.id(1L)
 			.build();
 			appliedHistoryService.update(newApplyHistoryDto);
