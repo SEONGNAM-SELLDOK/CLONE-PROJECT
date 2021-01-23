@@ -29,14 +29,12 @@ import org.springframework.data.domain.Pageable;
 @SpringBootTest
 @Transactional
 public class ApplyHistoryRepositoryImplTest {
-	// gradle test 시 @Slf4j 찾을 수 없는 문제 발생하여 package lombok.extern.slf4j does not
-	// exist
-	// Logger 객체를 직접 가져오도록 함
+	// gradle test 시 @Slf4j 찾을 수 없는 문제 발생하여(package lombok.extern.slf4j does not exist)
+	// Logger 객체를 LoggerFactory에서 가져오도록 함
 	static Logger logger = LoggerFactory.getLogger(ApplyHistoryRepositoryImplTest.class);
 
 	@Autowired
 	ApplyHistoryRepositoryImpl applyHistoryRepositoryImpl;
-
 	@Autowired
 	private CompanyRepository companyRepository;
 	@Autowired
@@ -46,11 +44,14 @@ public class ApplyHistoryRepositoryImplTest {
 	@Autowired
 	private AppliedHistoryService appliedHistoryService;
 
-	// 다른 메소드에서 사용하기 위해 변수를 만듬
+	// 전체 메소드에서 사용하기 위해 임시 변수를 만듬
 	Employee tempEmployee = null;
 	Company tempCompany = null;
 	Board tempBoard = null;
 
+	/**
+	 * 데이터가 없는 경우
+	 */
 	@Test
 	public void searchTestNoData() {
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder().build();
@@ -60,6 +61,9 @@ public class ApplyHistoryRepositoryImplTest {
 		Assertions.assertEquals(0, applyHistoryDtoList.size());
 	}
 
+	/**
+	 * 지원자 이름으로 검색(결과가 있는 경우)
+	 */
 	@Test
 	public void searchNameTest() {
 		tempEmployee = employeeRepository.save(new Employee());
@@ -75,6 +79,7 @@ public class ApplyHistoryRepositoryImplTest {
 		.build()
 		;
 		companyRepository.save(tempCompany);
+
 		Board tempBoard = Board.builder()
 		.content("content")
 		.image("image")
@@ -100,8 +105,12 @@ public class ApplyHistoryRepositoryImplTest {
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}	
 
+	/**
+	 * 회사명으로 검색 테스트(결과가 있는 경우)
+	 */
 	@Test
 	public void searchCompanyNameTest() {
+		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
 		searchNameTest();
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.companyName("회사명")
@@ -112,8 +121,12 @@ public class ApplyHistoryRepositoryImplTest {
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}		
 
+	/**
+	 * 지원자 이름과 회사명으로 검색(결과가 있는 경우)
+	 */
 	@Test
 	public void searchNameAndCompanyNameTest() {
+		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
 		searchNameTest();
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.name("이름")
@@ -125,8 +138,12 @@ public class ApplyHistoryRepositoryImplTest {
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}		
 
+	/**
+	 * 지원자 식별자로 검색(결과가 있는 경우)
+	 */
 	@Test
 	public void applicantIdEqTest() {
+		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
 		searchNameTest();
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.applicantId(tempEmployee.getId())
@@ -137,6 +154,9 @@ public class ApplyHistoryRepositoryImplTest {
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}		
 
+	/**
+	 * 회시 식별자로 검색(결과가 있는 경우)
+	 */
 	@Test
 	public void companyIdEqTest() {
 		searchNameTest();
@@ -149,8 +169,12 @@ public class ApplyHistoryRepositoryImplTest {
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}		
 
+	/**
+	 * 지원 상태로 검색(결과가 있는 경우)
+	 */
 	@Test
 	public void statusEqTest() {
+		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
 		searchNameTest();
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.status(ApplyHistory.Status.APPLCN_COMPT)
@@ -161,8 +185,12 @@ public class ApplyHistoryRepositoryImplTest {
 		Assertions.assertEquals(1, applyHistoryDtoList.size());
 	}			
 
+	/**
+	 * 회사 대표자 식별자로 검색(결과가 있는 경우)
+	 */
 	@Test
 	public void reporesentativeCompanyIdEqTest() {
+		// 데이터를 만들기 위해 호출함. @BeforeEach 혹은 @BeforeAll 하지 않은 이유는 searchTestNoData() 에서는 불필요하기 때문
 		searchNameTest();
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.representativeId(tempEmployee.getId())
