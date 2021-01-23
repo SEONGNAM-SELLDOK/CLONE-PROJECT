@@ -17,8 +17,6 @@ import com.selldok.toy.employee.service.AppliedHistoryService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
@@ -30,10 +28,6 @@ import org.springframework.data.domain.Pageable;
 @SpringBootTest
 @Transactional
 public class ApplyHistoryRepositoryImplTest {
-	// gradle test 시 @Slf4j 찾을 수 없는 문제 발생하여(package lombok.extern.slf4j does not exist)
-	// Logger 객체를 LoggerFactory에서 가져오도록 함
-	static Logger logger = LoggerFactory.getLogger(ApplyHistoryRepositoryImplTest.class);
-
 	@Autowired
 	ApplyHistoryRepositoryImpl applyHistoryRepositoryImpl;
 	@Autowired
@@ -225,7 +219,7 @@ public class ApplyHistoryRepositoryImplTest {
 		.employmentBoardId(tempBoard.getId())
 		.build();
 		appliedHistoryService.create(newApplyHistoryDto);
-		
+
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
 		.representativeId(tempEmployee.getId())
 		.build();
