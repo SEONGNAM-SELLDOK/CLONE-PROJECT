@@ -46,6 +46,11 @@ public class ApplyHistoryRepositoryImplTest {
 	@Autowired
 	private AppliedHistoryService appliedHistoryService;
 
+	// 다른 메소드에서 사용하기 위해 변수를 만듬
+	Employee tempEmployee = null;
+	Company tempCompany = null;
+	Board tempBoard = null;
+
 	@Test
 	public void searchTestNoData() {
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder().build();
@@ -57,31 +62,32 @@ public class ApplyHistoryRepositoryImplTest {
 
 	@Test
 	public void searchNameTest() {
-		Employee newEmployee = employeeRepository.save(new Employee());
-		Company newCompany = Company.builder()
+		tempEmployee = employeeRepository.save(new Employee());
+		
+		tempCompany = Company.builder()
 		.name("회사명")
 		.address(new Address("country", "city", "street"))
 		.since("since")
 		.businessNum("since")
 		.phone("phone")
 		.terms(true)
-		.representative(newEmployee)
+		.representative(tempEmployee)
 		.build()
 		;
-		companyRepository.save(newCompany);
-		Board newBoard = Board.builder()
+		companyRepository.save(tempCompany);
+		Board tempBoard = Board.builder()
 		.content("content")
 		.image("image")
 		.title("title")
-		.company(newCompany)
+		.company(tempCompany)
 		.build();
-		newBoard.setCompany(newCompany);
-		boardRepository.save(newBoard);
+		tempBoard.setCompany(tempCompany);
+		boardRepository.save(tempBoard);
 
 		ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
 		.name("이름")
-		.applicantId(newEmployee.getId())
-		.employmentBoardId(newBoard.getId())
+		.applicantId(tempEmployee.getId())
+		.employmentBoardId(tempBoard.getId())
 		.build();
 		newApplyHistoryDto = appliedHistoryService.create(newApplyHistoryDto);
 
@@ -123,7 +129,7 @@ public class ApplyHistoryRepositoryImplTest {
 	public void applicantIdEqTest() {
 		searchNameTest();
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
-		.applicantId(1L)
+		.applicantId(tempEmployee.getId())
 		.build();
 		Pageable pageable = PageRequest.of(0, 10);
 		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistoryDto, pageable);
@@ -135,7 +141,7 @@ public class ApplyHistoryRepositoryImplTest {
 	public void companyIdEqTest() {
 		searchNameTest();
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
-		.companyId(1L)
+		.companyId(tempCompany.getId())
 		.build();
 		Pageable pageable = PageRequest.of(0, 10);
 		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistoryDto, pageable);
@@ -159,7 +165,7 @@ public class ApplyHistoryRepositoryImplTest {
 	public void reporesentativeCompanyIdEqTest() {
 		searchNameTest();
 		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
-		.representativeId(1L)
+		.representativeId(tempEmployee.getId())
 		.build();
 		Pageable pageable = PageRequest.of(0, 10);
 		List<ApplyHistoryDto> applyHistoryDtoList = applyHistoryRepositoryImpl.search(applyHistoryDto, pageable);
