@@ -28,8 +28,7 @@ import com.selldok.toy.employee.model.UpdateProfileRequest;
  */
 @SpringBootTest
 @Transactional
-@RunWith(SpringRunner.class)
-class EmployeeServiceTest {
+public class EmployeeServiceTest {
 	@Autowired
 	EmployeeService employeeService;
 

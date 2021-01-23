@@ -6,6 +6,7 @@ import com.selldok.toy.employee.entity.PersonInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class EmployeeProfileResponse {
     private long id;
     private BasicInfo info;
