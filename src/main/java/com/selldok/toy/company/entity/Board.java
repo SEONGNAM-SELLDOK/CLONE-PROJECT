@@ -43,7 +43,8 @@ public class Board extends JpaBaseEntity {
 
     /**
      * cascadetype이 all로 되어있어
-     * 이미 저장된 company를 중복저장시도해 에러가 발생해 제거하였습니다.
+     * 이미 저장된 company를 중복저장시도해 에러가 발생해 제거하였습니다.(error : detached entity passed to persist)
+     * 확인부탁드립니다.
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
