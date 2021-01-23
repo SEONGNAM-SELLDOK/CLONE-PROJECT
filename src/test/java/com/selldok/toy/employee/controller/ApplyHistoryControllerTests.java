@@ -127,17 +127,11 @@ public class ApplyHistoryControllerTests {
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andDo(document("apply-create",
-			requestHeaders(
-				headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
-			),
 			requestFields(
 				fieldWithPath("name").description("지원자명"),
 				fieldWithPath("email").description("지원자 이메일"),
 				fieldWithPath("phoneNumber").description("지원자 전화번호"),
 				fieldWithPath("employmentBoardId").description("구인 게시물 식별자")
-			),
-			responseHeaders(
-				headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
 			),
 			responseFields(
 				fieldWithPath("id").description("지원이력 식별자"),
@@ -177,17 +171,11 @@ public class ApplyHistoryControllerTests {
 		.andDo(print())
 		.andExpect(status().isAccepted())
 		.andDo(document("apply-update",
-			requestHeaders(
-				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
-			),
 			requestFields(
 				fieldWithPath("name").description("수정할 지원자명"),
 				fieldWithPath("email").description("수정할 지원자 이메일"),
 				fieldWithPath("phoneNumber").description("수정할 지원자 전화번호"),
 				fieldWithPath("employmentBoardId").description("구인 게시물 식별자")
-			),
-			responseHeaders(
-				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
 			)
 		)).andReturn();		
 
@@ -200,14 +188,8 @@ public class ApplyHistoryControllerTests {
 		.andDo(print())
 		.andExpect(status().isAccepted())
 		.andDo(document("apply-change-status",
-			requestHeaders(
-				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
-			),
 			requestFields(
 				fieldWithPath("status").description("변경할 상태")
-			),
-			responseHeaders(
-				//headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
 			)
 		)).andReturn();				
 
