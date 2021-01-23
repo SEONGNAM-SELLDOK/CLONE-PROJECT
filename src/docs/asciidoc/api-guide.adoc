@@ -85,3 +85,26 @@ include::{snippets}/create-company/http-response.adoc[]
 include::{snippets}/create-company/response-fields.adoc[]
 include::{snippets}/create-company/response-body.adoc[]
 //operation::create-company[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-get-salary]]
+
+=== 연봉 정보
+
+`GET` 연봉정보를 얻어올 수 있다.
+
+include::{snippets}/get-salary/request-fields.adoc[]
+include::{snippets}/get-salary/curl-request.adoc[]
+include::{snippets}/get-salary/http-response.adoc[]
+include::{snippets}/get-salary/response-fields.adoc[]
+include::{snippets}/get-salary/response-body.adoc[]
+
+[[resources-edit-salary]]
+
+=== 연봉 정보 수정
+
+`POST` 연봉정보를 수정할 수 있다.
+
+include::{snippets}/edit-salary/request-fields.adoc[]
+include::{snippets}/edit-salary/curl-request.adoc[]
+include::{snippets}/edit-salary/http-response.adoc[]
+include::{snippets}/edit-salary/response-body.adoc[]

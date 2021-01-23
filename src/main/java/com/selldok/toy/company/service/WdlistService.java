@@ -19,13 +19,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Thread.sleep;
+
+/**
+ * @author Seil Park
+ */
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class WdlistService {
 
-	private WebDriver getWdlistDriver;
-	private WebDriver getDetailPageDriver;
+	WebDriver getWdlistDriver;
+	WebDriver getDetailPageDriver;
 	private final BoardService boardService;
 	private final CompanyService companyService;
 	private final String WEB_DRIVER_ID = "webdriver.chrome.driver";
@@ -43,21 +49,20 @@ public class WdlistService {
 	public void initCompanyList(){
 		companyList = companyService.findAllCompany();
 		for(Company company : companyList) companyMap.put(company.getName(),company);
-	}
 
-	private void chromeDriverSetting(){
 		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
 		options = new ChromeOptions();
 		options.setCapability("ignoreProtectedModeSettings", true);
 		options.addArguments("headless");
-	}
 
 
-	private void getWdlist(String url) {
 		getWdlistDriver = new ChromeDriver(options);
 
+		getDetailPageDriver = new ChromeDriver(options);
+	}
+
+	private void getWdlist(String url) {
 		getWdlistDriver.get(url);
-		getWdlistDriver.manage().window().maximize();
 		loadElementsByScrollDown();
 
 	}
@@ -69,7 +74,7 @@ public class WdlistService {
 		for (int i = 0; i < scrollTimeOutInterval; i++) {
 			js.executeScript("window.scrollBy(0,10000)");
 			try {
-				Thread.sleep(scrollTimeOut);
+				sleep(scrollTimeOut);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -93,7 +98,7 @@ public class WdlistService {
 	}
 
 	private String getContentFromDetailBoard(){
-		WebElement contentElement = getDetailPageDriver.findElement(By.className("_1LnfhLPc7hiSZaaXxRv11H"));
+		WebElement contentElement = getDetailPageDriver.findElement(By.className("_31EtVNPZ-KwYCXvVZ3927g"));
 		String content = contentElement.getText();
 		return content;
 	}
@@ -118,14 +123,10 @@ public class WdlistService {
 	}
 
 	private void getDetailPageList(){
-		getDetailPageDriver = new ChromeDriver(options);
 		getDetailPageDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 	}
 	public void syncWithWanted() {
 		try {
-
-			chromeDriverSetting();
-
 			getWdlist("https://www.wanted.co.kr/wdlist?country=kr&job_sort=job.latest_order&years=-1&locations=all");
 
 			List<WebElement> wdList = getWdlistDriver.findElements(By.className("_3D4OeuZHyGXN7wwibRM5BJ"));
@@ -144,7 +145,6 @@ public class WdlistService {
 				String content = getContentFromDetailBoard();
 				String companyName = getCompanyFromDetailBoard();
 				//String endDate = getEndDateFromDetailBoard();
-
 				/**
 				 * db조회 줄이기
 				 */
@@ -156,8 +156,10 @@ public class WdlistService {
 						.image(imageUrl)
 						.title(title)
 						.build();
+
 				boardService.create(board);
 			}
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {
