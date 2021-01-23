@@ -91,6 +91,7 @@ include::{snippets}/create-company/response-body.adoc[]
 
 ==== 구직 신청
 
+include::{snippets}/apply-create/path-parameters.adoc[]
 include::{snippets}/apply-create/request-fields.adoc[]
 include::{snippets}/apply-create/curl-request.adoc[]
 include::{snippets}/apply-create/http-response.adoc[]
@@ -102,6 +103,7 @@ include::{snippets}/apply-create/response-body.adoc[]
 
 response body는 없습니다. 상태가 accecpted (202)이면 성공으로 판단해주세요.
 
+include::{snippets}/apply-update/path-parameters.adoc[]
 include::{snippets}/apply-update/request-fields.adoc[]
 include::{snippets}/apply-update/curl-request.adoc[]
 include::{snippets}/apply-update/http-response.adoc[]
@@ -111,6 +113,7 @@ include::{snippets}/apply-update/http-response.adoc[]
 
 response body는 없습니다. 상태가 accecpted (202)이면 성공으로 판단해주세요.
 
+include::{snippets}/apply-change-status/path-parameters.adoc[]
 include::{snippets}/apply-change-status/request-fields.adoc[]
 include::{snippets}/apply-change-status/curl-request.adoc[]
 include::{snippets}/apply-change-status/http-response.adoc[]
@@ -120,6 +123,7 @@ include::{snippets}/apply-change-status/http-response.adoc[]
 
 ===== 구직자별
 
+include::{snippets}/apply-groupByCountByStatusOfApplicant/path-parameters.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfApplicant/curl-request.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfApplicant/http-response.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfApplicant/response-fields.adoc[]
@@ -127,6 +131,7 @@ include::{snippets}/apply-groupByCountByStatusOfApplicant/response-fields.adoc[]
 
 ===== 회시별
 
+include::{snippets}/apply-groupByCountByStatusOfCompany/path-parameters.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfCompany/curl-request.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfCompany/http-response.adoc[]
 include::{snippets}/apply-groupByCountByStatusOfCompany/response-fields.adoc[]
@@ -134,6 +139,7 @@ include::{snippets}/apply-groupByCountByStatusOfCompany/response-fields.adoc[]
 
 ==== 개인별 지원이력 검색
 
+include::{snippets}/apply-employeesApplyHistoriesSearch/path-parameters.adoc[]
 include::{snippets}/apply-employeesApplyHistoriesSearch/curl-request.adoc[]
 include::{snippets}/apply-employeesApplyHistoriesSearch/request-parameters.adoc[]
 include::{snippets}/apply-employeesApplyHistoriesSearch/response-fields.adoc[]
@@ -141,6 +147,7 @@ include::{snippets}/apply-employeesApplyHistoriesSearch/response-fields.adoc[]
 
 ==== 회사별 지원이력 검색
 
+include::{snippets}/apply-companyApplyHistoriesSearch/path-parameters.adoc[]
 include::{snippets}/apply-companyApplyHistoriesSearch/curl-request.adoc[]
 include::{snippets}/apply-companyApplyHistoriesSearch/request-parameters.adoc[]
 include::{snippets}/apply-companyApplyHistoriesSearch/response-fields.adoc[]
@@ -148,6 +155,7 @@ include::{snippets}/apply-companyApplyHistoriesSearch/response-fields.adoc[]
 
 ==== 대표자 id로 회사별 지원이력 검색
 
+include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/path-parameters.adoc[]
 include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/curl-request.adoc[]
 include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/request-parameters.adoc[]
 include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/response-fields.adoc[]

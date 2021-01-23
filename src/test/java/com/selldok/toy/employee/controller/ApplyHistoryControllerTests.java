@@ -1,34 +1,32 @@
 package com.selldok.toy.employee.controller;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
-import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selldok.toy.common.RestDocsConfiguration;
-import com.selldok.toy.company.entity.Address;
-import com.selldok.toy.company.entity.Board;
-import com.selldok.toy.company.entity.Company;
-import com.selldok.toy.company.service.BoardService;
-import com.selldok.toy.company.service.CompanyService;
-import com.selldok.toy.employee.dao.EmployeeRepository;
-import com.selldok.toy.employee.entity.Employee;
+import com.selldok.toy.employee.entity.ApplyHistory.Status;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
+import com.selldok.toy.employee.service.AppliedHistoryService;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -37,11 +35,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -62,71 +59,56 @@ public class ApplyHistoryControllerTests {
 	MockMvc mockMvc;
 
 	@Autowired
-	CompanyService companyService;
-
-	@Autowired
-	BoardService boardService;
-
-	@Autowired
-	EmployeeRepository employeeRepository;
-
-	@Autowired
 	ObjectMapper objectMapper;
 
+	@MockBean
+	private AppliedHistoryService applyHistoryService;	
+
+	private ApplyHistoryDto newApplyHistoryDto = ApplyHistoryDto.builder()
+		.id(1L)
+		.name("지원자명")
+		.email("이메일주소")
+		.phoneNumber("전화번호")
+		.applicantId(1L)
+		.representativeId(1L)
+		.companyId(1L)
+		.employmentBoardId(1L)
+		.boardTitle("구인 제목")
+		.companyName("회사명")
+		.companyLogoUrl("회사 로고 주소")
+		.companyCountry("회사 소재 국가")
+		.companyCity("회사 소재 도시")
+		.companyStreet("회사 주소 도로명")
+		.appliedDate(new Timestamp(new Date().getTime()))
+		.status(Status.APPLCN_COMPT)
+		.recommendStatus("추천 상태")
+		.build()
+	;	
+
 	/**
-	* 실제 업무 테스트를 위해 기업 생성, 구인 생성함
-	*/
+	* 입사 지원
+	 * @throws Exception
+	 */
 	@Test
 	public void apply() throws Exception {
-		Long companyId = null;
-		Long boardId = null;
-		Long employeeId = null;
-
-		Employee representative = new Employee();
-		employeeRepository.save(representative);
-		employeeId = representative.getId();
-
-		//이 테스트는 할 필요 없지만 다른 테스트에서 company_id 가 필요하므로 수행 함
-		Address newAddress = new Address("country", "city", "street");
-		Company newCompany = Company.builder()
-		.address(newAddress)
-		.since("since")
-		.businessNum("since")
-		.phone("phone")
-		.terms(true)
-		.representative(representative)
-		.build()
-		;
-
-		companyId = companyService.create(newCompany);
-		
-		logger.debug("company_id={}", companyId);
-
-		Board newBoard = Board.builder()
-		.content("content")
-		.image("image")
-		.title("title")
-		.company(newCompany)
-		.build();
-
-		boardId = boardService.create(newBoard);
-		logger.debug("boardId={}", boardId);
-		//assert를 굳이 할 필요는 없지만 sonarlint(java:S2699) 경고를 보이지 않게 하기 위해 넣음
-		assertNotNull(boardId);
+		given(applyHistoryService.create(any())).willReturn(newApplyHistoryDto);
 
 		Map<String, Object> applyData = new HashMap<>();
 		applyData.put("name", "지원자명");
 		applyData.put("email", "이메일주소");
 		applyData.put("phoneNumber", "지원자 전화번호");
-		applyData.put("employmentBoardId", boardId);
-		
+		applyData.put("employmentBoardId", 1L);
+
 		// 입사지원
-		MvcResult applyResult = mockMvc.perform(post("/employees/"+ employeeId + "/applyHistories")
+		mockMvc.perform(post("/employees/{employeeId}/applyHistories", 1L)
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
 		.content(objectMapper.writeValueAsString(applyData)))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andDo(document("apply-create",
+			pathParameters( 
+				parameterWithName("employeeId").description("구직자 식별자")
+			),
 			requestFields(
 				fieldWithPath("name").description("지원자명"),
 				fieldWithPath("email").description("지원자 이메일"),
@@ -153,52 +135,93 @@ public class ApplyHistoryControllerTests {
 				fieldWithPath("status").description("지원상태"),
 				fieldWithPath("recommendStatus").description("추천상태")
 			)
-		)).andReturn();
-		
-		ApplyHistoryDto resultApplyHistoryDto = objectMapper.readValue(applyResult.getResponse().getContentAsString(), ApplyHistoryDto.class);
-		logger.debug("applyId={}", resultApplyHistoryDto.getId());
+		));
+	}
 
-		applyData = new HashMap<>();
+	/**
+	 * 지원 내용 수정
+	 * @throws Exception
+	 */
+	@Test
+	public void update() throws Exception {
+		Map<String, Object> applyData = new HashMap<>();
 		applyData.put("name", "수정할 지원자명");
 		applyData.put("email", "수정할 이메일주소");
 		applyData.put("phoneNumber", "수정할 지원자 전화번호");
-		applyData.put("employmentBoardId", boardId);
+		applyData.put("employmentBoardId", 1L);
+
+		given(applyHistoryService.update(any())).willReturn(true);		
 
 		// 지원내용 수정
-		applyResult = mockMvc.perform(put("/employees/"+ employeeId + "/applyHistories/" + resultApplyHistoryDto.getId())
+		mockMvc.perform(put("/employees/{employeeId}/applyHistories/{applyHistoryId}", 1L, 1L)
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
 		.content(objectMapper.writeValueAsString(applyData)))
 		.andDo(print())
 		.andExpect(status().isAccepted())
 		.andDo(document("apply-update",
+			pathParameters( 
+				parameterWithName("employeeId").description("구직자 식별자")
+				,parameterWithName("applyHistoryId").description("지원 이력 식별자")
+			),		
 			requestFields(
-				fieldWithPath("name").description("수정할 지원자명"),
+				fieldWithPath("name").description("수정할 지원자명."),
 				fieldWithPath("email").description("수정할 지원자 이메일"),
 				fieldWithPath("phoneNumber").description("수정할 지원자 전화번호"),
 				fieldWithPath("employmentBoardId").description("구인 게시물 식별자")
 			)
-		)).andReturn();		
+		));	
+	}
 
-		// 상태 변경
-		applyData = new HashMap<>();
+	/**
+	 * 지원 상태 변경
+	 * @throws Exception
+	 */
+	@Test
+	public void updateStatus() throws Exception {
+		given(applyHistoryService.update(any())).willReturn(true);		
+
+		Map<String, Object> applyData = new HashMap<>();
 		applyData.put("status", "PAPERS_PASAGE");
-		applyResult = mockMvc.perform(put("/applyHistories/"+ resultApplyHistoryDto.getId() + "/changeStatus")
+
+		mockMvc.perform(put("/applyHistories/{applyHistoryId}/changeStatus", 1L)
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
 		.content(objectMapper.writeValueAsString(applyData)))
 		.andDo(print())
 		.andExpect(status().isAccepted())
 		.andDo(document("apply-change-status",
+			pathParameters( 
+				parameterWithName("applyHistoryId").description("지원 이력 식별자")
+			),			
 			requestFields(
 				fieldWithPath("status").description("변경할 상태")
 			)
-		)).andReturn();				
+		));
+	}
 
-		// 지원 상태 카운트(지원자별
-		applyResult = mockMvc.perform(get("/employees/" + employeeId + "/applyHistories/getApplyCount"))
+	/**
+	 * 지원 상태 카운트(지원자별)
+	 * @throws Exception
+	 */
+	@Test
+	public void groupByCountByStatusOfApplicant() throws Exception {	
+		Map<String, Long> groupByCount = new HashMap<>();
+		groupByCount.put("APPLCN_COMPT", 1L);
+		groupByCount.put("PAPERS_PASAGE", 2L);
+		groupByCount.put("LAST_PSEXAM", 3L);
+		groupByCount.put("DSQLFC", 4L);
+		groupByCount.put("CANCELED", 5L);
+		groupByCount.put("allCount", 6L);
+
+		given(applyHistoryService.groupByCountByStatusOfApplicant(any())).willReturn(groupByCount);	
+
+		mockMvc.perform(get("/employees/{employeeId}/applyHistories/getApplyCount", 1L))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andDo(document(
 			"apply-groupByCountByStatusOfApplicant",
+			pathParameters( 
+				parameterWithName("employeeId").description("구직자 식별자")
+			),				
 			responseFields(
 				fieldWithPath("APPLCN_COMPT").description("지원완료"),
 				fieldWithPath("PAPERS_PASAGE").description("서류통과"),
@@ -207,14 +230,34 @@ public class ApplyHistoryControllerTests {
 				fieldWithPath("CANCELED").description("신청취소"),
 				fieldWithPath("allCount").description("전체 카운트")
 			)
-		)).andReturn();				
+		));	
+	}	
 
-		// 지원 상태 카운트(회사별)
-		applyResult = mockMvc.perform(get("/company/" + companyId + "/applyHistories/getApplyCount"))
+	/**
+	 * 지원 상태 카운트(회사별)
+	 * @throws Exception
+	 */
+	@Test
+	public void groupByCountByStatusOfCompany() throws Exception {	
+		Map<String, Long> groupByCount = new HashMap<>();
+		groupByCount.put("APPLCN_COMPT", 1L);
+		groupByCount.put("PAPERS_PASAGE", 2L);
+		groupByCount.put("LAST_PSEXAM", 3L);
+		groupByCount.put("DSQLFC", 4L);
+		groupByCount.put("CANCELED", 5L);
+		groupByCount.put("allCount", 6L);
+
+		given(applyHistoryService.groupByCountByStatusOfCompany(any())).willReturn(groupByCount);	
+
+		mockMvc.perform(get("/company/{companyId}/applyHistories/getApplyCount", 1L))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andDo(document(
 			"apply-groupByCountByStatusOfCompany",
+
+			pathParameters( 
+				parameterWithName("companyId").description("회사 식별자")
+			),				
 			responseFields(
 				fieldWithPath("APPLCN_COMPT").description("지원완료"),
 				fieldWithPath("PAPERS_PASAGE").description("서류통과"),
@@ -223,11 +266,22 @@ public class ApplyHistoryControllerTests {
 				fieldWithPath("CANCELED").description("신청취소"),
 				fieldWithPath("allCount").description("전체 카운트")
 			)
-		)).andReturn();		
+		));		
+	}		
 
-		// 개인별 지원이력 검색
-		applyResult = mockMvc.perform(
-			get("/employees/" + employeeId + "/applyHistories")
+	/**
+	 * 개인별 지원이력 검색
+	 * @throws Exception
+	 */
+	@Test
+	public void employeesApplyHistoriesSearch() throws Exception {	
+		List<ApplyHistoryDto> applyHistoryDtoList = new ArrayList<>();
+		applyHistoryDtoList.add(newApplyHistoryDto);
+		
+		given(applyHistoryService.search(any(), any())).willReturn(applyHistoryDtoList);		
+
+		mockMvc.perform(
+			get("/employees/{employeeId}/applyHistories", 1L)
 			.param("name", "지원자명")
 			.param("companyName", "회사명")
 			.param("status", "PAPERS_PASAGE")
@@ -235,8 +289,11 @@ public class ApplyHistoryControllerTests {
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andDo(document(
-			"apply-employeesApplyHistoriesSearch"
-			,requestParameters(
+			"apply-employeesApplyHistoriesSearch",
+			pathParameters( 
+				parameterWithName("employeeId").description("지원자 식별자")
+			),			
+			requestParameters(
 				parameterWithName("name").description("검색할 지원자명")
 				,parameterWithName("companyName").description("검색할 회사명")
 				,parameterWithName("status").description("검색할 상태")
@@ -261,11 +318,22 @@ public class ApplyHistoryControllerTests {
 				fieldWithPath("[].status").description("지원상태"),
 				fieldWithPath("[].recommendStatus").description("추천상태")
 			)
-		)).andReturn();				
+		));			
+	}		
 
-		// 회사별 지원이력 검색
-		applyResult = mockMvc.perform(
-			get("/company/" + companyId + "/applyHistories")
+	/**
+	 * 회사별 지원이력 검색
+	 * @throws Exception
+	 */
+	@Test
+	public void companyApplyHistoriesSearch() throws Exception {	
+		List<ApplyHistoryDto> applyHistoryDtoList = new ArrayList<>();
+		applyHistoryDtoList.add(newApplyHistoryDto);
+		
+		given(applyHistoryService.search(any(), any())).willReturn(applyHistoryDtoList);		
+
+		mockMvc.perform(
+			get("/company/{companyId}/applyHistories", 1L)
 			.param("name", "지원자명")
 			.param("companyName", "회사명")
 			.param("status", "PAPERS_PASAGE")
@@ -273,8 +341,11 @@ public class ApplyHistoryControllerTests {
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andDo(document(
-			"apply-companyApplyHistoriesSearch"
-			,requestParameters(
+			"apply-companyApplyHistoriesSearch",
+			pathParameters( 
+				parameterWithName("companyId").description("회사 식별자")
+			),						
+			requestParameters(
 				parameterWithName("name").description("검색할 지원자명")
 				,parameterWithName("companyName").description("검색할 회사명")
 				,parameterWithName("status").description("검색할 상태")
@@ -299,11 +370,22 @@ public class ApplyHistoryControllerTests {
 				fieldWithPath("[].status").description("지원상태"),
 				fieldWithPath("[].recommendStatus").description("추천상태")
 			)
-		)).andReturn();	
+		));			
+	}
 
-		// 대표자 id로 회사별 지원이력 검색
-		applyResult = mockMvc.perform(
-			get("/employees/" + employeeId + "/company/applyHistories")
+	/**
+	 * 대표자 id로 회사별 지원이력 검색
+	 * @throws Exception
+	 */
+	@Test
+	public void representativeCompanyApplyHistoriesSearch() throws Exception {	
+		List<ApplyHistoryDto> applyHistoryDtoList = new ArrayList<>();
+		applyHistoryDtoList.add(newApplyHistoryDto);
+		
+		given(applyHistoryService.search(any(), any())).willReturn(applyHistoryDtoList);		
+
+		mockMvc.perform(
+			get("/employees/{employeeId}/company/applyHistories", 1L)
 			.param("name", "지원자명")
 			.param("companyName", "회사명")
 			.param("status", "PAPERS_PASAGE")
@@ -312,6 +394,9 @@ public class ApplyHistoryControllerTests {
 		.andExpect(status().isOk())
 		.andDo(document(
 			"apply-representativeCompanyApplyHistoriesSearch"
+			,pathParameters( 
+				parameterWithName("employeeId").description("대표자 식별자")
+			)
 			,requestParameters(
 				parameterWithName("name").description("검색할 지원자명")
 				,parameterWithName("companyName").description("검색할 회사명")
@@ -337,6 +422,6 @@ public class ApplyHistoryControllerTests {
 				fieldWithPath("[].status").description("지원상태"),
 				fieldWithPath("[].recommendStatus").description("추천상태")
 			)
-		)).andReturn();	
-	}	
+		));			
+	}
 }
