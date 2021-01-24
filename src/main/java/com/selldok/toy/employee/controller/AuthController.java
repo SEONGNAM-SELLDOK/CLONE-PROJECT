@@ -38,7 +38,6 @@ public class AuthController {
 
     @GetMapping("callBack")
     public ResponseEntity loginCallback(AuthCallBackRequest authResponse){
-        System.out.println(authResponse);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

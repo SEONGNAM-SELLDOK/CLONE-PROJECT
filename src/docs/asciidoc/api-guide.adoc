@@ -118,3 +118,88 @@ include::{snippets}/update-board/http-response.adoc[]
 include::{snippets}/update-board/response-fields.adoc[]
 include::{snippets}/update-board/response-body.adoc[]
 
+//operation::create-company[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-employees-insert]]
+=== 회원 생성
+
+`POST` 요청을 사용해서 새 회원을 만들 수 있다.
+
+include::{snippets}/employees-insert/request-fields.adoc[]
+include::{snippets}/employees-insert/curl-request.adoc[]
+include::{snippets}/employees-insert/http-response.adoc[]
+include::{snippets}/employees-insert/response-fields.adoc[]
+include::{snippets}/employees-insert/response-body.adoc[]
+//operation::employees-insert[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-employees-get]]
+=== 회원 조회
+
+`GET` 요청을 사용해서 회원을 조회한다.
+
+include::{snippets}/employees-get/request-fields.adoc[]
+include::{snippets}/employees-get/curl-request.adoc[]
+include::{snippets}/employees-get/http-response.adoc[]
+include::{snippets}/employees-get/response-fields.adoc[]
+include::{snippets}/employees-get/response-body.adoc[]
+//operation::employees-get[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-employees-getFriends]]
+=== 회원 친구 조회
+
+`GET` 요청을 사용해서 회원의 친구를 조회한다.
+
+include::{snippets}/employees-getFriends/request-fields.adoc[]
+include::{snippets}/employees-getFriends/curl-request.adoc[]
+include::{snippets}/employees-getFriends/http-response.adoc[]
+include::{snippets}/employees-getFriends/response-fields.adoc[]
+include::{snippets}/employees-getFriends/response-body.adoc[]
+//operation::employees-getFriends[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-employees-getProfile]]
+=== 회원 프로파일 조회
+
+`GET` 요청을 사용해서 회원 프로파일을 조회한다.
+
+include::{snippets}/employees-getProfile/request-fields.adoc[]
+include::{snippets}/employees-getProfile/curl-request.adoc[]
+include::{snippets}/employees-getProfile/http-response.adoc[]
+include::{snippets}/employees-getProfile/response-fields.adoc[]
+include::{snippets}/employees-getProfile/response-body.adoc[]
+//operation::employees-getProfile[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-employees-update]]
+=== 회원 수정
+
+`PUT` 요청을 사용해서 회원 정보를 수정한다.
+
+include::{snippets}/employees-update/request-fields.adoc[]
+include::{snippets}/employees-update/curl-request.adoc[]
+include::{snippets}/employees-update/http-response.adoc[]
+include::{snippets}/employees-update/response-fields.adoc[]
+include::{snippets}/employees-update/response-body.adoc[]
+//operation::employees-update[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-employees-updateProfile]]
+=== 회원 프로파일 수정
+
+`PUT` 요청을 사용해서 회원의 프로파일을 수정한다.
+
+include::{snippets}/employees-updateProfile/request-fields.adoc[]
+include::{snippets}/employees-updateProfile/curl-request.adoc[]
+include::{snippets}/employees-updateProfile/http-response.adoc[]
+include::{snippets}/employees-updateProfile/response-fields.adoc[]
+include::{snippets}/employees-updateProfile/response-body.adoc[]
+//operation::employees-updateProfile[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-employees-delete]]
+=== 회원 삭제
+
+`DELETE` 요청을 사용해서 회원 정보를 삭제한다.
+
+include::{snippets}/employees-delete/request-fields.adoc[]
+include::{snippets}/employees-delete/curl-request.adoc[]
+include::{snippets}/employees-delete/http-response.adoc[]
+include::{snippets}/employees-delete/response-fields.adoc[]
+include::{snippets}/employees-delete/response-body.adoc[]
+//operation::employees-delete[snippets='request-fields,curl-request,http-response,response-fields,response-body']

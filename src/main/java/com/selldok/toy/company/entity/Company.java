@@ -37,6 +37,7 @@ public class Company {
     // 연관관계: 하나의 회사는 여러개의 게시글을 가질 수 있다.
     @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<Board> boards = new ArrayList<>();
 
     // 하나의 회사는 하나의 마스터 매니저를 가진다.
