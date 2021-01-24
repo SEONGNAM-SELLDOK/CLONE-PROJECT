@@ -3,6 +3,7 @@ package com.selldok.toy.company.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.employee.entity.Employee;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -35,7 +36,11 @@ public class BoardService {
 
 	private final CelldokFileUtil celldokFileUtil;
 
-	public List<BoardReadResponse> findBoard(Long id) {
+	public Optional<Board> findById(Long id) {
+		return boardRepository.findById(id);
+	}
+
+	public List<BoardReadResponse> findBoardInfo(Long id) {
 		return boardRepository.findByBoardInfo(id);
 	}
 
@@ -75,6 +80,10 @@ public class BoardService {
 		});
 
 		return id;
+	}
+
+	public void delete(Long id) {
+		boardRepository.deleteById(id);
 	}
 
 	/**

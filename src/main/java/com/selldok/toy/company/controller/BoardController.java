@@ -8,6 +8,7 @@ import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.*;
 import com.selldok.toy.company.service.BoardService;
 
+import com.selldok.toy.company.service.CompanyService;
 import com.selldok.toy.company.service.WdlistService;
 
 import com.selldok.toy.employee.entity.Employee;
@@ -38,7 +39,7 @@ import java.util.*;
 public class BoardController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     private final WdlistService wdlistService;
 
@@ -58,14 +59,14 @@ public class BoardController {
 
     @GetMapping("{id}")
     public ResponseEntity<List<BoardReadResponse>> read(@PathVariable("id") Long id) {
-        List<BoardReadResponse> boardInfo = boardService.findBoard(id);
+        List<BoardReadResponse> boardInfo = boardService.findBoardInfo(id);
         return new ResponseEntity(boardInfo, HttpStatus.OK);
     }
 
     @PostMapping("add")
     public ResponseEntity<String> create(final @Valid @RequestBody BoardCreateRequest request) {
 
-        Company company = companyRepository.findById(request.getCompanyId()).get();
+        Company company = companyService.findById(request.getCompanyId()).get();
         Board board = Board.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
@@ -123,6 +124,14 @@ public class BoardController {
         }
         return new ResponseEntity(count, HttpStatus.OK);
     }
+
+    @DeleteMapping("{id}")
+    @ResponseBody
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        boardService.delete(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
 
     /**
      * wdlist에 쓰일 부분입니다.

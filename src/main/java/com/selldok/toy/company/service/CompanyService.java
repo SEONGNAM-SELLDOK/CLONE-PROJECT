@@ -26,6 +26,10 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final Validation validation;
 
+    public Optional<Company> findById(Long id) {
+        return companyRepository.findById(id);
+    }
+
     /**
      * 모든 기업 정보 GET
      * */
