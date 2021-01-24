@@ -41,6 +41,7 @@ public class EmployeeService {
 		return employeeRepository.findByInfoEmail(Email).orElseThrow();
 	}
 
+	@Transactional
 	public void insert(InsertEmployeeRequest request) {
 		Employee employee = new Employee(request.getName(), request.getEmail(), request.getPhoneNumber());
 		employeeRepository.save(employee);
@@ -98,6 +99,7 @@ public class EmployeeService {
 		});
 	}
 
+	@Transactional
 	public Employee insert(String name, String email, String url) {
 		Employee employee = new Employee(name, email, "");
 		return employeeRepository.save(employee);
