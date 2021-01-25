@@ -121,17 +121,11 @@ public class WdlistService {
 
 		getDetailPageDriver.get(detailUrl);
 	}
-
-	private void getDetailPageList(){
-		getDetailPageDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-	}
 	public void syncWithWanted() {
 		try {
 			getWdlist("https://www.wanted.co.kr/wdlist?country=kr&job_sort=job.latest_order&years=-1&locations=all");
 
 			List<WebElement> wdList = getWdlistDriver.findElements(By.className("_3D4OeuZHyGXN7wwibRM5BJ"));
-
-			getDetailPageList();
 
 			/**
 			 * Board관련해서 필요한 정보들만 추려서 넣었습니다
