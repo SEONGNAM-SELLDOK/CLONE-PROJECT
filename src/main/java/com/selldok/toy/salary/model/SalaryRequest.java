@@ -1,12 +1,12 @@
 package com.selldok.toy.salary.model;
 
-import com.selldok.toy.salary.entity.Occupation;
 import lombok.*;
 
 /**
  * @author Seil Park
  */
 @Getter @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class SalaryRequest {
@@ -29,4 +29,5 @@ public class SalaryRequest {
     private int yearNine;
 
     private int yearTen;
+
 }
