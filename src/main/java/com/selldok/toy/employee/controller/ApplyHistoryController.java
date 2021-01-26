@@ -69,7 +69,7 @@ public class ApplyHistoryController {
 	 */
 	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) {
+	public ResponseEntity<ApplyHistoryDto> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) {
 		applyHistoryDto.setApplicantId(applicantId);
 		return new ResponseEntity<>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}
@@ -115,7 +115,7 @@ public class ApplyHistoryController {
 	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfApplicant(@PathVariable Long applicantId) {
-		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.OK);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class ApplyHistoryController {
 	@GetMapping("company/{companyId}/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfCompany(@PathVariable Long companyId) {
-		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.OK);
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class ApplyHistoryController {
 	@GetMapping("employees/{representativeId}/company/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfRepresentativeCompany(@PathVariable Long representativeId) throws Exception {
-		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfRepresentativeCompany(representativeId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfRepresentativeCompany(representativeId), HttpStatus.OK);
 	}	
 
 
@@ -162,7 +162,7 @@ public class ApplyHistoryController {
 										.status(status).build();
 
 		log.debug("applyHistoryDto={}", applyHistoryDto);
-		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.OK);
 	}	
 
 	/**
@@ -187,7 +187,7 @@ public class ApplyHistoryController {
 		applyHistoryDto.setCompanyName(companyName);
 		applyHistoryDto.setStatus(status);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
-		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.OK);
 	}	
 
 	/**
@@ -212,6 +212,6 @@ public class ApplyHistoryController {
 		applyHistoryDto.setCompanyName(companyName);
 		applyHistoryDto.setStatus(status);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
-		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.OK);
 	}		
 }

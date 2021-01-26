@@ -39,7 +39,8 @@ public class ApplyHistoryDto {
 	private String companyCity;
 	private String companyStreet;
 	private Timestamp appliedDate;
-	private Status status;
+	@Builder.Default
+	private Status status = Status.APPLCN_COMPT;
 	private String recommendStatus;
 
 	@QueryProjection
