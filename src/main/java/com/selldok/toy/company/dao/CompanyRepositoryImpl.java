@@ -3,9 +3,10 @@ package com.selldok.toy.company.dao;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.selldok.toy.company.entity.QCompany.*;
-import static com.selldok.toy.company.entity.QMember.*;
 import com.selldok.toy.company.model.CompanyListResponse;
 import com.selldok.toy.company.model.QCompanyListResponse;
+import static com.selldok.toy.employee.entity.QEmployee.*;
+import static com.selldok.toy.employee.entity.QBasicInfo.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -32,10 +33,10 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
                     company.email,
                     company.phone,
                     company.homepage,
-                    member.id.as("memberId"),
-                    member.name.as("memberName")))
+                    employee.id.as("employeeId"),
+                    basicInfo.name.as("employeeName")))
                 .from(company)
-                .leftJoin(company.member, member)
+                .leftJoin(company.employee, employee)
                 .fetch();
 
         return fetch;
@@ -51,10 +52,10 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
                         company.email,
                         company.phone,
                         company.homepage,
-                        member.id.as("memberId"),
-                        member.name.as("memberName")))
+                        employee.id.as("employeeId"),
+                        basicInfo.name.as("employeeName")))
                 .from(company)
-                .leftJoin(company.member, member)
+                .leftJoin(company.employee, employee)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();

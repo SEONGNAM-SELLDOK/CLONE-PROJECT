@@ -60,5 +60,6 @@ public class Board extends JpaBaseEntity {
      */
     @JsonIgnore
     @OneToMany(mappedBy = "employmentBoard", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<ApplyHistory> applyHistories = new ArrayList<ApplyHistory>();
 }

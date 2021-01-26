@@ -1,12 +1,14 @@
 package com.selldok.toy.company.model;
 
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /**
  * @gogisung
  * */
 @Data
+@Builder
 @NoArgsConstructor
 public class CompanyListResponse {
 
