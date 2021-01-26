@@ -69,7 +69,7 @@ public class ApplyHistoryController {
 	 */
 	@PostMapping("employees/{applicantId}/applyHistories")
 	@ResponseBody
-	public ResponseEntity<Long> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) {
+	public ResponseEntity<ApplyHistoryDto> create(@RequestBody ApplyHistoryDto applyHistoryDto, @PathVariable Long applicantId) {
 		applyHistoryDto.setApplicantId(applicantId);
 		return new ResponseEntity<>(applyHistoryService.create(applyHistoryDto), HttpStatus.OK);
 	}
@@ -100,11 +100,10 @@ public class ApplyHistoryController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PutMapping("employees/{applicantId}/applyHistories/{id}/changeStatus")
+	@PutMapping("applyHistories/{id}/changeStatus")
 	@ResponseBody
-	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto, @PathVariable Long applicantId) {
+	public ResponseEntity changeStatus(@PathVariable Long id, @RequestBody ApplyHistoryDto updatingApplyHistoryDto) throws Exception {
 		updatingApplyHistoryDto.setId(id);
-		updatingApplyHistoryDto.setApplicantId(applicantId);
 		applyHistoryService.changeStatus(updatingApplyHistoryDto);
         return new ResponseEntity(HttpStatus.ACCEPTED);
 	}
@@ -116,7 +115,7 @@ public class ApplyHistoryController {
 	@GetMapping("employees/{applicantId}/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfApplicant(@PathVariable Long applicantId) {
-		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfApplicant(applicantId), HttpStatus.OK);
 	}
 
 	/**
@@ -126,8 +125,18 @@ public class ApplyHistoryController {
 	@GetMapping("company/{companyId}/applyHistories/getApplyCount")
 	@ResponseBody
 	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfCompany(@PathVariable Long companyId) {
-		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfCompany(companyId), HttpStatus.OK);
 	}
+
+	/**
+	 * 지원 상태 카운트(전체, 지원 완료, 서류 통과, 최종 합격, 불합격
+	 */
+	@GetMapping("employees/{representativeId}/company/applyHistories/getApplyCount")
+	@ResponseBody
+	public ResponseEntity<Map<String, Long>> groupByCountByStatusOfRepresentativeCompany(@PathVariable Long representativeId) throws Exception {
+		return new ResponseEntity<>(applyHistoryService.groupByCountByStatusOfRepresentativeCompany(representativeId), HttpStatus.OK);
+	}	
+
 
 	/**
 	 * 개인별 지원이력 검색
@@ -145,14 +154,15 @@ public class ApplyHistoryController {
 		,@RequestParam(required=false) String companyName
 		,@RequestParam(required=false) ApplyHistory.Status status
 		,Pageable pageable
-	) {
-		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
-		applyHistoryDto.setApplicantId(applicantId);
-		applyHistoryDto.setName(name);
-		applyHistoryDto.setCompanyName(companyName);
-		applyHistoryDto.setStatus(status);
+	) throws Exception {
+		ApplyHistoryDto applyHistoryDto = ApplyHistoryDto.builder()
+										.applicantId(applicantId)
+										.name(name)
+										.companyName(companyName)
+										.status(status).build();
+
 		log.debug("applyHistoryDto={}", applyHistoryDto);
-		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.OK);
 	}	
 
 	/**
@@ -177,6 +187,31 @@ public class ApplyHistoryController {
 		applyHistoryDto.setCompanyName(companyName);
 		applyHistoryDto.setStatus(status);
 		log.debug("applyHistoryDto={}", applyHistoryDto);
-		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.OK);
 	}	
+
+	/**
+	 * 대표자 id로 회사별 지원이력 검색
+	 * 
+	 * @param ApplyHistoryDto applyHistoryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("employees/{representativeId}/company/applyHistories")
+	@ResponseBody
+	public ResponseEntity<List<ApplyHistoryDto>> representativeCompanyApplyHistoriesSearch(
+		@PathVariable Long representativeId
+		,@RequestParam(required=false) String name
+		,@RequestParam(required=false) String companyName
+		,@RequestParam(required=false) ApplyHistory.Status status
+		,Pageable pageable
+	) throws Exception {
+		ApplyHistoryDto applyHistoryDto = new ApplyHistoryDto(); 
+		applyHistoryDto.setRepresentativeId(representativeId);
+		applyHistoryDto.setName(name);
+		applyHistoryDto.setCompanyName(companyName);
+		applyHistoryDto.setStatus(status);
+		log.debug("applyHistoryDto={}", applyHistoryDto);
+		return new ResponseEntity<>(applyHistoryService.search(applyHistoryDto, pageable), HttpStatus.OK);
+	}		
 }

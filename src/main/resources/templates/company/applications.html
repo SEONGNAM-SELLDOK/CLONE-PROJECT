@@ -7208,11 +7208,10 @@
 		</script>
 	<script>
 	var applyHistoryRowTemplate;
-	var applicantId = [[${#authentication.id}]];
-	var companyId = [[${param.companyId}]];
+	var representativeId = [[${#authentication.id}]];
 
 	$(document).ready(function () {
-		$.ajax('/company/' + companyId + '/applyHistories/getApplyCount', {
+		$.ajax('/employees/' + representativeId + '/company/applyHistories/getApplyCount', {
 			type: 'GET',  // http method
 			async: true,
 			//data: { myData: 'This is my data.' },  // data to submit
@@ -7248,7 +7247,7 @@
 
 	function changeStatus(applyHistoryId, newStatus) {
 		if(confirm(statusNames[newStatus] + '(으)로 상태를 변경하시겠습니까?')) {
-			$.ajax('/employees/' + applicantId + '/applyHistories/'+ applyHistoryId +'/changeStatus', {
+			$.ajax('/applyHistories/'+ applyHistoryId +'/changeStatus', {
 				type: 'PUT',
 				contentType: "application/json",
 				async: true,
@@ -7267,7 +7266,7 @@
 
 	function searchApplyHistory(status) {
 		$('#status_table_row_holder').empty();
-		$.ajax('/company/' + companyId + '/applyHistories?size=999' + (status ? '&status=' + status : ''), {
+		$.ajax('/employees/' + representativeId + '/company/applyHistories?size=999' + (status ? '&status=' + status : ''), {
 			type: 'GET',  // http method
 			async: true,
 			data: { 
@@ -7414,7 +7413,7 @@
 								</li>
 								<li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
 									style="padding-top:10px;">
-									<a class="dashboardButton" href="/company/applications?companyId=1">지원현황</a>
+									<a class="dashboardButton" href="/company/applications">지원현황</a>
 								</li>								
 								<li class="smMoreVisible" data-attribute-id="gnb" data-gnb-kind="forEmployers"
 									style="padding-top:10px;"><a
@@ -7526,10 +7525,7 @@
 																		</dt>
 																		<dd data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1">
 																			<div data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0">
-																				<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0"><img
-																						src="https://static.wanted.co.kr/images/wdes/0_5.1e70705a.jpg"
-																						class="company-logo"
-																						data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0.0"><span
+																				<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0"><span
 																						data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.0.0.2">트렌비</span></span>
 																			</div>
 																			<div data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.0.0.1.1">
@@ -7542,9 +7538,7 @@
 																</div>
 																<div class="company status-table-item hidden-xs"
 																	data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company">
-																	<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0"><img
-																			src="https://s3.ap-northeast-2.amazonaws.com/static.wanted.co.kr/images/logo_wanted.png" class="company-logo"
-																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0.0" id="companyLogoUrl"><span
+																	<span data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0"><span
 																			data-reactid=".0.0.0.0.0.1.1.1.0.1:$0.4:$0.1:$company.0.2" id="companyName">로딩 중</span></span>
 																</div>
 																<div class="position status-table-item hidden-xs"
@@ -7845,9 +7839,7 @@
 						</div>
 						<div class="application-modal-body modal-body" data-reactid=".6.1.0.0.2">
 							<div class="top clearfix" data-reactid=".6.1.0.0.2.0">
-								<div data-reactid=".6.1.0.0.2.0.0"><a class="application-img" href="/wd/27707"
-										data-reactid=".6.1.0.0.2.0.0.0"><img src="https://static.wanted.co.kr/images/wdes/0_4.1e70705a.jpg"
-											role="presentation" data-reactid=".6.1.0.0.2.0.0.0.0" id="companyLogoUrl"></a><a class="application-company"
+								<div data-reactid=".6.1.0.0.2.0.0"><a class="application-company"
 										href="/wd/27707" data-reactid=".6.1.0.0.2.0.0.1">
 										<h2 data-reactid=".6.1.0.0.2.0.0.1.0" id="boardTitle">자바 백엔드 개발자</h2>
 										<h4 data-reactid=".6.1.0.0.2.0.0.1.1"><span data-reactid=".6.1.0.0.2.0.0.1.1.0"  id="companyName">트렌비</span><span
@@ -7926,9 +7918,7 @@
 						</div>
 						<div class="application-modal-body modal-body" data-reactid=".a.1.0.0.2">
 							<div class="top clearfix" data-reactid=".a.1.0.0.2.0">
-								<div data-reactid=".a.1.0.0.2.0.0"><a class="application-img" href="/wd/27707"
-										data-reactid=".a.1.0.0.2.0.0.0"><img src="https://static.wanted.co.kr/images/wdes/0_4.1e70705a.jpg"
-											role="presentation" data-reactid=".a.1.0.0.2.0.0.0.0" id="companyLogoUrl"></a><a class="application-company"
+								<div data-reactid=".a.1.0.0.2.0.0"><a class="application-company"
 										href="/wd/27707" data-reactid=".a.1.0.0.2.0.0.1">
 										<h2 data-reactid=".a.1.0.0.2.0.0.1.0" id="boardTitle">자바 백엔드 개발자</h2>
 										<h4 data-reactid=".a.1.0.0.2.0.0.1.1"><span data-reactid=".a.1.0.0.2.0.0.1.1.0" id="companyName">트렌비</span><span

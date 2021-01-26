@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import com.querydsl.core.annotations.QueryProjection;
 import com.selldok.toy.employee.entity.ApplyHistory.Status;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,10 +20,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
+@Builder
 public class ApplyHistoryDto {
 	private Long id;
 	private Long applicantId;
+	private Long representativeId;
 	private Long companyId;
 	private String name;
 	private String email;
@@ -34,7 +39,8 @@ public class ApplyHistoryDto {
 	private String companyCity;
 	private String companyStreet;
 	private Timestamp appliedDate;
-	private Status status;
+	@Builder.Default
+	private Status status = Status.APPLCN_COMPT;
 	private String recommendStatus;
 
 	@QueryProjection

@@ -1,5 +1,6 @@
 package com.selldok.toy.company.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.selldok.toy.company.entity.category.Category;
 import com.selldok.toy.employee.entity.ApplyHistory;
 
@@ -62,6 +63,8 @@ public class Board extends JpaBaseEntity {
     /**
      * 입사지원이력
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "employmentBoard", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<ApplyHistory> applyHistories = new ArrayList<ApplyHistory>();
 }

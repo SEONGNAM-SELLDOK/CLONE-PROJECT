@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @ToString
 @AllArgsConstructor
+@Builder
 public class CompanyUpdateRequest {
 
     @NotNull
