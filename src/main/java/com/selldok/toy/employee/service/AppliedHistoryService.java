@@ -47,7 +47,7 @@ public class AppliedHistoryService {
 	 * @param newApplyHistoryDto
 	 * @return
 	 */
-	public Long create(ApplyHistoryDto newApplyHistoryDto) {
+	public ApplyHistoryDto create(ApplyHistoryDto newApplyHistoryDto) {
 		log.debug("newApplyHistoryDto={}", newApplyHistoryDto);
 		Long newApplyHistoryId = null;
 		Optional<Employee> applicant = employeeRepository.findById(newApplyHistoryDto.getApplicantId());
@@ -72,10 +72,11 @@ public class AppliedHistoryService {
 			.build();
 			applyHistoryRepository.save(applyHistory);
 			newApplyHistoryId = applyHistory.getId();
+			newApplyHistoryDto.setId(applyHistory.getId());
 		}
 		log.debug("newApplyHistoryId={}", newApplyHistoryId);
 
-		return newApplyHistoryId;
+		return newApplyHistoryDto;
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class AppliedHistoryService {
 	 * 
 	 * @param updatingApplyHistoryDto
 	 */
-	public void update(ApplyHistoryDto updatingApplyHistoryDto) {
+	public Boolean update(ApplyHistoryDto updatingApplyHistoryDto) {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
 		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		Optional<Employee> applicant = null;
@@ -122,6 +123,7 @@ public class AppliedHistoryService {
 		} else {
 			throw new RestApiException(ApplyErrorCode.APY_003, HttpStatus.NOT_FOUND);
 		}
+		return true;
 	}
 
 	/**
@@ -186,13 +188,14 @@ public class AppliedHistoryService {
 	/**
 	 * 상태 변경하기
 	 */
-	public void changeStatus(ApplyHistoryDto updatingApplyHistoryDto) {
+	public Boolean changeStatus(ApplyHistoryDto updatingApplyHistoryDto) {
 		log.debug("updatingApplyHistoryDto={}", updatingApplyHistoryDto);
 		Optional<ApplyHistory> existingApplyHistory = applyHistoryRepository.findById(updatingApplyHistoryDto.getId());
 		existingApplyHistory.ifPresent(updatingApplyHistory -> {
 			updatingApplyHistory.setStatus(updatingApplyHistoryDto.getStatus());
 			applyHistoryRepository.save(updatingApplyHistory);
 		});
+		return true;
 	}
 
 	/**

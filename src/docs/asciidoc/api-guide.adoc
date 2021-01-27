@@ -120,6 +120,30 @@ include::{snippets}/update-board/response-body.adoc[]
 
 //operation::create-company[snippets='request-fields,curl-request,http-response,response-fields,response-body']
 
+
+[[resources-get-salary]]
+
+=== 연봉 정보
+
+`GET` 연봉정보를 얻어올 수 있다.
+
+include::{snippets}/get-salary/request-fields.adoc[]
+include::{snippets}/get-salary/curl-request.adoc[]
+include::{snippets}/get-salary/http-response.adoc[]
+include::{snippets}/get-salary/response-fields.adoc[]
+include::{snippets}/get-salary/response-body.adoc[]
+
+[[resources-edit-salary]]
+
+=== 연봉 정보 수정
+
+`POST` 연봉정보를 수정할 수 있다.
+
+include::{snippets}/edit-salary/request-fields.adoc[]
+include::{snippets}/edit-salary/curl-request.adoc[]
+include::{snippets}/edit-salary/http-response.adoc[]
+include::{snippets}/edit-salary/response-body.adoc[]
+
 [[resources-employees-insert]]
 === 회원 생성
 
@@ -203,3 +227,78 @@ include::{snippets}/employees-delete/http-response.adoc[]
 include::{snippets}/employees-delete/response-fields.adoc[]
 include::{snippets}/employees-delete/response-body.adoc[]
 //operation::employees-delete[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+[[resources-apply-history]]
+=== 구직 관리
+
+==== 구직 신청
+
+include::{snippets}/apply-create/path-parameters.adoc[]
+include::{snippets}/apply-create/request-fields.adoc[]
+include::{snippets}/apply-create/curl-request.adoc[]
+include::{snippets}/apply-create/http-response.adoc[]
+include::{snippets}/apply-create/response-fields.adoc[]
+include::{snippets}/apply-create/response-body.adoc[]
+//operation::apply-create[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 구직 신청 내용 수정
+
+response body는 없습니다. 상태가 accecpted (202)이면 성공으로 판단해주세요.
+
+include::{snippets}/apply-update/path-parameters.adoc[]
+include::{snippets}/apply-update/request-fields.adoc[]
+include::{snippets}/apply-update/curl-request.adoc[]
+include::{snippets}/apply-update/http-response.adoc[]
+//operation::apply-update[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 구직 신청 상태변경
+
+response body는 없습니다. 상태가 accecpted (202)이면 성공으로 판단해주세요.
+
+include::{snippets}/apply-change-status/path-parameters.adoc[]
+include::{snippets}/apply-change-status/request-fields.adoc[]
+include::{snippets}/apply-change-status/curl-request.adoc[]
+include::{snippets}/apply-change-status/http-response.adoc[]
+//operation::apply-change-status[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 지원 상태 카운트
+
+===== 구직자별
+
+include::{snippets}/apply-groupByCountByStatusOfApplicant/path-parameters.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfApplicant/curl-request.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfApplicant/http-response.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfApplicant/response-fields.adoc[]
+//operation::apply-groupByCountByStatusOfApplicant[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+===== 회시별
+
+include::{snippets}/apply-groupByCountByStatusOfCompany/path-parameters.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfCompany/curl-request.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfCompany/http-response.adoc[]
+include::{snippets}/apply-groupByCountByStatusOfCompany/response-fields.adoc[]
+//operation::apply-groupByCountByStatusOfCompany[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 개인별 지원이력 검색
+
+include::{snippets}/apply-employeesApplyHistoriesSearch/path-parameters.adoc[]
+include::{snippets}/apply-employeesApplyHistoriesSearch/curl-request.adoc[]
+include::{snippets}/apply-employeesApplyHistoriesSearch/request-parameters.adoc[]
+include::{snippets}/apply-employeesApplyHistoriesSearch/response-fields.adoc[]
+//operation::apply-employeesApplyHistoriesSearch[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 회사별 지원이력 검색
+
+include::{snippets}/apply-companyApplyHistoriesSearch/path-parameters.adoc[]
+include::{snippets}/apply-companyApplyHistoriesSearch/curl-request.adoc[]
+include::{snippets}/apply-companyApplyHistoriesSearch/request-parameters.adoc[]
+include::{snippets}/apply-companyApplyHistoriesSearch/response-fields.adoc[]
+//operation::apply-companyApplyHistoriesSearch[snippets='request-fields,curl-request,http-response,response-fields,response-body']
+
+==== 대표자 id로 회사별 지원이력 검색
+
+include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/path-parameters.adoc[]
+include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/curl-request.adoc[]
+include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/request-parameters.adoc[]
+include::{snippets}/apply-representativeCompanyApplyHistoriesSearch/response-fields.adoc[]
+//operation::apply-representativeCompanyApplyHistoriesSearch[snippets='request-fields,curl-request,http-response,response-fields,response-body']
