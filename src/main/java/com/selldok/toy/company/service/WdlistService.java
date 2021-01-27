@@ -36,7 +36,7 @@ public class WdlistService {
 	private final CompanyService companyService;
 	private final String WEB_DRIVER_ID = "webdriver.chrome.driver";
 
-	private final String WEB_DRIVER_PATH = "chromedriver.exe";
+	private final String WEB_DRIVER_PATH = "chromedriver";
 	private final long scrollTimeOut = 300; // 0.3초
 	private final int scrollTimeOutInterval = 100;
 
