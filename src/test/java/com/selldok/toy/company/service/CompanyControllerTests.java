@@ -38,6 +38,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
+/**  * companyControllerTest
+ *
+ * @author Gogisung
+ * @since 2021. 01. 20.
+ */
+
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc

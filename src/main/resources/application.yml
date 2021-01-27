@@ -24,6 +24,7 @@ spring:
     view:
       suffix: .html
   thymeleaf:
+    enabled: false
     cache: false
     properties:
       hibernate:
