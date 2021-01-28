@@ -15,6 +15,23 @@ client.test("Request executed successfully", function() {
 });
 %}
 
+### 구직자 생성(reactive)
+POST http://localhost:9090/employees/reactive
+Content-Type: application/json
+
+{
+  "name" : "incheol22",
+  "email" : "bluesky761@naver.com",
+  "phoneNumber" : "010-1234-5678"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+    client.log("response.body" + response.status)
+    client.assert(response.status === 202, "Response status is not 201, it is " + response.status);
+});
+%}
+
 ### 구직자 수정
 PUT http://localhost:9090/employees/1
 Content-Type: application/json

@@ -25,22 +25,23 @@ import com.selldok.toy.employee.model.UpdateEmployeeRequest;
 import com.selldok.toy.employee.model.UpdateProfileRequest;
 import com.selldok.toy.employee.service.AuthService;
 import com.selldok.toy.employee.service.EmployeeService;
+import com.selldok.toy.employee.service.ReactiveEmployeeService;
+import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 /**
  * @author Incheol Jung
  */
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("employees")
 public class EmployeeController {
 
 	private final EmployeeService employeeService;
 
-	private final AuthService authService;
+	private final ReactiveEmployeeService reactiveEmployeeService;
 
-	public EmployeeController(EmployeeService employeeService, AuthService authService) {
-		this.employeeService = employeeService;
-		this.authService = authService;
-	}
+	private final AuthService authService;
 
 	@GetMapping("view/{id}")
 	public String getEmployeeView(@PathVariable("id") Long id, Model model) {
@@ -78,6 +79,16 @@ public class EmployeeController {
 	public ResponseEntity insert(@RequestBody InsertEmployeeRequest request) {
 		employeeService.insert(request);
 		return new ResponseEntity(HttpStatus.ACCEPTED);
+	}
+
+	@PostMapping("reactive")
+	@ResponseBody
+	public Mono<ResponseEntity> insertReactive(@RequestBody InsertEmployeeRequest request) {
+		Mono.empty()
+			.then()
+			.doOnSuccess(o -> reactiveEmployeeService.insert(request))
+			.subscribe();
+		return Mono.just(new ResponseEntity(HttpStatus.ACCEPTED));
 	}
 
 	@PutMapping("{id}")

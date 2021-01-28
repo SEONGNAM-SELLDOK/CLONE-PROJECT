@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 /**  * ReactiveEmployeeService
  *
@@ -20,10 +19,10 @@ public class ReactiveEmployeeService {
 	private final EmployeeService employeeService;
 
 	public void insert(InsertEmployeeRequest request) {
-		monoConsumer(x -> employeeService.insert(request));
+		monoConsumer(o -> employeeService.insert(request));
 	}
 
 	private void monoConsumer(Consumer consumer) {
-		Mono.just(consumer).subscribeOn(Schedulers.boundedElastic());
+		Mono.empty().then().doOnSuccess(consumer).subscribe();
 	}
 }
