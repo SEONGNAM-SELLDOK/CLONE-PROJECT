@@ -1,4 +1,4 @@
-package com.selldok.toy.company.dao;
+package com.selldok.toy.repository;
 
 import com.selldok.toy.company.model.CompanyListResponse;
 import org.springframework.data.domain.Page;

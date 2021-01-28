@@ -1,4 +1,4 @@
-package com.selldok.toy.company.dao;
+package com.selldok.toy.repository;
 
 import com.selldok.toy.company.entity.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @gogisung

@@ -1,4 +1,4 @@
-package com.selldok.toy.employee.dao;
+package com.selldok.toy.reactive;
 
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 

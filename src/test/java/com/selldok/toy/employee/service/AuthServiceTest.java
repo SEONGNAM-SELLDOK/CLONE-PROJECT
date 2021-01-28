@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.selldok.toy.config.ROLE;
 import com.selldok.toy.config.SelldokUserToken;
-import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.repository.EmployeeRepository;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.FaceBookFriendResult;
 import com.selldok.toy.employee.model.FaceBookTokenResponse;

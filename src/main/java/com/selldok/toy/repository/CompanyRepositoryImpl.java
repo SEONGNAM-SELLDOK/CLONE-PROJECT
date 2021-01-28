@@ -1,4 +1,4 @@
-package com.selldok.toy.company.dao;
+package com.selldok.toy.repository;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;

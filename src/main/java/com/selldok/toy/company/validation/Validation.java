@@ -1,9 +1,9 @@
 package com.selldok.toy.company.validation;
 
-import com.selldok.toy.company.dao.CompanyRepository;
+import com.selldok.toy.repository.CompanyRepository;
 import com.selldok.toy.company.entity.Company;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,18 +1,17 @@
 package com.selldok.toy.company.service;
 
-import com.selldok.toy.company.dao.CompanyRepository;
+import com.selldok.toy.repository.CompanyRepository;
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.CompanyUpdateRequest;
 import com.selldok.toy.company.validation.Validation;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.utility.RandomString;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author Gogisung

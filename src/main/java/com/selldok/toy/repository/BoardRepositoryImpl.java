@@ -1,4 +1,4 @@
-package com.selldok.toy.company.dao;
+package com.selldok.toy.repository;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -6,7 +6,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.selldok.toy.company.entity.QBoard.*;
 import static com.selldok.toy.company.entity.QCompany.*;
 
-import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

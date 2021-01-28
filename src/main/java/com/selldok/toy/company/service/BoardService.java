@@ -3,18 +3,15 @@ package com.selldok.toy.company.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.selldok.toy.company.entity.Company;
-import com.selldok.toy.employee.entity.Employee;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
-import org.springframework.cache.annotation.CacheEvict;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.selldok.toy.company.dao.BoardRepository;
+import com.selldok.toy.repository.BoardRepository;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.model.BoardReadResponse;
 import com.selldok.toy.company.model.BoardUpdateRequest;

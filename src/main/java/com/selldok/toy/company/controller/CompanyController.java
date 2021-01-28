@@ -1,7 +1,7 @@
 package com.selldok.toy.company.controller;
 
-import com.selldok.toy.company.dao.CompanyRepository;
-import com.selldok.toy.company.dao.CompanySearchCondition;
+import com.selldok.toy.repository.CompanyRepository;
+import com.selldok.toy.repository.CompanySearchCondition;
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.CompanyCreateRequest;
@@ -10,7 +10,7 @@ import com.selldok.toy.company.model.CompanyProfileResponse;
 import com.selldok.toy.company.model.CompanyUpdateRequest;
 import com.selldok.toy.company.service.CompanyService;
 import com.selldok.toy.config.SelldokUserToken;
-import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.repository.EmployeeRepository;
 import com.selldok.toy.employee.entity.Employee;
 
 import lombok.RequiredArgsConstructor;
@@ -20,15 +20,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.Optional;
 
 /**
  * @author Gogisung

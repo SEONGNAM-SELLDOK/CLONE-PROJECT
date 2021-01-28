@@ -1,8 +1,7 @@
 package com.selldok.toy.company.controller;
 
-import com.selldok.toy.company.dao.BoardRepository;
-import com.selldok.toy.company.dao.BoardSearchCondition;
-import com.selldok.toy.company.dao.CompanyRepository;
+import com.selldok.toy.repository.BoardRepository;
+import com.selldok.toy.repository.BoardSearchCondition;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.*;

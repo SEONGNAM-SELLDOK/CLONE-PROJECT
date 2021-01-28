@@ -1,18 +1,12 @@
 package com.selldok.toy.company.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selldok.toy.common.RestDocsConfiguration;
-import com.selldok.toy.company.controller.CompanyController;
-import com.selldok.toy.company.dao.CompanyRepository;
-import com.selldok.toy.company.dao.CompanySearchCondition;
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.CompanyCreateRequest;
-import com.selldok.toy.company.model.CompanyListResponse;
-import com.selldok.toy.company.model.CompanyProfileResponse;
 import com.selldok.toy.company.model.CompanyUpdateRequest;
-import com.selldok.toy.company.service.CompanyService;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,10 +15,8 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 

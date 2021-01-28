@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.selldok.toy.config.SelldokUserToken;
-import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.repository.EmployeeRepository;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.FaceBookFriend;
 import com.selldok.toy.employee.model.FaceBookFriendResult;

@@ -41,6 +41,11 @@ spring:
   r2dbc:
     url: r2dbc:log4jdbc:h2:mem:testdb
     name: sa
+    pool:
+      initial-size: 100
+      max-size: 500
+      max-idle-time: 30m
+      validation-query: SELECT 1
 celldok:
   file:
     pathPrefix: src/main/resources/static

@@ -8,13 +8,13 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import com.selldok.toy.company.dao.BoardRepository;
-import com.selldok.toy.company.dao.CompanyRepository;
+import com.selldok.toy.repository.BoardRepository;
+import com.selldok.toy.repository.CompanyRepository;
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
-import com.selldok.toy.employee.dao.ApplyHistoryRepository;
-import com.selldok.toy.employee.dao.EmployeeRepository;
+import com.selldok.toy.repository.ApplyHistoryRepository;
+import com.selldok.toy.repository.EmployeeRepository;
 import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.entity.ApplyHistory.Status;
 import com.selldok.toy.employee.entity.Employee;

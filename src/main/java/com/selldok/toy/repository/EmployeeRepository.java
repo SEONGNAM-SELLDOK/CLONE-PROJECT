@@ -1,4 +1,4 @@
-package com.selldok.toy.employee.dao;
+package com.selldok.toy.repository;
 
 import com.selldok.toy.employee.entity.Employee;
 

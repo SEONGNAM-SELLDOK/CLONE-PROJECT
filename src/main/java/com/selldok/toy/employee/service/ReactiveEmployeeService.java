@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import org.springframework.stereotype.Service;
 
-import com.selldok.toy.employee.dao.EmployeeR2dbcRepository;
+import com.selldok.toy.reactive.EmployeeR2dbcRepository;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.InsertEmployeeRequest;
 import lombok.RequiredArgsConstructor;

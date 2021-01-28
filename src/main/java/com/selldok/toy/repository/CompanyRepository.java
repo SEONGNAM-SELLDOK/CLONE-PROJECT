@@ -1,4 +1,4 @@
-package com.selldok.toy.company.dao;
+package com.selldok.toy.repository;
 
 import com.selldok.toy.company.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;

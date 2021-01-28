@@ -1,6 +1,6 @@
 package com.selldok.toy.salary.service;
 
-import com.selldok.toy.salary.dao.SalaryRepository;
+import com.selldok.toy.repository.SalaryRepository;
 import com.selldok.toy.salary.entity.Occupation;
 import com.selldok.toy.salary.entity.Salary;
 import com.selldok.toy.salary.entity.SalaryInfo;

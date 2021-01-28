@@ -4,8 +4,9 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.selldok.toy.company.dao.BoardRepository;
-import com.selldok.toy.company.dao.CompanyRepository;
+import com.selldok.toy.repository.ApplyHistoryRepositoryImpl;
+import com.selldok.toy.repository.BoardRepository;
+import com.selldok.toy.repository.CompanyRepository;
 import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Board;
 import com.selldok.toy.company.entity.Company;
@@ -13,6 +14,7 @@ import com.selldok.toy.employee.entity.ApplyHistory;
 import com.selldok.toy.employee.entity.Employee;
 import com.selldok.toy.employee.model.ApplyHistoryDto;
 import com.selldok.toy.employee.service.AppliedHistoryService;
+import com.selldok.toy.repository.EmployeeRepository;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

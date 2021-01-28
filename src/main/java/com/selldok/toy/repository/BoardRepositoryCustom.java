@@ -1,4 +1,4 @@
-package com.selldok.toy.company.dao;
+package com.selldok.toy.repository;
 
 import com.selldok.toy.company.model.BoardListResponse;
 import com.selldok.toy.company.model.BoardReadResponse;

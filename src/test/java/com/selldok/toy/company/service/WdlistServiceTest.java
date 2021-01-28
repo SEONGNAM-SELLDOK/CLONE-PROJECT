@@ -1,7 +1,7 @@
 package com.selldok.toy.company.service;
 
-import com.selldok.toy.company.dao.BoardRepository;
-import com.selldok.toy.company.dao.CompanyRepository;
+import com.selldok.toy.repository.BoardRepository;
+import com.selldok.toy.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;

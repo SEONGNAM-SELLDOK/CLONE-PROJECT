@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.selldok.toy.config.CelldokFileUtil;
-import com.selldok.toy.event.dao.EventRepository;
+import com.selldok.toy.repository.EventRepository;
 import com.selldok.toy.event.entity.Event;
 import com.selldok.toy.event.mapper.EventMapper;
 import com.selldok.toy.event.model.EventSearchRequest;

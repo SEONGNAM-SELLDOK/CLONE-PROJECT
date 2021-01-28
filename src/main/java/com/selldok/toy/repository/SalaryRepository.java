@@ -1,4 +1,4 @@
-package com.selldok.toy.salary.dao;
+package com.selldok.toy.repository;
 
 import com.selldok.toy.salary.entity.Salary;
 import org.springframework.data.repository.CrudRepository;

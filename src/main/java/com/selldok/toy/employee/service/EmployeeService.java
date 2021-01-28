@@ -1,7 +1,7 @@
 package com.selldok.toy.employee.service;
 
-import com.selldok.toy.employee.dao.EmployeeRepository;
-import com.selldok.toy.employee.dao.PersonInfoRepository;
+import com.selldok.toy.repository.EmployeeRepository;
+import com.selldok.toy.repository.PersonInfoRepository;
 import com.selldok.toy.employee.entity.BasicInfo;
 import com.selldok.toy.employee.entity.Company;
 import com.selldok.toy.employee.entity.Employee;

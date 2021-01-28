@@ -1,4 +1,4 @@
-package com.selldok.toy.event.dao;
+package com.selldok.toy.repository;
 
 import java.util.List;
 
