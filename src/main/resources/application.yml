@@ -38,6 +38,9 @@ spring:
       location: src/main/resources/static
       maxFileSize: 10MB
       maxRequestSize: 10MB
+  r2dbc:
+    url: r2dbc:log4jdbc:h2:mem:testdb
+    name: sa
 celldok:
   file:
     pathPrefix: src/main/resources/static

@@ -79,6 +79,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.4.2'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    compile 'dev.miku:r2dbc-mysql:0.8.0.RELEASE'
 }
 
 
