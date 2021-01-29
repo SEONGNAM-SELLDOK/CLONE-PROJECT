@@ -45,7 +45,7 @@ public class WdlistService {
 	private ChromeOptions options;
 
 
-	@PostConstruct
+	//@PostConstruct
 	public void initCompanyList(){
 		companyList = companyService.findAllCompany();
 		for(Company company : companyList) companyMap.put(company.getName(),company);

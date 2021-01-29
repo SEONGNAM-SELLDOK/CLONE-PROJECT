@@ -77,7 +77,8 @@ dependencies {
 
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
-
+  // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.4.2'
 }
 
 
