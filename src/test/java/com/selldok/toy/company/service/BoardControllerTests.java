@@ -39,6 +39,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+
+/**  boardControllerTest
+ *
+ * @author Gogisung
+ * @since 2021. 01. 20.
+ */
+
+
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
