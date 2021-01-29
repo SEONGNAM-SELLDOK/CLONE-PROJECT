@@ -12,7 +12,7 @@ public interface CompanyWebfluxService {
 
     Mono<List<Company>> findAllCompany();
 
-    Long create(Company company);
+    Mono<Long> create(Company company);
 
     Mono<Void> delete(Long id);
 }

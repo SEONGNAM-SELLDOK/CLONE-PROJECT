@@ -36,9 +36,9 @@ public class DefaultCompanyWebfluxService implements CompanyWebfluxService {
     }
 
     @Override
-    public Long create(Company company) {
+    public Mono<Long> create(Company company) {
         companyRepository.save(company);
-        return company.getId();
+        return Mono.defer(() -> Mono.justOrEmpty(company.getId()));
     }
 
     @Override

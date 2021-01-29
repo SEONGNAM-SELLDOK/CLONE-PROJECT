@@ -4,18 +4,12 @@ import com.selldok.toy.company.entity.Address;
 import com.selldok.toy.company.entity.Company;
 import com.selldok.toy.company.model.CompanyCreateRequest;
 import com.selldok.toy.company.service.CompanyWebfluxService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
@@ -54,9 +48,8 @@ public class CompanyHandler {
                 .terms(request.getTerms())
                 .build();
 
-        Mono<Long> just = Mono.just(service.create(company));
-
-        return just;
+        Mono<Long> companyId = service.create(company);
+        return companyId;
     }
 
 }
